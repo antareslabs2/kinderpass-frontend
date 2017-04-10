@@ -1,10 +1,9 @@
-<p>{{categories}}</p>
 	<div class="firstScreen">
 		<header class="header">
 			<div class="wrapper">
 				<div class="logo">
 					<a href="/">
-						<img src="img/logo.png" alt="">
+						<img src="app/img/logo.png" alt="">
 						<p>KinderPass</p>
 					</a>
 				</div><!-- 
@@ -12,7 +11,7 @@
 					<a href="">О проекте</a><a href="">Войти</a>
 				</div><!-- 
 			 --><div class="email">
-					<a href="mailto:hello@kinderpass.ru"><img src="img/mail.png" alt=""><span>hello@kinderpass.ru</span></a>
+					<a href="mailto:hello@kinderpass.ru"><img src="app/img/mail.png" alt=""><span>hello@kinderpass.ru</span></a>
 				</div>
 			</div>
 		</header>
@@ -34,21 +33,21 @@
 		<h2>В чем смысл абонемента?</h2>
 		<div class="advantages-slider">
 			<div class="advantages-item">
-				<img src="img/adItem1.png" alt=""><!-- 
+				<img src="app/img/adItem1.png" alt=""><!-- 
 			 --><div>
 					<h3>Большая экономия времени и нервов</h3>
 					<p>Просто выберите дату и время. В абонемент входят лучшие классы, занятия и другие активности для единоразового посещения.</p>
 				</div>
 			</div><!-- 
 				 --><div class="advantages-item">
-				<img src="img/adItem2.png" alt=""><!-- 
+				<img src="app/img/adItem2.png" alt=""><!-- 
 			 --><div>
 					<h3>Очень хорошая скидка 10-50%</h3>
 					<p>В цену включено определенное количество посещений, которые обошлись бы гораздо дороже, если бы вы пришли туда с улицы.</p>
 				</div>
 			</div><!-- 
 				 --><div class="advantages-item">
-				<img src="img/adItem3.png" alt=""><!-- 
+				<img src="app/img/adItem3.png" alt=""><!-- 
 			 --><div>
 					<h3>Целый новый мир для вашего ребенка</h3>
 					<p>Наш абонемент не про постоянные занятия и кружки, а про то, чтобы расширять кругозор вашего ребенка и показать ему мир.</p>
@@ -66,21 +65,21 @@
 				<h3>Выбирайте</h3>
 				<p>Выбирайте по району, типу активности, времени, возрасту ребенка<br>и другим критериям</p>
 				<div class="steps-img">
-					<img src="img/step1.png" alt="">
+					<img src="app/img/step1.png" alt="">
 				</div>
 			</div><!-- 
 		 --><div class="steps-item">
 				<h3>Записывайтесь</h3>
 				<p>Прямо на сайте. Организаторы сразу получат вашу бронь и будут ждать вашего прихода.</p>
 				<div class="steps-img">
-					<img src="img/step2.png" alt="">
+					<img src="app/img/step2.png" alt="">
 				</div>
 			</div><!-- 
 		 --><div class="steps-item">
 				<h3>Приходите</h3>
 				<p>И получайте удовольствие от того, как ваш ребенок радуется и развивается!</p>
 				<div class="steps-img">
-					<img src="img/step3.png" alt="">
+					<img src="app/img/step3.png" alt="">
 				</div>
 			</div>
 		</div>
@@ -94,7 +93,7 @@
 			<div class="slider">
 				<div>
 					<div class="slider-img">
-						<img src="img/gallery/1.jpg" alt="">
+						<img src="app/img/gallery/1.jpg" alt="">
 					</div><!-- 
 				 --><div class="slider-description">
 						<h3>Примавера Роботикс</h3>
@@ -105,7 +104,7 @@
 				</div>
 				<div>
 					<div class="slider-img">
-						<img src="img/gallery/2.jpg" alt="">
+						<img src="app/img/gallery/2.jpg" alt="">
 					</div><!-- 
 				 --><div class="slider-description">
 						<h3>Клуб Jump</h3>
@@ -116,7 +115,7 @@
 				</div>
 				<div>
 					<div class="slider-img">
-						<img src="img/gallery/3.jpg" alt="">
+						<img src="app/img/gallery/3.jpg" alt="">
 					</div><!-- 
 				 --><div class="slider-description">
 						<h3>Лабиринтум</h3>
@@ -127,7 +126,7 @@
 				</div>
 				<div>
 					<div class="slider-img">
-						<img src="img/gallery/4.jpg" alt="">
+						<img src="app/img/gallery/4.jpg" alt="">
 					</div><!-- 
 				 --><div class="slider-description">
 						<h3>Творец</h3>
@@ -138,7 +137,7 @@
 				</div>
 				<div>
 					<div class="slider-img">
-						<img src="img/gallery/5.jpg" alt="">
+						<img src="app/img/gallery/5.jpg" alt="">
 					</div><!-- 
 				 --><div class="slider-description">
 						<h3>Italy Group Мастер-классы</h3>
@@ -177,22 +176,15 @@
 				<span class="filters-text">лет</span>
 			</div><!-- 
 		 --><div class="filters-item filters-category">
-				<span class="filters-option">Творить</span>
-				<span class="filters-option">Играть</span>
-				<span class="filters-option">Танцевать</span>
-				<span class="filters-option">Беситься</span>
-				<span class="filters-option">Готовить</span>
-				<span class="filters-option">Смотреть</span>
-				<span class="filters-option">Плавать</span>
-				<span class="filters-option">Для всей семьи</span>
-				<span class="filters-option filters-option-active">Киндерпасс</span>
+				<!-- <p>{{categories}}</p> -->
+				<span class="filters-option" *ngFor="let category of categories" attr.data-id="{{category.id}}" (click)="schedule($event)">{{category.name}}</span>
 			</div>
 		</div>  
 		<div class="week">
-			<div class="week-day week-day-active">
+			<div class="week-day week-day-active" attr.data-date="{{date| date:'yyyyMMdd'}}">
 				<div class="desktop">
 					<p>Понедельник</p>
-					<span>21 марта</span>
+					<span>{{date| date:'yyyyMMdd'}}</span>
 				</div>
 				<div class="mobile">
 					<p>ПН</p>
@@ -202,7 +194,7 @@
 			<div class="week-day">
 				<div class="desktop">
 					<p>Вторник</p>
-					<span>22 марта</span>
+					<span>{{date + 1}}</span>
 				</div>
 				<div class="mobile">
 					<p>ВТ</p>
@@ -265,7 +257,7 @@
 	 --><div class="selectedDay">Вторник, 21 марта</div><!-- 
 	 --><div class="results">
 	 		<div class="results-item">
-	 			<div class="results-item-image"><img src="img/results1.jpg" alt=""></div><!-- 
+	 			<div class="results-item-image"><img src="app/img/results1.jpg" alt=""></div><!-- 
 	 		 --><div class="results-item-description">
 	 				<div class="results-item-title">Сказка «Русалочка» в театре «Мюзик-Холл» 6+</div>
 	 				<div class="results-item-recommendation">Рекомендовано Киндерпасс</div>
@@ -278,7 +270,7 @@
 	 			</div>
 	 		</div>
 	 		<div class="results-item">
-	 			<div class="results-item-image"><img src="img/results1.jpg" alt=""></div><!-- 
+	 			<div class="results-item-image"><img src="app/img/results1.jpg" alt=""></div><!-- 
 	 		 --><div class="results-item-description">
 	 				<div class="results-item-title">Сказка «Русалочка» в театре «Мюзик-Холл» 6+</div>
 	 				<div class="results-item-recommendation">Рекомендовано Киндерпасс</div>
@@ -291,7 +283,7 @@
 	 			</div>
 	 		</div>
 	 		<div class="results-item">
-	 			<div class="results-item-image"><img src="img/results1.jpg" alt=""></div><!-- 
+	 			<div class="results-item-image"><img src="app/img/results1.jpg" alt=""></div><!-- 
 	 		 --><div class="results-item-description">
 	 				<div class="results-item-title">Сказка «Русалочка» в театре «Мюзик-Холл» 6+</div>
 	 				<div class="results-item-recommendation">Рекомендовано Киндерпасс</div>
@@ -304,7 +296,7 @@
 	 			</div>
 	 		</div>
 	 		<div class="results-item">
-	 			<div class="results-item-image"><img src="img/results1.jpg" alt=""></div><!-- 
+	 			<div class="results-item-image"><img src="app/img/results1.jpg" alt=""></div><!-- 
 	 		 --><div class="results-item-description">
 	 				<div class="results-item-title">Сказка «Русалочка» в театре «Мюзик-Холл» 6+</div>
 	 				<div class="results-item-recommendation">Рекомендовано Киндерпасс</div>
@@ -317,7 +309,7 @@
 	 			</div>
 	 		</div>
 	 		<div class="results-item">
-	 			<div class="results-item-image"><img src="img/results1.jpg" alt=""></div><!-- 
+	 			<div class="results-item-image"><img src="app/img/results1.jpg" alt=""></div><!-- 
 	 		 --><div class="results-item-description">
 	 				<div class="results-item-title">Сказка «Русалочка» в театре «Мюзик-Холл» 6+</div>
 	 				<div class="results-item-recommendation">Рекомендовано Киндерпасс</div>
@@ -330,7 +322,7 @@
 	 			</div>
 	 		</div>
 	 		<div class="results-item">
-	 			<div class="results-item-image"><img src="img/results1.jpg" alt=""></div><!-- 
+	 			<div class="results-item-image"><img src="app/img/results1.jpg" alt=""></div><!-- 
 	 		 --><div class="results-item-description">
 	 				<div class="results-item-title">Сказка «Русалочка» в театре «Мюзик-Холл» 6+</div>
 	 				<div class="results-item-recommendation">Рекомендовано Киндерпасс</div>
@@ -343,7 +335,7 @@
 	 			</div>
 	 		</div>
 	 		<div class="results-item">
-	 			<div class="results-item-image"><img src="img/results1.jpg" alt=""></div><!-- 
+	 			<div class="results-item-image"><img src="app/img/results1.jpg" alt=""></div><!-- 
 	 		 --><div class="results-item-description">
 	 				<div class="results-item-title">Сказка «Русалочка» в театре «Мюзик-Холл» 6+</div>
 	 				<div class="results-item-recommendation">Рекомендовано Киндерпасс</div>

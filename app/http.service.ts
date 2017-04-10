@@ -8,19 +8,26 @@ import 'rxjs/add/observable/throw';
  
 @Injectable()
 export class HttpService{
- 
+
+    private url = 'https://kinderpass-test.herokuapp.com/';
     constructor(private http: Http){ }
-     
-    //http://localhost:8080/angular/setUser.php     PHP
-    //http://localhost:51576/api/values/    Web API
-    //http://localhost:56473/Home/PostData  ASP NET MVC
      
     getCategories(){
         const body = '';
          
         let headers = new Headers({ 'Content-Type': 'application/json;charset=utf-8' });
          
-        return this.http.post('https://kinderpass-test.herokuapp.com/api/activities/categories', body, { headers: headers })
+        return this.http.get(this.url + 'api/activities/categories')
+                        .map((resp:Response)=>resp.json())
+                        .catch((error:any) =>{return Observable.throw(error);}); 
+    }
+
+    getSchedule(category_id: number, date : string){
+        const body = '';
+         
+        let headers = new Headers({ 'Content-Type': 'application/json;charset=utf-8' });
+         
+        return this.http.get(this.url + 'api/activities/list/' + category_id + '/' + date + '/')
                         .map((resp:Response)=>resp.json())
                         .catch((error:any) =>{return Observable.throw(error);}); 
     }

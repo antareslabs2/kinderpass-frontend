@@ -18,14 +18,19 @@ require("rxjs/add/observable/throw");
 var HttpService = (function () {
     function HttpService(http) {
         this.http = http;
+        this.url = 'https://kinderpass-test.herokuapp.com/';
     }
-    //http://localhost:8080/angular/setUser.php     PHP
-    //http://localhost:51576/api/values/    Web API
-    //http://localhost:56473/Home/PostData  ASP NET MVC
     HttpService.prototype.getCategories = function () {
         var body = '';
-        var headers = new http_2.Headers({ 'Content-Type': 'application/json;charset=utf-8'});
-        return this.http.post('https://kinderpass-test.herokuapp.com/api/activities/categories', body, { headers: headers })
+        var headers = new http_2.Headers({ 'Content-Type': 'application/json;charset=utf-8' });
+        return this.http.get(this.url + 'api/activities/categories')
+            .map(function (resp) { return resp.json(); })
+            .catch(function (error) { return Observable_1.Observable.throw(error); });
+    };
+    HttpService.prototype.getSchedule = function (category_id, date) {
+        var body = '';
+        var headers = new http_2.Headers({ 'Content-Type': 'application/json;charset=utf-8' });
+        return this.http.get(this.url + 'api/activities/list/' + category_id + '/' + date + '/')
             .map(function (resp) { return resp.json(); })
             .catch(function (error) { return Observable_1.Observable.throw(error); });
     };

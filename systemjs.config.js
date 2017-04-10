@@ -9,6 +9,8 @@
       // наше приложение будет находиться в папке app
       app: 'app',
       // пакеты angular
+      'jquery': 'npm:jquery/dist/jquery.min.js',
+      'slick': 'npm:slick-carousel/slick/slick.js',
       '@angular/core': 'npm:@angular/core/bundles/core.umd.js',
       '@angular/common': 'npm:@angular/common/bundles/common.umd.js',
       '@angular/compiler': 'npm:@angular/compiler/bundles/compiler.umd.js',
@@ -18,7 +20,7 @@
       '@angular/router': 'npm:@angular/router/bundles/router.umd.js',
       '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
       // остальные пакеты
-      'rxjs':                      'npm:rxjs',
+      'rxjs': 'npm:rxjs',
       'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js'
     },
     // пакеты, которые указывают загрузчику System, как загружать файлы без имени и расширения

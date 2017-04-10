@@ -15,86 +15,86 @@
 				$(":input").inputmask();
 			},
 
-			onResize: function(){
-				this.refreshSlider();
-			},
+			// onResize: function(){
+			// 	this.refreshSlider();
+			// },
 
-			initSlider: function() {
-				if($('.slider').length) {
-					$('.slider').slick({
-						slidesToShow: 1,
-						slidesToScroll: 1,
-						arrows: true,
-						dots: true,
-						fade: true,
-						prevArrow: $('.slider-arrow-prev'),
-						nextArrow: $('.slider-arrow-next')
-					});
-				}
-				if($('.advantages-slider').length) {
-					if ($(window).width() <= 420) {
-						$('.advantages-slider').slick({
-							slidesToShow: 1,
-							slidesToScroll: 1,
-							arrows: false,
-							dots: true
-						});
-					} else {
-						if ($('.advantages-slider').hasClass('slick-initialized')) {
-							$('.advantages-slider').slick('unslick');
-						}
-					}
-				}
-				if($('.steps-wrap').length) {
-					if ($(window).width() <= 420) {
-						$('.steps-wrap').slick({
-							slidesToShow: 1,
-							slidesToScroll: 1,
-							arrows: false,
-							dots: true
-						});
-					} else {
-						if ($('.steps-wrap').hasClass('slick-initialized')) {
-							$('.steps-wrap').slick('unslick');
-						}
-					}
-				}
-			},
+			// initSlider: function() {
+			// 	if($('.slider').length) {
+			// 		$('.slider').slick({
+			// 			slidesToShow: 1,
+			// 			slidesToScroll: 1,
+			// 			arrows: true,
+			// 			dots: true,
+			// 			fade: true,
+			// 			prevArrow: $('.slider-arrow-prev'),
+			// 			nextArrow: $('.slider-arrow-next')
+			// 		});
+			// 	}
+			// 	if($('.advantages-slider').length) {
+			// 		if ($(window).width() <= 420) {
+			// 			$('.advantages-slider').slick({
+			// 				slidesToShow: 1,
+			// 				slidesToScroll: 1,
+			// 				arrows: false,
+			// 				dots: true
+			// 			});
+			// 		} else {
+			// 			if ($('.advantages-slider').hasClass('slick-initialized')) {
+			// 				$('.advantages-slider').slick('unslick');
+			// 			}
+			// 		}
+			// 	}
+			// 	if($('.steps-wrap').length) {
+			// 		if ($(window).width() <= 420) {
+			// 			$('.steps-wrap').slick({
+			// 				slidesToShow: 1,
+			// 				slidesToScroll: 1,
+			// 				arrows: false,
+			// 				dots: true
+			// 			});
+			// 		} else {
+			// 			if ($('.steps-wrap').hasClass('slick-initialized')) {
+			// 				$('.steps-wrap').slick('unslick');
+			// 			}
+			// 		}
+			// 	}
+			// },
 
-			refreshSlider: function() {
-				if($('.advantages-slider').length) {
-					if ($(window).width() <= 420) {
-						if (!$('.advantages-slider').hasClass('slick-initialized')) {
-							$('.advantages-slider').slick({
-								slidesToShow: 1,
-								slidesToScroll: 1,
-								arrows: false,
-								dots: true
-							});
-						}
-					} else {
-						if ($('.advantages-slider').hasClass('slick-initialized')) {
-							$('.advantages-slider').slick('unslick');
-						}
-					}
-				}
-				if($('.steps-wrap').length) {
-					if ($(window).width() <= 420) {
-						if (!$('.steps-wrap').hasClass('slick-initialized')) {
-							$('.steps-wrap').slick({
-								slidesToShow: 1,
-								slidesToScroll: 1,
-								arrows: false,
-								dots: true
-							});
-						}
-					} else {
-						if ($('.steps-wrap').hasClass('slick-initialized')) {
-							$('.steps-wrap').slick('unslick');
-						}
-					}
-				}
-			},
+			// refreshSlider: function() {
+			// 	if($('.advantages-slider').length) {
+			// 		if ($(window).width() <= 420) {
+			// 			if (!$('.advantages-slider').hasClass('slick-initialized')) {
+			// 				$('.advantages-slider').slick({
+			// 					slidesToShow: 1,
+			// 					slidesToScroll: 1,
+			// 					arrows: false,
+			// 					dots: true
+			// 				});
+			// 			}
+			// 		} else {
+			// 			if ($('.advantages-slider').hasClass('slick-initialized')) {
+			// 				$('.advantages-slider').slick('unslick');
+			// 			}
+			// 		}
+			// 	}
+			// 	if($('.steps-wrap').length) {
+			// 		if ($(window).width() <= 420) {
+			// 			if (!$('.steps-wrap').hasClass('slick-initialized')) {
+			// 				$('.steps-wrap').slick({
+			// 					slidesToShow: 1,
+			// 					slidesToScroll: 1,
+			// 					arrows: false,
+			// 					dots: true
+			// 				});
+			// 			}
+			// 		} else {
+			// 			if ($('.steps-wrap').hasClass('slick-initialized')) {
+			// 				$('.steps-wrap').slick('unslick');
+			// 			}
+			// 		}
+			// 	}
+			// },
 
 			setButtonDisabled: function(disabled) {
 				var btn = $('form').find('button');
@@ -226,9 +226,9 @@
 					view.closePopup();
 				})
 
-				.on('click', '.filters-option', function(e){
-					$(this).toggleClass('filters-option-active');
-				})
+				// .on('click', '.filters-option', function(e){
+				// 	$(this).toggleClass('filters-option-active');
+				// })
 
 				.on('click', '.week-day', function(e){
 					$('.week-day').removeClass('week-day-active');
@@ -239,10 +239,10 @@
 			},
 		};
 
-		view.init();
-		view.window.on('resize', function(){
-			view.onResize();
-		});
+		// view.init();
+		// view.window.on('resize', function(){
+		// 	view.onResize();
+		// });
 		view.window.on('orientationchange', function(){
 			view.onResize();
 		});
