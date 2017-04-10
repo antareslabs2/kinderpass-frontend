@@ -1,0 +1,6 @@
+@font-face {
+    font-family: 'Rounds';
+    src: local('Rounds Black'), local('RoundsBlack'), url('roundsblack.woff2') format('woff2'), url('roundsblack.woff') format('woff'), url('roundsblack.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+}

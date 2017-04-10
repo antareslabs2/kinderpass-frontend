@@ -1,0 +1,52 @@
+.btn
+	border: 0
+	outline: 0
+	cursor: pointer
+	display: inline-block
+	text-decoration: none
+	user-select: none
+	font-size: 24px
+	font-family: 'matias'
+	color: #fff
+	text-transform: uppercase
+	border-radius: 20px
+	background-color: #02ba61
+	padding: 3% 5%
+	transition: .3s
+	+bp($md)
+		font-size: 22px
+	+bp($sm)
+		font-size: 20px
+	+bp($xs)
+		font-size: 18px
+
+
+	&:hover
+		background-color: darken(#02ba61, 15%)
+
+	&.btn-line
+		padding: 3% 4%
+		font-size: 38px
+		border: 8px solid #fff
+		+bp($md)
+			font-size: 36px
+
+		&:hover
+			background-color: darken(#02ba61, 15%)
+
+	&.btn-footer
+		padding: 3% 4%
+		font-size: 18px
+		border: 3px solid #fff
+		background-color: transparent
+		text-transform: none
+		width: 80%
+		text-align: center
+
+		&:hover
+			background-color: darken(#02ba61, 15%)
+
+	&-mobile
+		display: none
+		+bp($md)
+			display: inline-block

@@ -1,0 +1,306 @@
+.form
+	background-color: #8e7dba
+	+bp($sm)
+		padding-top: 20px
+	.filters
+		&-item
+			background-color: #9a8ac1
+			border-radius: 20px
+			padding: 20px
+			display: inline-block
+			vertical-align: top
+			margin-right: 1%
+			margin-bottom: 10px
+			text-align: center
+			+bp($sm)
+				padding: 15px
+			
+			span
+				display: inline-block
+				vertical-align: middle
+
+		&-option
+			font-size: 18px
+			text-decoration: underline
+			padding: 15px
+			background-color: transparent
+			transition: .3s
+			border-radius: 15px
+			cursor: pointer
+			margin-right: 5px
+			+bp($sm)
+				margin: 0
+				padding: 10px
+			&:hover
+				text-decoration: none
+			
+			&-active
+				text-decoration: none
+				background-color: #1cbbb4
+
+		&-text
+			font-size: 12px
+			margin: 0 5%
+	
+		&-location
+			width: 33%
+			+bp($sm)
+				width: 100%
+
+		&-time
+			width: 28%
+			+bp($sm)
+				width: 100%
+
+		&-age
+			width: 37%
+			margin-right: 0
+			+bp($sm)
+				width: 100%
+
+		&-category
+			display: block
+			margin-right: 0
+
+	.week
+		text-align: center
+		position: relative
+		&-day
+			display: inline-block
+			width: 13%
+			padding: 25px 0 15px
+			background-color: #8e7dba
+			transition: .3s
+			cursor: pointer
+			border-top-left-radius: 20px
+			border-top-right-radius: 20px
+			.desktop
+				display: block
+			.mobile
+				display: none
+			+bp($sm)
+				border-bottom: 5px solid #8e7dba
+				width: 10%
+				.desktop
+					display: none
+				.mobile
+					display: block
+					p
+						font-size: 16px
+					span
+						font-size: 14px
+			&:hover,
+			&-active
+				background-color: #1cbbb4
+				+bp($sm)
+					background-color: #8e7dba
+					border-bottom: 5px solid #1cbbb4
+
+			p
+				font-size: 18px
+
+			span
+				font-size: 24px
+
+		.lastWeek,
+		.nextWeek
+			position: absolute
+			border-radius: 50%
+			background-color: transparentize(#FFF, .9)
+			top: 15px
+			width: 70px
+			height: 70px
+			cursor: pointer
+			transition: .5s
+			+bp($sm)
+				width: 50px
+				height: 50px
+				top: 25%
+			&:hover,
+			&:focus,
+			&:active
+				background-color: #FFF
+			
+			&:after
+				background-image: url("../img/arrowWeek.png")
+				background-repeat: no-repeat
+				background-position: 50% 50%
+				background-size: 60px
+				position: absolute
+				width: 100%
+				height: 100%
+				top: 0
+				left: 0
+				content: ''
+				+bp($sm)
+					background-image: url("../img/mobile/arrowFilters.png")
+					background-size: 26px
+					background-position: -25% 50%
+
+		.lastWeek
+			left: -83px
+			+bp($md)
+				&:after
+					left: 35px
+			+bp($sm)
+				left: -30px
+				&:after
+					left: 25px
+
+		.nextWeek
+			right: -83px
+			transform: scale(-1, 1)
+			+bp($md)
+				&:after
+					left: 35px
+			+bp($sm)
+				right: -30px
+				&:after
+					left: 25px
+
+	.selectedDay
+		text-align: center
+		border-top-left-radius: 30px
+		border-top-right-radius: 30px
+		background-color: #1cbbb4
+		padding: 25px 0
+		font-size: 30px
+		font-family: "rounds"
+
+	.results
+		background-color: #FFF
+		padding: 30px 30px 15px
+		border-bottom-left-radius: 30px
+		border-bottom-right-radius: 30px
+		+bp($sm)
+			padding: 5px
+
+		&-item
+			color: #8e7dba
+			margin: 10px 0 50px
+
+			&-image
+				display: inline-block
+				vertical-align: top
+				width: 20%
+				+bp($sm)
+					width: 40%
+					float: left
+					margin-right: 10px
+				img
+					width: 100%
+					border-radius: 20px
+
+
+			&-description
+				display: inline-block
+				vertical-align: top
+				width: 60%
+				padding: 0 25px
+				position: relative
+				min-height: 140px
+				+bp($sm)
+					font-size: 16px
+					padding: 0 5px
+					display: block
+					width: 100%
+
+			&-title
+				font-size: 24px
+				font-family: 'rounds'
+				+bp($sm)
+					font-size: 16px
+
+			&-recommendation
+				font-size: 16px
+				margin: 15px 0
+				+bp($sm)
+					font-size: 14px
+
+			&-location
+				font-size: 20px
+				position: absolute
+				width: 100%
+				bottom: 0
+				left: 25px
+				padding-left: 40px
+				background-image: url("../img/location.png")
+				background-repeat: no-repeat
+				background-position: center left
+				background-size: 23px
+				min-height: 30px
+				line-height: 30px
+				+bp($sm)
+					position: static
+					left: auto
+					bottom: auto
+					font-size: 16px
+					margin-left: 8px
+					line-height: 20px
+
+			&-cost
+				display: inline-block
+				vertical-align: top
+				width: 20%
+				text-align: center
+				padding-left: 10px
+				+bp($sm)
+					display: block
+					width: 100%
+					text-align: left
+				.btn	
+					width: 100%
+					+bp($sm)
+						width: auto
+						vertical-align: middle
+						margin-left: 1%
+						text-align: center
+						width: 70%
+
+			&-time
+				+bp($sm)
+					margin: 10px 0
+				span
+					font-size: 24px
+					padding-left: 40px
+					background-image: url("../img/time.png")
+					background-repeat: no-repeat
+					background-position: center left
+					background-size: 29px
+					min-height: 30px
+					line-height: 30px
+
+			&-price
+				margin: 10px 0
+				+bp($sm)
+					display: inline-block
+					vertical-align: middle
+					width: 25%
+				span
+					color: #ea6fe3
+					font-size: 36px
+					padding-right: 40px
+					background-image: url("../img/mоnеy.png")
+					background-repeat: no-repeat
+					background-position: center right
+					background-size: 33px
+					min-height: 35px
+					line-height: 40px
+	
+	.moreResults
+		text-align: center
+		margin-top: 35px
+		font-size: 18px
+		text-decoration: underline
+		color: #fff
+		cursor: pointer
+		&:hover
+			text-decoration: none
+
+.bottomHelper
+	height: 284px
+	background-image: url("../img/bottomHelper.png")
+	background-size: 100% 100%
+	background-position: 50% 50%
+	+bp($sm)
+		height: 50px

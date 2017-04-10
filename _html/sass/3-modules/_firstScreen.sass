@@ -1,0 +1,40 @@
+.firstScreen
+	background-image: url("../img/firstScreenBG.png")
+	background-color: #ba7db8
+	background-repeat: no-repeat
+	background-position: 50% 100%
+	+bp($md)
+		min-height: 650px
+		padding-bottom: 5%
+	+bp($sm)
+		background-image: url("../img/mobile/firstScreenBG.png")
+		background-position: 50% 0%
+
+	.title
+		width: 70%
+		margin: 0 auto
+		text-align: center
+		+bp($bg)
+			width: 100%
+
+		+bp($sm)
+			margin-top: 40px
+
+		p
+			margin: 12px 0
+			padding: 0 5%	
+
+		.btn-line
+			margin: 5% 0 25%
+			+bp($sm)
+				margin: 5% 0
+
+		.mobileLink
+			display: none
+			color: #fff
+			text-decoration: underline
+
+			&:hover
+				text-decoration: none
+			+bp($sm)
+				display: inline-block

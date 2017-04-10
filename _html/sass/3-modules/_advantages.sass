@@ -1,0 +1,64 @@
+.advantages
+	padding-bottom: 200px
+	background-color: #ba7db8
+	+bp($md)
+		padding-bottom: 50px
+	&-item
+		display: inline-block
+		vertical-align: top
+		width: 33%
+		padding: 0 2%
+		text-align: center
+		position: relative
+		+bp($md)
+			display: block
+			width: 100%
+			text-align: left
+			padding: 2% 0
+			img
+				display: inline-block
+				vertical-align: middle
+				width: 20%
+			div
+				display: inline-block
+				vertical-align: middle
+				width: 80%
+				padding-left: 5%
+
+			&:nth-child(odd)
+				img
+					position: absolute
+					top: 50%
+					right: 0
+					margin-top: -11%
+				div
+					padding-right: 5%
+					padding-left: 0
+		+bp($sm)
+			text-align: center
+			img
+				width: 50%
+				display: inline-block
+			div
+				width: 100%
+				display: block
+			&:nth-child(odd)
+				img
+					position: static
+					top: auto
+					right: auto
+					margin-top: 0
+
+		h3
+			margin: 5% 0
+
+		p
+			font-size: 20px
+			line-height: 25px
+			+bp($md)
+				font-size: 18px
+				line-height: 22px
+			+bp($sm)
+				font-size: 16px
+				line-height: 20px
+

@@ -1,0 +1,16 @@
+=clear
+	&:after
+		clear: both
+		content: " "
+		display: block
+		height: 0
+		visibility: hidden
+		width: 0
+
+=bp($width)
+    @media only screen and (max-width: $width)
+        @content
+
+=bpmin($width)
+    @media only screen and (min-width: $width)
+        @content

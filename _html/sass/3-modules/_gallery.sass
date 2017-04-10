@@ -1,0 +1,179 @@
+.gallery
+	padding: 0 0 10%
+	background-color: #1cbbb4
+
+	+bp($md)
+		overflow: hidden
+		padding: 10% 0
+
+	+bp($sm)
+		padding: 0
+	h2
+		width: 85%
+		margin-left: auto
+		margin-right: auto
+		+bp($md)
+			width: 100%
+		+bp($sm)
+			span
+				display: none
+
+	p
+		margin: 0 auto
+
+	.slider
+		padding: 4% 0
+		
+		&-img
+			width: 45%
+			margin-right: 4%
+			display: inline-block
+			vertical-align: top
+			+bp($sm)
+				width: 100%
+				display: block
+				margin-bottom: 10px
+			img
+				border-radius: 20px
+				border: 5px solid #fff
+				width: 100%
+				height: 100%
+			
+		&-description
+			display: inline-block
+			vertical-align: top
+			width: 50%
+			+bp($sm)
+				width: 100%
+				display: block
+
+				.btn
+					width: 100%
+					text-align: center
+			h3
+				font-size: 24px
+				margin-bottom: 15px
+				+bp($md)
+					font-size: 18px
+			p
+				font-size: 20px
+				+bp($md)
+					font-size: 16px
+				&.amount
+					font-size: 30px
+					margin: 15px 0
+
+					+bp($md)
+						font-size: 24px
+
+					span.percent
+						background-color: #ba7db8
+						border-radius: 50%
+						border: 5px solid #fff
+						display: inline-block
+						width: 85px
+						height: 85px
+						line-height: 75px
+						text-align: center
+						font-size: 32px
+
+						+bp($sm)
+							width: 70px
+							height: 70px
+							line-height: 60px
+							font-size: 28px
+					+bp($sm)
+						span.mobileText
+							display: inline-block
+							width: 40%
+							margin-left: 5%
+							font-size: 18px
+							vertical-align: middle
+
+
+		&-wrap
+			position: relative
+
+		&-arrow
+			position: absolute
+			border-radius: 50%
+			background-color: transparentize(#FFF, .3)
+			top: 50%
+			width: 80px
+			height: 80px
+			cursor: pointer
+			transition: .5s
+			+bp($sm)
+				width: 60px
+				height: 60px
+				top: 80px
+				background-color: #1cbbb4
+			&:hover,
+			&:focus,
+			&:active
+				background-color: #FFF
+			
+			&:after
+				background-image: url("../img/arrow.png")
+				background-repeat: no-repeat
+				background-position: 50% 50%
+				background-size: 70px
+				position: absolute
+				width: 100%
+				height: 100%
+				top: 0
+				left: 0
+				content: ''
+				+bp($sm)
+					background-image: url("../img/mobile/arrow.png")
+					background-size: 26px
+					background-position: -8% 50%
+
+			&-prev
+				left: -83px
+				+bp($md)
+					&:after
+						left: 35px
+				+bp($sm)
+					left: -30px
+					&:after
+						left: 25px
+
+			&-next
+				right: -83px
+				transform: scale(-1, 1)
+				+bp($md)
+					&:after
+						left: 35px
+				+bp($sm)
+					right: -30px
+					&:after
+						left: 25px
+
+	+bp($sm)
+		.slick-dots 
+			li
+				width: 20px
+				height: 20px
+				button
+					transition: all .3s
+					display: block
+					position: relative
+					background-color: transparent
+					&:before
+						display: block
+						font-size: 20px
+						color: #fff
+				&.slick-active
+					button
+						&:before
+							display: block
+							color: #fff
+
+.helper
+	height: 100px
+	background-image: url("../img/helper.jpg")
+	background-size: 100% 100%
+	background-position: 50% 50%
+	+bp($sm)
+		height: 20px

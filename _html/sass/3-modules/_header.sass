@@ -1,0 +1,87 @@
+.header
+	padding: 35px 0 25px
+	+bp($sm)
+		padding: 20px 0 10px
+
+	.logo
+		vertical-align: middle
+		display: inline-block
+		width: 12%
+		+bp($sm)
+			width: 50%
+			vertical-align: bottom
+
+		a
+			display: inline-block
+			vertical-align: middle
+			text-align: center
+			text-decoration: none
+			width: 85%
+			+bp($sm)
+				text-align: left
+			
+			img
+				width: 100%
+				+bp($sm)
+					width: 30%
+			p
+				font-size: 28px
+				font-family: 'matias'
+				color: white
+				line-height: 35px
+				+bp($bg)
+					font-size: 24px
+					line-height: 30px
+				+bp($md)
+					font-size: 22px
+				+bp($xs)
+					font-size: 18px
+					line-height: 20px
+					display: inline-block
+	.links
+		display: inline-block
+		vertical-align: top
+		text-align: center
+		width: calc(88% - 250px)
+		+bp($md)
+			width: 70%
+		+bp($sm)
+			width: 50%
+			vertical-align: bottom
+		a
+			color: #fff
+			font-size: 18px
+			margin: 0 10px
+			&:hover
+				text-decoration: none
+			+bp($sm)
+				margin: 0 3px
+
+	.email
+		float: right
+		background-color: #7accc8
+		position: relative
+		width: 18%
+		min-width: 180px
+		+bp($md)
+			display: none
+		
+		img
+			position: absolute
+			top: -3px
+			left: -35px
+			height: 35px
+
+		span
+			display: inline-block
+			vertical-align: middle
+			padding: 0 15px
+			font-size: 22px
+			color: #fff
+			font-family: 'matias'
+			+bp($bg)
+				font-size: 20px
+			+bp($md)
+				font-size: 18px
+			+bp($xs)
+				font-size: 16px

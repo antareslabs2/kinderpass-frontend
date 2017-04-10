@@ -1,0 +1,64 @@
+.popup
+	position: fixed
+	top: 0
+	left: 0
+	width: 100%
+	height: 100%
+	background: transparentize(#000, .3)
+	z-index: 100
+	text-align: center
+	display: none
+
+	&-wrapper
+		width: 430px
+		height: auto
+		position: absolute
+		top: 50%
+		left: 50%
+		transform:  translate3d(0, -50%, 0)
+		text-align: left
+		margin-left: -215px
+		background-color: #02ba61
+		border-radius: 15px
+		padding: 5%
+		border: 8px solid #fff
+		+bp($sm)
+			left: 5%
+			width: 90%
+			margin-left: 0
+
+
+	&-title
+		font-size: 28px
+		font-family: 'matias'
+		text-align: center
+		color: #fff
+
+	&-close
+		position: absolute
+		top: 0
+		right: -100px
+		cursor: pointer
+		width: 30px
+		height: 30px
+		+bp($sm)
+			right: 0
+
+		&:before
+			position: absolute
+			top: 0
+			left: 50%
+			content: ''
+			width: 2px
+			height: 30px
+			background-color: #fff
+			transform: rotate(45deg)
+		&:after
+			position: absolute
+			top: 0
+			left: 50%
+			content: ''
+			width: 2px
+			height: 30px
+			background-color: #fff
+			transform: rotate(-45deg)
