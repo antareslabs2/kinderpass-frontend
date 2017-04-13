@@ -158,197 +158,57 @@
 		<h2>Расписание</h2>
 		<div class="filters">
 			<div class="filters-item filters-location">
-				<span class="filters-option">Район</span>
+				<span class="filters-item filters-option">Район</span>
 				<span class="filters-text">или</span>
-				<span class="filters-option">Метро</span>
+				<span class="filters-item filters-option">Метро</span>
 				<p class="locations"></p>
 			</div><!-- 
 		 --><div class="filters-item filters-time">
-				<span class="filters-option">День</span>
-				<span class="filters-option">Вечер</span>
-				<span class="filters-option">Весь день</span>
+				<span class="filters-item filters-option" *ngFor="let time of times;" (click)="time_from=time.time_from; time_to=time.time_to; filterByOption($event)">{{time.key}}</span>
 			</div><!-- 
 		 --><div class="filters-item filters-age">
-				<span class="filters-option">0-2</span>
-				<span class="filters-option">3-5</span>
-				<span class="filters-option">6-9</span>
-				<span class="filters-option">10-14</span>
+				<span class="filters-item filters-option" *ngFor="let age of ages;" (click)="age_from=age[0]; age_to=age[1]; filterByOption($event)">{{age[0]}}-{{age[1]}}</span>
 				<span class="filters-text">лет</span>
 			</div><!-- 
 		 --><div class="filters-item filters-category">
 				<!-- <p>{{categories}}</p> -->
-				<span class="filters-option" *ngFor="let category of categories" attr.data-id="{{category.id}}" (click)="schedule($event)">{{category.name}}</span>
+				<span class="filters-item filters-option" *ngFor="let category of categories; let i = index;" attr.data-id="{{category.id}}" (click)="curCategory = category.id; filterByOption($event)"
+				[class.filters-option-active]="category.name == 'Киндерпасс'">{{category.name}}</span>
 			</div>
 		</div>  
 		<div class="week">
-			<div class="week-day week-day-active" attr.data-date="{{date| date:'yyyyMMdd'}}">
+			<div class="week-day" *ngFor="let d of dates; " [class.filters-option-active]="selectedDate == d.date" (click)="curDate = d.filter; selectedDate = d.date; filterByDate($event);">
 				<div class="desktop">
-					<p>Понедельник</p>
-					<span>{{date| date:'yyyyMMdd'}}</span>
+					<p>{{d.date | date: 'EEEE'}}</p>
+					<span>{{d.month}}</span>
 				</div>
 				<div class="mobile">
-					<p>ПН</p>
-					<span>21.03</span>
+					<p>{{d.date | date: 'EE'}}</p>
+					<span>{{d.date | date:'dd.MM'}}</span>
 				</div>
 			</div>
-			<div class="week-day">
-				<div class="desktop">
-					<p>Вторник</p>
-					<span>{{date + 1}}</span>
-				</div>
-				<div class="mobile">
-					<p>ВТ</p>
-					<span>22.03</span>
-				</div>
-			</div>
-			<div class="week-day">
-				<div class="desktop">
-					<p>Среда</p>
-					<span>23 марта</span>
-				</div>
-				<div class="mobile">
-					<p>СР</p>
-					<span>23.03</span>
-				</div>
-			</div>
-			<div class="week-day">
-				<div class="desktop">
-					<p>Четверг</p>
-					<span>24 марта</span>
-				</div>
-				<div class="mobile">
-					<p>ЧТ</p>
-					<span>24.03</span>
-				</div>
-			</div>
-			<div class="week-day">
-				<div class="desktop">
-					<p>Пятница</p>
-					<span>25 марта</span>
-				</div>
-				<div class="mobile">
-					<p>ПТ</p>
-					<span>25.03</span>
-				</div>
-			</div>
-			<div class="week-day">
-				<div class="desktop">
-					<p>Суббота</p>
-					<span>26 марта</span>
-				</div>
-				<div class="mobile">
-					<p>СБ</p>
-					<span>26.03</span>
-				</div>
-			</div>
-			<div class="week-day">
-				<div class="desktop">
-					<p>Воскресенье</p>
-					<span>27 марта</span>
-				</div>
-				<div class="mobile">
-					<p>ВС</p>
-					<span>27.03</span>
-				</div>
-			</div>
-			<div class="lastWeek"></div>
-			<div class="nextWeek"></div>
+			<div class="lastWeek" (click)="lastWeek($event);"></div>
+			<div class="nextWeek" (click)="nextWeek($event);"></div>
 		</div><!--   
-	 --><div class="selectedDay">Вторник, 21 марта</div><!-- 
+	 --><div class="selectedDay">{{selectedDate | date: 'EEEE'}} , {{selectedDate | date: 'dd.MM'}}</div><!-- 
 	 --><div class="results">
-	 		<div class="results-item">
-	 			<div class="results-item-image"><img src="app/img/results1.jpg" alt=""></div><!-- 
-	 		 --><div class="results-item-description">
-	 				<div class="results-item-title">Сказка «Русалочка» в театре «Мюзик-Холл» 6+</div>
-	 				<div class="results-item-recommendation">Рекомендовано Киндерпасс</div>
-	 				<div class="results-item-location">Театр «Мюзик-Холл», Александровский парк, д. 4М</div>
-	 			</div><!-- 
-	 		 --><div class="results-item-cost">
-	 				<div class="results-item-time"><span>12:00</span></div>
-	 				<div class="results-item-price"><span>3</span></div>
-	 				<div class="btn">Записаться</div>
-	 			</div>
-	 		</div>
-	 		<div class="results-item">
-	 			<div class="results-item-image"><img src="app/img/results1.jpg" alt=""></div><!-- 
-	 		 --><div class="results-item-description">
-	 				<div class="results-item-title">Сказка «Русалочка» в театре «Мюзик-Холл» 6+</div>
-	 				<div class="results-item-recommendation">Рекомендовано Киндерпасс</div>
-	 				<div class="results-item-location">Театр «Мюзик-Холл», Александровский парк, д. 4М</div>
-	 			</div><!-- 
-	 		 --><div class="results-item-cost">
-	 				<div class="results-item-time"><span>12:00</span></div>
-	 				<div class="results-item-price"><span>3</span></div>
-	 				<div class="btn">Записаться</div>
-	 			</div>
-	 		</div>
-	 		<div class="results-item">
-	 			<div class="results-item-image"><img src="app/img/results1.jpg" alt=""></div><!-- 
-	 		 --><div class="results-item-description">
-	 				<div class="results-item-title">Сказка «Русалочка» в театре «Мюзик-Холл» 6+</div>
-	 				<div class="results-item-recommendation">Рекомендовано Киндерпасс</div>
-	 				<div class="results-item-location">Театр «Мюзик-Холл», Александровский парк, д. 4М</div>
-	 			</div><!-- 
-	 		 --><div class="results-item-cost">
-	 				<div class="results-item-time"><span>12:00</span></div>
-	 				<div class="results-item-price"><span>3</span></div>
-	 				<div class="btn">Записаться</div>
-	 			</div>
-	 		</div>
-	 		<div class="results-item">
-	 			<div class="results-item-image"><img src="app/img/results1.jpg" alt=""></div><!-- 
-	 		 --><div class="results-item-description">
-	 				<div class="results-item-title">Сказка «Русалочка» в театре «Мюзик-Холл» 6+</div>
-	 				<div class="results-item-recommendation">Рекомендовано Киндерпасс</div>
-	 				<div class="results-item-location">Театр «Мюзик-Холл», Александровский парк, д. 4М</div>
-	 			</div><!-- 
-	 		 --><div class="results-item-cost">
-	 				<div class="results-item-time"><span>12:00</span></div>
-	 				<div class="results-item-price"><span>3</span></div>
-	 				<div class="btn">Записаться</div>
-	 			</div>
-	 		</div>
-	 		<div class="results-item">
-	 			<div class="results-item-image"><img src="app/img/results1.jpg" alt=""></div><!-- 
-	 		 --><div class="results-item-description">
-	 				<div class="results-item-title">Сказка «Русалочка» в театре «Мюзик-Холл» 6+</div>
-	 				<div class="results-item-recommendation">Рекомендовано Киндерпасс</div>
-	 				<div class="results-item-location">Театр «Мюзик-Холл», Александровский парк, д. 4М</div>
-	 			</div><!-- 
-	 		 --><div class="results-item-cost">
-	 				<div class="results-item-time"><span>12:00</span></div>
-	 				<div class="results-item-price"><span>3</span></div>
-	 				<div class="btn">Записаться</div>
-	 			</div>
-	 		</div>
-	 		<div class="results-item">
-	 			<div class="results-item-image"><img src="app/img/results1.jpg" alt=""></div><!-- 
-	 		 --><div class="results-item-description">
-	 				<div class="results-item-title">Сказка «Русалочка» в театре «Мюзик-Холл» 6+</div>
-	 				<div class="results-item-recommendation">Рекомендовано Киндерпасс</div>
-	 				<div class="results-item-location">Театр «Мюзик-Холл», Александровский парк, д. 4М</div>
-	 			</div><!-- 
-	 		 --><div class="results-item-cost">
-	 				<div class="results-item-time"><span>12:00</span></div>
-	 				<div class="results-item-price"><span>3</span></div>
-	 				<div class="btn">Записаться</div>
-	 			</div>
-	 		</div>
-	 		<div class="results-item">
-	 			<div class="results-item-image"><img src="app/img/results1.jpg" alt=""></div><!-- 
-	 		 --><div class="results-item-description">
-	 				<div class="results-item-title">Сказка «Русалочка» в театре «Мюзик-Холл» 6+</div>
-	 				<div class="results-item-recommendation">Рекомендовано Киндерпасс</div>
-	 				<div class="results-item-location">Театр «Мюзик-Холл», Александровский парк, д. 4М</div>
-	 			</div><!-- 
-	 		 --><div class="results-item-cost">
-	 				<div class="results-item-time"><span>12:00</span></div>
-	 				<div class="results-item-price"><span>3</span></div>
-	 				<div class="btn">Записаться</div>
-	 			</div>
-	 		</div>
+
+			<div class="results-item" *ngFor="let item of events.events | slice:0:resultsToShow; let i=index;">
+				<div class="results-item-image"><img src="{{item.activity.photo}}" alt=""></div><!-- 
+			 --><div class="results-item-description">
+					<div class="results-item-title">{{item.activity.name}}</div>
+					<div class="results-item-recommendation">{{item.activity.description}}</div>
+					<div class="results-item-location">{{item.activity.location.address}}</div>
+				</div><!-- 
+			 --><div class="results-item-cost">
+					<div class="results-item-time"><span>{{item.start_time}}</span></div>
+					<div class="results-item-price"><span>{{item.activity.price}}</span></div>
+					<div class="btn">Записаться</div>
+				</div>
+			</div>
+	 		
 	 	</div>
-	 	<div class="moreResults">Еще (<span>250</span>)</div>
+	 	<div class="moreResults" *ngIf="resultsToShow < events.events.length"  (click)="resultsToShow = resultsToShow + 1">Еще (<span>{{events.events.length - resultsToShow}}</span>)</div>
 	</div>
 </div>
 <div class="bottomHelper"></div>

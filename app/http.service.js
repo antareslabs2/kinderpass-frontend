@@ -18,7 +18,7 @@ require("rxjs/add/observable/throw");
 var HttpService = (function () {
     function HttpService(http) {
         this.http = http;
-        this.url = 'https://kinderpass-test.herokuapp.com/';
+        this.url = 'https://test.kinderpass.ru/';
     }
     HttpService.prototype.getCategories = function () {
         var body = '';
@@ -30,7 +30,7 @@ var HttpService = (function () {
     HttpService.prototype.getSchedule = function (category_id, date) {
         var body = '';
         var headers = new http_2.Headers({ 'Content-Type': 'application/json;charset=utf-8' });
-        return this.http.get(this.url + 'api/activities/list/' + category_id + '/' + date + '/')
+        return this.http.get(this.url + 'api/activities/list/' + category_id + '/' + date)
             .map(function (resp) { return resp.json(); })
             .catch(function (error) { return Observable_1.Observable.throw(error); });
     };

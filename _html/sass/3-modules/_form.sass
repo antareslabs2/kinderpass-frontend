@@ -2,65 +2,6 @@
 	background-color: #8e7dba
 	+bp($sm)
 		padding-top: 20px
-	.filters
-		&-item
-			background-color: #9a8ac1
-			border-radius: 20px
-			padding: 20px
-			display: inline-block
-			vertical-align: top
-			margin-right: 1%
-			margin-bottom: 10px
-			text-align: center
-			+bp($sm)
-				padding: 15px
-			
-			span
-				display: inline-block
-				vertical-align: middle
-
-		&-option
-			font-size: 18px
-			text-decoration: underline
-			padding: 15px
-			background-color: transparent
-			transition: .3s
-			border-radius: 15px
-			cursor: pointer
-			margin-right: 5px
-			+bp($sm)
-				margin: 0
-				padding: 10px
-			&:hover
-				text-decoration: none
-			
-			&-active
-				text-decoration: none
-				background-color: #1cbbb4
-
-		&-text
-			font-size: 12px
-			margin: 0 5%
-	
-		&-location
-			width: 33%
-			+bp($sm)
-				width: 100%
-
-		&-time
-			width: 28%
-			+bp($sm)
-				width: 100%
-
-		&-age
-			width: 37%
-			margin-right: 0
-			+bp($sm)
-				width: 100%
-
-		&-category
-			display: block
-			margin-right: 0
 
 	.week
 		text-align: center
@@ -157,6 +98,66 @@
 				right: -30px
 				&:after
 					left: 25px
+					
+	.filters
+		&-item
+			background-color: #9a8ac1
+			border-radius: 20px
+			padding: 20px
+			display: inline-block
+			vertical-align: top
+			margin-right: 1%
+			margin-bottom: 10px
+			text-align: center
+			+bp($sm)
+				padding: 15px
+			
+			span
+				display: inline-block
+				vertical-align: middle
+
+		&-option
+			font-size: 18px
+			text-decoration: underline
+			padding: 15px
+			background-color: transparent
+			transition: .3s
+			border-radius: 15px
+			cursor: pointer
+			margin-right: 5px
+			+bp($sm)
+				margin: 0
+				padding: 10px
+			&:hover
+				text-decoration: none
+			
+			&-active
+				text-decoration: none
+				background-color: #1cbbb4
+
+		&-text
+			font-size: 12px
+			margin: 0 5%
+	
+		&-location
+			width: 33%
+			+bp($sm)
+				width: 100%
+
+		&-time
+			width: 28%
+			+bp($sm)
+				width: 100%
+
+		&-age
+			width: 37%
+			margin-right: 0
+			+bp($sm)
+				width: 100%
+
+		&-category
+			display: block
+			margin-right: 0
 
 	.selectedDay
 		text-align: center

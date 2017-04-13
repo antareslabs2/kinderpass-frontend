@@ -845,62 +845,6 @@ textarea.textarea {
   @media only screen and (max-width: 420px) {
     .form {
       padding-top: 20px; } }
-  .form .filters-item {
-    background-color: #9a8ac1;
-    border-radius: 20px;
-    padding: 20px;
-    display: inline-block;
-    vertical-align: top;
-    margin-right: 1%;
-    margin-bottom: 10px;
-    text-align: center; }
-    @media only screen and (max-width: 420px) {
-      .form .filters-item {
-        padding: 15px; } }
-    .form .filters-item span {
-      display: inline-block;
-      vertical-align: middle; }
-  .form .filters-option {
-    font-size: 18px;
-    text-decoration: underline;
-    padding: 15px;
-    background-color: transparent;
-    -webkit-transition: .3s;
-    transition: .3s;
-    border-radius: 15px;
-    cursor: pointer;
-    margin-right: 5px; }
-    @media only screen and (max-width: 420px) {
-      .form .filters-option {
-        margin: 0;
-        padding: 10px; } }
-    .form .filters-option:hover {
-      text-decoration: none; }
-    .form .filters-option-active {
-      text-decoration: none;
-      background-color: #1cbbb4; }
-  .form .filters-text {
-    font-size: 12px;
-    margin: 0 5%; }
-  .form .filters-location {
-    width: 33%; }
-    @media only screen and (max-width: 420px) {
-      .form .filters-location {
-        width: 100%; } }
-  .form .filters-time {
-    width: 28%; }
-    @media only screen and (max-width: 420px) {
-      .form .filters-time {
-        width: 100%; } }
-  .form .filters-age {
-    width: 37%;
-    margin-right: 0; }
-    @media only screen and (max-width: 420px) {
-      .form .filters-age {
-        width: 100%; } }
-  .form .filters-category {
-    display: block;
-    margin-right: 0; }
   .form .week {
     text-align: center;
     position: relative; }
@@ -1002,6 +946,62 @@ textarea.textarea {
           right: -30px; }
           .form .week .nextWeek:after {
             left: 25px; } }
+  .form .filters-item {
+    background-color: #9a8ac1;
+    border-radius: 20px;
+    padding: 20px;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 1%;
+    margin-bottom: 10px;
+    text-align: center; }
+    @media only screen and (max-width: 420px) {
+      .form .filters-item {
+        padding: 15px; } }
+    .form .filters-item span {
+      display: inline-block;
+      vertical-align: middle; }
+  .form .filters-option {
+    font-size: 18px;
+    text-decoration: underline;
+    padding: 15px;
+    background-color: transparent;
+    -webkit-transition: .3s;
+    transition: .3s;
+    border-radius: 15px;
+    cursor: pointer;
+    margin-right: 5px; }
+    @media only screen and (max-width: 420px) {
+      .form .filters-option {
+        margin: 0;
+        padding: 10px; } }
+    .form .filters-option:hover {
+      text-decoration: none; }
+    .form .filters-option-active {
+      text-decoration: none;
+      background-color: #1cbbb4; }
+  .form .filters-text {
+    font-size: 12px;
+    margin: 0 5%; }
+  .form .filters-location {
+    width: 33%; }
+    @media only screen and (max-width: 420px) {
+      .form .filters-location {
+        width: 100%; } }
+  .form .filters-time {
+    width: 28%; }
+    @media only screen and (max-width: 420px) {
+      .form .filters-time {
+        width: 100%; } }
+  .form .filters-age {
+    width: 37%;
+    margin-right: 0; }
+    @media only screen and (max-width: 420px) {
+      .form .filters-age {
+        width: 100%; } }
+  .form .filters-category {
+    display: block;
+    margin-right: 0; }
   .form .selectedDay {
     text-align: center;
     border-top-left-radius: 30px;

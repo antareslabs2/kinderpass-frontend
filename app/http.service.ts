@@ -9,7 +9,7 @@ import 'rxjs/add/observable/throw';
 @Injectable()
 export class HttpService{
 
-    private url = 'https://kinderpass-test.herokuapp.com/';
+    private url = 'https://test.kinderpass.ru/';
     constructor(private http: Http){ }
      
     getCategories(){
@@ -27,7 +27,7 @@ export class HttpService{
          
         let headers = new Headers({ 'Content-Type': 'application/json;charset=utf-8' });
          
-        return this.http.get(this.url + 'api/activities/list/' + category_id + '/' + date + '/')
+        return this.http.get(this.url + 'api/activities/list/' + category_id + '/' + date )
                         .map((resp:Response)=>resp.json())
                         .catch((error:any) =>{return Observable.throw(error);}); 
     }
