@@ -8,7 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var forms_1 = require("@angular/forms");
+var animations_1 = require("@angular/platform-browser/animations");
 var app_component_1 = require("./app.component");
+var app_dialog_1 = require("./app.dialog");
 var http_1 = require("@angular/http");
 var core_2 = require("@angular/core");
 var AppModule = (function () {
@@ -18,8 +20,8 @@ var AppModule = (function () {
 }());
 AppModule = __decorate([
     core_1.NgModule({
-        imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, http_1.HttpModule],
-        declarations: [app_component_1.AppComponent],
+        imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, http_1.HttpModule, animations_1.BrowserAnimationsModule],
+        declarations: [app_component_1.AppComponent, app_dialog_1.DialogComponent],
         bootstrap: [app_component_1.AppComponent],
         providers: [
             { provide: core_2.LOCALE_ID, useValue: "ru-RU" }

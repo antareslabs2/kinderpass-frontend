@@ -15,79 +15,13 @@ require("slick");
 var AppComponent = (function () {
     function AppComponent(httpService) {
         this.httpService = httpService;
+        this.isAuthorized = false;
+        this.openPopup = false;
         this.resultsToShow = 1;
         this.monday = new Date();
         this.selectedDate = new Date().toDateString();
-        this.events = { "events": [{
-                    'id': 1,
-                    'activity': {
-                        'id': 1,
-                        'name': 'testtest test',
-                        'description': 'testtest testtesttest test',
-                        'photo': "app/img/results1.jpg",
-                        'price': 5,
-                        'duration': 90,
-                        'location': {
-                            'id': 1,
-                            'address': "Театр «Мюзик-Холл», Александровский парк, д. 4М",
-                            'latitude': 1,
-                            'longitude': 1
-                        },
-                        'provider': {
-                            'id': 1,
-                            'name': "????"
-                        }
-                    },
-                    'start_time': "12:00",
-                    'slots': 1
-                }, {
-                    'id': 1,
-                    'activity': {
-                        'id': 1,
-                        'name': 'testtest test',
-                        'description': 'testtest testtesttest test',
-                        'photo': "app/img/results1.jpg",
-                        'price': 5,
-                        'duration': 90,
-                        'location': {
-                            'id': 1,
-                            'address': "Театр «Мюзик-Холл», Александровский парк, д. 4М",
-                            'latitude': 1,
-                            'longitude': 1
-                        },
-                        'provider': {
-                            'id': 1,
-                            'name': "????"
-                        }
-                    },
-                    'start_time': "12:00",
-                    'slots': 1
-                }, {
-                    'id': 1,
-                    'activity': {
-                        'id': 1,
-                        'name': 'testtest test',
-                        'description': 'testtest testtesttest test',
-                        'photo': "app/img/results1.jpg",
-                        'price': 5,
-                        'duration': 90,
-                        'location': {
-                            'id': 1,
-                            'address': "Театр «Мюзик-Холл», Александровский парк, д. 4М",
-                            'latitude': 1,
-                            'longitude': 1
-                        },
-                        'provider': {
-                            'id': 1,
-                            'name': "????"
-                        }
-                    },
-                    'start_time': "12:00",
-                    'slots': 1
-                }]
-        };
+        this.events = [];
         this.dates = [];
-        this.weekdays = { 'desktop': ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'], 'mobile': ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВСК'] };
         this.months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
         this.ages = [[0, 2], [3, 5], [6, 9], [10, 14]];
         this.times = [
@@ -110,6 +44,14 @@ var AppComponent = (function () {
     }
     AppComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.httpService.getInfo().subscribe(function (data) {
+            if (data.status == 'ERROR') {
+                _this.isAuthorized = false;
+            }
+            else {
+                _this.isAuthorized = true;
+            }
+        });
         var d = new Date();
         this.weekday = d.getDay() - 1;
         this.curDate = d.getFullYear().toString() + ("0" + (d.getMonth() + 1)).slice(-2) + ("0" + d.getDate()).slice(-2);
@@ -117,7 +59,7 @@ var AppComponent = (function () {
         this.httpService.getCategories().subscribe(function (data) {
             _this.categories = data.categories;
             _this.curCategory = _this.categories.filter(function (item) { return item.name === 'Киндерпасс'; })[0]['id'];
-            _this.httpService.getSchedule(_this.curCategory, _this.curDate).subscribe(function (data) {
+            _this.httpService.getSchedule(_this.curCategory, _this.curDate, {}).subscribe(function (data) {
                 if (data.results > 0) {
                     _this.events = data;
                 }
@@ -235,7 +177,7 @@ var AppComponent = (function () {
             $(event.target).parents('.week-day').siblings().removeClass('filters-option-active');
             $(event.target).parents('.week-day').addClass('filters-option-active');
         }
-        this.httpService.getSchedule(this.curCategory, this.curDate).subscribe(function (data) {
+        this.httpService.getSchedule(this.curCategory, this.curDate, {}).subscribe(function (data) {
             if (data.results > 0) {
                 _this.events = data;
             }
@@ -244,15 +186,18 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.filterByOption = function (event) {
         var _this = this;
-        console.log(this.curDate);
-        console.log(this.curCategory);
-        console.log(this.age_from);
-        console.log(this.age_to);
-        console.log(this.time_from);
-        console.log(this.time_to);
+        var getParams = {};
+        if (this.age_from != undefined)
+            getParams.age_from = this.age_from;
+        if (this.age_to != undefined)
+            getParams.age_to = this.age_to;
+        if (this.time_from != undefined)
+            getParams.time_from = this.time_from;
+        if (this.time_to != undefined)
+            getParams.time_to = this.time_to;
         $(event.target).siblings().removeClass('filters-option-active');
         $(event.target).addClass('filters-option-active');
-        this.httpService.getSchedule(this.curCategory, this.curDate).subscribe(function (data) {
+        this.httpService.getSchedule(this.curCategory, this.curDate, getParams).subscribe(function (data) {
             if (data.results > 0) {
                 _this.events = data;
             }

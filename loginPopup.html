@@ -1,0 +1,9 @@
+<div [@dialog] *ngIf="visible" (click)="close()" class="popup">
+</div>
+<div [@dialog] *ngIf="visible" class="popup-wrapper">
+	<div *ngIf="closable" (click)="close()" class="popup-close modal-close"></div>
+	<p class="popup-title">Войти</p>
+	<p class="popup-description">Чтобы продолжить,<br>войдите через социальную сеть</p>
+	<a href="http://test.kinderpass.ru/oauth/login/vk-oauth2/" class="btn btn-vk">Vkontakte</a>
+	<a href="http://test.kinderpass.ru/oauth/login/facebook/" class="btn btn-fb">Facebook</a>
+</div>

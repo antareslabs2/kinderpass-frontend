@@ -7,11 +7,12 @@
 						<p>KinderPass</p>
 					</a>
 				</div><!-- 
-			 --><div class="links">
-					<a href="">О проекте</a><a href="">Войти</a>
-				</div><!-- 
 			 --><div class="email">
 					<a href="mailto:hello@kinderpass.ru"><img src="app/img/mail.png" alt=""><span>hello@kinderpass.ru</span></a>
+				</div><!-- 
+			 --><div class="links">
+					<a href="">О проекте</a><span *ngIf="!isAuthorized" (click)="openPopup = !openPopup">Войти</span>
+					<span *ngIf="isAuthorized">Личный кабинет</span>
 				</div>
 			</div>
 		</header>
@@ -158,21 +159,21 @@
 		<h2>Расписание</h2>
 		<div class="filters">
 			<div class="filters-item filters-location">
-				<span class="filters-item filters-option">Район</span>
+				<span class="filters-option">Район</span>
 				<span class="filters-text">или</span>
-				<span class="filters-item filters-option">Метро</span>
+				<span class="filters-option">Метро</span>
 				<p class="locations"></p>
 			</div><!-- 
 		 --><div class="filters-item filters-time">
-				<span class="filters-item filters-option" *ngFor="let time of times;" (click)="time_from=time.time_from; time_to=time.time_to; filterByOption($event)">{{time.key}}</span>
+				<span class="filters-option" *ngFor="let time of times;" (click)="time_from=time.time_from; time_to=time.time_to; filterByOption($event)">{{time.key}}</span>
 			</div><!-- 
 		 --><div class="filters-item filters-age">
-				<span class="filters-item filters-option" *ngFor="let age of ages;" (click)="age_from=age[0]; age_to=age[1]; filterByOption($event)">{{age[0]}}-{{age[1]}}</span>
+				<span class="filters-option" *ngFor="let age of ages;" (click)="age_from=age[0]; age_to=age[1]; filterByOption($event)">{{age[0]}}-{{age[1]}}</span>
 				<span class="filters-text">лет</span>
 			</div><!-- 
 		 --><div class="filters-item filters-category">
 				<!-- <p>{{categories}}</p> -->
-				<span class="filters-item filters-option" *ngFor="let category of categories; let i = index;" attr.data-id="{{category.id}}" (click)="curCategory = category.id; filterByOption($event)"
+				<span class="filters-option" *ngFor="let category of categories; let i = index;" attr.data-id="{{category.id}}" (click)="curCategory = category.id; filterByOption($event)"
 				[class.filters-option-active]="category.name == 'Киндерпасс'">{{category.name}}</span>
 			</div>
 		</div>  
@@ -191,24 +192,24 @@
 			<div class="nextWeek" (click)="nextWeek($event);"></div>
 		</div><!--   
 	 --><div class="selectedDay">{{selectedDate | date: 'EEEE'}} , {{selectedDate | date: 'dd.MM'}}</div><!-- 
-	 --><div class="results">
+	 --><div class="results" *ngIf="events">
 
-			<div class="results-item" *ngFor="let item of events.events | slice:0:resultsToShow; let i=index;">
-				<div class="results-item-image"><img src="{{item.activity.photo}}" alt=""></div><!-- 
+			<div class="results-item" *ngFor="let item of events | slice:0:resultsToShow; let i=index;">
+				<div class="results-item-image"><img src="{{item.photo}}" alt=""></div><!-- 
 			 --><div class="results-item-description">
-					<div class="results-item-title">{{item.activity.name}}</div>
-					<div class="results-item-recommendation">{{item.activity.description}}</div>
-					<div class="results-item-location">{{item.activity.location.address}}</div>
+					<div class="results-item-title">{{item.name}}</div>
+					<div class="results-item-recommendation">{{item.description}}</div>
+					<div class="results-item-location">{{item.location.address}}</div>
 				</div><!-- 
 			 --><div class="results-item-cost">
 					<div class="results-item-time"><span>{{item.start_time}}</span></div>
-					<div class="results-item-price"><span>{{item.activity.price}}</span></div>
+					<div class="results-item-price"><span>{{item.price}}</span></div>
 					<div class="btn">Записаться</div>
 				</div>
 			</div>
 	 		
 	 	</div>
-	 	<div class="moreResults" *ngIf="resultsToShow < events.events.length"  (click)="resultsToShow = resultsToShow + 1">Еще (<span>{{events.events.length - resultsToShow}}</span>)</div>
+	 	<div class="moreResults" *ngIf="resultsToShow < events.length"  (click)="resultsToShow = resultsToShow + 1">Еще (<span>{{events.length - resultsToShow}}</span>)</div>
 	</div>
 </div>
 <div class="bottomHelper"></div>
@@ -220,7 +221,7 @@
 				<p class="options-title">«Занятый родитель»</p>
 				<div class="options-durations">2-6 посещений в месяц</div>
 				<h3>1 499 руб.</h3>
-				<p>Разнообразьте досуг вашего ребенка, даже если вы его постоянно куда-то водите.</p>
+				<p class="options-description">Разнообразьте досуг вашего ребенка, даже если вы его постоянно куда-то водите.</p>
 				<a href="#form" data-kinderpass="Занятый родитель" class="btn">Купить</a>
 			</div>
 		</div>
@@ -229,7 +230,7 @@
 				<p class="options-title">«Активная семья»</p>
 				<div class="options-durations">4-12 посещений в месяц</div>
 				<h3>2 699 руб.</h3>
-				<p>Это 1 или 2 новых события для ваших детей каждую неделю. Гарантированно.</p>
+				<p class="options-description">Это 1 или 2 новых события для ваших детей каждую неделю. Гарантированно.</p>
 				<a href="#form" data-kinderpass="Активная семья" class="btn">Купить</a>
 			</div>
 		</div>
@@ -238,7 +239,7 @@
 				<p class="options-title">«Большая семья»</p>
 				<div class="options-durations">6-22 посещений в месяц</div>
 				<h3>4 550 руб.</h3>
-				<p>Опция для большой семьи. Используйте возможности абонемента максимально!</p>
+				<p class="options-description">Опция для большой семьи. Используйте возможности абонемента максимально!</p>
 				<a href="#form" data-kinderpass="Большая семья" class="btn">Купить</a>
 			</div>
 		</div>
@@ -270,17 +271,12 @@
 		<div class="copyright">© 2017 ООО Киндерпасс</div>
 	</div>
 </footer>
-
-<div class="popup" id="msg">
-	<div class="popup-wrapper">
-		<div class="popup-close modal-close"></div>
-		<p class="popup-title"></p>
-	</div>
-</div>
-<script src="app/js/jquery.min.js"></script>
-<script src="app/js/jquery.inputmask.js"></script>
-<script src="app/js/slick/slick.js"></script>
-<script src="app/js/scripts.js"></script>
+<app-dialog [(visible)]="openPopup">
+</app-dialog>
+<!-- <script src="app/js/jquery.min.js"></script> -->
+<!-- <script src="app/js/jquery.inputmask.js"></script> -->
+<!-- <script src="app/js/slick/slick.js"></script> -->
+<!-- <script src="app/js/scripts.js"></script> -->
 <script>
   // (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   // (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

@@ -20,92 +20,29 @@ export class AppComponent implements OnInit {
 	categories:any;
 	events:any;
 	dates:any[];
-	months:any[];
+	months:string[];
 	ages:any[];
 	monday: any;
-	weekday:any;
+	weekday:number;
 	times: any;
-	selectedDate:any;
+	selectedDate:string;
 	resultsToShow:number;
+	openPopup: boolean;
+	isAuthorized: boolean;
 	
-	curDate:any;
-	curCategory : any;
+	curDate:string;
+	curCategory : number;
 	age_from:number;
 	age_to:number;
 	time_from:number;
 	time_to:number;
 	constructor(private httpService: HttpService){
+		this.isAuthorized = false;
+		this.openPopup = false;
 		this.resultsToShow = 1;
 		this.monday = new Date();
 		this.selectedDate = new Date().toDateString();
-		this.events = {"events": [{
-				'id': 1,
-				'activity': {
-					'id': 1,
-					'name': 'testtest test',
-					'description': 'testtest testtesttest test',
-					'photo':"app/img/results1.jpg",
-					'price': 5,
-					'duration': 90,
-					'location': {
-						'id': 1,
-						'address': "Театр «Мюзик-Холл», Александровский парк, д. 4М",
-						'latitude': 1,
-						'longitude': 1
-					},
-					'provider': {
-						'id': 1,
-						'name': "????"
-					}
-				},
-				'start_time': "12:00",
-				'slots': 1
-			},{
-				'id': 1,
-				'activity': {
-					'id': 1,
-					'name': 'testtest test',
-					'description': 'testtest testtesttest test',
-					'photo':"app/img/results1.jpg",
-					'price': 5,
-					'duration': 90,
-					'location': {
-						'id': 1,
-						'address': "Театр «Мюзик-Холл», Александровский парк, д. 4М",
-						'latitude': 1,
-						'longitude': 1
-					},
-					'provider': {
-						'id': 1,
-						'name': "????"
-					}
-				},
-				'start_time': "12:00",
-				'slots': 1
-			},{
-				'id': 1,
-				'activity': {
-					'id': 1,
-					'name': 'testtest test',
-					'description': 'testtest testtesttest test',
-					'photo':"app/img/results1.jpg",
-					'price': 5,
-					'duration': 90,
-					'location': {
-						'id': 1,
-						'address': "Театр «Мюзик-Холл», Александровский парк, д. 4М",
-						'latitude': 1,
-						'longitude': 1
-					},
-					'provider': {
-						'id': 1,
-						'name': "????"
-					}
-				},
-				'start_time': "12:00",
-				'slots': 1
-			}]
-		};
+		this.events = [];
 		this.dates = [];
 		this.months = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
 		this.ages = [[0,2],[3,5],[6,9],[10,14]];
@@ -129,6 +66,13 @@ export class AppComponent implements OnInit {
 	}
 
 	ngOnInit(){
+		this.httpService.getInfo().subscribe((data:any) => {
+			if(data.status == 'ERROR') {
+				this.isAuthorized = false;
+			} else {
+				this.isAuthorized = true;
+			}
+		});
 		let d = new Date();
 		this.weekday = d.getDay()-1;
 		this.curDate = d.getFullYear().toString() + ("0" + (d.getMonth() + 1)).slice(-2) + ("0" + d.getDate()).slice(-2);
@@ -136,7 +80,7 @@ export class AppComponent implements OnInit {
 		this.httpService.getCategories().subscribe((data:any) => {
 			this.categories=data.categories;
 			this.curCategory = this.categories.filter((item: any)=> item.name === 'Киндерпасс')[0]['id'];
-			this.httpService.getSchedule(this.curCategory, this.curDate).subscribe((data:any) => {
+			this.httpService.getSchedule(this.curCategory, this.curDate, {}).subscribe((data:any) => {
 				if(data.results > 0) {
 					this.events = data;
 				}
@@ -253,7 +197,7 @@ export class AppComponent implements OnInit {
 			$(event.target).parents('.week-day').siblings().removeClass('filters-option-active');
 			$(event.target).parents('.week-day').addClass('filters-option-active');
 		}
-		this.httpService.getSchedule(this.curCategory, this.curDate).subscribe((data:any) => {
+		this.httpService.getSchedule(this.curCategory, this.curDate, {}).subscribe((data:any) => {
 			if(data.results > 0) {
 				this.events = data;
 			}
@@ -262,15 +206,18 @@ export class AppComponent implements OnInit {
 	}
 
 	filterByOption(event:any) {
-		console.log(this.curDate);
-		console.log(this.curCategory);
-		console.log(this.age_from);
-		console.log(this.age_to);
-		console.log(this.time_from);
-		console.log(this.time_to);
+		let getParams:any = {};
+		if (this.age_from != undefined)
+			getParams.age_from = this.age_from;
+		if (this.age_to != undefined)
+			getParams.age_to = this.age_to;
+		if (this.time_from != undefined)
+			getParams.time_from = this.time_from;
+		if (this.time_to != undefined)
+			getParams.time_to = this.time_to;
 		$(event.target).siblings().removeClass('filters-option-active');
 		$(event.target).addClass('filters-option-active');
-		this.httpService.getSchedule(this.curCategory, this.curDate).subscribe((data:any) => {
+		this.httpService.getSchedule(this.curCategory, this.curDate, getParams).subscribe((data:any) => {
 			if(data.results > 0) {
 				this.events = data;
 			}

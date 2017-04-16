@@ -145,6 +145,10 @@ img {
     text-align: center; }
     .btn.btn-footer:hover {
       background-color: #016e3a; }
+  .btn.btn-vk {
+    background-color: #4c75a3; }
+  .btn.btn-fb {
+    background-color: #3b5998; }
   .btn-mobile {
     display: none; }
     @media only screen and (max-width: 780px) {
@@ -185,17 +189,18 @@ textarea.textarea {
   src: url("../fonts/roundsblack.woff") format("woff"), url("../fonts/roundsblack.ttf") format("truetype"), url("../fonts/roundsblack.woff2") format("woff2"); }
 
 .header {
-  padding: 35px 0 25px; }
+  padding: 35px 0 25px;
+  min-height: 200px; }
   @media only screen and (max-width: 420px) {
     .header {
       padding: 20px 0 10px; } }
   .header .logo {
-    vertical-align: middle;
-    display: inline-block;
-    width: 12%; }
+    width: 12%;
+    float: left; }
     @media only screen and (max-width: 420px) {
       .header .logo {
         width: 50%;
+        display: inline-block;
         vertical-align: bottom; } }
     .header .logo a {
       display: inline-block;
@@ -229,32 +234,30 @@ textarea.textarea {
             line-height: 20px;
             display: inline-block; } }
   .header .links {
-    display: inline-block;
-    vertical-align: top;
-    text-align: center;
-    width: calc(88% - 250px); }
-    @media only screen and (max-width: 780px) {
-      .header .links {
-        width: 70%; } }
+    text-align: center; }
     @media only screen and (max-width: 420px) {
       .header .links {
         width: 50%;
-        vertical-align: bottom; } }
-    .header .links a {
+        vertical-align: bottom;
+        display: inline-block; } }
+    .header .links a,
+    .header .links span {
       color: #fff;
       font-size: 18px;
-      margin: 0 10px; }
-      .header .links a:hover {
+      margin: 0 10px;
+      text-decoration: underline;
+      cursor: pointer; }
+      .header .links a:hover,
+      .header .links span:hover {
         text-decoration: none; }
       @media only screen and (max-width: 420px) {
-        .header .links a {
+        .header .links a,
+        .header .links span {
           margin: 0 3px; } }
   .header .email {
     float: right;
     background-color: #7accc8;
-    position: relative;
-    width: 18%;
-    min-width: 180px; }
+    position: relative; }
     @media only screen and (max-width: 780px) {
       .header .email {
         display: none; } }
@@ -381,7 +384,8 @@ textarea.textarea {
   background-image: url("../img/firstScreenBG.png");
   background-color: #ba7db8;
   background-repeat: no-repeat;
-  background-position: 50% 100%; }
+  background-position: 50% 0%;
+  background-size: cover; }
   @media only screen and (max-width: 780px) {
     .firstScreen {
       min-height: 650px;
@@ -418,7 +422,7 @@ textarea.textarea {
   background-color: #ba7db8; }
   @media only screen and (max-width: 780px) {
     .advantages {
-      padding-bottom: 50px; } }
+      padding-bottom: 120px; } }
   .advantages-item {
     display: inline-block;
     vertical-align: top;
@@ -499,10 +503,12 @@ textarea.textarea {
         height: 100%;
         top: -5%; } }
   @media only screen and (max-width: 780px) {
-    .steps-wrap {
-      border-radius: 15px;
-      background-color: rgba(255, 255, 255, 0.7);
-      margin-bottom: 5%; } }
+    .steps {
+      padding-bottom: 5%; }
+      .steps-wrap {
+        border-radius: 15px;
+        background-color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 5%; } }
   @media only screen and (max-width: 420px) {
     .steps {
       min-height: 675px;
@@ -604,7 +610,7 @@ textarea.textarea {
   @media only screen and (max-width: 780px) {
     .gallery {
       overflow: hidden;
-      padding: 10% 0; } }
+      padding: 5% 0; } }
   @media only screen and (max-width: 420px) {
     .gallery {
       padding: 0; } }
@@ -806,12 +812,14 @@ textarea.textarea {
       position: absolute;
       bottom: 35px;
       left: 50%;
-      margin-left: -87px;
+      -webkit-transform: translate3d(-50%, 0%, 0);
+              transform: translate3d(-50%, 0%, 0);
       width: 55%; }
-      @media only screen and (max-width: 420px) {
+      @media only screen and (max-width: 780px) {
         .options-item .btn {
           position: static;
-          margin-left: 0;
+          -webkit-transform: none;
+                  transform: none;
           bottom: auto;
           left: auto;
           margin: 15px 0; } }
@@ -839,9 +847,15 @@ textarea.textarea {
     @media only screen and (max-width: 780px) {
       .options h3 {
         margin: 0; } }
+  .options-description {
+    padding-bottom: 75px; }
+    @media only screen and (max-width: 780px) {
+      .options-description {
+        padding: 0; } }
 
 .form {
-  background-color: #8e7dba; }
+  background-color: #8e7dba;
+  overflow: hidden; }
   @media only screen and (max-width: 420px) {
     .form {
       padding-top: 20px; } }
@@ -862,18 +876,19 @@ textarea.textarea {
         display: block; }
       .form .week-day .mobile {
         display: none; }
-      @media only screen and (max-width: 420px) {
+      @media only screen and (max-width: 600px) {
         .form .week-day {
           border-bottom: 5px solid #8e7dba;
-          width: 10%; }
+          width: 12%; }
+          .form .week-day.filters-option-active {
+            background-color: #8e7dba;
+            border-bottom: 5px solid #1cbbb4; }
           .form .week-day .desktop {
             display: none; }
           .form .week-day .mobile {
             display: block; }
-            .form .week-day .mobile p {
-              font-size: 16px; }
             .form .week-day .mobile span {
-              font-size: 14px; } }
+              font-size: 12px; } }
       .form .week-day:hover, .form .week-day-active {
         background-color: #1cbbb4; }
         @media only screen and (max-width: 420px) {
@@ -882,8 +897,14 @@ textarea.textarea {
             border-bottom: 5px solid #1cbbb4; } }
       .form .week-day p {
         font-size: 18px; }
+        @media only screen and (max-width: 1024px) {
+          .form .week-day p {
+            font-size: 16px; } }
       .form .week-day span {
         font-size: 24px; }
+        @media only screen and (max-width: 1024px) {
+          .form .week-day span {
+            font-size: 20px; } }
     .form .week .lastWeek,
     .form .week .nextWeek {
       position: absolute;
@@ -953,8 +974,8 @@ textarea.textarea {
     display: inline-block;
     vertical-align: top;
     margin-right: 1%;
-    margin-bottom: 10px;
-    text-align: center; }
+    text-align: center;
+    margin-bottom: 10px; }
     @media only screen and (max-width: 420px) {
       .form .filters-item {
         padding: 15px; } }
@@ -1010,6 +1031,9 @@ textarea.textarea {
     padding: 25px 0;
     font-size: 30px;
     font-family: "rounds"; }
+    @media only screen and (max-width: 420px) {
+      .form .selectedDay {
+        font-size: 20px; } }
   .form .results {
     background-color: #FFF;
     padding: 30px 30px 15px;
@@ -1156,9 +1180,10 @@ textarea.textarea {
   background: rgba(0, 0, 0, 0.7);
   z-index: 100;
   text-align: center;
-  display: none; }
+  opacity: 1; }
   .popup-wrapper {
-    width: 430px;
+    z-index: 101;
+    width: 465px;
     height: auto;
     position: absolute;
     top: 50%;
@@ -1166,25 +1191,35 @@ textarea.textarea {
     -webkit-transform: translate3d(0, -50%, 0);
             transform: translate3d(0, -50%, 0);
     text-align: left;
-    margin-left: -215px;
-    background-color: #02ba61;
+    margin-left: -232.5px;
+    background-color: #fff;
     border-radius: 15px;
-    padding: 5%;
-    border: 8px solid #fff; }
+    padding: 50px 115px;
+    border: 8px solid #fff;
+    text-align: center; }
+    .popup-wrapper .btn {
+      margin-bottom: 25px;
+      width: 100%;
+      text-transform: none;
+      border-radius: 7px; }
     @media only screen and (max-width: 420px) {
       .popup-wrapper {
         left: 5%;
         width: 90%;
         margin-left: 0; } }
   .popup-title {
-    font-size: 28px;
+    font-size: 26px;
+    font-family: 'rounds';
+    color: #17948e; }
+  .popup-description {
+    font-size: 18px;
+    color: #939393;
     font-family: 'matias';
-    text-align: center;
-    color: #fff; }
+    margin: 50px 0; }
   .popup-close {
     position: absolute;
-    top: 0;
-    right: -100px;
+    top: -80px;
+    right: -60px;
     cursor: pointer;
     width: 30px;
     height: 30px; }

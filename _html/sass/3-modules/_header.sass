@@ -1,14 +1,15 @@
 .header
 	padding: 35px 0 25px
+	min-height: 200px
 	+bp($sm)
 		padding: 20px 0 10px
 
 	.logo
-		vertical-align: middle
-		display: inline-block
 		width: 12%
+		float: left
 		+bp($sm)
 			width: 50%
+			display: inline-block
 			vertical-align: bottom
 
 		a
@@ -39,19 +40,18 @@
 					line-height: 20px
 					display: inline-block
 	.links
-		display: inline-block
-		vertical-align: top
 		text-align: center
-		width: calc(88% - 250px)
-		+bp($md)
-			width: 70%
 		+bp($sm)
 			width: 50%
 			vertical-align: bottom
-		a
+			display: inline-block
+		a,
+		span
 			color: #fff
 			font-size: 18px
 			margin: 0 10px
+			text-decoration: underline
+			cursor: pointer
 			&:hover
 				text-decoration: none
 			+bp($sm)
@@ -61,8 +61,6 @@
 		float: right
 		background-color: #7accc8
 		position: relative
-		width: 18%
-		min-width: 180px
 		+bp($md)
 			display: none
 		

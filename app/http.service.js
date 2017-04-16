@@ -20,6 +20,13 @@ var HttpService = (function () {
         this.http = http;
         this.url = 'https://test.kinderpass.ru/';
     }
+    HttpService.prototype.getInfo = function () {
+        var body = '';
+        var headers = new http_2.Headers({ 'Content-Type': 'application/json;charset=utf-8' });
+        return this.http.post(this.url + 'api/accounts/get_info', body, { headers: headers })
+            .map(function (resp) { return resp.json(); })
+            .catch(function (error) { return Observable_1.Observable.throw(error); });
+    };
     HttpService.prototype.getCategories = function () {
         var body = '';
         var headers = new http_2.Headers({ 'Content-Type': 'application/json;charset=utf-8' });
@@ -27,10 +34,14 @@ var HttpService = (function () {
             .map(function (resp) { return resp.json(); })
             .catch(function (error) { return Observable_1.Observable.throw(error); });
     };
-    HttpService.prototype.getSchedule = function (category_id, date) {
+    HttpService.prototype.getSchedule = function (category_id, date, getParams) {
         var body = '';
         var headers = new http_2.Headers({ 'Content-Type': 'application/json;charset=utf-8' });
-        return this.http.get(this.url + 'api/activities/list/' + category_id + '/' + date)
+        var url = this.url + 'api/activities/list/' + category_id + '/' + date + '?';
+        for (var key in getParams) {
+            url += key + '=' + getParams[key] + '&';
+        }
+        return this.http.get(url)
             .map(function (resp) { return resp.json(); })
             .catch(function (error) { return Observable_1.Observable.throw(error); });
     };

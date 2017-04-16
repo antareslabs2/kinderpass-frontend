@@ -7,21 +7,29 @@
 	background: transparentize(#000, .3)
 	z-index: 100
 	text-align: center
-	display: none
+	opacity: 1
 
 	&-wrapper
-		width: 430px
+		z-index: 101
+		width: 465px
 		height: auto
 		position: absolute
 		top: 50%
 		left: 50%
 		transform:  translate3d(0, -50%, 0)
 		text-align: left
-		margin-left: -215px
-		background-color: #02ba61
+		margin-left: -232.5px
+		background-color: #fff
 		border-radius: 15px
-		padding: 5%
+		padding: 50px 115px
 		border: 8px solid #fff
+		text-align: center
+		
+		.btn
+			margin-bottom: 25px
+			width: 100%
+			text-transform: none
+			border-radius: 7px
 		+bp($sm)
 			left: 5%
 			width: 90%
@@ -29,15 +37,20 @@
 
 
 	&-title
-		font-size: 28px
+		font-size: 26px
+		font-family: 'rounds'
+		color: #17948e
+	
+	&-description
+		font-size: 18px
+		color: #939393
 		font-family: 'matias'
-		text-align: center
-		color: #fff
+		margin: 50px 0
 
 	&-close
 		position: absolute
-		top: 0
-		right: -100px
+		top: -80px
+		right: -60px
 		cursor: pointer
 		width: 30px
 		height: 30px
