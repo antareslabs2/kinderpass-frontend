@@ -10,26 +10,37 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var animations_1 = require("@angular/animations");
+var forms_1 = require("@angular/forms");
+var http_service_1 = require("./http.service");
 var DialogComponent = (function () {
-    function DialogComponent() {
-        this.closable = true;
+    function DialogComponent(fb, httpService) {
+        this.fb = fb;
+        this.httpService = httpService;
         this.visibleChange = new core_1.EventEmitter();
     }
-    DialogComponent.prototype.ngOnInit = function () { };
+    DialogComponent.prototype.ngOnInit = function () {
+        this.orderForm = new forms_1.FormGroup({
+            sum: new forms_1.FormControl()
+        });
+    };
     DialogComponent.prototype.close = function () {
-        this.visible = false;
+        this.visible = '';
         this.visibleChange.emit(this.visible);
+    };
+    DialogComponent.prototype.paykeeper = function () {
+        this.orderForm.controls['sum'].setValue(this.event.locations.time_slots.price);
+        var dat = this.httpService.testing(JSON.stringify(this.orderForm.value));
     };
     return DialogComponent;
 }());
 __decorate([
     core_1.Input(),
-    __metadata("design:type", Object)
-], DialogComponent.prototype, "closable", void 0);
+    __metadata("design:type", String)
+], DialogComponent.prototype, "visible", void 0);
 __decorate([
     core_1.Input(),
-    __metadata("design:type", Boolean)
-], DialogComponent.prototype, "visible", void 0);
+    __metadata("design:type", Object)
+], DialogComponent.prototype, "event", void 0);
 __decorate([
     core_1.Output(),
     __metadata("design:type", core_1.EventEmitter)
@@ -49,7 +60,7 @@ DialogComponent = __decorate([
             ])
         ]
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [forms_1.FormBuilder, http_service_1.HttpService])
 ], DialogComponent);
 exports.DialogComponent = DialogComponent;
 //# sourceMappingURL=app.dialog.js.map

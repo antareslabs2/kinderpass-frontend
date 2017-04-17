@@ -1177,36 +1177,23 @@ textarea.textarea {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.7);
   z-index: 100;
   text-align: center;
   opacity: 1; }
   .popup-wrapper {
     z-index: 101;
-    width: 465px;
     height: auto;
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
-    -webkit-transform: translate3d(0, -50%, 0);
-            transform: translate3d(0, -50%, 0);
+    -webkit-transform: translate3d(-50%, -50%, 0);
+            transform: translate3d(-50%, -50%, 0);
     text-align: left;
-    margin-left: -232.5px;
     background-color: #fff;
     border-radius: 15px;
     padding: 50px 115px;
-    border: 8px solid #fff;
-    text-align: center; }
-    .popup-wrapper .btn {
-      margin-bottom: 25px;
-      width: 100%;
-      text-transform: none;
-      border-radius: 7px; }
-    @media only screen and (max-width: 420px) {
-      .popup-wrapper {
-        left: 5%;
-        width: 90%;
-        margin-left: 0; } }
+    text-align: center;
+    max-width: 100%; }
   .popup-title {
     font-size: 26px;
     font-family: 'rounds';
@@ -1246,3 +1233,117 @@ textarea.textarea {
       background-color: #fff;
       -webkit-transform: rotate(-45deg);
               transform: rotate(-45deg); }
+
+.login {
+  background: rgba(0, 0, 0, 0.7); }
+  .login-wrapper {
+    width: 465px;
+    border: 8px solid #fff; }
+    @media only screen and (max-width: 420px) {
+      .login-wrapper {
+        left: 5%;
+        width: 90%;
+        margin-left: 0; } }
+    .login-wrapper .btn {
+      margin-bottom: 25px;
+      width: 100%;
+      text-transform: none;
+      border-radius: 7px; }
+
+.event {
+  background: rgba(159, 150, 184, 0.7); }
+  .event-wrapper {
+    width: 910px;
+    max-height: 100%;
+    overflow-y: auto;
+    border: 4px solid #1cbbb4;
+    padding: 25px 40px;
+    text-align: left; }
+    .event-wrapper .popup-close {
+      top: 25px;
+      right: 40px;
+      width: 20px;
+      height: 20px; }
+      .event-wrapper .popup-close:before, .event-wrapper .popup-close:after {
+        width: 4px;
+        height: 20px;
+        background-color: #8e7dba;
+        border-radius: 5px; }
+  .event-image {
+    margin: 20px 0;
+    height: 320px;
+    position: relative; }
+    .event-image img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      -o-object-fit: cover;
+         object-fit: cover;
+      width: 100%;
+      height: 100%; }
+  .event-title {
+    color: #8e7dba;
+    font-size: 32px;
+    font-family: 'rounds';
+    margin-right: 30px; }
+  .event-description {
+    color: #000;
+    font-size: 22px;
+    line-height: 25px;
+    margin: 20px 0; }
+  .event-info {
+    min-height: 60px;
+    clear: both;
+    margin: 25px 0; }
+    @media only screen and (max-width: 420px) {
+      .event-info {
+        margin: 15px 0; } }
+  .event-address {
+    color: #8e7dba;
+    font-size: 26px;
+    padding-left: 35px;
+    background-image: url("../img/location.png");
+    background-repeat: no-repeat;
+    background-position: top left;
+    background-size: 23px; }
+  .event-time {
+    font-size: 22px;
+    color: #8e7dba;
+    float: right;
+    text-align: left; }
+    @media only screen and (max-width: 420px) {
+      .event-time {
+        float: none;
+        margin-bottom: 15px; } }
+    .event-time span {
+      font-size: 32px;
+      padding-left: 40px;
+      background-image: url("../img/time.png");
+      background-repeat: no-repeat;
+      background-position: center left;
+      background-size: 29px;
+      min-height: 35px;
+      line-height: 35px;
+      display: block; }
+  .event-duration {
+    font-size: 22px;
+    line-height: 25px; }
+    .event-duration p {
+      color: #393939; }
+  .event-price {
+    float: right;
+    color: #ea6fe3;
+    font-size: 36px;
+    padding-right: 40px;
+    background-image: url("../img/mоnеy.png");
+    background-repeat: no-repeat;
+    background-position: center right;
+    background-size: 33px;
+    min-height: 35px;
+    line-height: 40px; }
+    @media only screen and (max-width: 420px) {
+      .event-price {
+        float: left;
+        margin-bottom: 15px; } }
+  .event-btns {
+    text-align: center; }

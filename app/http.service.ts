@@ -17,7 +17,7 @@ export class HttpService{
          
         let headers = new Headers({ 'Content-Type': 'application/json;charset=utf-8' });
          
-        return this.http.post(this.url + 'api/accounts/get_info', body, { headers: headers })
+        return this.http.get(this.url + 'api/accounts/get_info')
                         .map((resp:Response)=>resp.json())
                         .catch((error:any) =>{return Observable.throw(error);}); 
     }
@@ -41,6 +41,14 @@ export class HttpService{
             url += key + '=' + getParams[key] + '&';
         }
         return this.http.get(url)
+                        .map((resp:Response)=>resp.json())
+                        .catch((error:any) =>{return Observable.throw(error);}); 
+    }
+
+    testing(data:string){
+         
+        let headers = new Headers({ 'Content-Type': 'application/json;charset=utf-8' });
+        return this.http.post('http://demo.paykeeper.ru/create/', data, {headers:headers})
                         .map((resp:Response)=>resp.json())
                         .catch((error:any) =>{return Observable.throw(error);}); 
     }

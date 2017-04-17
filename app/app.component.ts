@@ -1,5 +1,4 @@
-import { Component, OnInit} from '@angular/core';
-import { Response} from '@angular/http';
+import { Component, OnInit } from '@angular/core';
 import { HttpService} from './http.service';
 
 import * as $ from 'jquery';
@@ -19,6 +18,7 @@ export class AppComponent implements OnInit {
   
 	categories:any;
 	events:any;
+	selectedEvent:any;
 	dates:any[];
 	months:string[];
 	ages:any[];
@@ -27,8 +27,8 @@ export class AppComponent implements OnInit {
 	times: any;
 	selectedDate:string;
 	resultsToShow:number;
-	openPopup: boolean;
-	isAuthorized: boolean;
+	openPopup: string;
+	isAuthenticated: boolean;
 	
 	curDate:string;
 	curCategory : number;
@@ -36,9 +36,29 @@ export class AppComponent implements OnInit {
 	age_to:number;
 	time_from:number;
 	time_to:number;
+
 	constructor(private httpService: HttpService){
-		this.isAuthorized = false;
-		this.openPopup = false;
+		this.selectedEvent = {
+			"name":'test',
+			'photo':"app/img/results1.jpg",
+			'duration': "90",
+			"description":"17.03 в 18.00 – Кинопоказ фильма «Бруклин» на языке оригинала в честь Дня Святого Патрика \
+18.03 в 13.30 – Детский кинопоказ ирландского мультфильма «Тайна Келлс» \
+18.03 в 14.50 – Мастер-класс «Четырёхлистник на удачу» по изготовлению бумажного клевера-четырёхлистника в технике оригами \
+18.03 в 16.20 - мастер-класс Андрея Касьяненко «Фенечка в кельтском стиле» по плетению браслета из мулине (нитки-мулине зелёного и других цветов взять с собой)\
+24.03 в 17.30- мастер-класс «Талисман удачи» (крючок и нитки взять с собой)",
+			"locations": {
+				"address": "Библиотека им. К. А. Тимирязева",
+				"time_slots": {
+					"start_time" : "12:00",
+					"date": "9 апреля 2017",
+					'free_seats': 4,
+					"price" : 3
+				}
+			}
+		};
+		this.isAuthenticated = false;
+		this.openPopup = '';
 		this.resultsToShow = 1;
 		this.monday = new Date();
 		this.selectedDate = new Date().toDateString();
@@ -49,18 +69,18 @@ export class AppComponent implements OnInit {
 		this.times = [
 			{
 				"key":"День",
-			 	"time_from":0,
-			 	"time_to": 12
+				"time_from":0,
+				"time_to": 12
 			},
 			{
 				"key":"Вечер",
-			 	"time_from":13,
-			 	"time_to": 24
+				"time_from":13,
+				"time_to": 24
 			},
 			{
 				"key":"Весь день",
-			 	"time_from":0,
-			 	"time_to": 24
+				"time_from":0,
+				"time_to": 24
 			}
 		];
 	}
@@ -68,9 +88,9 @@ export class AppComponent implements OnInit {
 	ngOnInit(){
 		this.httpService.getInfo().subscribe((data:any) => {
 			if(data.status == 'ERROR') {
-				this.isAuthorized = false;
+				this.isAuthenticated = false;
 			} else {
-				this.isAuthorized = true;
+				this.isAuthenticated = true;
 			}
 		});
 		let d = new Date();

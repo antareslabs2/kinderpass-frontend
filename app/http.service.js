@@ -23,7 +23,7 @@ var HttpService = (function () {
     HttpService.prototype.getInfo = function () {
         var body = '';
         var headers = new http_2.Headers({ 'Content-Type': 'application/json;charset=utf-8' });
-        return this.http.post(this.url + 'api/accounts/get_info', body, { headers: headers })
+        return this.http.get(this.url + 'api/accounts/get_info')
             .map(function (resp) { return resp.json(); })
             .catch(function (error) { return Observable_1.Observable.throw(error); });
     };
@@ -42,6 +42,12 @@ var HttpService = (function () {
             url += key + '=' + getParams[key] + '&';
         }
         return this.http.get(url)
+            .map(function (resp) { return resp.json(); })
+            .catch(function (error) { return Observable_1.Observable.throw(error); });
+    };
+    HttpService.prototype.testing = function (data) {
+        var headers = new http_2.Headers({ 'Content-Type': 'application/json;charset=utf-8' });
+        return this.http.post('http://demo.paykeeper.ru/create/', data, { headers: headers })
             .map(function (resp) { return resp.json(); })
             .catch(function (error) { return Observable_1.Observable.throw(error); });
     };

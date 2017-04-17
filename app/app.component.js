@@ -15,8 +15,27 @@ require("slick");
 var AppComponent = (function () {
     function AppComponent(httpService) {
         this.httpService = httpService;
-        this.isAuthorized = false;
-        this.openPopup = false;
+        this.selectedEvent = {
+            "name": 'test',
+            'photo': "app/img/results1.jpg",
+            'duration': "90",
+            "description": "17.03 в 18.00 – Кинопоказ фильма «Бруклин» на языке оригинала в честь Дня Святого Патрика \
+18.03 в 13.30 – Детский кинопоказ ирландского мультфильма «Тайна Келлс» \
+18.03 в 14.50 – Мастер-класс «Четырёхлистник на удачу» по изготовлению бумажного клевера-четырёхлистника в технике оригами \
+18.03 в 16.20 - мастер-класс Андрея Касьяненко «Фенечка в кельтском стиле» по плетению браслета из мулине (нитки-мулине зелёного и других цветов взять с собой)\
+24.03 в 17.30- мастер-класс «Талисман удачи» (крючок и нитки взять с собой)",
+            "locations": {
+                "address": "Библиотека им. К. А. Тимирязева",
+                "time_slots": {
+                    "start_time": "12:00",
+                    "date": "9 апреля 2017",
+                    'free_seats': 4,
+                    "price": 3
+                }
+            }
+        };
+        this.isAuthenticated = false;
+        this.openPopup = '';
         this.resultsToShow = 1;
         this.monday = new Date();
         this.selectedDate = new Date().toDateString();
@@ -46,10 +65,10 @@ var AppComponent = (function () {
         var _this = this;
         this.httpService.getInfo().subscribe(function (data) {
             if (data.status == 'ERROR') {
-                _this.isAuthorized = false;
+                _this.isAuthenticated = false;
             }
             else {
-                _this.isAuthorized = true;
+                _this.isAuthenticated = true;
             }
         });
         var d = new Date();

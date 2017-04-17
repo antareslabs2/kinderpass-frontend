@@ -1,9 +1,38 @@
-<div [@dialog] *ngIf="visible" (click)="close()" class="popup">
+<div [@dialog] *ngIf="visible == 'login'" (click)="close()" class="popup login">
 </div>
-<div [@dialog] *ngIf="visible" class="popup-wrapper">
-	<div *ngIf="closable" (click)="close()" class="popup-close modal-close"></div>
+<div [@dialog] *ngIf="visible == 'login'" class="popup-wrapper login-wrapper">
+	<div (click)="close()" class="popup-close modal-close"></div>
 	<p class="popup-title">Войти</p>
 	<p class="popup-description">Чтобы продолжить,<br>войдите через социальную сеть</p>
 	<a href="http://test.kinderpass.ru/oauth/login/vk-oauth2/" class="btn btn-vk">Vkontakte</a>
 	<a href="http://test.kinderpass.ru/oauth/login/facebook/" class="btn btn-fb">Facebook</a>
+</div>
+
+<div [@dialog] *ngIf="visible == 'event'" (click)="close()" class="event popup">
+</div>
+<div [@dialog] *ngIf="visible == 'event'" class="popup-wrapper event-wrapper">
+	<div (click)="close()" class="popup-close modal-close"></div>
+	<p class="event-title">{{event.name}}</p>
+	<div class="event-image">
+		<img src="{{event.photo}}" alt="">
+	</div>
+	<p class="event-description">{{event.description}}</p>
+	<div class="event-info">
+		<div class="event-time"><span>{{event.locations.time_slots.start_time}}</span>{{event.locations.time_slots.date}}</div>
+		<div class="event-address">{{event.locations.address}}</div>
+	</div>
+	<div class="event-info">
+		<div class="event-price">{{event.locations.time_slots.price}}</div>
+		<div class="event-duration">
+			<p>Продолжительность - {{event.duration}}</p>
+			<p>Количество свободных мест - {{event.locations.time_slots.free_seats}}</p>
+		</div>
+	</div>
+	<form  ngNoForm class="event-btns" action="http://demo.paykeeper.ru/create/" method="POST">
+	<!-- <form  [formGroup]="orderForm" (ngSubmit)="paykeeper()" class="event-btns"> -->
+		<!--  action="http://demo.paykeeper.ru/create/" method="POST" -->
+		<!-- TBD -->
+		<input name="sum" type="hidden" [(ngModel)]="event.locations.time_slots.price" />
+		<button type="submit" class="btn">Записаться</button>
+	</form>
 </div>

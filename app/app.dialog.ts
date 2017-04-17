@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Output, OnChanges, EventEmitter } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { HttpService} from './http.service';
 
 @Component({
   selector: 'app-dialog',
@@ -16,16 +18,28 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
   ]
 })
 export class DialogComponent implements OnInit {
-  @Input() closable = true;
-  @Input() visible: boolean;
+  orderForm: FormGroup;
+
+  @Input() visible: string;
+  @Input() event: any;
   @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  constructor() { }
+  constructor(private fb: FormBuilder, private httpService: HttpService) { }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    this.orderForm = new FormGroup({
+       sum: new FormControl()
+    });
+  }
 
   close() {
-    this.visible = false;
+    this.visible = '';
     this.visibleChange.emit(this.visible);
+  }
+
+  paykeeper() {
+    this.orderForm.controls['sum'].setValue(this.event.locations.time_slots.price);
+    
+    let dat = this.httpService.testing(JSON.stringify(this.orderForm.value));
   }
 }

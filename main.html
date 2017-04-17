@@ -11,8 +11,8 @@
 					<a href="mailto:hello@kinderpass.ru"><img src="app/img/mail.png" alt=""><span>hello@kinderpass.ru</span></a>
 				</div><!-- 
 			 --><div class="links">
-					<a href="">О проекте</a><span *ngIf="!isAuthorized" (click)="openPopup = !openPopup">Войти</span>
-					<span *ngIf="isAuthorized">Личный кабинет</span>
+					<a href="">О проекте</a><span *ngIf="!isAuthenticated" (click)="openPopup = 'login'">Войти {{openPopup}}</span>
+					<span *ngIf="isAuthenticated">Личный кабинет</span>
 				</div>
 			</div>
 		</header>
@@ -21,7 +21,7 @@
 			<div class="title">
 				<h1>Абонемент в лучшие детские места Питера</h1>
 				<p>Киндерпасс дает возможность найти, записаться и прийти на интересные мастер-классы и детские активности с хорошей скидкой</p>
-				<a href="#form" class="btn btn-line">Получить абонемент</a>
+				<a href="#form" (click)="openPopup = 'event'" class="btn btn-line">Получить абонемент</a>
 				<a href="#form" class="mobileLink">Посмотреть расписание</a>
 			</div>
 		</div>
@@ -199,12 +199,13 @@
 			 --><div class="results-item-description">
 					<div class="results-item-title">{{item.name}}</div>
 					<div class="results-item-recommendation">{{item.description}}</div>
-					<div class="results-item-location">{{item.location.address}}</div>
+					<div class="results-item-location">{{item.locations.address}}</div>
 				</div><!-- 
 			 --><div class="results-item-cost">
-					<div class="results-item-time"><span>{{item.start_time}}</span></div>
-					<div class="results-item-price"><span>{{item.price}}</span></div>
-					<div class="btn">Записаться</div>
+					<div class="results-item-time"><span>{{item.locations.time_slots.start_time}}</span></div>
+					<div class="results-item-price"><span>{{item.locations.time_slots.price}}</span></div>
+					<!-- NBD -->
+					<div class="btn" (click)="openPopup = 'event'">Записаться</div>
 				</div>
 			</div>
 	 		
@@ -271,7 +272,7 @@
 		<div class="copyright">© 2017 ООО Киндерпасс</div>
 	</div>
 </footer>
-<app-dialog [(visible)]="openPopup">
+<app-dialog [(visible)]="openPopup" [(event)]="selectedEvent">
 </app-dialog>
 <!-- <script src="app/js/jquery.min.js"></script> -->
 <!-- <script src="app/js/jquery.inputmask.js"></script> -->

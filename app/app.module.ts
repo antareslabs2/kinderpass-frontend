@@ -1,6 +1,6 @@
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule }   from '@angular/forms';
+import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -11,7 +11,7 @@ import { HttpModule }   from '@angular/http';
 import { LOCALE_ID } from '@angular/core';
 
 @NgModule({
-    imports:      [ BrowserModule, FormsModule, HttpModule, BrowserAnimationsModule ],
+    imports:      [ BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, BrowserAnimationsModule ],
     declarations: [ AppComponent, DialogComponent ],
     bootstrap:    [ AppComponent ],
     providers: [
