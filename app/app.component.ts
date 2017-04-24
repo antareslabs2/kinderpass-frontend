@@ -36,30 +36,17 @@ export class AppComponent implements OnInit {
 	age_to:number;
 	time_from:number;
 	time_to:number;
+	districtIDs:number[];
+	metroIDs:number[];
+
+	testqq:number;
 
 	constructor(private httpService: HttpService){
-		this.selectedEvent = {
-			"name":'test',
-			'photo':"app/img/results1.jpg",
-			'duration': "90",
-			"description":"17.03 в 18.00 – Кинопоказ фильма «Бруклин» на языке оригинала в честь Дня Святого Патрика \
-18.03 в 13.30 – Детский кинопоказ ирландского мультфильма «Тайна Келлс» \
-18.03 в 14.50 – Мастер-класс «Четырёхлистник на удачу» по изготовлению бумажного клевера-четырёхлистника в технике оригами \
-18.03 в 16.20 - мастер-класс Андрея Касьяненко «Фенечка в кельтском стиле» по плетению браслета из мулине (нитки-мулине зелёного и других цветов взять с собой)\
-24.03 в 17.30- мастер-класс «Талисман удачи» (крючок и нитки взять с собой)",
-			"locations": {
-				"address": "Библиотека им. К. А. Тимирязева",
-				"time_slots": {
-					"start_time" : "12:00",
-					"date": "9 апреля 2017",
-					'free_seats': 4,
-					"price" : 3
-				}
-			}
-		};
+		this.testqq=10000;
+		this.selectedEvent = {};
 		this.isAuthenticated = false;
 		this.openPopup = '';
-		this.resultsToShow = 1;
+		this.resultsToShow = 8;
 		this.monday = new Date();
 		this.selectedDate = new Date().toDateString();
 		this.events = [];
@@ -83,12 +70,16 @@ export class AppComponent implements OnInit {
 				"time_to": 24
 			}
 		];
+		this.districtIDs = [];
+		this.metroIDs = [];
 	}
 
 	ngOnInit(){
 		this.httpService.getInfo().subscribe((data:any) => {
+			console.log(data);
 			if(data.status == 'ERROR') {
 				this.isAuthenticated = false;
+						this.initSlider();
 			} else {
 				this.isAuthenticated = true;
 			}
@@ -96,13 +87,12 @@ export class AppComponent implements OnInit {
 		let d = new Date();
 		this.weekday = d.getDay()-1;
 		this.curDate = d.getFullYear().toString() + ("0" + (d.getMonth() + 1)).slice(-2) + ("0" + d.getDate()).slice(-2);
-		this.initSlider();
 		this.httpService.getCategories().subscribe((data:any) => {
 			this.categories=data.categories;
 			this.curCategory = this.categories.filter((item: any)=> item.name === 'Киндерпасс')[0]['id'];
 			this.httpService.getSchedule(this.curCategory, this.curDate, {}).subscribe((data:any) => {
 				if(data.results > 0) {
-					this.events = data;
+					this.parseActivities(data);
 				}
 			});
 		});
@@ -112,7 +102,6 @@ export class AppComponent implements OnInit {
 			this.monday.setHours(-24 * (day-1));
 		// 
 		this.initDates();
-
 	}
 
 	initDates() {
@@ -217,15 +206,16 @@ export class AppComponent implements OnInit {
 			$(event.target).parents('.week-day').siblings().removeClass('filters-option-active');
 			$(event.target).parents('.week-day').addClass('filters-option-active');
 		}
-		this.httpService.getSchedule(this.curCategory, this.curDate, {}).subscribe((data:any) => {
-			if(data.results > 0) {
-				this.events = data;
-			}
-			this.resultsToShow = 1;
-		});
+		this.eventsFilter();
 	}
 
 	filterByOption(event:any) {
+		$(event.target).siblings().removeClass('filters-option-active');
+		$(event.target).addClass('filters-option-active');
+		this.eventsFilter();
+	}
+
+	eventsFilter() {
 		let getParams:any = {};
 		if (this.age_from != undefined)
 			getParams.age_from = this.age_from;
@@ -235,13 +225,16 @@ export class AppComponent implements OnInit {
 			getParams.time_from = this.time_from;
 		if (this.time_to != undefined)
 			getParams.time_to = this.time_to;
-		$(event.target).siblings().removeClass('filters-option-active');
-		$(event.target).addClass('filters-option-active');
+		if (this.districtIDs.length > 0)
+			getParams.district_ids = this.districtIDs;
+		if (this.metroIDs.length > 0)
+			getParams.metro_ids = this.metroIDs;
 		this.httpService.getSchedule(this.curCategory, this.curDate, getParams).subscribe((data:any) => {
+			this.events = [];
 			if(data.results > 0) {
-				this.events = data;
+				this.parseActivities(data);
 			}
-			this.resultsToShow = 1;
+			this.resultsToShow = 8;
 		});
 	}
 
@@ -254,5 +247,51 @@ export class AppComponent implements OnInit {
 		this.monday.setDate( this.monday.getDate() - 7)
 		this.initDates();
 	}
-				
+
+	parseActivities(data: any) {
+		for( let item in data.activities) {
+			for( let location in data.activities[item].locations) {
+				for (let time in data.activities[item].locations[location].time_slots) {
+					this.events.push({
+						'id': data.activities[item].id,
+						'name': data.activities[item].name,
+						'description': data.activities[item].description,
+						'photo': data.activities[item].photo,
+						'duration': data.activities[item].duration,
+						'locations': {
+							'id': data.activities[item].locations[location].id,
+							'address': data.activities[item].locations[location].address,
+							'latitude': data.activities[item].locations[location].latitude,
+							'longitude': data.activities[item].locations[location].longitude,
+							'time_slots':{
+								'id': data.activities[item].locations[location].time_slots[time].id,
+								'date': data.activities[item].locations[location].time_slots[time].date,
+								'start_time': data.activities[item].locations[location].time_slots[time].start_time,
+								'end_time': data.activities[item].locations[location].time_slots[time].end_time,
+								'free_seats': data.activities[item].locations[location].time_slots[time].free_seats,
+								'allocated_seats': data.activities[item].locations[location].time_slots[time].allocated_seats,
+								'price': data.activities[item].locations[location].time_slots[time].price
+							}
+						},
+						'provider': {
+							'id': data.activities[item].provider.id,
+							'name': data.activities[item].provider.name
+						}
+					});
+				}
+			}
+		}
+	}
+	
+	districtsFilter(districts:number[]) {
+		this.districtIDs = districts;
+		this.metroIDs = [];
+		this.eventsFilter();
+	}
+
+	metroFilter(metro:number[]) {
+		this.districtIDs = [];
+		this.metroIDs = metro;
+		this.eventsFilter();
+	}				
 }

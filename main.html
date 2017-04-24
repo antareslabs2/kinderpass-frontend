@@ -11,7 +11,7 @@
 					<a href="mailto:hello@kinderpass.ru"><img src="app/img/mail.png" alt=""><span>hello@kinderpass.ru</span></a>
 				</div><!-- 
 			 --><div class="links">
-					<a href="">О проекте</a><span *ngIf="!isAuthenticated" (click)="openPopup = 'login'">Войти {{openPopup}}</span>
+					<a href="">О проекте</a><span *ngIf="!isAuthenticated" (click)="openPopup = 'login'">Войти</span>
 					<span *ngIf="isAuthenticated">Личный кабинет</span>
 				</div>
 			</div>
@@ -21,8 +21,8 @@
 			<div class="title">
 				<h1>Абонемент в лучшие детские места Питера</h1>
 				<p>Киндерпасс дает возможность найти, записаться и прийти на интересные мастер-классы и детские активности с хорошей скидкой</p>
-				<a href="#form" (click)="openPopup = 'event'" class="btn btn-line">Получить абонемент</a>
-				<a href="#form" class="mobileLink">Посмотреть расписание</a>
+				<a href="#subscription" class="btn btn-line">Получить абонемент</a>
+				<a href="#filter" class="mobileLink">Посмотреть расписание</a>
 			</div>
 		</div>
 
@@ -86,8 +86,7 @@
 		</div>
 	</div>
 </div>
-
-<div class="gallery">
+<div *ngIf="!isAuthenticated" class="gallery">
 	<div class="wrapper">
 		<h2>Лучшие предложения<span> на ближайшую неделю</span></h2>
 		<div class="slider-wrap">
@@ -100,7 +99,7 @@
 						<h3>Примавера Роботикс</h3>
 						<p>Легомеханика и робототехника  /  Афонская, 18, Пятилеток, 2 и др.</p>
 						<p class="amount">Скидка <span class="percent">36%</span><span class="mobileText"> при покупке абонемента</span></p>
-						<a href="#form" class="btn btn-line">Хочу пойти!</a>
+						<a href="#subscription" class="btn btn-line">Хочу пойти!</a>
 					</div>
 				</div>
 				<div>
@@ -111,7 +110,7 @@
 						<h3>Клуб Jump</h3>
 						<p>Уникальное место с батутами и лабиринтами  /  Славы, 32, Челиева, 17</p>
 						<p class="amount">Скидка <span class="percent">36%</span><span class="mobileText"> при покупке абонемента</span></p>
-						<a href="#form" class="btn btn-line">Хочу пойти!</a>
+						<a href="#subscription" class="btn btn-line">Хочу пойти!</a>
 					</div>
 				</div>
 				<div>
@@ -122,7 +121,7 @@
 						<h3>Лабиринтум</h3>
 						<p>Интерактивный музей, 100+ экспонатов и механизмов  /  Льва Толстого, 9А, Космонавтов, 14</p>
 						<p class="amount">Скидка <span class="percent">36%</span><span class="mobileText"> при покупке абонемента</span></p>
-						<a href="#form" class="btn btn-line">Хочу пойти!</a>
+						<a href="#subscription" class="btn btn-line">Хочу пойти!</a>
 					</div>
 				</div>
 				<div>
@@ -133,7 +132,7 @@
 						<h3>Творец</h3>
 						<p>Студия гончарного мастерства  /  Заставская 11, кор. 2</p>
 						<p class="amount">Скидка <span class="percent">36%</span><span class="mobileText"> при покупке абонемента</span></p>
-						<a href="#form" class="btn btn-line">Хочу пойти!</a>
+						<a href="#subscription" class="btn btn-line">Хочу пойти!</a>
 					</div>
 				</div>
 				<div>
@@ -144,7 +143,7 @@
 						<h3>Italy Group Мастер-классы</h3>
 						<p>Кулинарные мастер-классы  /  Энгельса</p>
 						<p class="amount">Скидка <span class="percent">36%</span><span class="mobileText"> при покупке абонемента</span></p>
-						<a href="#form" class="btn btn-line">Хочу пойти!</a>
+						<a href="#subscription" class="btn btn-line">Хочу пойти!</a>
 					</div>
 				</div>
 			</div>
@@ -154,14 +153,14 @@
 	</div>
 </div>
 <div class="helper"></div>
-<div class="form" id="form">
+<div class="form" id="filter">
 	<div class="wrapper">
 		<h2>Расписание</h2>
 		<div class="filters">
 			<div class="filters-item filters-location">
-				<span class="filters-option">Район</span>
+				<span class="filters-option" (click)="openPopup='districts';">Район</span>
 				<span class="filters-text">или</span>
-				<span class="filters-option">Метро</span>
+				<span class="filters-option"(click)="openPopup='metro';">Метро</span>
 				<p class="locations"></p>
 			</div><!-- 
 		 --><div class="filters-item filters-time">
@@ -173,12 +172,12 @@
 			</div><!-- 
 		 --><div class="filters-item filters-category">
 				<!-- <p>{{categories}}</p> -->
-				<span class="filters-option" *ngFor="let category of categories; let i = index;" attr.data-id="{{category.id}}" (click)="curCategory = category.id; filterByOption($event)"
+				<span class="filters-option" *ngFor="let category of categories; let i = index;"  (click)="curCategory = category.id; filterByOption($event)"
 				[class.filters-option-active]="category.name == 'Киндерпасс'">{{category.name}}</span>
 			</div>
 		</div>  
 		<div class="week">
-			<div class="week-day" *ngFor="let d of dates; " [class.filters-option-active]="selectedDate == d.date" (click)="curDate = d.filter; selectedDate = d.date; filterByDate($event);">
+			<div class="week-day" *ngFor="let d of dates;" [class.filters-option-active]="selectedDate == d.date" (click)="curDate = d.filter; selectedDate = d.date; filterByDate($event);">
 				<div class="desktop">
 					<p>{{d.date | date: 'EEEE'}}</p>
 					<span>{{d.month}}</span>
@@ -193,28 +192,27 @@
 		</div><!--   
 	 --><div class="selectedDay">{{selectedDate | date: 'EEEE'}} , {{selectedDate | date: 'dd.MM'}}</div><!-- 
 	 --><div class="results" *ngIf="events">
-
-			<div class="results-item" *ngFor="let item of events | slice:0:resultsToShow; let i=index;">
+			<div class="results-item" *ngFor="let item of events | slice:0:resultsToShow;">
 				<div class="results-item-image"><img src="{{item.photo}}" alt=""></div><!-- 
 			 --><div class="results-item-description">
 					<div class="results-item-title">{{item.name}}</div>
 					<div class="results-item-recommendation">{{item.description}}</div>
 					<div class="results-item-location">{{item.locations.address}}</div>
 				</div><!-- 
-			 --><div class="results-item-cost">
+				 --><div class="results-item-cost">
 					<div class="results-item-time"><span>{{item.locations.time_slots.start_time}}</span></div>
 					<div class="results-item-price"><span>{{item.locations.time_slots.price}}</span></div>
 					<!-- NBD -->
-					<div class="btn" (click)="openPopup = 'event'">Записаться</div>
+					<div class="btn" (click)="openPopup='event';selectedEvent=item;">Записаться</div>
 				</div>
 			</div>
 	 		
 	 	</div>
-	 	<div class="moreResults" *ngIf="resultsToShow < events.length"  (click)="resultsToShow = resultsToShow + 1">Еще (<span>{{events.length - resultsToShow}}</span>)</div>
+	 	<div class="moreResults" *ngIf="resultsToShow < events.length" (click)="resultsToShow = resultsToShow + 8">Еще (<span>{{events.length - resultsToShow}}</span>)</div>
 	</div>
 </div>
 <div class="bottomHelper"></div>
-<div class="options">
+<div class="options" id="subscription" *ngIf="!isAuthenticated">
 	<div class="wrapper">
 	  <h2>Выберите свой абонемент</h2>
 		<div class="options-item">
@@ -223,7 +221,11 @@
 				<div class="options-durations">2-6 посещений в месяц</div>
 				<h3>1 499 руб.</h3>
 				<p class="options-description">Разнообразьте досуг вашего ребенка, даже если вы его постоянно куда-то водите.</p>
-				<a href="#form" data-kinderpass="Занятый родитель" class="btn">Купить</a>
+				<form  ngNoForm class="btns" action="http://demo.paykeeper.ru/create/" method="POST">
+					<!-- TBD -->
+					<input name="sum" type="hidden" value="1499"/>
+					<button type="submit" class="btn" (click)="test(1499, $event)">Купить</button>
+				</form>
 			</div>
 		</div>
 		<div class="options-item">
@@ -232,7 +234,10 @@
 				<div class="options-durations">4-12 посещений в месяц</div>
 				<h3>2 699 руб.</h3>
 				<p class="options-description">Это 1 или 2 новых события для ваших детей каждую неделю. Гарантированно.</p>
-				<a href="#form" data-kinderpass="Активная семья" class="btn">Купить</a>
+				<form  ngNoForm class="btns" action="http://demo.paykeeper.ru/create/" method="POST">
+					<input name="sum" type="hidden" value="2699"/>
+					<button type="submit" class="btn">Купить</button>
+				</form>
 			</div>
 		</div>
 		<div class="options-item">
@@ -241,7 +246,10 @@
 				<div class="options-durations">6-22 посещений в месяц</div>
 				<h3>4 550 руб.</h3>
 				<p class="options-description">Опция для большой семьи. Используйте возможности абонемента максимально!</p>
-				<a href="#form" data-kinderpass="Большая семья" class="btn">Купить</a>
+				<form  ngNoForm class="btns" action="http://demo.paykeeper.ru/create/" method="POST">
+					<input name="sum" type="hidden" value="4550"/>
+					<button type="submit" class="btn">Купить</button>
+				</form>
 			</div>
 		</div>
 	</div>
@@ -265,19 +273,16 @@
 		</div><!-- 
 	 --><div class="col-1-4">
 			<h4>Мы в соцсетях</h4>
-			<span class="social social-fb"></span>
-			<span class="social social-vk"></span>
-			<span class="social social-inst"></span>
+			<a href="/" class="social social-fb"></a>
+			<a href="/" class="social social-vk"></a>
+			<a href="/" class="social social-inst"></a>
 		</div>
 		<div class="copyright">© 2017 ООО Киндерпасс</div>
 	</div>
 </footer>
-<app-dialog [(visible)]="openPopup" [(event)]="selectedEvent">
+<app-dialog [(visible)]="openPopup" [(event)]="selectedEvent" (districtsFilter)="districtsFilter($event)" (metroFilter)="metroFilter($event)">
 </app-dialog>
-<!-- <script src="app/js/jquery.min.js"></script> -->
-<!-- <script src="app/js/jquery.inputmask.js"></script> -->
-<!-- <script src="app/js/slick/slick.js"></script> -->
-<!-- <script src="app/js/scripts.js"></script> -->
+
 <script>
   // (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   // (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

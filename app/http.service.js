@@ -21,22 +21,35 @@ var HttpService = (function () {
         this.url = 'https://test.kinderpass.ru/';
     }
     HttpService.prototype.getInfo = function () {
-        var body = '';
-        var headers = new http_2.Headers({ 'Content-Type': 'application/json;charset=utf-8' });
         return this.http.get(this.url + 'api/accounts/get_info')
             .map(function (resp) { return resp.json(); })
             .catch(function (error) { return Observable_1.Observable.throw(error); });
     };
+    HttpService.prototype.getDistricts = function () {
+        return this.http.get(this.url + 'api/geo/districts')
+            .map(function (resp) { return resp.json(); })
+            .catch(function (error) { return Observable_1.Observable.throw(error); });
+    };
+    HttpService.prototype.getMetro = function () {
+        return this.http.get(this.url + '/api/geo/metro')
+            .map(function (resp) { return resp.json(); })
+            .catch(function (error) { return Observable_1.Observable.throw(error); });
+    };
     HttpService.prototype.getCategories = function () {
-        var body = '';
-        var headers = new http_2.Headers({ 'Content-Type': 'application/json;charset=utf-8' });
         return this.http.get(this.url + 'api/activities/categories')
             .map(function (resp) { return resp.json(); })
             .catch(function (error) { return Observable_1.Observable.throw(error); });
     };
     HttpService.prototype.getSchedule = function (category_id, date, getParams) {
-        var body = '';
-        var headers = new http_2.Headers({ 'Content-Type': 'application/json;charset=utf-8' });
+        var url = this.url + 'api/activities/list/' + category_id + '/' + date + '?';
+        for (var key in getParams) {
+            url += key + '=' + getParams[key] + '&';
+        }
+        return this.http.get(url)
+            .map(function (resp) { return resp.json(); })
+            .catch(function (error) { return Observable_1.Observable.throw(error); });
+    };
+    HttpService.prototype.initTransaction = function (category_id, date, getParams) {
         var url = this.url + 'api/activities/list/' + category_id + '/' + date + '?';
         for (var key in getParams) {
             url += key + '=' + getParams[key] + '&';
@@ -47,9 +60,21 @@ var HttpService = (function () {
     };
     HttpService.prototype.testing = function (data) {
         var headers = new http_2.Headers({ 'Content-Type': 'application/json;charset=utf-8' });
+        this.http.post('http://demo.paykeeper.ru/create/', data, { headers: headers })
+            .map(function (resp) { return resp.json(); })
+            .catch(function (error) { return Observable_1.Observable.throw(error); });
         return this.http.post('http://demo.paykeeper.ru/create/', data, { headers: headers })
             .map(function (resp) { return resp.json(); })
             .catch(function (error) { return Observable_1.Observable.throw(error); });
+    };
+    HttpService.prototype.makingBooking = function (timeSlotID, seats) {
+        // In docs method = POST
+        var body = '';
+        var headers = new http_2.Headers({ 'Content-Type': 'application/json;charset=utf-8' });
+        var url = this.url + 'api/activities/book/' + timeSlotID + '/' + seats;
+        return this.http.get(url)
+            .map(function (resp) { return resp.json(); })
+            .catch(function (error) { return error; });
     };
     return HttpService;
 }());

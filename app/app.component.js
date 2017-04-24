@@ -15,28 +15,11 @@ require("slick");
 var AppComponent = (function () {
     function AppComponent(httpService) {
         this.httpService = httpService;
-        this.selectedEvent = {
-            "name": 'test',
-            'photo': "app/img/results1.jpg",
-            'duration': "90",
-            "description": "17.03 в 18.00 – Кинопоказ фильма «Бруклин» на языке оригинала в честь Дня Святого Патрика \
-18.03 в 13.30 – Детский кинопоказ ирландского мультфильма «Тайна Келлс» \
-18.03 в 14.50 – Мастер-класс «Четырёхлистник на удачу» по изготовлению бумажного клевера-четырёхлистника в технике оригами \
-18.03 в 16.20 - мастер-класс Андрея Касьяненко «Фенечка в кельтском стиле» по плетению браслета из мулине (нитки-мулине зелёного и других цветов взять с собой)\
-24.03 в 17.30- мастер-класс «Талисман удачи» (крючок и нитки взять с собой)",
-            "locations": {
-                "address": "Библиотека им. К. А. Тимирязева",
-                "time_slots": {
-                    "start_time": "12:00",
-                    "date": "9 апреля 2017",
-                    'free_seats': 4,
-                    "price": 3
-                }
-            }
-        };
+        this.testqq = 10000;
+        this.selectedEvent = {};
         this.isAuthenticated = false;
         this.openPopup = '';
-        this.resultsToShow = 1;
+        this.resultsToShow = 8;
         this.monday = new Date();
         this.selectedDate = new Date().toDateString();
         this.events = [];
@@ -60,12 +43,16 @@ var AppComponent = (function () {
                 "time_to": 24
             }
         ];
+        this.districtIDs = [];
+        this.metroIDs = [];
     }
     AppComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.httpService.getInfo().subscribe(function (data) {
+            console.log(data);
             if (data.status == 'ERROR') {
                 _this.isAuthenticated = false;
+                _this.initSlider();
             }
             else {
                 _this.isAuthenticated = true;
@@ -74,13 +61,12 @@ var AppComponent = (function () {
         var d = new Date();
         this.weekday = d.getDay() - 1;
         this.curDate = d.getFullYear().toString() + ("0" + (d.getMonth() + 1)).slice(-2) + ("0" + d.getDate()).slice(-2);
-        this.initSlider();
         this.httpService.getCategories().subscribe(function (data) {
             _this.categories = data.categories;
             _this.curCategory = _this.categories.filter(function (item) { return item.name === 'Киндерпасс'; })[0]['id'];
             _this.httpService.getSchedule(_this.curCategory, _this.curDate, {}).subscribe(function (data) {
                 if (data.results > 0) {
-                    _this.events = data;
+                    _this.parseActivities(data);
                 }
             });
         });
@@ -187,7 +173,6 @@ var AppComponent = (function () {
         }
     };
     AppComponent.prototype.filterByDate = function (event) {
-        var _this = this;
         if ($(event.target).hasClass('week-day')) {
             $(event.target).siblings().removeClass('filters-option-active');
             $(event.target).addClass('filters-option-active');
@@ -196,14 +181,14 @@ var AppComponent = (function () {
             $(event.target).parents('.week-day').siblings().removeClass('filters-option-active');
             $(event.target).parents('.week-day').addClass('filters-option-active');
         }
-        this.httpService.getSchedule(this.curCategory, this.curDate, {}).subscribe(function (data) {
-            if (data.results > 0) {
-                _this.events = data;
-            }
-            _this.resultsToShow = 1;
-        });
+        this.eventsFilter();
     };
     AppComponent.prototype.filterByOption = function (event) {
+        $(event.target).siblings().removeClass('filters-option-active');
+        $(event.target).addClass('filters-option-active');
+        this.eventsFilter();
+    };
+    AppComponent.prototype.eventsFilter = function () {
         var _this = this;
         var getParams = {};
         if (this.age_from != undefined)
@@ -214,13 +199,16 @@ var AppComponent = (function () {
             getParams.time_from = this.time_from;
         if (this.time_to != undefined)
             getParams.time_to = this.time_to;
-        $(event.target).siblings().removeClass('filters-option-active');
-        $(event.target).addClass('filters-option-active');
+        if (this.districtIDs.length > 0)
+            getParams.district_ids = this.districtIDs;
+        if (this.metroIDs.length > 0)
+            getParams.metro_ids = this.metroIDs;
         this.httpService.getSchedule(this.curCategory, this.curDate, getParams).subscribe(function (data) {
+            _this.events = [];
             if (data.results > 0) {
-                _this.events = data;
+                _this.parseActivities(data);
             }
-            _this.resultsToShow = 1;
+            _this.resultsToShow = 8;
         });
     };
     AppComponent.prototype.nextWeek = function (event) {
@@ -230,6 +218,50 @@ var AppComponent = (function () {
     AppComponent.prototype.lastWeek = function (event) {
         this.monday.setDate(this.monday.getDate() - 7);
         this.initDates();
+    };
+    AppComponent.prototype.parseActivities = function (data) {
+        for (var item in data.activities) {
+            for (var location_1 in data.activities[item].locations) {
+                for (var time in data.activities[item].locations[location_1].time_slots) {
+                    this.events.push({
+                        'id': data.activities[item].id,
+                        'name': data.activities[item].name,
+                        'description': data.activities[item].description,
+                        'photo': data.activities[item].photo,
+                        'duration': data.activities[item].duration,
+                        'locations': {
+                            'id': data.activities[item].locations[location_1].id,
+                            'address': data.activities[item].locations[location_1].address,
+                            'latitude': data.activities[item].locations[location_1].latitude,
+                            'longitude': data.activities[item].locations[location_1].longitude,
+                            'time_slots': {
+                                'id': data.activities[item].locations[location_1].time_slots[time].id,
+                                'date': data.activities[item].locations[location_1].time_slots[time].date,
+                                'start_time': data.activities[item].locations[location_1].time_slots[time].start_time,
+                                'end_time': data.activities[item].locations[location_1].time_slots[time].end_time,
+                                'free_seats': data.activities[item].locations[location_1].time_slots[time].free_seats,
+                                'allocated_seats': data.activities[item].locations[location_1].time_slots[time].allocated_seats,
+                                'price': data.activities[item].locations[location_1].time_slots[time].price
+                            }
+                        },
+                        'provider': {
+                            'id': data.activities[item].provider.id,
+                            'name': data.activities[item].provider.name
+                        }
+                    });
+                }
+            }
+        }
+    };
+    AppComponent.prototype.districtsFilter = function (districts) {
+        this.districtIDs = districts;
+        this.metroIDs = [];
+        this.eventsFilter();
+    };
+    AppComponent.prototype.metroFilter = function (metro) {
+        this.districtIDs = [];
+        this.metroIDs = metro;
+        this.eventsFilter();
     };
     return AppComponent;
 }());
