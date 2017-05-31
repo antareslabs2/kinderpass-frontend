@@ -1,0 +1,74 @@
+<header [class.header-auth]="gs.isAuthenticated || gs.innerpage" class="header">
+	<div class="wrapper">
+		<div class="logo">
+			<a routerLink="/">
+				<img src="app/img/logo.png" alt="">
+				<p>KinderPass</p>
+			</a>
+		</div><!-- 
+	 --><div *ngIf="gs.isAuthenticated" (click)="toogleLK()" class="user">
+			<p class="user-name" [class.user-name_icon]="gs.userInfo.name.length <= 1" ><img src="app/img/profile.png" alt=""><span>{{gs.userInfo.name}}</span></p>
+		</div><!-- 
+	 --><div class="email">
+			<a href="mailto:hello@kinderpass.ru"><img src="app/img/mail.png" alt=""><span>hello@kinderpass.ru</span></a>
+		</div><!-- 
+	 --><div class="links" [class.links-b]="!gs.isAuthenticated">
+			<a routerLink="/about">О проекте</a><span *ngIf="!gs.isAuthenticated" (click)="gs.openPopup('login')">Войти</span>
+			<!-- <a *ngIf="gs.isAuthenticated" routerLink="/lk">Личный кабинет</a> -->
+		</div>
+		<div *ngIf="openProfile" class="user-menu">
+			<div class="user-menu-item">
+				<div class="user-menu-title">
+					<img src="app/img/profile.png" alt="">
+					<p>Профиль</p>
+					<div class="user-menu-btn" (click)="gs.openPopup('updateInfo')"><img src="app/img/edit.png" alt=""></div>
+				</div>
+				<table>
+					<tr>
+						<td>Имя</td>
+						<td>{{gs.userInfo.name}}</td>
+					</tr>
+					<tr>
+						<td>Телефон</td>
+						<td>{{gs.userInfo.phone}}</td>
+					</tr>
+					<tr>
+						<td>E-mail</td>
+						<td>{{gs.userInfo.email}}</td>
+					</tr>
+				</table>
+			</div>
+			<div class="user-menu-item">
+				<div class="user-menu-title">
+					<img src="app/img/sub.png" alt="">
+					<p>Абонемент</p>
+					<a *ngIf="!gs.userInfo.subscription" pageScroll class="user-menu-btn btn" href="#subscription">Купить</a>
+				</div>
+				<table *ngIf="gs.userInfo.subscription">
+					<tr>
+						<td>Баланс</td>
+						<td>{{gs.userInfo.subscription.balance}}</td>
+					</tr>
+					<tr>
+						<td>Заканчивается</td>
+						<td>{{gs.userInfo.subscription.expires_at}}</td>
+					</tr>
+				</table>
+			</div>
+			<div *ngIf="gs.userInfo.bookings.length" class="user-menu-item">
+				<div class="user-menu-title">
+					<img src="app/img/ticket.png" alt="">
+					<p>Брони</p>
+				</div>
+				<div class="user-menu-booking">
+					<p *ngFor="let book of gs.userInfo.bookings">
+						<a [routerLink]="['/event', book.time_slot.id]" (click)="openProfile=false;">{{book.time_slot.activity.name}}</a>
+					</p>
+				</div>
+			</div>
+			<div class="user-logout" (click)="logout()">
+				<p>Выйти</p>
+			</div>
+		</div>
+	</div>
+</header>

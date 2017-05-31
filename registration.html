@@ -1,0 +1,44 @@
+<div class="innerpage">
+    <div class="wrapper">
+        <div class="page-block">
+			<h2>Заполните реквизиты для автоматической генерации Заявления об акцепте оферты / агентского договора </h2>
+			<p>Все поля обязательны.</p>
+			<form action="offer123/offer-gen.php" method="POST" target="_blank" class="offer-form" name="offer-form">
+				<p>Организационно-правовая форма</p>
+				<div id="opf-selector" name="opfs">
+				<label><input (click)="opf='ООО'" type="radio" checked="" name="opf" value="ООО"> Общество с ограниченной ответственностью</label><br>
+				<label><input (click)="opf='ИП'" type="radio" name="opf" value="ИП"> Индивидуальный предприниматель</label>
+				</div>
+				<hr><br>
+				<div id="llc" *ngIf="opf=='ООО'">
+					<input type="text" name="o_name" placeholder="Наименование юридического лица (Без ОПФ)">
+					<input type="text" name="o_address" placeholder="Юридический адрес">
+					<input type="text" name="o_fio" placeholder="ФИО уполномоченного лица">
+					<input type="text" name="o_pos" placeholder="Должность уполномоченного лица">
+					<input type="text" name="o_basis" placeholder="Действующий на основании">
+					<input type="text" name="o_id" placeholder="ОГРН" data-inputmask="'mask': '9999999999999'">
+					<input type="text" name="o_tid" placeholder="ИНН" data-inputmask="'mask': '9999999999'">
+					<input type="text" name="o_kpp" placeholder="КПП" data-inputmask="'mask': '999999999'">
+				</div>
+				<div id="ie" *ngIf="opf=='ИП'">
+					<input type="text" name="ie_name" placeholder="ФИО индивидуального предпринимателя">
+					<input type="text" name="ie_address" placeholder="Адрес регистрации">
+					<input type="text" name="ie_id" placeholder="ОГРНИП" data-inputmask="'mask': '999999999999999'">
+					<input type="text" name="ie_tid" placeholder="ИНН" data-inputmask="'mask': '999999999999'">					
+				</div>
+				<p>Банковские реквизиты</p>
+				<input type="text" name="bank_name" placeholder="Наименование банка">
+				<input type="text" name="bank_id" placeholder="БИК" data-inputmask="'mask': '999999999'">
+				<input type="text" name="bank_cacc" placeholder="Корр. счет" data-inputmask="'mask': '9999 9999 9999 9999 9999'">
+				<input type="text" name="bank_pacc" placeholder="Расчетный счет" data-inputmask="'mask': '9999 9999 9999 9999 9999'">					
+				<p>Бренд</p>
+				<input type="text" name="brand" placeholder="Наименование бренда">
+				<input type="text" name="site" placeholder="Адрес сайта (без http://)">
+				<input type="email" name="email" placeholder="Уполномоченный e-mail">
+				<input type="text" name="phone" placeholder="Уполномоченный телефон" data-inputmask="'mask': '+7 (999) 999-9999'">
+				<button (click)="submit($event)" class="btn btn-line">Распечатать</button>
+			</form>
+        </div>
+    </div>
+</div>
+

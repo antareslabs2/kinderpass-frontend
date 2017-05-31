@@ -21,10 +21,15 @@
       '@angular/router': 'npm:@angular/router/bundles/router.umd.js',
       '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
       // остальные пакеты
-      'rxjs': 'npm:rxjs',
       'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
       'jquery': 'npm:jquery/dist/jquery.min.js',
       'slick': 'npm:slick-carousel/slick/slick.js',
+      'ng2-page-scroll': 'npm:ng2-page-scroll/bundles/ng2-page-scroll.umd.js',
+      'text-mask-core': 'npm:text-mask-core/',
+      'angular2-text-mask': 'npm:angular2-text-mask/dist/angular2TextMask.js',
+      'rxjs': 'npm:rxjs',
+      'moment': 'npm:moment/min/moment-with-locales.min.js',
+      'angular2-moment': 'npm:angular2-moment'
     },
     // пакеты, которые указывают загрузчику System, как загружать файлы без имени и расширения
     packages: {
@@ -34,6 +39,16 @@
       },
       rxjs: {
         defaultExtension: 'js'
+      },
+      'text-mask-core': {
+        defaultExtension: 'js'
+      },
+      'angular2-text-mask': {
+        defaultExtension: 'js'
+      },
+      'angular2-moment': {
+          main: './index.js',
+          defaultExtension: 'js'
       }
     }
   });

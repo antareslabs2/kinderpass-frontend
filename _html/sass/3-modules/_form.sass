@@ -1,9 +1,12 @@
 .form
 	background-color: #8e7dba
-	overflow: hidden
+	padding: 20px 0
 	+bp($sm)
-		padding-top: 20px
-
+		padding: 90px 0 20px
+	
+	.wrapper 
+		overflow: hidden
+		
 	.week
 		text-align: center
 		position: relative
@@ -59,6 +62,7 @@
 			height: 70px
 			cursor: pointer
 			transition: .5s
+			overflow: hidden
 			+bp($sm)
 				width: 50px
 				height: 50px
@@ -87,6 +91,7 @@
 		.lastWeek
 			left: -83px
 			+bp($md)
+				left: -70px
 				&:after
 					left: 35px
 			+bp($sm)
@@ -98,6 +103,7 @@
 			right: -83px
 			transform: scale(-1, 1)
 			+bp($md)
+				right: -70px
 				&:after
 					left: 35px
 			+bp($sm)
@@ -120,7 +126,6 @@
 			
 			span
 				display: inline-block
-				vertical-align: middle
 
 		&-option
 			font-size: 18px
@@ -149,6 +154,9 @@
 			width: 33%
 			+bp($sm)
 				width: 100%
+			.locations
+				span
+					display: inline
 
 		&-time
 			width: 28%
@@ -164,7 +172,14 @@
 		&-category
 			display: block
 			margin-right: 0
-
+			p
+				padding-top: 10px
+				font-size: 14px
+				line-height: 15px
+				color: rgba(252, 252, 252, 0.84)
+				+bp($sm)
+					font-size: 12px
+					
 	.selectedDay
 		text-align: center
 		border-top-left-radius: 30px
@@ -181,8 +196,18 @@
 		padding: 30px 30px 15px
 		border-bottom-left-radius: 30px
 		border-bottom-right-radius: 30px
+		min-height: 87px
 		+bp($sm)
-			padding: 5px
+			padding: 10px
+		
+		&-notFound
+			color: #8e7dba
+			text-align: center
+			font-size: 24px
+			font-family: 'rounds'
+			+bp($sm)
+				font-size: 16px
+				margin: 5% 0
 
 		&-item
 			color: #8e7dba
@@ -192,10 +217,12 @@
 				display: inline-block
 				vertical-align: top
 				width: 20%
+				cursor: pointer
 				+bp($sm)
 					width: 40%
 					float: left
 					margin-right: 10px
+					margin-bottom: 10px
 				img
 					width: 100%
 					border-radius: 20px
@@ -217,6 +244,7 @@
 			&-title
 				font-size: 24px
 				font-family: 'rounds'
+				cursor: pointer
 				+bp($sm)
 					font-size: 16px
 
@@ -225,14 +253,13 @@
 				margin: 15px 0
 				+bp($sm)
 					font-size: 14px
+					min-height: 25px
 
 			&-location
 				font-size: 20px
-				position: absolute
 				width: 100%
-				bottom: 0
-				left: 25px
 				padding-left: 40px
+				padding-top: 5px
 				background-image: url("../img/location.png")
 				background-repeat: no-repeat
 				background-position: center left
@@ -240,12 +267,10 @@
 				min-height: 30px
 				line-height: 30px
 				+bp($sm)
-					position: static
-					left: auto
-					bottom: auto
 					font-size: 16px
-					margin-left: 8px
 					line-height: 20px
+					background-position: 3px 50%
+					clear: both
 
 			&-cost
 				display: inline-block
@@ -257,18 +282,28 @@
 					display: block
 					width: 100%
 					text-align: left
+					padding: 0 5px
 				.btn	
 					width: 100%
+					+bp(950px)
+						font-size: 20px
+
+					+bp(850px)
+						font-size: 16px
+
+					+bp(600px)
+						font-size: 12px
+						
 					+bp($sm)
-						width: auto
 						vertical-align: middle
-						margin-left: 1%
 						text-align: center
-						width: 70%
+						font-size: 18px
 
 			&-time
 				+bp($sm)
 					margin: 10px 0
+					display: inline-block
+					vertical-align: middle
 				span
 					font-size: 24px
 					padding-left: 40px
@@ -282,19 +317,21 @@
 			&-price
 				margin: 10px 0
 				+bp($sm)
-					display: inline-block
-					vertical-align: middle
-					width: 25%
+					float: right
 				span
 					color: #ea6fe3
 					font-size: 36px
 					padding-right: 40px
-					background-image: url("../img/mоnеy.png")
+					background-image: url("../img/money.png")
 					background-repeat: no-repeat
 					background-position: center right
-					background-size: 33px
+					background-size: 19px
 					min-height: 35px
 					line-height: 40px
+					+bp($sm)
+						font-size: 24px
+						line-height: 30px
+						background-size: 30px
 	
 	.moreResults
 		text-align: center

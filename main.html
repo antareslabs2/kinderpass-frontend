@@ -1,35 +1,18 @@
-	<div class="firstScreen">
-		<header class="header">
-			<div class="wrapper">
-				<div class="logo">
-					<a href="/">
-						<img src="app/img/logo.png" alt="">
-						<p>KinderPass</p>
-					</a>
-				</div><!-- 
-			 --><div class="email">
-					<a href="mailto:hello@kinderpass.ru"><img src="app/img/mail.png" alt=""><span>hello@kinderpass.ru</span></a>
-				</div><!-- 
-			 --><div class="links">
-					<a href="">О проекте</a><span *ngIf="!isAuthenticated" (click)="openPopup = 'login'">Войти</span>
-					<span *ngIf="isAuthenticated">Личный кабинет</span>
-				</div>
-			</div>
-		</header>
 
-		<div class="wrapper">
-			<div class="title">
-				<h1>Абонемент в лучшие детские места Питера</h1>
-				<p>Киндерпасс дает возможность найти, записаться и прийти на интересные мастер-классы и детские активности с хорошей скидкой</p>
-				<a href="#subscription" class="btn btn-line">Получить абонемент</a>
-				<a href="#filter" class="mobileLink">Посмотреть расписание</a>
-			</div>
+<div *ngIf="!gs.isAuthenticated" class="firstScreen">
+	<div class="wrapper">
+		<div class="title">
+			<h1>Абонемент в лучшие детские места Питера</h1>
+			<p>Киндерпасс дает возможность найти, записаться и прийти на интересные мастер-классы и детские активности с хорошей скидкой</p>
+			<a pageScroll href="#subscription" class="btn btn-line">Получить абонемент</a>
+			<a pageScroll href="#filter" class="mobileLink">Посмотреть расписание</a>
 		</div>
-
 	</div>
+
+</div>
 <!-- BODY -->
 
-<div class="advantages">
+<div *ngIf="!gs.isAuthenticated" class="advantages">
 	<div class="wrapper">
 		<h2>В чем смысл абонемента?</h2>
 		<div class="advantages-slider">
@@ -58,7 +41,7 @@
 	</div>
 </div>
 
-<div class="steps">
+<div *ngIf="!gs.isAuthenticated" class="steps">
 	<div class="wrapper">
 		<h2>Как пользоваться абонементом</h2><!-- 
 	 --><div class="steps-wrap">
@@ -86,7 +69,7 @@
 		</div>
 	</div>
 </div>
-<div *ngIf="!isAuthenticated" class="gallery">
+<div *ngIf="!gs.isAuthenticated" class="gallery">
 	<div class="wrapper">
 		<h2>Лучшие предложения<span> на ближайшую неделю</span></h2>
 		<div class="slider-wrap">
@@ -99,7 +82,7 @@
 						<h3>Примавера Роботикс</h3>
 						<p>Легомеханика и робототехника  /  Афонская, 18, Пятилеток, 2 и др.</p>
 						<p class="amount">Скидка <span class="percent">36%</span><span class="mobileText"> при покупке абонемента</span></p>
-						<a href="#subscription" class="btn btn-line">Хочу пойти!</a>
+						<a pageScroll href="#subscription" class="btn btn-line">Хочу пойти!</a>
 					</div>
 				</div>
 				<div>
@@ -110,7 +93,7 @@
 						<h3>Клуб Jump</h3>
 						<p>Уникальное место с батутами и лабиринтами  /  Славы, 32, Челиева, 17</p>
 						<p class="amount">Скидка <span class="percent">36%</span><span class="mobileText"> при покупке абонемента</span></p>
-						<a href="#subscription" class="btn btn-line">Хочу пойти!</a>
+						<a pageScroll href="#subscription" class="btn btn-line">Хочу пойти!</a>
 					</div>
 				</div>
 				<div>
@@ -121,7 +104,7 @@
 						<h3>Лабиринтум</h3>
 						<p>Интерактивный музей, 100+ экспонатов и механизмов  /  Льва Толстого, 9А, Космонавтов, 14</p>
 						<p class="amount">Скидка <span class="percent">36%</span><span class="mobileText"> при покупке абонемента</span></p>
-						<a href="#subscription" class="btn btn-line">Хочу пойти!</a>
+						<a pageScroll href="#subscription" class="btn btn-line">Хочу пойти!</a>
 					</div>
 				</div>
 				<div>
@@ -132,7 +115,7 @@
 						<h3>Творец</h3>
 						<p>Студия гончарного мастерства  /  Заставская 11, кор. 2</p>
 						<p class="amount">Скидка <span class="percent">36%</span><span class="mobileText"> при покупке абонемента</span></p>
-						<a href="#subscription" class="btn btn-line">Хочу пойти!</a>
+						<a pageScroll href="#subscription" class="btn btn-line">Хочу пойти!</a>
 					</div>
 				</div>
 				<div>
@@ -143,7 +126,7 @@
 						<h3>Italy Group Мастер-классы</h3>
 						<p>Кулинарные мастер-классы  /  Энгельса</p>
 						<p class="amount">Скидка <span class="percent">36%</span><span class="mobileText"> при покупке абонемента</span></p>
-						<a href="#subscription" class="btn btn-line">Хочу пойти!</a>
+						<a pageScroll href="#subscription" class="btn btn-line">Хочу пойти!</a>
 					</div>
 				</div>
 			</div>
@@ -152,67 +135,80 @@
 		</div>
 	</div>
 </div>
-<div class="helper"></div>
+<div *ngIf="!gs.isAuthenticated" class="helper"></div>
 <div class="form" id="filter">
 	<div class="wrapper">
 		<h2>Расписание</h2>
 		<div class="filters">
 			<div class="filters-item filters-location">
-				<span class="filters-option" (click)="openPopup='districts';">Район</span>
+				<span class="filters-option" [class.filters-option-active]="params.districts.id && params.districts.id.length" (click)="gs.openPopup('districts');">Район</span>
 				<span class="filters-text">или</span>
-				<span class="filters-option"(click)="openPopup='metro';">Метро</span>
-				<p class="locations"></p>
+				<span class="filters-option" [class.filters-option-active]="params.metro.id && params.metro.id.length" (click)="gs.openPopup('metro');">Метро</span>
+				<p *ngIf="params.metro.id" class="locations">{{params.metro.name[0]}}<span *ngIf="params.metro.name.length>1"> и еще {{params.metro.name.length - 1}} {{declOfNum(params.metro.name.length - 1, ['станция','станции','станций'])}}</span></p>
+				<p *ngIf="params.districts.id" class="locations">{{params.districts.name[0]}}<span *ngIf="params.districts.name.length>1"> и еще {{params.districts.name.length - 1}} {{declOfNum(params.districts.name.length - 1, ['район','района','районов'])}}</span></p>
 			</div><!-- 
 		 --><div class="filters-item filters-time">
-				<span class="filters-option" *ngFor="let time of times;" (click)="time_from=time.time_from; time_to=time.time_to; filterByOption($event)">{{time.key}}</span>
+				<span class="filters-option" *ngFor="let time of times;" [class.filters-option-active]="params.time_from==time.time_from && params.time_to==time.time_to" (click)="filterByTime($event, time)">{{time.key}}</span>
 			</div><!-- 
 		 --><div class="filters-item filters-age">
-				<span class="filters-option" *ngFor="let age of ages;" (click)="age_from=age[0]; age_to=age[1]; filterByOption($event)">{{age[0]}}-{{age[1]}}</span>
+				<span class="filters-option" *ngFor="let age of ages;" [class.filters-option-active]="params.age_from==age[0] && params.age_to==age[1]" (click)="filterByAge($event, age)">{{age[0]}}-{{age[1]}}</span>
 				<span class="filters-text">лет</span>
 			</div><!-- 
 		 --><div class="filters-item filters-category">
-				<!-- <p>{{categories}}</p> -->
-				<span class="filters-option" *ngFor="let category of categories; let i = index;"  (click)="curCategory = category.id; filterByOption($event)"
-				[class.filters-option-active]="category.name == 'Киндерпасс'">{{category.name}}</span>
+				<span class="filters-option" *ngFor="let category of categories; let i = index;"  (click)="curCategory = category.id; eventsFilter()"
+				[class.filters-option-active]="category.id == curCategory">{{category.name}}</span>
+				<p *ngIf="curCategory == 1">Лучшие места на наш взгляд, чтобы вам было проще выбирать.</p>
+				<p *ngIf="curCategory == 2">Батуты, скалодромы, веревочные парки, парки развлечений.</p>
+				<p *ngIf="curCategory == 3">Картинг, игровые пространства.</p>
+				<p *ngIf="curCategory == 4">Танцы</p>
+				<p *ngIf="curCategory == 5">Любые занятия, где нужно что-то делать руками – робототехника, рисование, лепка, гончарное дело и т.д.</p>
+				<p *ngIf="curCategory == 7">Музеи, театры, зоопарки, кино.</p>
+				<p *ngIf="curCategory == 9">Любые активности, где требуется определенное минимальное количество участников – квесты, футбол, кьюзар и т.д.</p>
+				<p *ngIf="curCategory == 10">Любые развивающие занятия – психология, математика, боевые искусства, ритмопластика.</p>
 			</div>
 		</div>  
 		<div class="week">
-			<div class="week-day" *ngFor="let d of dates;" [class.filters-option-active]="selectedDate == d.date" (click)="curDate = d.filter; selectedDate = d.date; filterByDate($event);">
+			<div class="week-day" *ngFor="let d of dates;" [class.filters-option-active]="curDate == (d | amDateFormat: 'YYYYMMDD')" (click)="filterByDate($event, d);">
 				<div class="desktop">
-					<p>{{d.date | date: 'EEEE'}}</p>
-					<span>{{d.month}}</span>
+					<p>{{d | amDateFormat : 'dddd'}}</p>
+					<span>{{d | amDateFormat : 'DD MMMM'}}</span>
 				</div>
 				<div class="mobile">
-					<p>{{d.date | date: 'EE'}}</p>
-					<span>{{d.date | date:'dd.MM'}}</span>
+					<p>{{d | date: 'EE'}}</p>
+					<span>{{d | date:'dd.MM'}}</span>
 				</div>
 			</div>
 			<div class="lastWeek" (click)="lastWeek($event);"></div>
 			<div class="nextWeek" (click)="nextWeek($event);"></div>
 		</div><!--   
-	 --><div class="selectedDay">{{selectedDate | date: 'EEEE'}} , {{selectedDate | date: 'dd.MM'}}</div><!-- 
-	 --><div class="results" *ngIf="events">
-			<div class="results-item" *ngFor="let item of events | slice:0:resultsToShow;">
-				<div class="results-item-image"><img src="{{item.photo}}" alt=""></div><!-- 
-			 --><div class="results-item-description">
-					<div class="results-item-title">{{item.name}}</div>
-					<div class="results-item-recommendation">{{item.description}}</div>
-					<div class="results-item-location">{{item.locations.address}}</div>
-				</div><!-- 
-				 --><div class="results-item-cost">
-					<div class="results-item-time"><span>{{item.locations.time_slots.start_time}}</span></div>
-					<div class="results-item-price"><span>{{item.locations.time_slots.price}}</span></div>
-					<!-- NBD -->
-					<div class="btn" (click)="openPopup='event';selectedEvent=item;">Записаться</div>
+	 --><div class="selectedDay">{{selectedDate | date: 'EEEE'}}, {{selectedDate | date: 'dd.MM'}}</div><!-- 
+	 --><div class="results">
+	 		<ng-container *ngIf="events.length > 0">
+				<div class="results-item" *ngFor="let item of events | slice:0:resultsToShow;">
+					<div class="results-item-image" [routerLink]="['/event', item.locations.time_slots.id]">
+						<img *ngIf="item.photo" src="img/s{{item.photo}}.jpg" alt="">
+						<img *ngIf="!item.photo" src="app/img/placeholder.jpg" alt="">
+					</div><!-- 
+				 --><div class="results-item-description">
+						<div class="results-item-title" [routerLink]="['/event', item.locations.time_slots.id]">{{item.name}}</div>
+						<div class="results-item-recommendation">{{item.description | truncate:200 }}</div>
+						<div class="results-item-location">{{item.locations.address}}</div>
+					</div><!-- 
+					 --><div class="results-item-cost">
+						<div class="results-item-time"><span>{{item.locations.time_slots.start_time}}</span></div>
+						<div class="results-item-price"><span>{{item.locations.time_slots.price}}</span></div>
+						<!-- NBD -->
+						<div class="btn" [routerLink]="['/event', item.locations.time_slots.id]">Записаться</div>
+					</div>
 				</div>
-			</div>
-	 		
+	 		</ng-container>
+	 		<p class="results-notFound" *ngIf="events.length <= 0">Не найдено ни одного мероприятия</p>
 	 	</div>
 	 	<div class="moreResults" *ngIf="resultsToShow < events.length" (click)="resultsToShow = resultsToShow + 8">Еще (<span>{{events.length - resultsToShow}}</span>)</div>
 	</div>
 </div>
-<div class="bottomHelper"></div>
-<div class="options" id="subscription" *ngIf="!isAuthenticated">
+<div *ngIf="!gs.userInfo.subscription" class="bottomHelper"></div>
+<div *ngIf="!gs.userInfo.subscription" class="options" id="subscription">
 	<div class="wrapper">
 	  <h2>Выберите свой абонемент</h2>
 		<div class="options-item">
@@ -221,11 +217,8 @@
 				<div class="options-durations">2-6 посещений в месяц</div>
 				<h3>1 499 руб.</h3>
 				<p class="options-description">Разнообразьте досуг вашего ребенка, даже если вы его постоянно куда-то водите.</p>
-				<form  ngNoForm class="btns" action="http://demo.paykeeper.ru/create/" method="POST">
-					<!-- TBD -->
-					<input name="sum" type="hidden" value="1499"/>
-					<button type="submit" class="btn" (click)="test(1499, $event)">Купить</button>
-				</form>
+				<button *ngIf="gs.isAuthenticated" (click)="initTransaction('A')" class="btn">Купить</button>
+				<button *ngIf="!gs.isAuthenticated" (click)="gs.openPopup('login')" class="btn">Купить</button>
 			</div>
 		</div>
 		<div class="options-item">
@@ -234,10 +227,8 @@
 				<div class="options-durations">4-12 посещений в месяц</div>
 				<h3>2 699 руб.</h3>
 				<p class="options-description">Это 1 или 2 новых события для ваших детей каждую неделю. Гарантированно.</p>
-				<form  ngNoForm class="btns" action="http://demo.paykeeper.ru/create/" method="POST">
-					<input name="sum" type="hidden" value="2699"/>
-					<button type="submit" class="btn">Купить</button>
-				</form>
+				<button *ngIf="gs.isAuthenticated" (click)="initTransaction('B')" class="btn">Купить</button>
+				<button *ngIf="!gs.isAuthenticated" (click)="gs.openPopup('login')" class="btn">Купить</button>
 			</div>
 		</div>
 		<div class="options-item">
@@ -246,43 +237,16 @@
 				<div class="options-durations">6-22 посещений в месяц</div>
 				<h3>4 550 руб.</h3>
 				<p class="options-description">Опция для большой семьи. Используйте возможности абонемента максимально!</p>
-				<form  ngNoForm class="btns" action="http://demo.paykeeper.ru/create/" method="POST">
-					<input name="sum" type="hidden" value="4550"/>
-					<button type="submit" class="btn">Купить</button>
-				</form>
+				<button *ngIf="gs.isAuthenticated" (click)="initTransaction('C')" class="btn">Купить</button>
+				<button *ngIf="!gs.isAuthenticated" (click)="gs.openPopup('login')" class="btn">Купить</button>
 			</div>
 		</div>
 	</div>
 </div>
+<div id="subscription"></div>
 <!-- /BODY -->
-<footer class="footer">
-	<div class="wrapper">
-		<div class="col-1-4">
-			<h4>Для бизнесов</h4>
-			<div class="btn btn-footer">Стать партнером</div>
-		</div><!-- 
-	 --><div class="col-1-4">
-			<h4>Киндерпасс</h4>
-			<a href="">О проекте</a>
-			<a href="">Политика конфиденциальности</a>
-			<a href="">Договор оферта</a>
-		</div><!-- 
-	 --><div class="col-1-4">
-			<h4>Контакты</h4>
-			<p>ООО Киндерпасс<br>190000 г. Санкт-Петербург<br>ул. Школьная, д. 15<br>+7 812 945-55-21</p>
-		</div><!-- 
-	 --><div class="col-1-4">
-			<h4>Мы в соцсетях</h4>
-			<a href="/" class="social social-fb"></a>
-			<a href="/" class="social social-vk"></a>
-			<a href="/" class="social social-inst"></a>
-		</div>
-		<div class="copyright">© 2017 ООО Киндерпасс</div>
-	</div>
-</footer>
-<app-dialog [(visible)]="openPopup" [(event)]="selectedEvent" (districtsFilter)="districtsFilter($event)" (metroFilter)="metroFilter($event)">
-</app-dialog>
-
+<location-dialog (districtsFilter)="districtsFilter($event)" (metroFilter)="metroFilter($event)" [(metro)]="metro" [(districts)]="districts">
+</location-dialog>
 <script>
   // (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   // (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

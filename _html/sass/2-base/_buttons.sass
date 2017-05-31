@@ -9,7 +9,7 @@
 	font-family: 'matias'
 	color: #fff
 	text-transform: uppercase
-	border-radius: 20px
+	border-radius: 15px
 	background-color: #02ba61
 	padding: 3% 5%
 	transition: .3s
@@ -30,6 +30,8 @@
 		border: 8px solid #fff
 		+bp($md)
 			font-size: 36px
+		+bp($sm)
+			font-size: 28px
 
 		&:hover
 			background-color: darken(#02ba61, 15%)
@@ -52,14 +54,11 @@
 	&.btn-fb
 		background-color: #3b5998
 	
-	&.btn-grey
-		border: 1px solid #e7e7e7
-		background-color: #FFF
-		color: #d8d8d8
+	&.btn-reset
+		background-color: #dd3832
+		color: #fff
 		&:hover
-			background-color: #e7e7e7
-			color: #fff
-			
+			background-color: #c31d16
 	&-mobile
 		display: none
 		+bp($md)

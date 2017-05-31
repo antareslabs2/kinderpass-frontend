@@ -1,6 +1,8 @@
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
+        <base href="/">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Абонемент в лучшие детские места Питера</title>
         <link rel="stylesheet" type="text/css" href="app/js/slick/slick.css">
@@ -15,18 +17,53 @@
         <script src="node_modules/zone.js/dist/zone.js"></script>
         <script src="node_modules/systemjs/dist/system.src.js"></script>
         <script src="systemjs.config.js"></script>
-        <script>
-          // (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-          // (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          // m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-          // })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        
+        <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.ru"></script>
 
-          // ga('create', 'UA-74345828-2', 'auto');
-          // ga('send', 'pageview');
-
-        </script>
         <script>
           System.import('app').catch(function(err){ console.error(err); });
         </script>
+
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-74345828-2', 'auto');
+          ga('send', 'pageview');
+
+        </script>
+        
+        <!-- Yandex.Metrika counter -->
+        <script type="text/javascript">
+            (function (d, w, c) {
+                (w[c] = w[c] || []).push(function() {
+                    try {
+                        w.yaCounter44744683 = new Ya.Metrika({
+                            id:44744683,
+                            clickmap:true,
+                            trackLinks:true,
+                            accurateTrackBounce:true,
+                            webvisor:true,
+                            ecommerce:"dataLayer"
+                        });
+                    } catch(e) { }
+                });
+
+                var n = d.getElementsByTagName("script")[0],
+                    s = d.createElement("script"),
+                    f = function () { n.parentNode.insertBefore(s, n); };
+                s.type = "text/javascript";
+                s.async = true;
+                s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+                if (w.opera == "[object Opera]") {
+                    d.addEventListener("DOMContentLoaded", f, false);
+                } else { f(); }
+            })(document, window, "yandex_metrika_callbacks");
+        </script>
+        <noscript><div><img src="https://mc.yandex.ru/watch/44744683" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+        <!-- /Yandex.Metrika counter -->
     </body>
 </html>

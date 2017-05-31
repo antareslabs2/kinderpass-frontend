@@ -1,4 +1,9 @@
 "use strict";
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -10,77 +15,47 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
-var http_2 = require("@angular/http");
 var Observable_1 = require("rxjs/Observable");
 require("rxjs/add/operator/map");
 require("rxjs/add/operator/catch");
-require("rxjs/add/observable/throw");
-var HttpService = (function () {
-    function HttpService(http) {
-        this.http = http;
-        this.url = 'https://test.kinderpass.ru/';
+var HttpService = (function (_super) {
+    __extends(HttpService, _super);
+    function HttpService(backend, options) {
+        var _this = this;
+        options.headers.set('Content-Type', "application/json;charset=utf-8");
+        _this = _super.call(this, backend, options) || this;
+        return _this;
     }
-    HttpService.prototype.getInfo = function () {
-        return this.http.get(this.url + 'api/accounts/get_info')
-            .map(function (resp) { return resp.json(); })
-            .catch(function (error) { return Observable_1.Observable.throw(error); });
-    };
-    HttpService.prototype.getDistricts = function () {
-        return this.http.get(this.url + 'api/geo/districts')
-            .map(function (resp) { return resp.json(); })
-            .catch(function (error) { return Observable_1.Observable.throw(error); });
-    };
-    HttpService.prototype.getMetro = function () {
-        return this.http.get(this.url + '/api/geo/metro')
-            .map(function (resp) { return resp.json(); })
-            .catch(function (error) { return Observable_1.Observable.throw(error); });
-    };
-    HttpService.prototype.getCategories = function () {
-        return this.http.get(this.url + 'api/activities/categories')
-            .map(function (resp) { return resp.json(); })
-            .catch(function (error) { return Observable_1.Observable.throw(error); });
-    };
-    HttpService.prototype.getSchedule = function (category_id, date, getParams) {
-        var url = this.url + 'api/activities/list/' + category_id + '/' + date + '?';
-        for (var key in getParams) {
-            url += key + '=' + getParams[key] + '&';
+    HttpService.prototype.request = function (url, options) {
+        if (typeof url === 'string') {
+            if (!options) {
+                // let's make option object
+                options = { headers: new http_1.Headers() };
+            }
+            options.headers.set('Content-Type', "application/json;charset=utf-8");
         }
-        return this.http.get(url)
-            .map(function (resp) { return resp.json(); })
-            .catch(function (error) { return Observable_1.Observable.throw(error); });
-    };
-    HttpService.prototype.initTransaction = function (category_id, date, getParams) {
-        var url = this.url + 'api/activities/list/' + category_id + '/' + date + '?';
-        for (var key in getParams) {
-            url += key + '=' + getParams[key] + '&';
+        else {
+            // we have to add the token to the url object
+            url.headers.set('Content-Type', "application/json;charset=utf-8");
         }
-        return this.http.get(url)
-            .map(function (resp) { return resp.json(); })
-            .catch(function (error) { return Observable_1.Observable.throw(error); });
+        return _super.prototype.request.call(this, url, options).catch(this.catchAuthError(this));
     };
-    HttpService.prototype.testing = function (data) {
-        var headers = new http_2.Headers({ 'Content-Type': 'application/json;charset=utf-8' });
-        this.http.post('http://demo.paykeeper.ru/create/', data, { headers: headers })
-            .map(function (resp) { return resp.json(); })
-            .catch(function (error) { return Observable_1.Observable.throw(error); });
-        return this.http.post('http://demo.paykeeper.ru/create/', data, { headers: headers })
-            .map(function (resp) { return resp.json(); })
-            .catch(function (error) { return Observable_1.Observable.throw(error); });
-    };
-    HttpService.prototype.makingBooking = function (timeSlotID, seats) {
-        // In docs method = POST
-        var body = '';
-        var headers = new http_2.Headers({ 'Content-Type': 'application/json;charset=utf-8' });
-        var url = this.url + 'api/activities/book/' + timeSlotID + '/' + seats;
-        return this.http.get(url)
-            .map(function (resp) { return resp.json(); })
-            .catch(function (error) { return error; });
+    HttpService.prototype.catchAuthError = function (self) {
+        // we have to pass HttpService's own instance here as `self`
+        return function (res) {
+            console.log(res);
+            if (res.status === 401 || res.status === 403) {
+                // if not authenticated
+                console.log(res);
+            }
+            return Observable_1.Observable.throw(res);
+        };
     };
     return HttpService;
-}());
+}(http_1.Http));
 HttpService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
+    __metadata("design:paramtypes", [http_1.XHRBackend, http_1.RequestOptions])
 ], HttpService);
 exports.HttpService = HttpService;
 //# sourceMappingURL=http.service.js.map

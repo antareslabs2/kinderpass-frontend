@@ -1,0 +1,150 @@
+.innerpage
+	background-color: #fcfcfc
+	padding: 70px 0
+	color: #393939
+	+bp($sm)
+		padding: 115px 0
+	.page-block
+		h1
+			font-size: 32px
+			color: #8e7dba
+			line-height: 1.2
+			+bp($sm)
+				font-size: 20px
+
+		h2
+			color: #b77db5
+			font-size: 24px
+			margin: 30px 0
+			line-height: 1.2
+			+bp($sm)
+				font-size: 16px
+
+		h4
+			color: #b77db5
+			font-size: 22px
+			margin: 30px 0
+			line-height: 1.2
+
+		p,
+		li
+			font-size: 16px
+			color: #393939
+			line-height: 1.2
+			+bp($sm)
+				font-size: 14px
+
+		p
+			margin: 20px 0
+			&.version
+				text-align: center
+				font-size: 12px
+				font-style: italic
+
+		strong
+			font-weight: bold
+
+		ul
+			margin: 20px 0 20px 40px
+			+bp($sm)
+				margin-left: 0
+			li
+				list-style: none
+				margin-bottom: 15px
+				&:before
+					content: ""
+					margin-right: 10px
+					font-size: 14px
+					width: 10px
+					height: 10px
+					border-radius: 50%
+					background-color: #b77db5
+					display: inline-block
+		
+		table
+			width: 100%
+			border-collapse: collapse
+			position: relative
+			thead
+				background-color: #1cbbb4
+				color: #fff
+				font-size: 24px
+				line-height: 1.2
+				+bp($sm)
+					font-size: 18px
+				th
+					padding: 20px
+					&:first-of-type
+						border-top-left-radius: 17px
+						width: 20%
+					&:last-of-type
+						border-top-right-radius: 17px
+			tbody
+				text-align: center
+				tr
+					&:nth-child(odd)
+						background-color: #ebebeb
+					&:nth-child(even)
+						background-color: #fcfcfc
+					&:last-of-type
+						&:after
+							content: ''
+							display: block
+							background-color: #1cbbb4
+							width: 100%
+							height: 1px
+							position: absolute
+							bottom: 0
+							left: 0
+					td
+						color: #393939
+						font-size: 16px
+						line-height: 1.375
+						padding: 15px
+						&:not(:last-of-type)
+							border-right: 4px solid #fcfcfc
+						+bp($sm)
+							font-size: 14px
+		
+		form
+			width: 50%
+			margin: 0 auto
+			text-align: center
+			+bp($md)
+				width: 80%
+			+bp($sm)
+				width: 96%
+
+			input,
+			select
+				width: 100%
+				height: 30px
+				margin-bottom: 10px
+				padding: 2px
+				font-size: 16px
+				+bp($md)
+					font-size: 14px
+
+			#opf-selector
+				text-align: left
+				font-size: 14px
+				margin-bottom: 10px
+				font-family: 'matias', Arial, Helvetica, sans-serif
+				+bp($md)
+					font-size: 12px
+				+bp($sm)
+					margin-bottom: 5px
+					font-size: 12px
+
+				label
+					margin-bottom: 5px
+					text-align: left
+				input
+					width: auto
+					text-align: left
+					height: auto
+					margin-bottom: 10px
+					padding: 0
+
+::placeholder
+	color: #aaa

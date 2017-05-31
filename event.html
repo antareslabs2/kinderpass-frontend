@@ -1,0 +1,50 @@
+<div class="innerpage">
+	<div class="wrapper">
+		<div *ngIf="event" class="eventPage">
+			<div class="prevPage" [routerLink]="['/']" fragment="filter"><img src="app/img/back.png" alt=""><span>Назад</span></div>
+			<h1>{{event.name}}</h1>
+			<div class="col-1-2 eventCol">
+				<div class="eventPage-provider">{{event.provider.name}}</div><img *ngIf="event.photo" src="img/{{event.photo}}.jpg" alt=""><img *ngIf="!event.photo" src="app/img/placeholder.jpg" alt=""><div class="eventPage-info">
+					<div class="eventPage-age">Для детей {{event.age_from}}-{{event.age_to}} лет</div>
+					<div class="eventPage-freeSeats">
+						<img src="app/img/children.png" alt="">
+						<p>Осталось мест</p>
+						<span>{{event.locations[0].time_slots[0].free_seats}}</span>
+					</div>
+				</div>
+			</div><!-- 
+		 --><div class="col-1-2 ticketCol">
+				<div class="eventPage-ticket-wrap">
+					<div class="eventPage-title">Билет</div>
+						<div class="eventPage-ticket-fields">
+							<div class="eventPage-date">{{event.locations[0].time_slots[0].date}}</div>
+							<div class="eventPage-time">{{event.locations[0].time_slots[0].start_time}}-{{event.locations[0].time_slots[0].end_time}}</div>
+							<div class="eventPage-duration">Длительность {{event.duration}} минут</div>
+							<div class="eventPage-address">{{event.locations[0].address}}</div>
+							<div class="eventPage-seats">
+							<div>Количество билетов</div>
+							<div class="eventPage-seats-num">
+								<span (click)="removeTicket()">-</span>
+								<p>{{seats}}</p>
+								<span (click)="addTicket()">+</span>
+							</div>
+							</div>
+							<div class="eventPage-price">Стоимость билетов <span>{{event.locations[0].time_slots[0].price * seats}}</span></div>
+						</div>
+				</div>
+				<div class="eventPage-btns">
+					<a *ngIf="!gs.userInfo.subscription" class="btn" [routerLink]="['/']" fragment="subscription">Купить абонемент</a>
+					<button *ngIf="!bookingStatus && gs.userInfo.subscription && (gs.userInfo.subscription.balance >= event.locations[0].time_slots[0].price * seats)" class="btn" (click)="makingBooking(event.locations[0].time_slots[0].id)" [class.disabled]="isDisable" [disabled]="isDisable">Забронировать</button>
+					<button *ngIf="!bookingStatus && gs.userInfo.subscription && (gs.userInfo.subscription.balance < event.locations[0].time_slots[0].price * seats)" class="btn btn-disable">Недостаточно средств</button>
+					<button *ngIf="gs.userInfo.subscription  && bookingStatus" class="btn btn-disable" [class.disabled]="isDisable" [disabled]="isDisable" (click)="cancelBooking(bookingId)">Отменить бронь</button>
+				</div>
+			</div>
+			<p>{{event.description}}</p>
+			<div *ngIf="event.extra" class="eventPage-additionalInfo">Важно: {{event.extra}}</div>
+			<div class="eventPage-providerInfo">
+				<p>Мероприятие проводит {{event.provider.legal.legal_name}} (ИНН: {{event.provider.legal.tax_num}}, Для претензий и предложений: {{event.provider.legal.contact_phone}}, e-mail: {{event.provider.legal.contact_email}}). Цена билета {{event.locations[0].time_slots[0].price}} руб.<br>Бронирование и оформление билета осуществлено ООО "Киндерпасс" (ИНН: 78203424534, e-mail: claim@kinderpass.ru, телефон +7 (812) 649-26-32) на основании Агентского договора от {{event.provider.legal.contract_date ? event.provider.legal.contract_date : "01.05.2017"}}</p>
+			</div>
+		</div>
+	</div>
+</div>
+
