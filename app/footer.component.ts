@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 
 
 @Component({
@@ -8,8 +8,16 @@ import { Component } from '@angular/core';
 
 export class FooterComponent { 
   
+	@HostListener('window:scroll', ['$event']) onScrollEvent($event:any){
+		if ($(window).scrollTop() > $(window).height()/2) {
+			$('.arrow').fadeIn();
+		}
+		else {
+			$('.arrow').fadeOut();
+		}
+	} 
 
 	constructor(){
-		
+
 	}
 }

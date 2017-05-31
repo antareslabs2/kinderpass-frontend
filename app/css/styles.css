@@ -985,13 +985,24 @@ textarea.textarea {
     display: inline-block;
     vertical-align: top;
     width: 27%;
-    padding: 2%;
+    padding: 4% 2%;
     text-align: center;
     background-color: #FFF;
     border-radius: 35px;
     margin-right: 4%;
     position: relative;
-    min-height: 435px; }
+    min-height: 503px; }
+    .options-item:after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-image: url("../img/sale.png");
+      background-repeat: no-repeat;
+      background-size: contain;
+      content: '';
+      width: 110px;
+      height: 110px;
+    }
     @media only screen and (max-width: 780px) {
       .options-item {
         display: block;
@@ -999,7 +1010,10 @@ textarea.textarea {
         min-height: initial;
         margin: 5% 0;
         text-align: left;
-        cursor: pointer; } }
+        cursor: pointer; } 
+      .options-item:after {
+        width: 90px;
+        height: 90px; } }
     .options-item:last-of-type {
       margin-right: 0; }
     .options-item .btn {
@@ -1032,12 +1046,30 @@ textarea.textarea {
         margin: 0; } }
   .options-durations {
     font-size: 22px;
-    color: #a380d7; }
+    color: #a380d7;
+    margin-bottom: 7px; }
+  .options-sale {
+    font-size: 16px;
+    color: #ff82c2;
+    font-family: 'rounds';
+    position: relative;
+    margin-bottom: 30px; }
+    .options-sale:after {
+      position: absolute;
+      bottom: -12px;
+      left: 50%;
+      margin-left: -46px;
+      width: 92px;
+      height: 11px;
+      content: '';
+      background-image: url("../img/options-sale.png");
+      background-repeat: no-repeat; }
   .options h3 {
     font-size: 32px;
     line-height: 50px;
     color: #a380d7;
-    margin-bottom: 9%; }
+    margin-bottom: 9%;
+    font-family: 'rounds'; }
     @media only screen and (max-width: 780px) {
       .options h3 {
         margin: 0; } }
@@ -1076,19 +1108,22 @@ textarea.textarea {
           border-bottom: 5px solid #8e7dba;
           width: 12%; }
           .form .week-day.filters-option-active {
-            background-color: #8e7dba;
-            border-bottom: 5px solid #1cbbb4; }
+            border-bottom: 5px solid #1cbbb4;
+            padding: 15px 0; }
           .form .week-day .desktop {
             display: none; }
           .form .week-day .mobile {
             display: block; }
             .form .week-day .mobile span {
               font-size: 12px; } }
-      .form .week-day:hover, .form .week-day-active {
+      .form .week-day:hover, .form .filters-option-active {
         background-color: #1cbbb4; }
         @media only screen and (max-width: 420px) {
-          .form .week-day:hover, .form .week-day-active {
-            background-color: #8e7dba;
+          .form .week-day:hover {
+            background-color: #8e7dba; 
+            border-bottom: 5px solid #1cbbb4; }
+          .form .filters-option-active {
+            background-color: #1cbbb4 !important;
             border-bottom: 5px solid #1cbbb4; } }
       .form .week-day p {
         font-size: 18px; }
@@ -1983,3 +2018,38 @@ textarea.textarea {
       font-size: 11px;
       line-height: 1.2;
       margin: 0; }
+.arrow {
+  position: fixed;
+  z-index: 99;
+  bottom: 50px;
+  right: 50px;
+  border-radius: 50%;
+  border: 2px solid #a696ce;
+  width: 40px;
+  height: 40px;
+  display: none;
+  -webkit-transition: border-color .3s;
+  transition: border-color .3s;
+  cursor: pointer; }
+  @media only screen and (max-width: 780px) {
+    .arrow {
+      display: none !important;
+    }
+  }
+  .arrow:before {
+    width: 10px;
+    height: 10px;
+    -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+    border-left: 2px solid #a696ce;
+    border-top: 2px solid #a696ce;
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 12px;
+    -webkit-transition: border-color .3s;
+    transition: border-color .3s; }
+  .arrow:hover {
+    border-color: #6d56a5; }
+    .arrow:hover:before {
+      border-color: #6d56a5; }

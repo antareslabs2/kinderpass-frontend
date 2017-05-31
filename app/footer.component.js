@@ -12,8 +12,22 @@ var core_1 = require("@angular/core");
 var FooterComponent = (function () {
     function FooterComponent() {
     }
+    FooterComponent.prototype.onScrollEvent = function ($event) {
+        if ($(window).scrollTop() > $(window).height() / 2) {
+            $('.arrow').fadeIn();
+        }
+        else {
+            $('.arrow').fadeOut();
+        }
+    };
     return FooterComponent;
 }());
+__decorate([
+    core_1.HostListener('window:scroll', ['$event']),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], FooterComponent.prototype, "onScrollEvent", null);
 FooterComponent = __decorate([
     core_1.Component({
         selector: 'footerTemplate',

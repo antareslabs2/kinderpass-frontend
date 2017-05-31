@@ -154,8 +154,6 @@ var MainComponent = (function () {
         }
         var d = new Date();
         if (this.curDate) {
-            console.log(moment(d).isSameOrAfter(moment(this.curDate), 'day'));
-            console.log(moment(this.curDate).isSameOrAfter(d, 'day'));
             if (moment(d).isSameOrAfter(this.curDate, 'day')) {
                 if (d.getHours() < 17) {
                     this.selectedDate = d;
@@ -177,7 +175,6 @@ var MainComponent = (function () {
         }
         else
             this.curDate = moment(d).format("YYYYMMDD");
-        console.log(this.curDate);
         this.httpService.getCategories().subscribe(function (data) {
             _this.categories = data.categories;
             if (!_this.curCategory)

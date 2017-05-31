@@ -177,8 +177,6 @@ export class MainComponent implements OnInit {
 		let d = new Date();
 		
 		if (this.curDate) {
-			console.log(moment(d).isSameOrAfter(moment(this.curDate), 'day'))
-			console.log(moment(this.curDate).isSameOrAfter(d, 'day'))
 			if(moment(d).isSameOrAfter(this.curDate, 'day')) {
 				if (d.getHours() < 17){
 					this.selectedDate = d;
@@ -200,7 +198,6 @@ export class MainComponent implements OnInit {
 		} else 
 			this.curDate = moment(d).format("YYYYMMDD");
 
-			console.log(this.curDate)
 
 		this.httpService.getCategories().subscribe((data:any) => {
 			this.categories=data.categories;
