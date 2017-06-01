@@ -2024,32 +2024,23 @@ textarea.textarea {
   bottom: 50px;
   right: 50px;
   border-radius: 50%;
-  border: 2px solid #a696ce;
   width: 40px;
   height: 40px;
   display: none;
-  -webkit-transition: border-color .3s;
-  transition: border-color .3s;
+  transition: all .3s;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(90deg);
+  background-color: #fff;
+  background-image: url(../img/mobile/arrowFilters.png);
+  background-size: 20px;
+  background-position: 50% 45%;
+  background-repeat: no-repeat;
+  opacity: 0.5;
   cursor: pointer; }
   @media only screen and (max-width: 780px) {
     .arrow {
       display: none !important;
     }
   }
-  .arrow:before {
-    width: 10px;
-    height: 10px;
-    -webkit-transform: rotate(45deg);
-            transform: rotate(45deg);
-    border-left: 2px solid #a696ce;
-    border-top: 2px solid #a696ce;
-    content: '';
-    position: absolute;
-    top: 15px;
-    left: 12px;
-    -webkit-transition: border-color .3s;
-    transition: border-color .3s; }
   .arrow:hover {
-    border-color: #6d56a5; }
-    .arrow:hover:before {
-      border-color: #6d56a5; }
+        opacity: 1; }

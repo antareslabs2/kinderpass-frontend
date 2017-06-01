@@ -107,6 +107,12 @@
 			width: 100%
 			padding: 5px 0
 			min-height: auto
+			.user-menu
+				max-height: calc(100% - 65px)
+				overflow-y: scroll
+				position: fixed
+				top: 65px
+				z-index: -1
 
 		.logo
 			width: auto
@@ -189,7 +195,7 @@
 		padding: 20px 45px 40px
 		z-index: 10
 		max-width: 100%
-		box-shadow: 2px 4px 5px 0px rgba(111, 93, 158, 0.48)s
+		box-shadow: 2px 4px 5px 0px rgba(111, 93, 158, 0.48)
 		+bpmin(1280px)
 			right: 85px
 		&-btn
@@ -223,9 +229,11 @@
 				width: 100%
 				td
 					word-break: break-word
-					width: 50%
 					&:nth-child(2n)
 						text-align: right
+					&:nth-child(2n + 1)
+						padding-right: 20px
+						white-space: nowrap
 
 		&-booking
 			margin: 10px 0
