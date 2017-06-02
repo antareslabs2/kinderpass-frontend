@@ -313,7 +313,7 @@ export class MainComponent implements OnInit {
 	}
 
 	nextWeek(event:any) : void {
-		if (this.week < 25) {
+		if (this.week <= 30) {
 			this.monday.add(7,'d');
 			this.initDates();
 			this.week += 7;

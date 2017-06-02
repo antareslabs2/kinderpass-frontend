@@ -282,7 +282,7 @@ var MainComponent = (function () {
         });
     };
     MainComponent.prototype.nextWeek = function (event) {
-        if (this.week < 25) {
+        if (this.week <= 30) {
             this.monday.add(7, 'd');
             this.initDates();
             this.week += 7;

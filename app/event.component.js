@@ -48,7 +48,6 @@ var EventComponent = (function () {
         });
     };
     EventComponent.prototype.checkBooking = function () {
-        console.log('erewerw');
         for (var i in this.gs.userInfo.bookings) {
             if (this.gs.userInfo.bookings[i].time_slot.id == this.timeslot_id) {
                 this.bookingStatus = true;

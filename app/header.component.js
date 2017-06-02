@@ -8,11 +8,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 var core_1 = require("@angular/core");
 var app_global_service_1 = require("./app.global.service");
+var router_1 = require("@angular/router");
+var ng2_page_scroll_1 = require("ng2-page-scroll");
+var platform_browser_1 = require("@angular/platform-browser");
 var HeaderComponent = (function () {
-    function HeaderComponent(gs) {
+    function HeaderComponent(gs, router, pageScrollService, document) {
         this.gs = gs;
+        this.pageScrollService = pageScrollService;
+        this.document = document;
         this.openProfile = false;
         var th = this;
         $(document).click(function (e) {
@@ -30,6 +38,11 @@ var HeaderComponent = (function () {
         this.openProfile = false;
     };
     HeaderComponent.prototype.toogleLK = function () {
+        this.openProfile = !this.openProfile;
+    };
+    HeaderComponent.prototype.goToSubscription = function () {
+        var pageScrollInstance = ng2_page_scroll_1.PageScrollInstance.simpleInstance(this.document, '#subscription');
+        this.pageScrollService.start(pageScrollInstance);
         this.openProfile = !this.openProfile;
     };
     HeaderComponent.prototype.onResize = function (event) {
@@ -78,7 +91,8 @@ HeaderComponent = __decorate([
             '(window:resize)': 'onResize($event)'
         }
     }),
-    __metadata("design:paramtypes", [app_global_service_1.GlobalService])
+    __param(3, core_1.Inject(platform_browser_1.DOCUMENT)),
+    __metadata("design:paramtypes", [app_global_service_1.GlobalService, router_1.Router, ng2_page_scroll_1.PageScrollService, Object])
 ], HeaderComponent);
 exports.HeaderComponent = HeaderComponent;
 //# sourceMappingURL=header.component.js.map

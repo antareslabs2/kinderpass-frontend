@@ -52,7 +52,6 @@ export class EventComponent implements OnInit, OnDestroy  {
 		});
 	}
 	checkBooking() : void {
-		console.log('erewerw')
 		for(let i in this.gs.userInfo.bookings) {
 			if (this.gs.userInfo.bookings[i].time_slot.id == this.timeslot_id){
 				this.bookingStatus = true;
