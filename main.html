@@ -204,7 +204,7 @@
 	 		</ng-container>
 	 		<p class="results-notFound" *ngIf="events.length <= 0">Не найдено ни одного мероприятия</p>
 	 	</div>
-	 	<div class="moreResults" *ngIf="resultsToShow < events.length" (click)="resultsToShow = resultsToShow + 8">Еще (<span>{{events.length - resultsToShow}}</span>)</div>
+	 	<div class="moreResults" *ngIf="resultsToShow < events.length" (click)="resultsToShow = resultsToShow + 8"><span class="btn">Еще (<span>{{events.length - resultsToShow}}</span>)</span></div>
 	</div>
 </div>
 <div *ngIf="!gs.userInfo.subscription" class="bottomHelper"></div>

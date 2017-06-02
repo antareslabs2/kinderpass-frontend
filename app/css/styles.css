@@ -1420,12 +1420,16 @@ textarea.textarea {
   .form .moreResults {
     text-align: center;
     margin-top: 35px;
-    font-size: 18px;
-    text-decoration: underline;
     color: #fff;
     cursor: pointer; }
-    .form .moreResults:hover {
-      text-decoration: none; }
+    .form .moreResults .btn {
+      padding: 10px;
+      background-color: #fff;
+      text-transform: none;
+      background-color: #1cbbb4;
+    }
+    .form .moreResults .btn:hover {
+      background-color: #1aa9a2; }
 
 .bottomHelper {
   height: 200px;
