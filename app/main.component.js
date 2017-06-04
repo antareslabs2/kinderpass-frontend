@@ -32,7 +32,7 @@ var MainComponent = (function () {
         this.openProfile = false;
         this.resultsToShow = 8;
         this.monday = new Date();
-        if (this.monday.getHours() < 17)
+        if (this.monday.getHours() < 23)
             this.today = new Date();
         else
             this.today = moment(new Date()).add(1, 'days').format();
@@ -155,7 +155,7 @@ var MainComponent = (function () {
         var d = new Date();
         if (this.curDate) {
             if (moment(d).isSameOrAfter(this.curDate, 'day')) {
-                if (d.getHours() < 17) {
+                if (d.getHours() < 23) {
                     this.selectedDate = d;
                     this.curDate = moment(d).format("YYYYMMDD");
                 }
@@ -166,7 +166,7 @@ var MainComponent = (function () {
             }
             else {
                 if (moment(this.curDate).isAfter(this.nextMonth, 'day'))
-                    if (d.getHours() < 17)
+                    if (d.getHours() < 23)
                         this.curDate = moment(d).format("YYYYMMDD");
                     else
                         this.curDate = moment(d).add(1, 'd').format("YYYYMMDD");
