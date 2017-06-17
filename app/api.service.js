@@ -8,17 +8,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 var http_1 = require("@angular/http");
 var core_1 = require("@angular/core");
 var Observable_1 = require("rxjs/Observable");
-// declare var device: any;
-// import 'app/js/device';
 var Api = (function () {
-    function Api(http) {
+    function Api(http, _window) {
         this.http = http;
+        this._window = _window;
         var headers = new http_1.Headers({ 'Content-Type': 'application/json;charset=utf-8' });
         this.options = new http_1.RequestOptions({ headers: headers, withCredentials: true });
-        if (window.location.hostName == 'kinderpass.ru')
+        if (this._window.location.hostname == 'kinderpass.ru')
             this.url = 'https://api.kinderpass.ru/';
         else
             this.url = 'https://test.kinderpass.ru/';
@@ -93,7 +95,6 @@ var Api = (function () {
             .catch(function (error) { return error; });
     };
     Api.prototype.registration = function (data) {
-        console.log(data);
         var headers = new http_1.Headers({ 'Content-Type': 'application/json;charset=utf-8' });
         return this.http.post('https://script.google.com/macros/s/AKfycbzLz5xJS2x726J14D04DOYNyuuhIRrAqXlRlaJTf7sYSgoQcfE/exec', data, this.options)
             .map(function (resp) { return resp.json(); })
@@ -109,7 +110,8 @@ var Api = (function () {
 }());
 Api = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
+    __param(1, core_1.Inject(Window)),
+    __metadata("design:paramtypes", [http_1.Http, Window])
 ], Api);
 exports.Api = Api;
 //# sourceMappingURL=api.service.js.map

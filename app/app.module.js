@@ -22,15 +22,15 @@ var app_global_service_1 = require("./app.global.service");
 var app_component_1 = require("./app.component");
 var main_component_1 = require("./main.component");
 var about_component_1 = require("./about.component");
-// import { OfferComponent }   from './offer.component';
+var offer_component_1 = require("./offer.component");
 var footer_component_1 = require("./footer.component");
 var header_component_1 = require("./header.component");
 var registration_component_1 = require("./registration.component");
 var conditions_component_1 = require("./conditions.component");
 var policy_component_1 = require("./policy.component");
-// import { EventComponent }   from './event.component';
+var event_component_1 = require("./event.component");
 var app_dialog_1 = require("./app.dialog");
-// import { LocationComponent }   from './location.dialog';
+var location_dialog_1 = require("./location.dialog");
 var api_service_1 = require("./api.service");
 var pipes_1 = require("./pipes");
 var convertToArray_1 = require("./convertToArray");
@@ -38,18 +38,17 @@ var http_1 = require("@angular/http");
 var http_service_1 = require("./http.service");
 var core_2 = require("@angular/core");
 var angular2_text_mask_1 = require("angular2-text-mask");
-// import { Ng2DeviceDetectorModule } from 'ng2-device-detector';
 var angular2_moment_1 = require("angular2-moment");
 var moment = require("moment");
 moment.locale('ru');
 var appRoutes = [
     { path: '', component: main_component_1.MainComponent },
     { path: 'about', component: about_component_1.AboutComponent },
-    // { path: 'offer', component: OfferComponent},
+    { path: 'offer', component: offer_component_1.OfferComponent },
     { path: 'registration', component: registration_component_1.RegistrationComponent },
     { path: 'conditions', component: conditions_component_1.ConditionsComponent },
     { path: 'policy', component: policy_component_1.PolicyComponent },
-    // { path: 'event/:id', component: EventComponent },
+    { path: 'event/:id', component: event_component_1.EventComponent },
     { path: '**', redirectTo: '/' }
 ];
 var AppModule = (function () {
@@ -90,19 +89,20 @@ AppModule = __decorate([
             header_component_1.HeaderComponent,
             app_component_1.AppComponent,
             app_dialog_1.DialogComponent,
-            // LocationComponent,
+            location_dialog_1.LocationComponent,
             main_component_1.MainComponent,
             about_component_1.AboutComponent,
-            // OfferComponent, 
+            offer_component_1.OfferComponent,
             registration_component_1.RegistrationComponent,
             conditions_component_1.ConditionsComponent,
             policy_component_1.PolicyComponent,
-            // EventComponent,
+            event_component_1.EventComponent,
             pipes_1.TruncatePipe,
             convertToArray_1.KeysPipe
         ],
         bootstrap: [app_component_1.AppComponent],
         providers: [
+            { provide: Window, useValue: window },
             app_global_service_1.GlobalService,
             api_service_1.Api,
             { provide: core_2.LOCALE_ID, useValue: "ru-RU" },

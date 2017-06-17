@@ -8,16 +8,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 var core_1 = require("@angular/core");
 var animations_1 = require("@angular/animations");
 var app_global_service_1 = require("./app.global.service");
 var DialogComponent = (function () {
-    function DialogComponent(gs) {
+    function DialogComponent(gs, _window) {
         this.gs = gs;
-        if (window.location.hostName == 'kinderpass.ru')
-            this.apiURL = 'http://api.kinderpass.ru/';
+        this._window = _window;
+        if (this._window.location.hostname == 'kinderpass.ru')
+            this.apiURL = 'https://api.kinderpass.ru/';
         else
-            this.apiURL = 'http://test.kinderpass.ru/';
+            this.apiURL = 'https://test.kinderpass.ru/';
     }
     DialogComponent.prototype.close = function () {
         this.gs.popupName = '';
@@ -43,7 +47,8 @@ DialogComponent = __decorate([
             ])
         ]
     }),
-    __metadata("design:paramtypes", [app_global_service_1.GlobalService])
+    __param(1, core_1.Inject(Window)),
+    __metadata("design:paramtypes", [app_global_service_1.GlobalService, Window])
 ], DialogComponent);
 exports.DialogComponent = DialogComponent;
 //# sourceMappingURL=app.dialog.js.map

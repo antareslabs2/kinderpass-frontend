@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { GlobalService } from './app.global.service';
 
@@ -21,11 +21,11 @@ export class DialogComponent {
   phone:string;
   apiURL:string;
 
-  constructor(private gs: GlobalService) {
-    if(window.location.hostName == 'kinderpass.ru')
-      this.apiURL = 'http://api.kinderpass.ru/';
+  constructor(private gs: GlobalService, @Inject(Window) private _window: Window) {
+    if(this._window.location.hostname == 'kinderpass.ru')
+      this.apiURL = 'https://api.kinderpass.ru/';
     else
-      this.apiURL = 'http://test.kinderpass.ru/';
+      this.apiURL = 'https://test.kinderpass.ru/';
 
    }
 

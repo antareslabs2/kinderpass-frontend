@@ -1,20 +1,19 @@
 import {Http, Response, Headers, RequestOptions} from '@angular/http';
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import {HttpService} from './http.service';
 import {Observable} from 'rxjs/Observable';
 
-// declare var device: any;
-// import 'app/js/device';
+declare var device: any;
 
 @Injectable()
 export class Api{
 
     private url:string;
     options:any;
-    constructor(private http: Http){ 
+    constructor(private http: Http, @Inject(Window) private _window: Window){ 
         let headers = new Headers({ 'Content-Type': 'application/json;charset=utf-8' });
         this.options = new RequestOptions({ headers: headers, withCredentials: true });
-        if(window.location.hostName == 'kinderpass.ru')
+        if(this._window.location.hostname == 'kinderpass.ru')
               this.url = 'https://api.kinderpass.ru/';
         else
               this.url = 'https://test.kinderpass.ru/';
@@ -104,7 +103,6 @@ export class Api{
     }
 
     registration(data:any){
-         console.log(data);
         let headers = new Headers({ 'Content-Type': 'application/json;charset=utf-8' });
 
         return this.http.post('https://script.google.com/macros/s/AKfycbzLz5xJS2x726J14D04DOYNyuuhIRrAqXlRlaJTf7sYSgoQcfE/exec', data, this.options)
