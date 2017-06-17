@@ -2,15 +2,22 @@ import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import { Injectable } from '@angular/core';
 import {HttpService} from './http.service';
 import {Observable} from 'rxjs/Observable';
- 
+
+// declare var device: any;
+// import 'app/js/device';
+
 @Injectable()
 export class Api{
 
-    private url = 'https://test.kinderpass.ru/';
+    private url:string;
     options:any;
     constructor(private http: Http){ 
         let headers = new Headers({ 'Content-Type': 'application/json;charset=utf-8' });
         this.options = new RequestOptions({ headers: headers, withCredentials: true });
+        if(window.location.hostName == 'kinderpass.ru')
+              this.url = 'https://api.kinderpass.ru/';
+        else
+              this.url = 'https://test.kinderpass.ru/';
     }
      
     getInfo(){
@@ -60,7 +67,11 @@ export class Api{
     }
 
     initTransaction(type:string){
-        let url = this.url + 'api/accounts/initiate_transaction/' + type;
+        let tmp = '';
+        if (!device.desktop()) {
+            tmp = "?pageView=MOBILE"
+        }
+        let url = this.url + 'api/accounts/initiate_transaction/' + type + tmp;
         return this.http.post(url, '',  this.options)
                         .map((resp:Response)=>resp.json())
                         .catch((error:any) =>{return Observable.throw(error);}); 

@@ -3,7 +3,7 @@ import { Component, HostListener } from '@angular/core';
 
 @Component({
 	selector: 'footerTemplate',
-	templateUrl: 'footer.html'
+	templateUrl: 'static/footer.html'
 })
 
 export class FooterComponent { 

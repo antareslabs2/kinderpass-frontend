@@ -11,12 +11,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var http_1 = require("@angular/http");
 var core_1 = require("@angular/core");
 var Observable_1 = require("rxjs/Observable");
+// declare var device: any;
+// import 'app/js/device';
 var Api = (function () {
     function Api(http) {
         this.http = http;
-        this.url = 'https://test.kinderpass.ru/';
         var headers = new http_1.Headers({ 'Content-Type': 'application/json;charset=utf-8' });
         this.options = new http_1.RequestOptions({ headers: headers, withCredentials: true });
+        if (window.location.hostName == 'kinderpass.ru')
+            this.url = 'https://api.kinderpass.ru/';
+        else
+            this.url = 'https://test.kinderpass.ru/';
     }
     Api.prototype.getInfo = function () {
         return this.http.get(this.url + 'api/accounts/get_info', this.options)
@@ -58,7 +63,11 @@ var Api = (function () {
             .catch(function (error) { return Observable_1.Observable.throw(error); });
     };
     Api.prototype.initTransaction = function (type) {
-        var url = this.url + 'api/accounts/initiate_transaction/' + type;
+        var tmp = '';
+        if (!device.desktop()) {
+            tmp = "?pageView=MOBILE";
+        }
+        var url = this.url + 'api/accounts/initiate_transaction/' + type + tmp;
         return this.http.post(url, '', this.options)
             .map(function (resp) { return resp.json(); })
             .catch(function (error) { return Observable_1.Observable.throw(error); });

@@ -18,7 +18,7 @@ var OfferComponent = (function () {
 OfferComponent = __decorate([
     core_1.Component({
         selector: 'offer',
-        templateUrl: 'offer.html'
+        templateUrl: 'static/offer.html'
     }),
     __metadata("design:paramtypes", [])
 ], OfferComponent);

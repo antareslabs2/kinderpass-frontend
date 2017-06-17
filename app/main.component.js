@@ -369,7 +369,7 @@ var MainComponent = (function () {
 MainComponent = __decorate([
     core_1.Component({
         selector: 'main-app',
-        templateUrl: 'main.html',
+        templateUrl: 'static/main.html',
         providers: [api_service_1.Api]
     }),
     __param(4, core_1.Inject(platform_browser_1.DOCUMENT)),

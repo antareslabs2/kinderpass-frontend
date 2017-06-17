@@ -11,7 +11,7 @@ import 'slick';
 
 @Component({
 	selector: 'main-app',
-	templateUrl: 'main.html',
+	templateUrl: 'static/main.html',
 	providers: [Api]
 })
 

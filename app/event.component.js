@@ -128,7 +128,7 @@ var EventComponent = (function () {
 EventComponent = __decorate([
     core_1.Component({
         selector: 'event',
-        templateUrl: 'event.html',
+        templateUrl: 'static/event.html',
         providers: [api_service_1.Api]
     }),
     __metadata("design:paramtypes", [api_service_1.Api, router_1.ActivatedRoute, app_global_service_1.GlobalService])

@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
 	selector: 'policy',
-	templateUrl: 'policy.html'
+	templateUrl: 'static/policy.html'
 })
 
 export class PolicyComponent { 

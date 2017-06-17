@@ -42,7 +42,7 @@
 				<div class="user-menu-title">
 					<img src="app/img/sub.png" alt="">
 					<p>Абонемент</p>
-					<a *ngIf="!gs.userInfo.subscription"  class="user-menu-btn btn" (click)="goToSubscription()" [routerLink]="['/']" fragment="subscription">Купить</a>
+					<a class="user-menu-btn btn" (click)="goToSubscription()" [routerLink]="['/']" fragment="subscription">Купить</a>
 				</div>
 				<table *ngIf="gs.userInfo.subscription">
 					<tr>

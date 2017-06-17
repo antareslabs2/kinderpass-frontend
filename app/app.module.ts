@@ -10,16 +10,16 @@ import { GlobalService }   from './app.global.service';
 import { AppComponent }   from './app.component';
 import { MainComponent }   from './main.component';
 import { AboutComponent }   from './about.component';
-import { OfferComponent }   from './offer.component';
+// import { OfferComponent }   from './offer.component';
 import { FooterComponent }   from './footer.component';
 import { HeaderComponent }   from './header.component';
 import { RegistrationComponent }   from './registration.component';
 import { ConditionsComponent }   from './conditions.component';
 import { PolicyComponent }   from './policy.component';
-import { EventComponent }   from './event.component';
+// import { EventComponent }   from './event.component';
 
 import { DialogComponent }   from './app.dialog';
-import { LocationComponent }   from './location.dialog';
+// import { LocationComponent }   from './location.dialog';
 
 import { Api }   from './api.service';
 
@@ -30,6 +30,8 @@ import { HttpModule, RequestOptions, XHRBackend }   from '@angular/http';
 import { HttpService } from './http.service';
 import { LOCALE_ID } from '@angular/core';
 import { TextMaskModule } from 'angular2-text-mask';
+// import { Ng2DeviceDetectorModule } from 'ng2-device-detector';
+
 import {MomentModule} from 'angular2-moment';
 import * as moment from 'moment';
 moment.locale('ru');
@@ -37,11 +39,11 @@ moment.locale('ru');
 const appRoutes: Routes =[
     { path: '', component: MainComponent},
     { path: 'about', component: AboutComponent},
-    { path: 'offer', component: OfferComponent},
+    // { path: 'offer', component: OfferComponent},
     { path: 'registration', component: RegistrationComponent},
     { path: 'conditions', component: ConditionsComponent},
     { path: 'policy', component: PolicyComponent},
-    { path: 'event/:id', component: EventComponent },
+    // { path: 'event/:id', component: EventComponent },
     { path: '**', redirectTo: '/'}
 ];
 
@@ -52,14 +54,14 @@ const appRoutes: Routes =[
         HeaderComponent, 
         AppComponent, 
         DialogComponent, 
-        LocationComponent,
+        // LocationComponent,
         MainComponent, 
         AboutComponent, 
-        OfferComponent, 
+        // OfferComponent, 
         RegistrationComponent, 
         ConditionsComponent, 
         PolicyComponent,
-        EventComponent,
+        // EventComponent,
         TruncatePipe,
         KeysPipe
     ],

@@ -6,7 +6,7 @@ import { GlobalService } from './app.global.service';
 
 @Component({
 	selector: 'event',
-	templateUrl: 'event.html',
+	templateUrl: 'static/event.html',
 	providers: [Api]
 })
 

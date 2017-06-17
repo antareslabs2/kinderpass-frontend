@@ -4,7 +4,7 @@ import { GlobalService } from './app.global.service';
 
 @Component({
   selector: 'location-dialog',
-  templateUrl: 'location.html',
+  templateUrl: 'static/location.html',
   animations: [
     trigger('location-dialog', [
       transition('void => *', [

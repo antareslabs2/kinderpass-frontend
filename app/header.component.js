@@ -86,7 +86,7 @@ var HeaderComponent = (function () {
 HeaderComponent = __decorate([
     core_1.Component({
         selector: 'headerTemplate',
-        templateUrl: 'header.html',
+        templateUrl: 'static/header.html',
         host: {
             '(window:resize)': 'onResize($event)'
         }

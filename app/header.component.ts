@@ -6,7 +6,7 @@ import {DOCUMENT} from '@angular/platform-browser';
 
 @Component({
 	selector: 'headerTemplate',
-	templateUrl: 'header.html',
+	templateUrl: 'static/header.html',
 	host: {
 		'(window:resize)': 'onResize($event)'
 	}

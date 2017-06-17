@@ -14,6 +14,10 @@ var app_global_service_1 = require("./app.global.service");
 var DialogComponent = (function () {
     function DialogComponent(gs) {
         this.gs = gs;
+        if (window.location.hostName == 'kinderpass.ru')
+            this.apiURL = 'http://api.kinderpass.ru/';
+        else
+            this.apiURL = 'http://test.kinderpass.ru/';
     }
     DialogComponent.prototype.close = function () {
         this.gs.popupName = '';
@@ -27,7 +31,7 @@ var DialogComponent = (function () {
 DialogComponent = __decorate([
     core_1.Component({
         selector: 'app-dialog',
-        templateUrl: 'loginPopup.html',
+        templateUrl: 'static/loginPopup.html',
         animations: [
             animations_1.trigger('dialog', [
                 animations_1.transition('void => *', [

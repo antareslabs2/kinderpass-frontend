@@ -4,7 +4,7 @@ import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/fo
 
 @Component({
 	selector: 'registration',
-	templateUrl: 'registration.html',
+	templateUrl: 'static/registration.html',
 	providers: [Api],
 	styles: [`
 		input.ng-touched.ng-invalid {border:solid red 2px;}

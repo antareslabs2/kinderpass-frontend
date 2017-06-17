@@ -91,7 +91,7 @@ __decorate([
 LocationComponent = __decorate([
     core_1.Component({
         selector: 'location-dialog',
-        templateUrl: 'location.html',
+        templateUrl: 'static/location.html',
         animations: [
             animations_1.trigger('location-dialog', [
                 animations_1.transition('void => *', [

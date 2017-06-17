@@ -18,7 +18,7 @@ var PolicyComponent = (function () {
 PolicyComponent = __decorate([
     core_1.Component({
         selector: 'policy',
-        templateUrl: 'policy.html'
+        templateUrl: 'static/policy.html'
     }),
     __metadata("design:paramtypes", [])
 ], PolicyComponent);

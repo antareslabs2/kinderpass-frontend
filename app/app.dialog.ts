@@ -4,7 +4,7 @@ import { GlobalService } from './app.global.service';
 
 @Component({
   selector: 'app-dialog',
-  templateUrl: 'loginPopup.html',
+  templateUrl: 'static/loginPopup.html',
   animations: [
     trigger('dialog', [
       transition('void => *', [
@@ -19,8 +19,14 @@ import { GlobalService } from './app.global.service';
 export class DialogComponent {
   email:string;
   phone:string;
+  apiURL:string;
 
   constructor(private gs: GlobalService) {
+    if(window.location.hostName == 'kinderpass.ru')
+      this.apiURL = 'http://api.kinderpass.ru/';
+    else
+      this.apiURL = 'http://test.kinderpass.ru/';
+
    }
 
   close() : void {
