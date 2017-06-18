@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
 	selector: 'conditions',
-	templateUrl: 'static/conditions.html'
+	templateUrl: '../static/conditions.html'
 })
 
 export class ConditionsComponent { 

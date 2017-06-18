@@ -21,13 +21,9 @@ var platform_browser_2 = require("@angular/platform-browser");
 var app_global_service_1 = require("./app.global.service");
 var app_component_1 = require("./app.component");
 var main_component_1 = require("./main.component");
-var about_component_1 = require("./about.component");
-var offer_component_1 = require("./offer.component");
 var footer_component_1 = require("./footer.component");
 var header_component_1 = require("./header.component");
 var registration_component_1 = require("./registration.component");
-var conditions_component_1 = require("./conditions.component");
-var policy_component_1 = require("./policy.component");
 var event_component_1 = require("./event.component");
 var app_dialog_1 = require("./app.dialog");
 var location_dialog_1 = require("./location.dialog");
@@ -43,11 +39,11 @@ var moment = require("moment");
 moment.locale('ru');
 var appRoutes = [
     { path: '', component: main_component_1.MainComponent },
-    { path: 'about', component: about_component_1.AboutComponent },
-    { path: 'offer', component: offer_component_1.OfferComponent },
+    { path: 'offer', loadChildren: 'app/lazy/offer.module#OfferModule' },
+    { path: 'about', loadChildren: 'app/lazy/about.module#AboutModule' },
+    { path: 'conditions', loadChildren: 'app/lazy/conditions.module#ConditionsModule' },
+    { path: 'policy', loadChildren: 'app/lazy/policy.module#PolicyModule' },
     { path: 'registration', component: registration_component_1.RegistrationComponent },
-    { path: 'conditions', component: conditions_component_1.ConditionsComponent },
-    { path: 'policy', component: policy_component_1.PolicyComponent },
     { path: 'event/:id', component: event_component_1.EventComponent },
     { path: '**', redirectTo: '/' }
 ];
@@ -91,11 +87,7 @@ AppModule = __decorate([
             app_dialog_1.DialogComponent,
             location_dialog_1.LocationComponent,
             main_component_1.MainComponent,
-            about_component_1.AboutComponent,
-            offer_component_1.OfferComponent,
             registration_component_1.RegistrationComponent,
-            conditions_component_1.ConditionsComponent,
-            policy_component_1.PolicyComponent,
             event_component_1.EventComponent,
             pipes_1.TruncatePipe,
             convertToArray_1.KeysPipe

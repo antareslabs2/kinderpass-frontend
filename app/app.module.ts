@@ -9,13 +9,9 @@ import {DOCUMENT} from '@angular/platform-browser';
 import { GlobalService }   from './app.global.service';
 import { AppComponent }   from './app.component';
 import { MainComponent }   from './main.component';
-import { AboutComponent }   from './about.component';
-import { OfferComponent }   from './offer.component';
 import { FooterComponent }   from './footer.component';
 import { HeaderComponent }   from './header.component';
 import { RegistrationComponent }   from './registration.component';
-import { ConditionsComponent }   from './conditions.component';
-import { PolicyComponent }   from './policy.component';
 import { EventComponent }   from './event.component';
 
 import { DialogComponent }   from './app.dialog';
@@ -37,11 +33,11 @@ moment.locale('ru');
 
 const appRoutes: Routes =[
     { path: '', component: MainComponent},
-    { path: 'about', component: AboutComponent},
-    { path: 'offer', component: OfferComponent},
+    { path: 'offer', loadChildren: 'app/lazy/offer.module#OfferModule' },
+    { path: 'about', loadChildren: 'app/lazy/about.module#AboutModule' },
+    { path: 'conditions', loadChildren: 'app/lazy/conditions.module#ConditionsModule' },
+    { path: 'policy', loadChildren: 'app/lazy/policy.module#PolicyModule' },
     { path: 'registration', component: RegistrationComponent},
-    { path: 'conditions', component: ConditionsComponent},
-    { path: 'policy', component: PolicyComponent},
     { path: 'event/:id', component: EventComponent },
     { path: '**', redirectTo: '/'}
 ];
@@ -55,11 +51,7 @@ const appRoutes: Routes =[
         DialogComponent, 
         LocationComponent,
         MainComponent, 
-        AboutComponent, 
-        OfferComponent, 
         RegistrationComponent, 
-        ConditionsComponent, 
-        PolicyComponent,
         EventComponent,
         TruncatePipe,
         KeysPipe
