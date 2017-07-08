@@ -20,6 +20,8 @@ var DialogComponent = (function () {
         this._window = _window;
         if (this._window.location.hostname == 'kinderpass.ru')
             this.apiURL = 'https://api.kinderpass.ru/';
+        else if (this._window.location.hostname == 'localhost')
+            this.apiURL = 'http://dev.kinderpass.ru:8000/';
         else
             this.apiURL = 'https://test.kinderpass.ru/';
     }
