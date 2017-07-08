@@ -22,7 +22,7 @@ var Api = (function () {
         this.options = new http_1.RequestOptions({ headers: headers, withCredentials: true });
         if (this._window.location.hostname == 'kinderpass.ru')
             this.url = 'https://api.kinderpass.ru/';
-        else if (this._window.location.hostname == 'localhost')
+        else if (this._window.location.hostname == 'dev.kinderpass.ru')
             this.url = 'http://dev.kinderpass.ru:8000/';
         else
             this.url = 'https://test.kinderpass.ru/';
