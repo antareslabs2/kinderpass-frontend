@@ -151,13 +151,14 @@
 	<div class="wrapper">
 		<h2>Расписание</h2>
 		<div class="filters">
-			<div class="filters-item filters-location">
+			<!-- <div class="filters-item filters-location">
 				<span class="filters-option" [class.filters-option-active]="params.districts.id && params.districts.id.length" (click)="gs.openPopup('districts');">Район</span>
 				<span class="filters-text">или</span>
 				<span class="filters-option" [class.filters-option-active]="params.metro.id && params.metro.id.length" (click)="gs.openPopup('metro');">Метро</span>
 				<p *ngIf="params.metro.id" class="locations">{{params.metro.name[0]}}<span *ngIf="params.metro.name.length>1"> и еще {{params.metro.name.length - 1}} {{declOfNum(params.metro.name.length - 1, ['станция','станции','станций'])}}</span></p>
 				<p *ngIf="params.districts.id" class="locations">{{params.districts.name[0]}}<span *ngIf="params.districts.name.length>1"> и еще {{params.districts.name.length - 1}} {{declOfNum(params.districts.name.length - 1, ['район','района','районов'])}}</span></p>
-			</div><!-- 
+			</div>
+			--><!-- 
 		 --><div class="filters-item filters-time">
 				<span class="filters-option" *ngFor="let time of times;" [class.filters-option-active]="params.time_from==time.time_from && params.time_to==time.time_to" (click)="filterByTime($event, time)">{{time.key}}</span>
 			</div><!-- 
@@ -258,5 +259,6 @@
 	</div>
 </div>
 <!-- /BODY -->
-<location-dialog (districtsFilter)="districtsFilter($event)" (metroFilter)="metroFilter($event)" [(metro)]="metro" [(districts)]="districts">
+<!-- <location-dialog (districtsFilter)="districtsFilter($event)" (metroFilter)="metroFilter($event)" [(metro)]="metro" [(districts)]="districts">
 </location-dialog>
+-->

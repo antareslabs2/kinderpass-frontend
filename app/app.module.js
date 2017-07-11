@@ -26,7 +26,7 @@ var header_component_1 = require("./header.component");
 var registration_component_1 = require("./registration.component");
 var event_component_1 = require("./event.component");
 var app_dialog_1 = require("./app.dialog");
-var location_dialog_1 = require("./location.dialog");
+//import { LocationComponent }   from './location.dialog';
 var api_service_1 = require("./api.service");
 var pipes_1 = require("./pipes");
 var convertToArray_1 = require("./convertToArray");
@@ -85,7 +85,7 @@ AppModule = __decorate([
             header_component_1.HeaderComponent,
             app_component_1.AppComponent,
             app_dialog_1.DialogComponent,
-            location_dialog_1.LocationComponent,
+            //LocationComponent,
             main_component_1.MainComponent,
             registration_component_1.RegistrationComponent,
             event_component_1.EventComponent,

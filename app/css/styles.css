@@ -1243,12 +1243,12 @@ textarea.textarea {
     .form .filters-location .locations span {
       display: inline; }
   .form .filters-time {
-    width: 28%; }
+    width: 39%; }
     @media only screen and (max-width: 420px) {
       .form .filters-time {
         width: 100%; } }
   .form .filters-age {
-    width: 37%;
+    width: 60%;
     margin-right: 0; }
     @media only screen and (max-width: 420px) {
       .form .filters-age {

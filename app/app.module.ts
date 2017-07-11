@@ -15,7 +15,7 @@ import { RegistrationComponent }   from './registration.component';
 import { EventComponent }   from './event.component';
 
 import { DialogComponent }   from './app.dialog';
-import { LocationComponent }   from './location.dialog';
+//import { LocationComponent }   from './location.dialog';
 
 import { Api }   from './api.service';
 
@@ -49,7 +49,7 @@ const appRoutes: Routes =[
         HeaderComponent, 
         AppComponent, 
         DialogComponent, 
-        LocationComponent,
+        //LocationComponent,
         MainComponent, 
         RegistrationComponent, 
         EventComponent,
