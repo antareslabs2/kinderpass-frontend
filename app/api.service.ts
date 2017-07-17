@@ -107,7 +107,7 @@ export class Api{
     registration(data:any){
         let headers = new Headers({ 'Content-Type': 'application/json;charset=utf-8' });
 
-        return this.http.post('https://script.google.com/macros/s/AKfycbzLz5xJS2x726J14D04DOYNyuuhIRrAqXlRlaJTf7sYSgoQcfE/exec', data, this.options)
+        return this.http.post('https://script.google.com/macros/s/AKfycbzLz5xJS2x726J14D04DOYNyuuhIRrAqXlRlaJTf7sYSgoQcfE/exec', data)
                         .map((resp:Response)=>resp.json())
                         .catch((error:any) =>{return Observable.throw(error);}); 
     }

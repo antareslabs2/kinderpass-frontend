@@ -16,26 +16,26 @@
 					<input type="text" name="o_fio" placeholder="ФИО уполномоченного лица">
 					<input type="text" name="o_pos" placeholder="Должность уполномоченного лица">
 					<input type="text" name="o_basis" placeholder="Действующий на основании">
-					<input type="text" name="o_id" placeholder="ОГРН" data-inputmask="'mask': '9999999999999'">
-					<input type="text" name="o_tid" placeholder="ИНН" data-inputmask="'mask': '9999999999'">
-					<input type="text" name="o_kpp" placeholder="КПП" data-inputmask="'mask': '999999999'">
+					<input type="text" name="o_id" placeholder="ОГРН" [textMask]="{mask: o_id}">
+					<input type="text" name="o_tid" placeholder="ИНН" [textMask]="{mask: o_tid}">
+					<input type="text" name="o_kpp" placeholder="КПП" [textMask]="{mask: o_kpp}">
 				</div>
 				<div id="ie" *ngIf="opf=='ИП'">
 					<input type="text" name="ie_name" placeholder="ФИО индивидуального предпринимателя">
 					<input type="text" name="ie_address" placeholder="Адрес регистрации">
-					<input type="text" name="ie_id" placeholder="ОГРНИП" data-inputmask="'mask': '999999999999999'">
-					<input type="text" name="ie_tid" placeholder="ИНН" data-inputmask="'mask': '999999999999'">					
+					<input type="text" name="ie_id" placeholder="ОГРНИП" [textMask]="{mask: ie_id}">
+					<input type="text" name="ie_tid" placeholder="ИНН" [textMask]="{mask: ie_tid}">					
 				</div>
 				<p>Банковские реквизиты</p>
 				<input type="text" name="bank_name" placeholder="Наименование банка">
-				<input type="text" name="bank_id" placeholder="БИК" data-inputmask="'mask': '999999999'">
-				<input type="text" name="bank_cacc" placeholder="Корр. счет" data-inputmask="'mask': '9999 9999 9999 9999 9999'">
-				<input type="text" name="bank_pacc" placeholder="Расчетный счет" data-inputmask="'mask': '9999 9999 9999 9999 9999'">					
+				<input type="text" name="bank_id" placeholder="БИК" [textMask]="{mask: o_kpp}">
+				<input type="text" name="bank_cacc" placeholder="Корр. счет" [textMask]="{mask: bank_cacc}">
+				<input type="text" name="bank_pacc" placeholder="Расчетный счет" [textMask]="{mask: bank_cacc}">					
 				<p>Бренд</p>
 				<input type="text" name="brand" placeholder="Наименование бренда">
 				<input type="text" name="site" placeholder="Адрес сайта (без http://)">
 				<input type="email" name="email" placeholder="Уполномоченный e-mail">
-				<input type="text" name="phone" placeholder="Уполномоченный телефон" data-inputmask="'mask': '+7 (999) 999-9999'">
+				<input type="text" name="phone" placeholder="Уполномоченный телефон" [textMask]="{mask: phone}">
 				<button (click)="submit($event)" class="btn btn-line">Распечатать</button>
 			</form>
         </div>

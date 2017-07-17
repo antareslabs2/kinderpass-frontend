@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Api } from './api.service';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
+import { GlobalService } from './app.global.service';
 
 @Component({
 	selector: 'registration',
@@ -19,11 +20,26 @@ export class RegistrationComponent{
 	msg:string;
     innerpage:boolean;
 
-	constructor(private httpService: Api){
+    o_id: any;
+    o_tid: any;
+    o_kpp: any;
+    ie_id: any;
+    ie_tid: any;
+    bank_cacc: any;
+    phone: any;
+
+	constructor(private httpService: Api, private gs:GlobalService){
 		this.opf = 'ООО';
 		this.openPopup = '';
 		this.msg = '';
         this.innerpage = true;
+        this.o_id = [/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
+        this.o_tid = [/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
+        this.o_kpp = [/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
+        this.ie_id = [/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
+        this.ie_tid = [/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
+        this.bank_cacc = [/\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/];
+        this.phone = ['+', '7', ' ', '(', /\d/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
 	}
 
 	submit(event:any):any{
@@ -34,12 +50,12 @@ export class RegistrationComponent{
                 });
             $(event.target.parentElement).submit();
 		} else {
-			this.openPopup = 'msg';
+			this.gs.popupName = 'msgCancel';
 			if (invalidFields.length == 1) {
-				this.msg = 'Вы неправильно заполнили поле ' + invalidFields[0] + '. Пожалуйста, исправьте ошибку и отправьте заявку еше раз.';
+				this.gs.msg = 'Вы неправильно заполнили поле ' + invalidFields[0] + '. Пожалуйста, исправьте ошибку и отправьте заявку еше раз.';
 			}
 			else {
-				this.msg = 'Вы неправильно заполнили поля ' + invalidFields.join(', ') + '. Пожалуйста, исправьте ошибки и отправьте заявку еше раз.';	
+				this.gs.msg = 'Вы неправильно заполнили поля ' + invalidFields.join(', ') + '. Пожалуйста, исправьте ошибки и отправьте заявку еше раз.';	
 			}
 		}
     }

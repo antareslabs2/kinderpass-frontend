@@ -142,8 +142,6 @@ var GlobalService = (function () {
         var _this = this;
         this.email = form.controls.email.value;
         this.phone = form.controls.phone.value;
-        console.log(this.phone);
-        console.log(this.phone.match("/^([+][0-9]\([0-9]{3}\) [0-9]{3}-[0-9]{4})$/i"));
         if (this.email && this.phone) {
             var body = {
                 phone: this.phone,

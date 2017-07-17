@@ -10,13 +10,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var api_service_1 = require("./api.service");
+var app_global_service_1 = require("./app.global.service");
 var RegistrationComponent = (function () {
-    function RegistrationComponent(httpService) {
+    function RegistrationComponent(httpService, gs) {
         this.httpService = httpService;
+        this.gs = gs;
         this.opf = 'ООО';
         this.openPopup = '';
         this.msg = '';
         this.innerpage = true;
+        this.o_id = [/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
+        this.o_tid = [/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
+        this.o_kpp = [/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
+        this.ie_id = [/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
+        this.ie_tid = [/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
+        this.bank_cacc = [/\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/];
+        this.phone = ['+', '7', ' ', '(', /\d/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
     }
     RegistrationComponent.prototype.submit = function (event) {
         var invalidFields = this.validateForm(event.target.parentElement);
@@ -27,12 +36,12 @@ var RegistrationComponent = (function () {
             $(event.target.parentElement).submit();
         }
         else {
-            this.openPopup = 'msg';
+            this.gs.popupName = 'msgCancel';
             if (invalidFields.length == 1) {
-                this.msg = 'Вы неправильно заполнили поле ' + invalidFields[0] + '. Пожалуйста, исправьте ошибку и отправьте заявку еше раз.';
+                this.gs.msg = 'Вы неправильно заполнили поле ' + invalidFields[0] + '. Пожалуйста, исправьте ошибку и отправьте заявку еше раз.';
             }
             else {
-                this.msg = 'Вы неправильно заполнили поля ' + invalidFields.join(', ') + '. Пожалуйста, исправьте ошибки и отправьте заявку еше раз.';
+                this.gs.msg = 'Вы неправильно заполнили поля ' + invalidFields.join(', ') + '. Пожалуйста, исправьте ошибки и отправьте заявку еше раз.';
             }
         }
     };
@@ -141,7 +150,7 @@ RegistrationComponent = __decorate([
         providers: [api_service_1.Api],
         styles: ["\n\t\tinput.ng-touched.ng-invalid {border:solid red 2px;}\n\t\tinput.ng-touched.ng-valid {border:solid green 2px;}\n\t"],
     }),
-    __metadata("design:paramtypes", [api_service_1.Api])
+    __metadata("design:paramtypes", [api_service_1.Api, app_global_service_1.GlobalService])
 ], RegistrationComponent);
 exports.RegistrationComponent = RegistrationComponent;
 //# sourceMappingURL=registration.component.js.map

@@ -98,7 +98,7 @@ var Api = (function () {
     };
     Api.prototype.registration = function (data) {
         var headers = new http_1.Headers({ 'Content-Type': 'application/json;charset=utf-8' });
-        return this.http.post('https://script.google.com/macros/s/AKfycbzLz5xJS2x726J14D04DOYNyuuhIRrAqXlRlaJTf7sYSgoQcfE/exec', data, this.options)
+        return this.http.post('https://script.google.com/macros/s/AKfycbzLz5xJS2x726J14D04DOYNyuuhIRrAqXlRlaJTf7sYSgoQcfE/exec', data)
             .map(function (resp) { return resp.json(); })
             .catch(function (error) { return Observable_1.Observable.throw(error); });
     };
