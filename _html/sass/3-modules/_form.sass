@@ -27,21 +27,19 @@
 				border-bottom: 5px solid #8e7dba
 				width: 12%
 				&.filters-option-active
-					background-color: #8e7dba
 					border-bottom: 5px solid #1cbbb4
+					padding: 15px 0
 				.desktop
 					display: none
 				.mobile
 					display: block
 					span
 						font-size: 12px
-			&:hover,
-			&-active
+			&:hover
 				background-color: #1cbbb4
-				+bp($sm)
+			+bp($sm)
+				&:hover
 					background-color: #8e7dba
-					border-bottom: 5px solid #1cbbb4
-
 			p
 				font-size: 18px
 				+bp(1024px)
@@ -146,6 +144,10 @@
 				text-decoration: none
 				background-color: #1cbbb4
 
+				+bp($sm)
+					background-color: #1cbbb4 !important
+					border-bottom: 5px solid #1cbbb4
+
 		&-text
 			font-size: 12px
 			margin: 0 5%
@@ -159,12 +161,12 @@
 					display: inline
 
 		&-time
-			width: 28%
+			width: 39%
 			+bp($sm)
 				width: 100%
 
 		&-age
-			width: 37%
+			width: 60%
 			margin-right: 0
 			+bp($sm)
 				width: 100%
@@ -321,28 +323,30 @@
 				span
 					color: #ea6fe3
 					font-size: 36px
-					padding-right: 40px
-					background-image: url("../img/mоnеy.png")
+					padding-right: 25px
+					background-image: url("../img/money.png")
 					background-repeat: no-repeat
-					background-position: center right
-					background-size: 33px
+					background-position: 100% 45%
+					background-size: 17px
 					min-height: 35px
 					line-height: 40px
 					+bp($sm)
 						font-size: 24px
 						line-height: 30px
-						background-size: 30px
+						background-size: 11px
+						padding-right: 20px
 	
 	.moreResults
 		text-align: center
 		margin-top: 35px
-		font-size: 18px
-		text-decoration: underline
 		color: #fff
 		cursor: pointer
-		&:hover
-			text-decoration: none
-
+		.btn
+			padding: 10px
+			background-color: #1cbbb4
+			text-transform: none
+			&:hover
+				background-color: #1aa9a2
 .bottomHelper
 	height: 200px
 	background-image: url("../img/bottomHelper.png")

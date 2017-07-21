@@ -6,10 +6,7 @@ import {DOCUMENT} from '@angular/platform-browser';
 
 @Component({
 	selector: 'headerTemplate',
-	templateUrl: 'static/header.html',
-	host: {
-		'(window:resize)': 'onResize($event)'
-	}
+	templateUrl: 'static/header.html'
 })
 
 export class HeaderComponent{ 
@@ -47,38 +44,4 @@ export class HeaderComponent{
 		this.openProfile = !this.openProfile;
 	}
 
-	onResize(event:any) : void {
-		if($('.advantages-slider').length) {
-			if (event.target.innerWidth <= 420) {
-				if (!$('.advantages-slider').hasClass('slick-initialized')) {
-					$('.advantages-slider').slick({
-						slidesToShow: 1,
-						slidesToScroll: 1,
-						arrows: false,
-						dots: true
-					});
-				}
-			} else {
-				if ($('.advantages-slider').hasClass('slick-initialized')) {
-					$('.advantages-slider').slick('unslick');
-				}
-			}
-		}
-		if($('.steps-wrap').length) {
-			if (event.target.innerWidth <= 420) {
-				if (!$('.steps-wrap').hasClass('slick-initialized')) {
-					$('.steps-wrap').slick({
-						slidesToShow: 1,
-						slidesToScroll: 1,
-						arrows: false,
-						dots: true
-					});
-				}
-			} else {
-				if ($('.steps-wrap').hasClass('slick-initialized')) {
-					$('.steps-wrap').slick('unslick');
-				}
-			}
-		}
-	}
 }

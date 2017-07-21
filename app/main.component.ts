@@ -7,7 +7,6 @@ import {DOCUMENT} from '@angular/platform-browser';
 
 import * as moment from 'moment';
 import * as $ from 'jquery';
-import 'slick';
 
 @Component({
 	selector: 'main-app',
@@ -96,8 +95,7 @@ export class MainComponent implements OnInit {
 
 	ngOnInit(){
 		this.gs.innerpage = false;
-		if (!this.gs.isAuthenticated)
-			 setTimeout(() => this.gs.initSlider(), 0); 
+ 
 		for (let i in this.districtsNames) {
 				let tmp = {};
 				this.districts[this.districtsNames[i]] = {
@@ -202,7 +200,7 @@ export class MainComponent implements OnInit {
 		this.httpService.getCategories().subscribe((data:any) => {
 			this.categories=data.categories;
 			if(!this.curCategory)
-				this.curCategory = this.categories.filter((item: any)=> item.name === 'Киндерпасс')[0]['id'];
+				this.curCategory = 0;
 			this.eventsFilter();
 		});
 		this.monday= moment(this.monday).startOf('week');
@@ -219,6 +217,11 @@ export class MainComponent implements OnInit {
 		}
 	}
 
+	filterByCategory(event:any, category: number):void {
+		this.curCategory = this.curCategory == category ? 0 : category;
+
+		this.eventsFilter();
+	}
 
 	filterByDate(event:any, d: any) : void {
 		if(moment(d).isSameOrAfter(this.today, 'day') && moment(d).isSameOrBefore(this.nextMonth, 'day')) {

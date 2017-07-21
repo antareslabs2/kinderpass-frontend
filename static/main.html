@@ -2,10 +2,9 @@
 <div *ngIf="!gs.isAuthenticated" class="firstScreen">
 	<div class="wrapper">
 		<div class="title">
-			<h1>Абонемент в лучшие детские места Питера</h1>
-			<p>Киндерпасс дает возможность найти, записаться и прийти на интересные мастер-классы и детские активности с хорошей скидкой</p>
-			<a pageScroll href="#subscription" class="btn btn-line">Получить абонемент</a>
-			<a pageScroll href="#filter" class="mobileLink">Посмотреть расписание</a>
+			<h1>Абонемент на лучшие детские мероприятия Питера</h1>
+			<p>Киндерпасс дает возможность найти, записаться и посетить интересные мастер-классы и детские активности с хорошей скидкой</p>
+			<a pageScroll href="#subscription" class="btn btn-line">Попробовать</a>
 		</div>
 	</div>
 
@@ -14,26 +13,26 @@
 
 <div *ngIf="!gs.isAuthenticated" class="advantages">
 	<div class="wrapper">
-		<h2>В чем смысл абонемента?</h2>
+		<h2>Смысл абонемента</h2>
 		<div class="advantages-slider">
 			<div class="advantages-item">
 				<img src="app/img/adItem1.png" alt=""><!-- 
 			 --><div>
-					<h3>Большая экономия времени и нервов</h3>
+					<h3>Экономия времени</h3>
 					<p>Просто выберите дату и время. В абонемент входят лучшие классы, занятия и другие активности для единоразового посещения.</p>
 				</div>
 			</div><!-- 
 				 --><div class="advantages-item">
 				<img src="app/img/adItem2.png" alt=""><!-- 
 			 --><div>
-					<h3>Очень хорошая скидка 10-50%</h3>
+					<h3>Хорошая скидка 10-50%</h3>
 					<p>В цену включено определенное количество посещений, которые обошлись бы гораздо дороже, если бы вы пришли туда с улицы.</p>
 				</div>
 			</div><!-- 
 				 --><div class="advantages-item">
 				<img src="app/img/adItem3.png" alt=""><!-- 
 			 --><div>
-					<h3>Целый новый мир для вашего ребенка</h3>
+					<h3>Новый мир для детей</h3>
 					<p>Наш абонемент не про постоянные занятия и кружки, а про то, чтобы расширять кругозор вашего ребенка и показать ему мир.</p>
 				</div>
 			</div>
@@ -43,110 +42,13 @@
 
 <div *ngIf="!gs.isAuthenticated" class="steps">
 	<div class="wrapper">
-		<h2>Как пользоваться абонементом</h2><!-- 
+		<h2>Как все устроено</h2><!-- 
 	 --><div class="steps-wrap">
-			<div class="steps-item">
-				<h3>Выбирайте</h3>
-				<p>Выбирайте по району, типу активности, времени, возрасту ребенка<br>и другим критериям</p>
-				<div class="steps-img">
-					<img src="app/img/step1.png" alt="">
-				</div>
-			</div><!-- 
-		 --><div class="steps-item">
-				<h3>Записывайтесь</h3>
-				<p>Прямо на сайте. Организаторы сразу получат вашу бронь и будут ждать вашего прихода.</p>
-				<div class="steps-img">
-					<img src="app/img/step2.png" alt="">
-				</div>
-			</div><!-- 
-		 --><div class="steps-item">
-				<h3>Приходите</h3>
-				<p>И получайте удовольствие от того, как ваш ребенок радуется и развивается!</p>
-				<div class="steps-img">
-					<img src="app/img/step3.png" alt="">
-				</div>
-			</div>
+			<p>Киндерпасс устроен по клубному принципу. Каждый родитель покупает членство (абонемент), и взамен получает возможность бронировать все детские мероприятия и активности с хорошей скидкой.</p>
+			<p>Вам нужно зарегистрироваться в Киндерпассе через ФБ ии ВК, оплатить абонемент банковской карточкой (это безопасно, мы работаем с нашим партнером - Альфа-Банком) и можно сразу же начать бронировать мероприятия и ходить на них.</p>
 		</div>
 	</div>
 </div>
-<div *ngIf="!gs.isAuthenticated" class="gallery">
-	<div class="wrapper">
-		<h2>Лучшие предложения<span> на ближайшую неделю</span></h2>
-		<div class="slider-wrap">
-			<div class="slider">
-				<div>
-					<div class="slider-img">
-						<img src="app/img/gallery/1.jpg" alt="">
-					</div><!-- 
-				 --><div class="slider-description">
-						<h3>Батутный парк №1</h3>
-						<p>Два часа отличного активного отдыха / ТРК «Лето» на Пулковском шосссе</p>
-						<p class="amount">Скидка <span class="percent">34%</span><span class="mobileText"> при покупке абонемента</span></p>
-						<a pageScroll href="#subscription" class="btn btn-line">Хочу пойти!</a>
-					</div>
-				</div>
-				<div>
-					<div class="slider-img">
-						<img src="app/img/gallery/2.jpg" alt="">
-					</div><!-- 
-				 --><div class="slider-description">
-						<h3>Шахматная школа Эльшада Оруджева</h3>
-						<p>Обучение шахматам детей с 2,5 лет /  Кораблестроителей ул. 32 к3</p>
-						<p class="amount">Скидка <span class="percent">60%</span><span class="mobileText"> при покупке абонемента</span></p>
-						<a pageScroll href="#subscription" class="btn btn-line">Хочу пойти!</a>
-					</div>
-				</div>
-				<div>
-					<div class="slider-img">
-						<img src="app/img/gallery/3.jpg" alt="">
-					</div><!-- 
-				 --><div class="slider-description">
-						<h3>Счастливое детство</h3>
-						<p>Театральная студия  /  Коммуны ул. д.66</p>
-						<p class="amount">Скидка <span class="percent">30%</span><span class="mobileText"> при покупке абонемента</span></p>
-						<a pageScroll href="#subscription" class="btn btn-line">Хочу пойти!</a>
-					</div>
-				</div>
-				<div>
-					<div class="slider-img">
-						<img src="app/img/gallery/4.jpg" alt="">
-					</div><!-- 
-				 --><div class="slider-description">
-						<h3>Страна-буяния</h3>
-						<p>Детский центр развлечений с лабиринтом, горками и батутами /  Типанова ул. д.21</p>
-						<p class="amount">Скидка <span class="percent">25%</span><span class="mobileText"> при покупке абонемента</span></p>
-						<a pageScroll href="#subscription" class="btn btn-line">Хочу пойти!</a>
-					</div>
-				</div>
-				<div>
-					<div class="slider-img">
-						<img src="app/img/gallery/5.jpg" alt="">
-					</div><!-- 
-				 --><div class="slider-description">
-						<h3>Примавера Роботикс</h3>
-						<p>Lego Простые механизмы  /  Афонская, 18</p>
-						<p class="amount">Скидка <span class="percent">50%</span><span class="mobileText"> при покупке абонемента</span></p>
-						<a pageScroll href="#subscription" class="btn btn-line">Хочу пойти!</a>
-					</div>
-				</div>
-				<div>
-					<div class="slider-img">
-						<img src="app/img/gallery/6.jpg" alt="">
-					</div><!-- 
-				 --><div class="slider-description">
-						<h3>Кулинарная школа №1</h3>
-						<p>Учимся готовить на курсах «Юный кулинар»  /  Лесной проспект д. 73</p>
-						<p class="amount">Скидка <span class="percent">10%</span><span class="mobileText"> при покупке абонемента</span></p>
-						<a pageScroll href="#subscription" class="btn btn-line">Хочу пойти!</a>
-					</div>
-				</div>
-			</div>
-			<div class="slider-arrow slider-arrow-prev"></div>
-			<div class="slider-arrow slider-arrow-next"></div>
-		</div>
-	</div>
-</div>
-<div *ngIf="!gs.isAuthenticated" class="helper"></div>
 <div class="form" id="filter">
 	<div class="wrapper">
 		<h2>Расписание</h2>
@@ -167,7 +69,7 @@
 				<span class="filters-text">лет</span>
 			</div><!-- 
 		 --><div class="filters-item filters-category">
-				<span class="filters-option" *ngFor="let category of categories; let i = index;"  (click)="curCategory = category.id; eventsFilter()"
+				<span class="filters-option" *ngFor="let category of categories; let i = index;"  (click)="filterByCategory($event, category.id)"
 				[class.filters-option-active]="category.id == curCategory">{{category.name}}</span>
 				<p *ngIf="curCategory == 1">Лучшие места на наш взгляд, чтобы вам было проще выбирать.</p>
 				<p *ngIf="curCategory == 2">Батуты, скалодромы, веревочные парки, парки развлечений.</p>
@@ -222,43 +124,19 @@
 <div class="bottomHelper"></div>
 <div class="options" id="subscription">
 	<div class="wrapper">
-	  <h2>Выберите свой абонемент</h2>
-		<div class="options-item">
-			<div class="options-desktop">
-				<p class="options-title">«Занятый родитель»</p>
-				<div class="options-durations">2-6 посещений</div>
-				<div class="options-sale">срок действия - все лето!</div>
-				<h3>1 499 руб.</h3>
-				<p class="options-description">Разнообразьте досуг вашего ребенка, даже если вы его постоянно куда-то водите.</p>
-				<button *ngIf="gs.isAuthenticated" (click)="initTransaction('A')" class="btn">Купить</button>
-				<button *ngIf="!gs.isAuthenticated" (click)="gs.openPopup('login')" class="btn">Купить</button>
+		<h2>Цена абонемента</h2>
+		<div>
+			<div class="options-item">
+				<div class="options-price"><span>300</span> <img src="app/img/money.png" alt=""></div>
+				<p class="options-description">При оплате каждый месяц</p>
+			</div>
+			<div class="options-item">
+				<div class="options-price"><span>2900</span> <img src="app/img/money.png" alt=""></div>
+				<p class="options-description">При оплате на год вперед</p>
 			</div>
 		</div>
-		<div class="options-item">
-			<div class="options-desktop">
-				<p class="options-title">«Активная семья»</p>
-				<div class="options-durations">4-12 посещений</div>
-				<div class="options-sale">срок действия - все лето!</div>
-				<h3>2 699 руб.</h3>
-				<p class="options-description">Это 1 или 2 новых события для ваших детей каждую неделю. Гарантированно.</p>
-				<button *ngIf="gs.isAuthenticated" (click)="initTransaction('B')" class="btn">Купить</button>
-				<button *ngIf="!gs.isAuthenticated" (click)="gs.openPopup('login')" class="btn">Купить</button>
-			</div>
-		</div>
-		<div class="options-item">
-			<div class="options-desktop">
-				<p class="options-title">«Большая семья»</p>
-				<div class="options-durations">6-22 посещений</div>
-				<div class="options-sale">срок действия - все лето!</div>
-				<h3>4 550 руб.</h3>
-				<p class="options-description">Опция для большой семьи. Используйте возможности абонемента максимально!</p>
-				<button *ngIf="gs.isAuthenticated" (click)="initTransaction('C')" class="btn">Купить</button>
-				<button *ngIf="!gs.isAuthenticated" (click)="gs.openPopup('login')" class="btn">Купить</button>
-			</div>
-		</div>
+		<div class="options-text">Первые два месяца вы пользуетесь абонементом совершенно бесплатно и в полном объеме. Ну разве что при бронировании посещений каждый раз нужно будет вводить данные банковской карты.</div>
+		<button *ngIf="gs.isAuthenticated" (click)="initTransaction('A')" class="btn btn-line">Попробовать 2 мес<br>бесплатно</button>
+		<button *ngIf="!gs.isAuthenticated" (click)="gs.openPopup('login')" class="btn btn-line">Попробовать 2 мес<br>бесплатно</button>
 	</div>
 </div>
-<!-- /BODY -->
-<!-- <location-dialog (districtsFilter)="districtsFilter($event)" (metroFilter)="metroFilter($event)" [(metro)]="metro" [(districts)]="districts">
-</location-dialog>
--->

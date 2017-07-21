@@ -14,6 +14,7 @@ import { HeaderComponent }   from './header.component';
 import { RegistrationComponent }   from './registration.component';
 import { EventComponent }   from './event.component';
 
+import { ContactsComponent }   from './contacts.component';
 import { DialogComponent }   from './app.dialog';
 //import { LocationComponent }   from './location.dialog';
 
@@ -39,6 +40,7 @@ const appRoutes: Routes =[
     { path: 'policy', loadChildren: 'app/lazy/policy.module#PolicyModule' },
     { path: 'registration', component: RegistrationComponent},
     { path: 'event/:id', component: EventComponent },
+    { path: 'contacts', component: ContactsComponent },
     { path: '**', redirectTo: '/'}
 ];
 
@@ -53,6 +55,7 @@ const appRoutes: Routes =[
         MainComponent, 
         RegistrationComponent, 
         EventComponent,
+        ContactsComponent,
         TruncatePipe,
         KeysPipe
     ],

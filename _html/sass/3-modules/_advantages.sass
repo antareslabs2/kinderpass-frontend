@@ -3,6 +3,8 @@
 	background-color: #ba7db8
 	+bp($md)
 		padding-bottom: 120px
+	+bp($sm)
+		padding-bottom: 30px
 	&-item
 		display: inline-block
 		vertical-align: top
@@ -35,13 +37,9 @@
 					padding-right: 5%
 					padding-left: 0
 		+bp($sm)
-			text-align: center
-			img
-				width: 50%
-				display: inline-block
+			img,
 			div
-				width: 100%
-				display: block
+				vertical-align: top
 			&:nth-child(odd)
 				img
 					position: static
@@ -49,9 +47,14 @@
 					right: auto
 					margin-top: 0
 
+				div
+					padding-right: 0
+					padding-left: 5%
+
 		h3
 			margin: 5% 0
-
+			+bp($sm)
+				margin: 0 0 5%
 		p
 			font-size: 20px
 			line-height: 25px

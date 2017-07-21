@@ -2,6 +2,7 @@
 	position: relative
 	background-color: #1cbbb4
 	padding-bottom: 13%
+	min-height: 675px
 	&:before
 		background-image: url("../img/stepsBG.jpg")
 		background-repeat: no-repeat
@@ -20,12 +21,9 @@
 			top: -5%
 	+bp($md)
 		padding-bottom: 5%
-		&-wrap
-			border-radius: 15px
-			background-color: transparentize(#fff, .3)
-			margin-bottom: 5%
+		min-height: 600px
 	+bp($sm)
-		min-height: 675px
+		
 		padding-bottom: 0
 		overflow: hidden
 		&-wrap
@@ -39,39 +37,13 @@
 			width: 100%
 			margin: 0 auto
 			padding: 5% 0
-	&-item
-		display: inline-block
-		vertical-align: top
-		width: 32%
-		padding: 2%
-		min-height: 490px
-		text-align: center
-		background-color: #FFF
-		border-radius: 35px
-		margin-right: 1%
-		position: relative
-		+bp($md)
-			display: block
-			width: 100%
-			text-align: center
-			background: none
-			padding: 5% 5% 0
-			min-height: initial
 
-			&:last-of-type
-				padding-bottom: 5%
+	&-wrap
+		border-radius: 15px
+		background-color: #fff
+		margin-bottom: 5%
+		padding: 10% 5% 8%
 
-		+bp($sm)
-			background-color: #FFF
-			margin: 0 1%
-			padding: 2% 3%
-
-		&:last-of-type
-			margin-right: 0
-			p
-				margin-bottom: 15%
-				+bp($md)
-					margin-bottom: 0
 
 		h3
 			margin: 25px 0
@@ -86,30 +58,8 @@
 			font-size: 24px
 			line-height: 30px
 			color: #1cbbb4
-			margin-bottom: 10%
+			margin-bottom: 3%
+			text-align: center
 			+bp($md)
-				margin: 0
 				font-size: 18px
 				line-height: 25px
-	&-img
-		line-height: 220px
-		+bp($md)
-			line-height: 100%
-			position: absolute
-			top: 5%
-			left: 50%
-			height: 100px
-			text-align: center
-			width: 100px
-			margin-left: -50px
-		+bp($sm)
-			position: static
-			top: auto
-			left: auto
-			margin: 1% auto
-			height: 150px
-		img
-			vertical-align: middle
-			+bp($md)
-				max-width: 100px
-				height: 100%

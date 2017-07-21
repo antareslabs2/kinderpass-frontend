@@ -9,12 +9,11 @@
 	 --><div *ngIf="gs.isAuthenticated" (click)="toogleLK()" class="user">
 			<p class="user-name" [class.user-name_icon]="gs.userInfo.name.length <= 1" ><img src="app/img/profile.png" alt=""><span>{{gs.userInfo.name}}</span></p>
 		</div><!-- 
-	 --><div class="email">
+	 --><!-- <div class="email">
 			<a href="mailto:hello@kinderpass.ru"><img src="app/img/mail.png" alt=""><span>hello@kinderpass.ru</span></a>
-		</div><!-- 
+		</div> --><!-- 
 	 --><div class="links" [class.links-b]="!gs.isAuthenticated">
-			<a routerLink="/about">О проекте</a><span *ngIf="!gs.isAuthenticated" (click)="gs.openPopup('login')">Войти</span>
-			<!-- <a *ngIf="gs.isAuthenticated" routerLink="/lk">Личный кабинет</a> -->
+			<a routerLink="/about">О проекте</a><span *ngIf="!gs.isAuthenticated" (click)="gs.openPopup('login')">Войти</span><a routerLink="/contacts">Контакты</a>
 		</div>
 		<div *ngIf="openProfile" class="user-menu">
 			<div class="user-menu-item">

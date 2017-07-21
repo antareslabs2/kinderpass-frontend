@@ -19,7 +19,6 @@ var ng2_page_scroll_1 = require("ng2-page-scroll");
 var platform_browser_1 = require("@angular/platform-browser");
 var moment = require("moment");
 var $ = require("jquery");
-require("slick");
 var MainComponent = (function () {
     function MainComponent(httpService, router, gs, pageScrollService, document) {
         this.httpService = httpService;
@@ -76,8 +75,6 @@ var MainComponent = (function () {
     MainComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.gs.innerpage = false;
-        if (!this.gs.isAuthenticated)
-            setTimeout(function () { return _this.gs.initSlider(); }, 0);
         for (var i in this.districtsNames) {
             var tmp = {};
             this.districts[this.districtsNames[i]] = {
@@ -178,7 +175,7 @@ var MainComponent = (function () {
         this.httpService.getCategories().subscribe(function (data) {
             _this.categories = data.categories;
             if (!_this.curCategory)
-                _this.curCategory = _this.categories.filter(function (item) { return item.name === 'Киндерпасс'; })[0]['id'];
+                _this.curCategory = 0;
             _this.eventsFilter();
         });
         this.monday = moment(this.monday).startOf('week');
@@ -191,6 +188,10 @@ var MainComponent = (function () {
             d.setDate(d.getDate() + i);
             this.dates[i] = d;
         }
+    };
+    MainComponent.prototype.filterByCategory = function (event, category) {
+        this.curCategory = this.curCategory == category ? 0 : category;
+        this.eventsFilter();
     };
     MainComponent.prototype.filterByDate = function (event, d) {
         if (moment(d).isSameOrAfter(this.today, 'day') && moment(d).isSameOrBefore(this.nextMonth, 'day')) {

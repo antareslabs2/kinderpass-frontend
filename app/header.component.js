@@ -45,51 +45,12 @@ var HeaderComponent = (function () {
         this.pageScrollService.start(pageScrollInstance);
         this.openProfile = !this.openProfile;
     };
-    HeaderComponent.prototype.onResize = function (event) {
-        if ($('.advantages-slider').length) {
-            if (event.target.innerWidth <= 420) {
-                if (!$('.advantages-slider').hasClass('slick-initialized')) {
-                    $('.advantages-slider').slick({
-                        slidesToShow: 1,
-                        slidesToScroll: 1,
-                        arrows: false,
-                        dots: true
-                    });
-                }
-            }
-            else {
-                if ($('.advantages-slider').hasClass('slick-initialized')) {
-                    $('.advantages-slider').slick('unslick');
-                }
-            }
-        }
-        if ($('.steps-wrap').length) {
-            if (event.target.innerWidth <= 420) {
-                if (!$('.steps-wrap').hasClass('slick-initialized')) {
-                    $('.steps-wrap').slick({
-                        slidesToShow: 1,
-                        slidesToScroll: 1,
-                        arrows: false,
-                        dots: true
-                    });
-                }
-            }
-            else {
-                if ($('.steps-wrap').hasClass('slick-initialized')) {
-                    $('.steps-wrap').slick('unslick');
-                }
-            }
-        }
-    };
     return HeaderComponent;
 }());
 HeaderComponent = __decorate([
     core_1.Component({
         selector: 'headerTemplate',
-        templateUrl: 'static/header.html',
-        host: {
-            '(window:resize)': 'onResize($event)'
-        }
+        templateUrl: 'static/header.html'
     }),
     __param(3, core_1.Inject(platform_browser_1.DOCUMENT)),
     __metadata("design:paramtypes", [app_global_service_1.GlobalService, router_1.Router, ng2_page_scroll_1.PageScrollService, Object])

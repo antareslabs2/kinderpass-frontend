@@ -23,7 +23,6 @@
       // остальные пакеты
       'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
       'jquery': 'npm:jquery/dist/jquery.min.js',
-      'slick': 'npm:slick-carousel/slick/slick.js',
       'ng2-page-scroll': 'npm:ng2-page-scroll/bundles/ng2-page-scroll.umd.js',
       'text-mask-core': 'npm:text-mask-core/',
       'angular2-text-mask': 'npm:angular2-text-mask/dist/angular2TextMask.js',
