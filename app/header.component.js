@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var app_global_service_1 = require("./app.global.service");
 var router_1 = require("@angular/router");
@@ -38,11 +39,6 @@ var HeaderComponent = (function () {
         this.openProfile = false;
     };
     HeaderComponent.prototype.toogleLK = function () {
-        this.openProfile = !this.openProfile;
-    };
-    HeaderComponent.prototype.goToSubscription = function () {
-        var pageScrollInstance = ng2_page_scroll_1.PageScrollInstance.simpleInstance(this.document, '#subscription');
-        this.pageScrollService.start(pageScrollInstance);
         this.openProfile = !this.openProfile;
     };
     return HeaderComponent;

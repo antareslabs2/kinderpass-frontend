@@ -72,28 +72,49 @@ export class EventComponent implements OnInit, OnDestroy  {
 			this.seats -=1;
 	}
 
-	makingBooking(timeSlotID:number) : void {
-		this.isDisable = true;
-		this.httpService.makingBooking(timeSlotID,this.seats).subscribe((data:any) => {
-			console.log(data)
-			if (data.status == "OK") {
-				this.gs.msg = "Отлично! Все получилось! Проверьте Вашу электронную почту, Вам должно прийти уведомление";
-				this.gs.getUserInfo();
-				this.loadEvent();
-				this.bookingId = data.booking_id;
-				this.bookingStatus = true;
-				this.gs.openPopup('msg');
-			} else {
-				if (data.reason == "TIME_SLOT_REGISTRATION_IS_OVER") {
-					this.gs.msg = "Завершено бронирование мест на выбранное мероприятие";
-				} else {
-					this.gs.msg = "Что-то пошло не так. Попробуйте обновить страницу";
+	makingBooking() : void {
+		if (!this.gs.isAuthenticated)
+			this.gs.openPopup('login');
+		else {
+			this.isDisable = true;
+			let price = this.event.locations[0].time_slots[0].price * this.seats;
+			let userBalance = 0;
+			if (this.gs.userInfo.subscription) {
+				userBalance += this.gs.userInfo.subscription.balance;
+				let eventDate : any = new Date(this.event.locations[0].time_slots[0].date.replace(/(\d+).(\d+).(\d+)/,'$3-$2-$1'));
+				let subscriptionExpires : any = new Date(this.gs.userInfo.subscription.expires_at.replace(/(\d+).(\d+).(\d+)/,'$3-$2-$1'));
+				if ((eventDate - subscriptionExpires) < 0) {
+					price += 200;
 				}
-				this.gs.openPopup('msgCancel');
+			} else {
+				price += 200;
 			}
-			$("html").addClass('locked');
-			this.isDisable = false;
-		});;
+			if ((price - userBalance) < 0) {
+				this.httpService.makingBooking(this.timeslot_id,this.seats).subscribe((data:any) => {
+					if (data.status == "OK") {
+						this.gs.msg = "Отлично! Все получилось! Проверьте Вашу электронную почту, Вам должно прийти уведомление";
+						this.gs.getUserInfo();
+						this.loadEvent();
+						this.bookingId = data.booking_id;
+						this.bookingStatus = true;
+						this.gs.openPopup('msg');
+					} else {
+						if (data.reason == "TIME_SLOT_REGISTRATION_IS_OVER") {
+							this.gs.msg = "Завершено бронирование мест на выбранное мероприятие";
+						} else {
+							this.gs.msg = "Что-то пошло не так. Попробуйте обновить страницу";
+						}
+						this.gs.openPopup('msgCancel');
+					}
+					$("html").addClass('locked');
+					this.isDisable = false;
+				});
+			} else {
+				localStorage.setItem('timeslot_id', JSON.stringify(this.timeslot_id));
+				localStorage.setItem('seats', JSON.stringify(this.seats));
+				this.gs.initTransaction('B', (price - userBalance));
+			}
+		}
 	}
 
 	cancelBooking(timeSlotID:number) : void {

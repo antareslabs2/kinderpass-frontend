@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var http_1 = require("@angular/http");
 var core_1 = require("@angular/core");
 var Observable_1 = require("rxjs/Observable");
@@ -25,7 +26,7 @@ var Api = (function () {
         else if (this._window.location.hostname == 'dev.kinderpass.ru')
             this.url = 'http://dev.kinderpass.ru:8000/';
         else
-            this.url = 'https://test.kinderpass.ru/';
+            this.url = 'http://test.kinderpass.ru/';
     }
     Api.prototype.getInfo = function () {
         return this.http.get(this.url + 'api/accounts/get_info', this.options)
@@ -66,15 +67,23 @@ var Api = (function () {
             .map(function (resp) { return resp.json(); })
             .catch(function (error) { return Observable_1.Observable.throw(error); });
     };
-    Api.prototype.initTransaction = function (type) {
-        var tmp = '';
+    Api.prototype.initTransaction = function (type, amount) {
+        var url = this.url + 'api/accounts/initiate_transaction';
         if (!device.desktop()) {
-            tmp = "?pageView=MOBILE";
+            url += "?pageView=MOBILE";
         }
-        var url = this.url + 'api/accounts/initiate_transaction/' + type + tmp;
-        return this.http.post(url, '', this.options)
+        var data = {
+            'amount': amount,
+            'transaction_type': type
+        };
+        console.log(data);
+        console.log(url);
+        return this.http.post(url, data, this.options)
             .map(function (resp) { return resp.json(); })
-            .catch(function (error) { return Observable_1.Observable.throw(error); });
+            .catch(function (error) {
+            console.log(error);
+            return Observable_1.Observable.throw(error);
+        });
     };
     Api.prototype.checkTransaction = function (transactionID) {
         var url = this.url + 'api/accounts/check_transaction/' + transactionID;

@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var api_service_1 = require("./api.service");
 var app_global_service_1 = require("./app.global.service");
@@ -356,14 +357,6 @@ var MainComponent = (function () {
     };
     MainComponent.prototype.openCourse = function (course) {
         this.router.navigateByUrl("/event/" + course.id);
-    };
-    MainComponent.prototype.initTransaction = function (type) {
-        this.httpService.initTransaction(type).subscribe(function (data) {
-            if (data.status == 'OK') {
-                localStorage.setItem('transaction.id', JSON.stringify(data.transaction.id));
-                window.location.href = data.alfa.formUrl;
-            }
-        });
     };
     return MainComponent;
 }());

@@ -18,7 +18,7 @@ export class Api{
         else if (this._window.location.hostname == 'dev.kinderpass.ru')
               this.url = 'http://dev.kinderpass.ru:8000/';
         else
-              this.url = 'https://test.kinderpass.ru/';
+              this.url = 'http://test.kinderpass.ru/';
     }
      
     getInfo(){
@@ -67,15 +67,22 @@ export class Api{
                         .catch((error:any) =>{return Observable.throw(error);}); 
     }
 
-    initTransaction(type:string){
-        let tmp = '';
+    initTransaction(type:string, amount: number){
+        let url = this.url + 'api/accounts/initiate_transaction';
         if (!device.desktop()) {
-            tmp = "?pageView=MOBILE"
+            url += "?pageView=MOBILE"
         }
-        let url = this.url + 'api/accounts/initiate_transaction/' + type + tmp;
-        return this.http.post(url, '',  this.options)
+        let data = {
+            'amount': amount,
+            'transaction_type': type
+        }
+        console.log(data)
+        console.log(url)
+        return this.http.post(url, data, this.options)
                         .map((resp:Response)=>resp.json())
-                        .catch((error:any) =>{return Observable.throw(error);}); 
+                        .catch((error:any) =>{
+                            console.log(error);
+                            return Observable.throw(error);});  
     }
 
     checkTransaction(transactionID:string) {

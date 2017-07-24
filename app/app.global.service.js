@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var api_service_1 = require("./api.service");
 var forms_1 = require("@angular/forms");
@@ -24,6 +25,7 @@ var GlobalService = (function () {
         this.email = '';
         this.phone = '';
         this.phoneMask = ['+', '7', '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+        this.extendSubscription = false;
     }
     GlobalService.prototype.openPopup = function (name) {
         this.popupName = name;
@@ -47,18 +49,47 @@ var GlobalService = (function () {
                 this.httpService.checkTransaction(localStorage.getItem('transaction.id')).subscribe(function (data) {
                     if (data.status = "OK") {
                         if (data.transaction.status == 'F') {
-                            _this.msg = "Платеж отклонен";
-                            _this.popupName = 'msgCancel';
+                            if (localStorage.getItem('timeslot_id'))
+                                _this.msg = "Не удалось осуществить бронирование. Платеж отклонен. Попробуйте еще раз";
+                            else
+                                _this.msg = "Платеж отклонен";
+                            _this.openPopup('msgCancel');
                             localStorage.removeItem('transaction.id');
+                            localStorage.removeItem('timeslot_id');
+                            localStorage.removeItem('seats');
                         }
                         else if (data.transaction.status == 'I') {
                             _this.msg = "Завершите процедуру оплаты";
-                            _this.popupName = 'msgCancel';
+                            _this.openPopup('msgCancel');
                             localStorage.removeItem('transaction.id');
                         }
                         else if (data.transaction.status == 'C') {
-                            _this.msg = "Оплата прошла успешно";
-                            _this.popupName = 'msg';
+                            if (localStorage.getItem('timeslot_id')) {
+                                var timeslot = +localStorage.getItem('timeslot_id');
+                                var seats = +localStorage.getItem('seats');
+                                _this.httpService.makingBooking(timeslot, seats).subscribe(function (data) {
+                                    if (data.status == "OK") {
+                                        _this.msg = "Бронь №" + data.booking_id + " оформлена. Проверьте Вашу электронную почту и СМС, Вам должно прийти уведомление";
+                                        _this.getUserInfo();
+                                        _this.openPopup('msg');
+                                    }
+                                    else {
+                                        if (data.reason == "TIME_SLOT_REGISTRATION_IS_OVER") {
+                                            _this.msg = "Завершено бронирование мест на выбранное мероприятие";
+                                        }
+                                        else {
+                                            _this.msg = "Что-то пошло не так. Попробуйте обновить страницу";
+                                        }
+                                        _this.openPopup('msgCancel');
+                                    }
+                                    localStorage.removeItem('timeslot_id');
+                                    localStorage.removeItem('seats');
+                                });
+                            }
+                            else {
+                                _this.msg = "Оплата прошла успешно";
+                                _this.openPopup('msg');
+                            }
                             localStorage.removeItem('transaction.id');
                             _this.getUserInfo();
                         }
@@ -84,6 +115,19 @@ var GlobalService = (function () {
             });
             if (!this.userInfo.phone || !this.userInfo.email)
                 this.popupName = 'updateInfo';
+            else if (this.userInfo.subscription) {
+                var date = new Date();
+                date = date.setDate(date.getDate() + 7);
+                var tmp = new Date(this.userInfo.subscription.expires_at);
+                if (tmp - date < 0)
+                    this.extendSubscription = true;
+                else
+                    this.extendSubscription = false;
+            }
+            else if (!this.userInfo.subscription) {
+                this.popupName = "extendSubscription";
+                this.extendSubscription = true;
+            }
         }
     };
     GlobalService.prototype.logout = function () {
@@ -110,6 +154,14 @@ var GlobalService = (function () {
                 }
             });
         }
+    };
+    GlobalService.prototype.initTransaction = function (type, amount) {
+        this.httpService.initTransaction(type, amount).subscribe(function (data) {
+            if (data.status == 'OK') {
+                localStorage.setItem('transaction.id', JSON.stringify(data.transaction.id));
+                window.location.href = data.alfa.formUrl;
+            }
+        });
     };
     return GlobalService;
 }());

@@ -33,9 +33,8 @@
 						</div>
 				</div>
 				<div class="eventPage-btns">
-					<a *ngIf="!bookingStatus && !gs.userInfo.subscription" class="btn" [routerLink]="['/']" fragment="subscription">Купить абонемент</a>
-					<button *ngIf="!bookingStatus && gs.userInfo.subscription && (gs.userInfo.subscription.balance >= event.locations[0].time_slots[0].price * seats)" class="btn" (click)="makingBooking(event.locations[0].time_slots[0].id)" [class.disabled]="isDisable" [disabled]="isDisable">Забронировать</button>
-					<button *ngIf="!bookingStatus && gs.userInfo.subscription && (gs.userInfo.subscription.balance < event.locations[0].time_slots[0].price * seats)" class="btn btn-disable">Недостаточно средств</button>
+					<!-- <button *ngIf="!bookingStatus && !gs.userInfo.subscription" (click)="makingBooking()" class="btn">Купить абонемент и забронировать</button> -->
+					<button *ngIf="!bookingStatus && gs.userInfo.subscription" (click)="makingBooking()" class="btn" [class.disabled]="isDisable" [disabled]="isDisable">Забронировать</button>
 					<button *ngIf="bookingStatus" class="btn btn-disable" [class.disabled]="isDisable" [disabled]="isDisable" (click)="cancelBooking(bookingId)">Отменить бронь</button>
 				</div>
 			</div>

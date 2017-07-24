@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var api_service_1 = require("./api.service");
 var router_1 = require("@angular/router");
@@ -65,32 +66,54 @@ var EventComponent = (function () {
         if (this.seats > 1)
             this.seats -= 1;
     };
-    EventComponent.prototype.makingBooking = function (timeSlotID) {
+    EventComponent.prototype.makingBooking = function () {
         var _this = this;
-        this.isDisable = true;
-        this.httpService.makingBooking(timeSlotID, this.seats).subscribe(function (data) {
-            console.log(data);
-            if (data.status == "OK") {
-                _this.gs.msg = "Отлично! Все получилось! Проверьте Вашу электронную почту, Вам должно прийти уведомление";
-                _this.gs.getUserInfo();
-                _this.loadEvent();
-                _this.bookingId = data.booking_id;
-                _this.bookingStatus = true;
-                _this.gs.openPopup('msg');
+        if (!this.gs.isAuthenticated)
+            this.gs.openPopup('login');
+        else {
+            this.isDisable = true;
+            var price = this.event.locations[0].time_slots[0].price * this.seats;
+            var userBalance = 0;
+            if (this.gs.userInfo.subscription) {
+                userBalance += this.gs.userInfo.subscription.balance;
+                var eventDate = new Date(this.event.locations[0].time_slots[0].date.replace(/(\d+).(\d+).(\d+)/, '$3-$2-$1'));
+                var subscriptionExpires = new Date(this.gs.userInfo.subscription.expires_at.replace(/(\d+).(\d+).(\d+)/, '$3-$2-$1'));
+                if ((eventDate - subscriptionExpires) < 0) {
+                    price += 200;
+                }
             }
             else {
-                if (data.reason == "TIME_SLOT_REGISTRATION_IS_OVER") {
-                    _this.gs.msg = "Завершено бронирование мест на выбранное мероприятие";
-                }
-                else {
-                    _this.gs.msg = "Что-то пошло не так. Попробуйте обновить страницу";
-                }
-                _this.gs.openPopup('msgCancel');
+                price += 200;
             }
-            $("html").addClass('locked');
-            _this.isDisable = false;
-        });
-        ;
+            if ((price - userBalance) < 0) {
+                this.httpService.makingBooking(this.timeslot_id, this.seats).subscribe(function (data) {
+                    if (data.status == "OK") {
+                        _this.gs.msg = "Отлично! Все получилось! Проверьте Вашу электронную почту, Вам должно прийти уведомление";
+                        _this.gs.getUserInfo();
+                        _this.loadEvent();
+                        _this.bookingId = data.booking_id;
+                        _this.bookingStatus = true;
+                        _this.gs.openPopup('msg');
+                    }
+                    else {
+                        if (data.reason == "TIME_SLOT_REGISTRATION_IS_OVER") {
+                            _this.gs.msg = "Завершено бронирование мест на выбранное мероприятие";
+                        }
+                        else {
+                            _this.gs.msg = "Что-то пошло не так. Попробуйте обновить страницу";
+                        }
+                        _this.gs.openPopup('msgCancel');
+                    }
+                    $("html").addClass('locked');
+                    _this.isDisable = false;
+                });
+            }
+            else {
+                localStorage.setItem('timeslot_id', JSON.stringify(this.timeslot_id));
+                localStorage.setItem('seats', JSON.stringify(this.seats));
+                this.gs.initTransaction('B', (price - userBalance));
+            }
+        }
     };
     EventComponent.prototype.cancelBooking = function (timeSlotID) {
         var _this = this;

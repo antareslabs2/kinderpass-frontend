@@ -121,8 +121,8 @@
 	 	<div class="moreResults" *ngIf="resultsToShow < events.length" (click)="resultsToShow = resultsToShow + 8"><span class="btn">Еще (<span>{{events.length - resultsToShow}}</span>)</span></div>
 	</div>
 </div>
-<div class="bottomHelper"></div>
-<div class="options" id="subscription">
+<div *ngIf="!gs.isAuthenticated" class="bottomHelper"></div>
+<div *ngIf="!gs.isAuthenticated" class="options" id="subscription">
 	<div class="wrapper">
 		<h2>Цена абонемента</h2>
 		<div>
@@ -136,7 +136,6 @@
 			</div>
 		</div>
 		<div class="options-text">Первые два месяца вы пользуетесь абонементом совершенно бесплатно и в полном объеме. Ну разве что при бронировании посещений каждый раз нужно будет вводить данные банковской карты.</div>
-		<button *ngIf="gs.isAuthenticated" (click)="initTransaction('A')" class="btn btn-line">Попробовать 2 мес<br>бесплатно</button>
 		<button *ngIf="!gs.isAuthenticated" (click)="gs.openPopup('login')" class="btn btn-line">Попробовать 2 мес<br>бесплатно</button>
 	</div>
 </div>

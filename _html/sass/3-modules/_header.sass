@@ -10,7 +10,14 @@
 
 	.logo
 		width: 12%
-		float: left
+		position: absolute
+		top: 0
+		left: 85px
+		+bp(850px)
+			position: static
+			top: auto
+			left: auto
+			float: left
 		+bp($sm)
 			width: 28%
 
@@ -49,6 +56,7 @@
 			width: 70%
 			vertical-align: bottom
 			display: inline-block
+
 		a,
 		span
 			color: #fff
@@ -141,12 +149,13 @@
 					display: inline-block
 		.links
 			padding-top: 15px
-			+bp($bg)
-				// float: left
-				padding-top: 20px
+			+bp(600px)
+				a
+					display: block
 			+bp($sm)
-				width: 70%
+				width: 45%
 				text-align: center
+				padding-top: 10px
 			&-b
 				+bp($sm)
 					width: 70%
@@ -241,6 +250,10 @@
 				color: inherit
 				text-decoration: none
 				font-size: 18px
+
+		&-subscription
+			color: #f00
+			
 	&-logout
 		margin-top: 30px
 		cursor: pointer

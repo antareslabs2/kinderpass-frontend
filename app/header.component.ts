@@ -38,10 +38,4 @@ export class HeaderComponent{
 		this.openProfile = !this.openProfile;
 	}
 
-	goToSubscription() : void {
-		let pageScrollInstance: PageScrollInstance = PageScrollInstance.simpleInstance(this.document, '#subscription');
-		this.pageScrollService.start(pageScrollInstance);
-		this.openProfile = !this.openProfile;
-	}
-
 }

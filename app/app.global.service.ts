@@ -16,6 +16,7 @@ export class GlobalService {
 	phoneMask:any;
 
 	contactsForm: FormGroup;
+	extendSubscription:boolean;
 
 	constructor(public httpService: Api, private fb: FormBuilder){
 		this.userInfo = {};
@@ -27,6 +28,7 @@ export class GlobalService {
 		this.email = '';
 		this.phone = '';
 		this.phoneMask = ['+', '7', '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+		this.extendSubscription = false;
 	}
 
 	openPopup(name:string) {
@@ -50,16 +52,44 @@ export class GlobalService {
 				this.httpService.checkTransaction(localStorage.getItem('transaction.id')).subscribe((data:any) => {
 					if(data.status = "OK") {
 						if (data.transaction.status == 'F') {
-							this.msg = "Платеж отклонен";
-							this.popupName = 'msgCancel';
+							if(localStorage.getItem('timeslot_id')) 
+								this.msg = "Не удалось осуществить бронирование. Платеж отклонен. Попробуйте еще раз";
+							else
+								this.msg = "Платеж отклонен";
+
+							this.openPopup('msgCancel');
 							localStorage.removeItem('transaction.id');
+							localStorage.removeItem('timeslot_id');
+							localStorage.removeItem('seats');
 						} else if (data.transaction.status == 'I') {
 							this.msg = "Завершите процедуру оплаты";
-							this.popupName = 'msgCancel';
+							this.openPopup('msgCancel');
 							localStorage.removeItem('transaction.id');
 						} else if (data.transaction.status == 'C') {
-							this.msg = "Оплата прошла успешно";
-							this.popupName = 'msg';
+							if(localStorage.getItem('timeslot_id')) {
+								let timeslot : number = + localStorage.getItem('timeslot_id');
+								let seats : number = + localStorage.getItem('seats');
+
+								this.httpService.makingBooking(timeslot, seats).subscribe((data:any) => {
+									if (data.status == "OK") {
+										this.msg = "Бронь №"+data.booking_id+" оформлена. Проверьте Вашу электронную почту и СМС, Вам должно прийти уведомление";
+										this.getUserInfo();
+										this.openPopup('msg');
+									} else {
+										if (data.reason == "TIME_SLOT_REGISTRATION_IS_OVER") {
+											this.msg = "Завершено бронирование мест на выбранное мероприятие";
+										} else {
+											this.msg = "Что-то пошло не так. Попробуйте обновить страницу";
+										}
+										this.openPopup('msgCancel');
+									}
+									localStorage.removeItem('timeslot_id');
+									localStorage.removeItem('seats');
+								});
+							} else {
+								this.msg = "Оплата прошла успешно";
+								this.openPopup('msg');
+							}
 							localStorage.removeItem('transaction.id');
 							this.getUserInfo();
 						}
@@ -83,8 +113,20 @@ export class GlobalService {
 							]
 						]
 			})
-			if (!this.userInfo.phone || !this.userInfo.email) 
+			if (!this.userInfo.phone || !this.userInfo.email)
 				this.popupName = 'updateInfo';
+			else if(this.userInfo.subscription) {
+				var date : any = new Date();
+				date = date.setDate(date.getDate() + 7);
+				var tmp : any = new Date(this.userInfo.subscription.expires_at);
+				if ( tmp - date < 0)
+					this.extendSubscription = true;
+				else
+					this.extendSubscription = false;
+			} else if(!this.userInfo.subscription) {
+				this.popupName = "extendSubscription";
+				this.extendSubscription = true;
+			}
 		}
 	}
 
@@ -111,5 +153,14 @@ export class GlobalService {
 				}
 			});
 		}
+	}
+
+	initTransaction(type:string, amount:number) {
+		this.httpService.initTransaction(type, amount).subscribe((data:any) => {
+			if(data.status == 'OK') {
+				localStorage.setItem('transaction.id', JSON.stringify(data.transaction.id));
+				window.location.href = data.alfa.formUrl;
+			}
+		});
 	}
 }

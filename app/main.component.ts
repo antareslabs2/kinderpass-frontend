@@ -397,13 +397,4 @@ export class MainComponent implements OnInit {
 	    this.router.navigateByUrl(`/event/${course.id}`);
 	}
 
-	initTransaction(type:string) {
-		this.httpService.initTransaction(type).subscribe((data:any) => {
-			if(data.status == 'OK') {
-				localStorage.setItem('transaction.id', JSON.stringify(data.transaction.id));
-				window.location.href = data.alfa.formUrl;
-			}
-		});
-	}
-
 }

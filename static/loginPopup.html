@@ -26,3 +26,13 @@
 	<div class="popup-close modal-close msg-close"(click)="close()" ></div>
 	<p class="popup-description">{{gs.msg}}</p>
 </div>
+
+<div [@dialog] *ngIf="gs.popupName == 'extendSubscription'" class="popup login">
+</div>
+<div [@dialog] *ngIf="gs.popupName == 'extendSubscription'" class="popup-wrapper login-wrapper updateInfo">
+	<div (click)="close()" class="popup-close modal-close"></div>
+	<p *ngIf="!gs.subscription" class="popup-description">Срок действия подписки истек</p>
+	<p *ngIf="gs.subscription" class="popup-description">Срок действия подписки истекает {{gs.userInfo.subscription.expires_at}}</p>
+	<div (click)="gs.initTransaction('SM', 200)" class="btn">Продлить на месяц</div>
+	<div (click)="gs.initTransaction('SA', 1900)" class="btn">Продлить на год</div>
+</div>

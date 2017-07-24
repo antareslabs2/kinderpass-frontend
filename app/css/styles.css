@@ -252,7 +252,15 @@ textarea.textarea {
       padding: 20px 0 10px; } }
   .header .logo {
     width: 12%;
-    float: left; }
+    position: absolute;
+    top: 0;
+    left: 85px; }
+    @media only screen and (max-width: 850px) {
+      .header .logo {
+        position: static;
+        top: auto;
+        left: auto;
+        float: left; } }
     @media only screen and (max-width: 420px) {
       .header .logo {
         width: 28%; } }
@@ -394,13 +402,14 @@ textarea.textarea {
             display: inline-block; } }
     .header.header-auth .links {
       padding-top: 15px; }
-      @media only screen and (max-width: 1080px) {
-        .header.header-auth .links {
-          padding-top: 20px; } }
+      @media only screen and (max-width: 600px) {
+        .header.header-auth .links a {
+          display: block; } }
       @media only screen and (max-width: 420px) {
         .header.header-auth .links {
-          width: 70%;
-          text-align: center; } }
+          width: 45%;
+          text-align: center;
+          padding-top: 10px; } }
       @media only screen and (max-width: 420px) {
         .header.header-auth .links-b {
           width: 70%; } }
@@ -494,6 +503,8 @@ textarea.textarea {
       color: inherit;
       text-decoration: none;
       font-size: 18px; }
+  .user-menu-subscription {
+    color: #f00; }
 
 .user-logout {
   margin-top: 30px;
