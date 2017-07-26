@@ -41,7 +41,7 @@
 			background-image: url("../img/ticketBG.png")
 			background-repeat: no-repeat
 			background-size: 100% 100%
-			padding: 15px 6%
+			padding: 15px 5%
 	
 	&-provider
 		text-align: center
@@ -89,6 +89,12 @@
 		&-fields
 			padding-bottom: 50px
 			margin-top: 30px
+			&.needSubscription
+				padding-bottom: 12px
+				+bp($sm)
+					padding-bottom: 50px
+			div
+				clear: both
 
 	&-title
 		color: #8e7dba
@@ -238,9 +244,24 @@
 			text-align: right
 			font-size: 24px
 
+	&-total
+		color: #8e7dba
+		font-size: 16px
+		padding-left: 40px
+		line-height: 30px
+		span
+			margin-left: 15px
+			float: right
+			min-width: 40px
+			text-align: right
+			font-size: 24px
+
 	&-btns
 		text-align: center
 		margin-top: 50px
+		+bp($sm)
+			margin-top: 25px
+			margin-bottom: 25px
 		.btn
 			width: 100%
 			&-disable

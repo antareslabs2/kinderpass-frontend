@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var api_service_1 = require("./api.service");
 var forms_1 = require("@angular/forms");
+var moment = require("moment");
 var GlobalService = (function () {
     function GlobalService(httpService, fb) {
         this.httpService = httpService;
@@ -116,10 +117,9 @@ var GlobalService = (function () {
             if (!this.userInfo.phone || !this.userInfo.email)
                 this.popupName = 'updateInfo';
             else if (this.userInfo.subscription) {
-                var date = new Date();
-                date = date.setDate(date.getDate() + 7);
-                var tmp = new Date(this.userInfo.subscription.expires_at);
-                if (tmp - date < 0)
+                var today = moment(new Date()).add(7, 'days').format();
+                var subscription = moment(new Date(this.userInfo.subscription.expires_at.replace(/(\d+).(\d+).(\d+)/, '$3-$2-$1'))).format();
+                if (moment(today).isAfter(subscription, 'day'))
                     this.extendSubscription = true;
                 else
                     this.extendSubscription = false;

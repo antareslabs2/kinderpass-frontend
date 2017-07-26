@@ -44,12 +44,12 @@
 					<a *ngIf="!gs.userInfo.subscription || gs.extendSubscription" class="user-menu-btn btn" (click)="gs.popupName='extendSubscription'" fragment="subscription">Продлить</a>
 				</div>
 				<table *ngIf="gs.userInfo.subscription">
-					<tr *ngIf="!gs.userInfo.subscription.balance">
-						<td>Баланс</td>
+					<tr *ngIf="gs.userInfo.subscription.balance">
+						<td>Баланс:</td>
 						<td>{{gs.userInfo.subscription.balance}}</td>
 					</tr>
 					<tr>
-						<td>Заканчивается</td>
+						<td>Подписка до:</td>
 						<td [class.user-menu-subscription]="gs.extendSubscription">{{gs.userInfo.subscription.expires_at}}</td>
 					</tr>
 				</table>

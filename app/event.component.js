@@ -13,6 +13,7 @@ var core_1 = require("@angular/core");
 var api_service_1 = require("./api.service");
 var router_1 = require("@angular/router");
 var app_global_service_1 = require("./app.global.service");
+var moment = require("moment");
 var EventComponent = (function () {
     function EventComponent(httpService, route, gs) {
         this.httpService = httpService;
@@ -22,6 +23,8 @@ var EventComponent = (function () {
         this.bookingStatus = false;
         this.isDisable = true;
         this.seats = 1;
+        this.subscriptionPrice = 0;
+        this.subscriptionDate = moment(new Date()).add(1, 'month').format();
     }
     EventComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -32,6 +35,7 @@ var EventComponent = (function () {
                 _this.httpService.getInfo().subscribe(function (data) {
                     _this.checkBooking();
                     _this.isDisable = false;
+                    _this.needSubscription();
                 });
             }
             else {
@@ -45,6 +49,7 @@ var EventComponent = (function () {
         this.httpService.getEventById(this.timeslot_id).subscribe(function (data) {
             if (data.activity) {
                 _this.event = data.activity;
+                _this.needSubscription();
             }
         });
     };
@@ -66,52 +71,74 @@ var EventComponent = (function () {
         if (this.seats > 1)
             this.seats -= 1;
     };
+    EventComponent.prototype.needSubscription = function () {
+        if (this.gs.userInfo.subscription) {
+            if (this.event.locations) {
+                var eventDate = new Date(this.event.locations[0].time_slots[0].date.replace(/(\d+).(\d+).(\d+)/, '$3-$2-$1'));
+                var subscriptionExpires = new Date(this.gs.userInfo.subscription.expires_at.replace(/(\d+).(\d+).(\d+)/, '$3-$2-$1'));
+                if ((eventDate - subscriptionExpires) > 0) {
+                    this.subscriptionPrice = 200;
+                    this.subscriptionDate = moment(subscriptionExpires).add(1, 'month').format();
+                }
+                else {
+                    this.subscriptionPrice = 0;
+                }
+            }
+        }
+        else {
+            this.subscriptionPrice = 200;
+            this.subscriptionDate = moment(new Date()).add(1, 'month').format();
+        }
+    };
     EventComponent.prototype.makingBooking = function () {
         var _this = this;
         if (!this.gs.isAuthenticated)
             this.gs.openPopup('login');
         else {
             this.isDisable = true;
-            var price = this.event.locations[0].time_slots[0].price * this.seats;
+            var price = this.event.locations[0].time_slots[0].price * this.seats + this.subscriptionPrice;
             var userBalance = 0;
             if (this.gs.userInfo.subscription) {
                 userBalance += this.gs.userInfo.subscription.balance;
-                var eventDate = new Date(this.event.locations[0].time_slots[0].date.replace(/(\d+).(\d+).(\d+)/, '$3-$2-$1'));
-                var subscriptionExpires = new Date(this.gs.userInfo.subscription.expires_at.replace(/(\d+).(\d+).(\d+)/, '$3-$2-$1'));
-                if ((eventDate - subscriptionExpires) < 0) {
-                    price += 200;
+            }
+            if ((price - userBalance) <= 0) {
+                if (this.subscriptionPrice) {
+                    this.gs.initTransaction('SM', this.subscriptionPrice);
+                    localStorage.setItem('timeslot_id', JSON.stringify(this.timeslot_id));
+                    localStorage.setItem('seats', JSON.stringify(this.seats));
+                    //tbd
                 }
-            }
-            else {
-                price += 200;
-            }
-            if ((price - userBalance) < 0) {
-                this.httpService.makingBooking(this.timeslot_id, this.seats).subscribe(function (data) {
-                    if (data.status == "OK") {
-                        _this.gs.msg = "Отлично! Все получилось! Проверьте Вашу электронную почту, Вам должно прийти уведомление";
-                        _this.gs.getUserInfo();
-                        _this.loadEvent();
-                        _this.bookingId = data.booking_id;
-                        _this.bookingStatus = true;
-                        _this.gs.openPopup('msg');
-                    }
-                    else {
-                        if (data.reason == "TIME_SLOT_REGISTRATION_IS_OVER") {
-                            _this.gs.msg = "Завершено бронирование мест на выбранное мероприятие";
+                else {
+                    this.httpService.makingBooking(this.timeslot_id, this.seats).subscribe(function (data) {
+                        if (data.status == "OK") {
+                            _this.gs.msg = "Бронь №" + data.booking_id + " успешно оформлена. Проверьте Вашу электронную почту, Вам должно прийти уведомление";
+                            // this.gs.msg = "Отлично! Все получилось! Проверьте Вашу электронную почту, Вам должно прийти уведомление";
+                            _this.gs.getUserInfo();
+                            _this.loadEvent();
+                            _this.bookingId = data.booking_id;
+                            _this.bookingStatus = true;
+                            _this.gs.openPopup('msg');
                         }
                         else {
-                            _this.gs.msg = "Что-то пошло не так. Попробуйте обновить страницу";
+                            if (data.reason == "TIME_SLOT_REGISTRATION_IS_OVER") {
+                                _this.gs.msg = "Завершено бронирование мест на выбранное мероприятие";
+                            }
+                            else {
+                                _this.gs.msg = "Что-то пошло не так. Попробуйте обновить страницу";
+                            }
+                            _this.gs.openPopup('msgCancel');
                         }
-                        _this.gs.openPopup('msgCancel');
-                    }
-                    $("html").addClass('locked');
-                    _this.isDisable = false;
-                });
+                        _this.isDisable = false;
+                    });
+                }
             }
             else {
                 localStorage.setItem('timeslot_id', JSON.stringify(this.timeslot_id));
                 localStorage.setItem('seats', JSON.stringify(this.seats));
-                this.gs.initTransaction('B', (price - userBalance));
+                if (this.subscriptionPrice)
+                    this.gs.initTransaction('SB', (price - userBalance));
+                else
+                    this.gs.initTransaction('B', (price - userBalance));
             }
         }
     };

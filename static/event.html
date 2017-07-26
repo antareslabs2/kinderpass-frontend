@@ -16,7 +16,7 @@
 		 --><div class="col-1-2 ticketCol">
 				<div class="eventPage-ticket-wrap">
 					<div class="eventPage-title">Билет</div>
-						<div class="eventPage-ticket-fields">
+						<div class="eventPage-ticket-fields" [class.needSubscription]="subscriptionPrice">
 							<div class="eventPage-date">{{event.locations[0].time_slots[0].date}}</div>
 							<div class="eventPage-time">{{event.locations[0].time_slots[0].start_time}}-{{event.locations[0].time_slots[0].end_time}}</div>
 							<div class="eventPage-duration">Длительность {{event.duration}} минут</div>
@@ -30,11 +30,15 @@
 							</div>
 							</div>
 							<div class="eventPage-price">Стоимость билетов <span>{{event.locations[0].time_slots[0].price * seats}}</span></div>
+							<ng-container *ngIf="subscriptionPrice">
+								<div class="eventPage-total">Стоимость подписки до {{subscriptionDate | amDateFormat : 'DD.MM.YYYY'}} <span>200</span></div>
+								<div class="eventPage-total">Итого <span>{{event.locations[0].time_slots[0].price * seats + subscriptionPrice}}</span></div>
+							</ng-container>
 						</div>
 				</div>
 				<div class="eventPage-btns">
 					<!-- <button *ngIf="!bookingStatus && !gs.userInfo.subscription" (click)="makingBooking()" class="btn">Купить абонемент и забронировать</button> -->
-					<button *ngIf="!bookingStatus && gs.userInfo.subscription" (click)="makingBooking()" class="btn" [class.disabled]="isDisable" [disabled]="isDisable">Забронировать</button>
+					<button *ngIf="!bookingStatus" (click)="makingBooking()" class="btn" [class.disabled]="isDisable" [disabled]="isDisable">Забронировать</button>
 					<button *ngIf="bookingStatus" class="btn btn-disable" [class.disabled]="isDisable" [disabled]="isDisable" (click)="cancelBooking(bookingId)">Отменить бронь</button>
 				</div>
 			</div>

@@ -2,6 +2,8 @@ import {Injectable, Inject} from '@angular/core';
 import { Api } from './api.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
+import * as moment from 'moment';
+
 @Injectable()
 export class GlobalService {
 	isAuthenticated: boolean;
@@ -116,10 +118,10 @@ export class GlobalService {
 			if (!this.userInfo.phone || !this.userInfo.email)
 				this.popupName = 'updateInfo';
 			else if(this.userInfo.subscription) {
-				var date : any = new Date();
-				date = date.setDate(date.getDate() + 7);
-				var tmp : any = new Date(this.userInfo.subscription.expires_at);
-				if ( tmp - date < 0)
+				var today : any = moment(new Date()).add(7,'days').format();
+				var subscription : any = moment(new Date(this.userInfo.subscription.expires_at.replace(/(\d+).(\d+).(\d+)/,'$3-$2-$1'))).format();
+
+				if ( moment(today).isAfter(subscription, 'day') )
 					this.extendSubscription = true;
 				else
 					this.extendSubscription = false;

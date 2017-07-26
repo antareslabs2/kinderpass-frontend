@@ -504,7 +504,7 @@ textarea.textarea {
       text-decoration: none;
       font-size: 18px; }
   .user-menu-subscription {
-    color: #f00; }
+    color: #fcc; }
 
 .user-logout {
   margin-top: 30px;
@@ -1580,7 +1580,7 @@ textarea.textarea {
       background-image: url("../img/ticketBG.png");
       background-repeat: no-repeat;
       background-size: 100% 100%;
-      padding: 15px 6%; }
+      padding: 15px 5%; }
   .eventPage-provider {
     text-align: center;
     padding: 15px 20px;
@@ -1623,6 +1623,13 @@ textarea.textarea {
   .eventPage-ticket-fields {
     padding-bottom: 50px;
     margin-top: 30px; }
+    .eventPage-ticket-fields.needSubscription {
+      padding-bottom: 12px; }
+      @media only screen and (max-width: 420px) {
+        .eventPage-ticket-fields.needSubscription {
+          padding-bottom: 50px; } }
+    .eventPage-ticket-fields div {
+      clear: both; }
   .eventPage-title {
     color: #8e7dba;
     font-size: 24px;
@@ -1761,9 +1768,24 @@ textarea.textarea {
       min-width: 40px;
       text-align: right;
       font-size: 24px; }
+  .eventPage-total {
+    color: #8e7dba;
+    font-size: 16px;
+    padding-left: 40px;
+    line-height: 30px; }
+    .eventPage-total span {
+      margin-left: 15px;
+      float: right;
+      min-width: 40px;
+      text-align: right;
+      font-size: 24px; }
   .eventPage-btns {
     text-align: center;
     margin-top: 50px; }
+    @media only screen and (max-width: 420px) {
+      .eventPage-btns {
+        margin-top: 25px;
+        margin-bottom: 25px; } }
     .eventPage-btns .btn {
       width: 100%; }
       .eventPage-btns .btn-disable {
