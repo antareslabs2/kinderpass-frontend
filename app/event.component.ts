@@ -110,30 +110,22 @@ export class EventComponent implements OnInit, OnDestroy  {
 			}
 			if ((price - userBalance) <= 0) {
 				if(this.subscriptionPrice) {
-					this.gs.initTransaction('SM', this.subscriptionPrice);
-					localStorage.setItem('timeslot_id', JSON.stringify(this.timeslot_id));
-					localStorage.setItem('seats', JSON.stringify(this.seats));
-					//tbd
-				} else {
-					this.httpService.makingBooking(this.timeslot_id,this.seats).subscribe((data:any) => {
-						if (data.status == "OK") {
-							this.gs.msg = "Бронь №" + data.booking_id + " успешно оформлена. Проверьте Вашу электронную почту, Вам должно прийти уведомление";
-							// this.gs.msg = "Отлично! Все получилось! Проверьте Вашу электронную почту, Вам должно прийти уведомление";
-							this.gs.getUserInfo();
-							this.loadEvent();
-							this.bookingId = data.booking_id;
-							this.bookingStatus = true;
-							this.gs.openPopup('msg');
-						} else {
-							if (data.reason == "TIME_SLOT_REGISTRATION_IS_OVER") {
-								this.gs.msg = "Завершено бронирование мест на выбранное мероприятие";
-							} else {
-								this.gs.msg = "Что-то пошло не так. Попробуйте обновить страницу";
-							}
-							this.gs.openPopup('msgCancel');
+					this.httpService.initTransaction('SM', this.subscriptionPrice).subscribe((data:any) => {
+						if(data.status == 'OK') {
+							this.httpService.checkTransaction(data.transaction.id).subscribe((data:any) => {
+								if(data.status = "OK") {
+									if (data.transaction.status == 'C') {
+										this.book();
+									} else {
+										this.gs.msg = "Что-то пошло не так. Попробуйте обновить страницу";
+										this.gs.openPopup('msgCancel');
+									}
+								}
+							})
 						}
-						this.isDisable = false;
 					});
+				} else {
+					this.book();
 				}
 			} else {
 				localStorage.setItem('timeslot_id', JSON.stringify(this.timeslot_id));
@@ -144,6 +136,27 @@ export class EventComponent implements OnInit, OnDestroy  {
 					this.gs.initTransaction('B', (price - userBalance));
 			}
 		}
+	}
+
+	book() {
+		this.httpService.makingBooking(this.timeslot_id,this.seats).subscribe((data:any) => {
+			if (data.status == "OK") {
+				this.gs.msg = "Бронь №" + data.booking_id + " успешно оформлена. Проверьте Вашу электронную почту, Вам должно прийти уведомление";
+				this.gs.getUserInfo();
+				this.loadEvent();
+				this.bookingId = data.booking_id;
+				this.bookingStatus = true;
+				this.gs.openPopup('msg');
+			} else {
+				if (data.reason == "TIME_SLOT_REGISTRATION_IS_OVER") {
+					this.gs.msg = "Завершено бронирование мест на выбранное мероприятие";
+				} else {
+					this.gs.msg = "Что-то пошло не так. Попробуйте обновить страницу";
+				}
+				this.gs.openPopup('msgCancel');
+			}
+			this.isDisable = false;
+		});
 	}
 
 	cancelBooking(timeSlotID:number) : void {

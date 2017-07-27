@@ -103,33 +103,24 @@ var EventComponent = (function () {
             }
             if ((price - userBalance) <= 0) {
                 if (this.subscriptionPrice) {
-                    this.gs.initTransaction('SM', this.subscriptionPrice);
-                    localStorage.setItem('timeslot_id', JSON.stringify(this.timeslot_id));
-                    localStorage.setItem('seats', JSON.stringify(this.seats));
-                    //tbd
+                    this.httpService.initTransaction('SM', this.subscriptionPrice).subscribe(function (data) {
+                        if (data.status == 'OK') {
+                            _this.httpService.checkTransaction(data.transaction.id).subscribe(function (data) {
+                                if (data.status = "OK") {
+                                    if (data.transaction.status == 'C') {
+                                        _this.book();
+                                    }
+                                    else {
+                                        _this.gs.msg = "Что-то пошло не так. Попробуйте обновить страницу";
+                                        _this.gs.openPopup('msgCancel');
+                                    }
+                                }
+                            });
+                        }
+                    });
                 }
                 else {
-                    this.httpService.makingBooking(this.timeslot_id, this.seats).subscribe(function (data) {
-                        if (data.status == "OK") {
-                            _this.gs.msg = "Бронь №" + data.booking_id + " успешно оформлена. Проверьте Вашу электронную почту, Вам должно прийти уведомление";
-                            // this.gs.msg = "Отлично! Все получилось! Проверьте Вашу электронную почту, Вам должно прийти уведомление";
-                            _this.gs.getUserInfo();
-                            _this.loadEvent();
-                            _this.bookingId = data.booking_id;
-                            _this.bookingStatus = true;
-                            _this.gs.openPopup('msg');
-                        }
-                        else {
-                            if (data.reason == "TIME_SLOT_REGISTRATION_IS_OVER") {
-                                _this.gs.msg = "Завершено бронирование мест на выбранное мероприятие";
-                            }
-                            else {
-                                _this.gs.msg = "Что-то пошло не так. Попробуйте обновить страницу";
-                            }
-                            _this.gs.openPopup('msgCancel');
-                        }
-                        _this.isDisable = false;
-                    });
+                    this.book();
                 }
             }
             else {
@@ -141,6 +132,29 @@ var EventComponent = (function () {
                     this.gs.initTransaction('B', (price - userBalance));
             }
         }
+    };
+    EventComponent.prototype.book = function () {
+        var _this = this;
+        this.httpService.makingBooking(this.timeslot_id, this.seats).subscribe(function (data) {
+            if (data.status == "OK") {
+                _this.gs.msg = "Бронь №" + data.booking_id + " успешно оформлена. Проверьте Вашу электронную почту, Вам должно прийти уведомление";
+                _this.gs.getUserInfo();
+                _this.loadEvent();
+                _this.bookingId = data.booking_id;
+                _this.bookingStatus = true;
+                _this.gs.openPopup('msg');
+            }
+            else {
+                if (data.reason == "TIME_SLOT_REGISTRATION_IS_OVER") {
+                    _this.gs.msg = "Завершено бронирование мест на выбранное мероприятие";
+                }
+                else {
+                    _this.gs.msg = "Что-то пошло не так. Попробуйте обновить страницу";
+                }
+                _this.gs.openPopup('msgCancel');
+            }
+            _this.isDisable = false;
+        });
     };
     EventComponent.prototype.cancelBooking = function (timeSlotID) {
         var _this = this;
