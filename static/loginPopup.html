@@ -34,6 +34,7 @@
 	<div (click)="close()" class="popup-close modal-close"></div>
 	<p *ngIf="!gs.subscription" class="popup-description">Срок действия подписки истек</p>
 	<p *ngIf="gs.subscription" class="popup-description">Срок действия подписки истекает {{gs.userInfo.subscription.expires_at}}</p>
-	<div (click)="gs.initTransaction('SM', 200)" class="btn">Продлить на месяц</div>
-	<div (click)="gs.initTransaction('SA', 1900)" class="btn">Продлить на год</div>
+	<p class="popup-description">Подписка дает вам возможность бронировать неограниченное количество мероприятий со скидками</p>
+	<div (click)="gs.initTransaction('SM', 200)" class="btn">Продлить на месяц - 200&nbsp;руб.</div>
+	<div (click)="gs.initTransaction('SA', 1900)" class="btn">Продлить на год - 1900&nbsp;руб.</div>
 </div>

@@ -82,7 +82,7 @@ export class EventComponent implements OnInit, OnDestroy  {
 
 	needSubscription() : void {
 		if (this.gs.userInfo.subscription) {
-			if (this.event.locations) {
+			if (this.event && this.event.locations) {
 				let eventDate : any = new Date(this.event.locations[0].time_slots[0].date.replace(/(\d+).(\d+).(\d+)/,'$3-$2-$1'));
 				let subscriptionExpires : any = new Date(this.gs.userInfo.subscription.expires_at.replace(/(\d+).(\d+).(\d+)/,'$3-$2-$1'));
 				if ((eventDate - subscriptionExpires) > 0) {
@@ -141,7 +141,7 @@ export class EventComponent implements OnInit, OnDestroy  {
 	book() {
 		this.httpService.makingBooking(this.timeslot_id,this.seats).subscribe((data:any) => {
 			if (data.status == "OK") {
-				this.gs.msg = "Бронь №" + data.booking_id + " успешно оформлена. Проверьте Вашу электронную почту, Вам должно прийти уведомление";
+				this.gs.msg = "Бронь №" + data.reference_number + " успешно оформлена. Проверьте Вашу электронную почту, Вам должно прийти уведомление";
 				this.gs.getUserInfo();
 				this.loadEvent();
 				this.bookingId = data.booking_id;

@@ -8,7 +8,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var api_service_1 = require("./api.service");
 var forms_1 = require("@angular/forms");
@@ -70,7 +69,7 @@ var GlobalService = (function () {
                                 var seats = +localStorage.getItem('seats');
                                 _this.httpService.makingBooking(timeslot, seats).subscribe(function (data) {
                                     if (data.status == "OK") {
-                                        _this.msg = "Бронь №" + data.booking_id + " оформлена. Проверьте Вашу электронную почту и СМС, Вам должно прийти уведомление";
+                                        _this.msg = "Бронь №" + data.reference_number + " оформлена. Проверьте Вашу электронную почту и СМС, Вам должно прийти уведомление";
                                         _this.getUserInfo();
                                         _this.openPopup('msg');
                                     }
@@ -86,10 +85,6 @@ var GlobalService = (function () {
                                     localStorage.removeItem('timeslot_id');
                                     localStorage.removeItem('seats');
                                 });
-                            }
-                            else {
-                                _this.msg = "Оплата прошла успешно";
-                                _this.openPopup('msg');
                             }
                             localStorage.removeItem('transaction.id');
                             _this.getUserInfo();

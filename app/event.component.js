@@ -8,7 +8,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var api_service_1 = require("./api.service");
 var router_1 = require("@angular/router");
@@ -73,7 +72,7 @@ var EventComponent = (function () {
     };
     EventComponent.prototype.needSubscription = function () {
         if (this.gs.userInfo.subscription) {
-            if (this.event.locations) {
+            if (this.event && this.event.locations) {
                 var eventDate = new Date(this.event.locations[0].time_slots[0].date.replace(/(\d+).(\d+).(\d+)/, '$3-$2-$1'));
                 var subscriptionExpires = new Date(this.gs.userInfo.subscription.expires_at.replace(/(\d+).(\d+).(\d+)/, '$3-$2-$1'));
                 if ((eventDate - subscriptionExpires) > 0) {
@@ -137,7 +136,7 @@ var EventComponent = (function () {
         var _this = this;
         this.httpService.makingBooking(this.timeslot_id, this.seats).subscribe(function (data) {
             if (data.status == "OK") {
-                _this.gs.msg = "Бронь №" + data.booking_id + " успешно оформлена. Проверьте Вашу электронную почту, Вам должно прийти уведомление";
+                _this.gs.msg = "Бронь №" + data.reference_number + " успешно оформлена. Проверьте Вашу электронную почту, Вам должно прийти уведомление";
                 _this.gs.getUserInfo();
                 _this.loadEvent();
                 _this.bookingId = data.booking_id;

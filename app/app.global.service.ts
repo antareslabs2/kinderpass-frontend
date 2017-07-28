@@ -74,7 +74,7 @@ export class GlobalService {
 
 								this.httpService.makingBooking(timeslot, seats).subscribe((data:any) => {
 									if (data.status == "OK") {
-										this.msg = "Бронь №"+data.booking_id+" оформлена. Проверьте Вашу электронную почту и СМС, Вам должно прийти уведомление";
+										this.msg = "Бронь №"+data.reference_number+" оформлена. Проверьте Вашу электронную почту и СМС, Вам должно прийти уведомление";
 										this.getUserInfo();
 										this.openPopup('msg');
 									} else {
@@ -88,9 +88,6 @@ export class GlobalService {
 									localStorage.removeItem('timeslot_id');
 									localStorage.removeItem('seats');
 								});
-							} else {
-								this.msg = "Оплата прошла успешно";
-								this.openPopup('msg');
 							}
 							localStorage.removeItem('transaction.id');
 							this.getUserInfo();
