@@ -206,6 +206,16 @@ img {
     @media only screen and (max-width: 780px) {
       .btn-mobile {
         display: inline-block; } }
+  .btn.btn-link {
+    background: none;
+    color: #8e7dba;
+    font-size: 14px;
+    text-decoration: underline;
+    line-height: 1.2;
+    padding: 0; }
+
+.btns .btn:last-of-type {
+  margin: 0; }
 
 input, textarea {
   outline: none;
@@ -318,34 +328,6 @@ textarea.textarea {
         .header .links a,
         .header .links span {
           margin: 0 3px; } }
-  .header .email {
-    float: right;
-    background-color: #7accc8;
-    position: relative; }
-    @media only screen and (max-width: 1080px) {
-      .header .email {
-        width: 35px;
-        height: 35px;
-        background-color: transparent; } }
-    .header .email img {
-      position: absolute;
-      top: -3px;
-      left: -35px;
-      height: 35px; }
-      @media only screen and (max-width: 1080px) {
-        .header .email img {
-          position: static; } }
-    .header .email span {
-      display: inline-block;
-      vertical-align: middle;
-      padding: 0 15px;
-      font-size: 22px;
-      color: #fff;
-      font-family: 'matias'; }
-      @media only screen and (max-width: 1080px) {
-        .header .email span {
-          font-size: 20px;
-          display: none; } }
   .header .user {
     display: none; }
   .header.header-auth {
@@ -400,21 +382,6 @@ textarea.textarea {
             font-size: 18px;
             line-height: 20px;
             display: inline-block; } }
-    .header.header-auth .links {
-      padding-top: 15px; }
-      @media only screen and (max-width: 600px) {
-        .header.header-auth .links a {
-          display: block; } }
-      @media only screen and (max-width: 420px) {
-        .header.header-auth .links {
-          width: 45%;
-          text-align: center;
-          padding-top: 10px; } }
-      @media only screen and (max-width: 420px) {
-        .header.header-auth .links-b {
-          width: 70%; } }
-    .header.header-auth .email {
-      margin-top: 15px; }
     .header.header-auth .user {
       display: block;
       float: right;
@@ -425,10 +392,19 @@ textarea.textarea {
       .header.header-auth .user-name {
         padding: 15px 20px;
         position: relative;
-        cursor: pointer; }
+        cursor: pointer;
+        display: inline-block;
+        vertical-align: middle; }
+        @media only screen and (max-width: 780px) {
+          .header.header-auth .user-name {
+            font-size: 16px;
+            padding: 15px 10px; } }
+        @media only screen and (max-width: 540px) {
+          .header.header-auth .user-name {
+            font-size: 13px; } }
         .header.header-auth .user-name img {
           display: none; }
-          @media only screen and (max-width: 420px) {
+          @media only screen and (max-width: 540px) {
             .header.header-auth .user-name img {
               display: block; }
               .header.header-auth .user-name img + span {
@@ -449,6 +425,34 @@ textarea.textarea {
                   transform: rotate(45deg); }
         .header.header-auth .user-name:hover {
           text-decoration: underline; }
+      .header.header-auth .user-subscription {
+        display: inline-block;
+        vertical-align: middle;
+        padding: 10px;
+        border: 1px solid #f49ac1;
+        margin-left: 10px;
+        background-color: #b77db5;
+        border-radius: 10px; }
+        .header.header-auth .user-subscription-extend {
+          background-color: #f49ac1; }
+        .header.header-auth .user-subscription-link {
+          cursor: pointer;
+          text-decoration: underline dashed; }
+          .header.header-auth .user-subscription-link:hover {
+            background-color: #f49ac1; }
+        @media only screen and (max-width: 1080px) {
+          .header.header-auth .user-subscription {
+            font-size: 16px; }
+            .header.header-auth .user-subscription span {
+              display: none; } }
+        @media only screen and (max-width: 780px) {
+          .header.header-auth .user-subscription {
+            font-size: 16px; } }
+        @media only screen and (max-width: 540px) {
+          .header.header-auth .user-subscription {
+            padding: 5px;
+            margin: 0;
+            font-size: 13px; } }
 
 .user-menu {
   background-color: #b77db5;
@@ -503,8 +507,6 @@ textarea.textarea {
       color: inherit;
       text-decoration: none;
       font-size: 18px; }
-  .user-menu-subscription {
-    color: #fcc; }
 
 .user-logout {
   margin-top: 30px;
@@ -1119,14 +1121,15 @@ textarea.textarea {
             text-align: left;
             padding: 0 5px; } }
         .form .results-item-cost .btn {
-          width: 100%; }
+          width: 100%;
+          font-size: 18px; }
           @media only screen and (max-width: 950px) {
             .form .results-item-cost .btn {
-              font-size: 20px; } }
-          @media only screen and (max-width: 850px) {
-            .form .results-item-cost .btn {
               font-size: 16px; } }
-          @media only screen and (max-width: 600px) {
+          @media only screen and (max-width: 900px) {
+            .form .results-item-cost .btn {
+              font-size: 14px; } }
+          @media only screen and (max-width: 700px) {
             .form .results-item-cost .btn {
               font-size: 12px; } }
           @media only screen and (max-width: 420px) {
@@ -1169,6 +1172,9 @@ textarea.textarea {
               line-height: 30px;
               background-size: 11px;
               padding-right: 20px; } }
+      .form .results-item-discount {
+        margin-bottom: 10px;
+        color: #02ba61; }
   .form .moreResults {
     text-align: center;
     margin-top: 35px;
@@ -1366,6 +1372,17 @@ textarea.textarea {
     font-size: 26px;
     color: #fff;
     font-family: 'matias'; }
+
+.subscription-wrapper {
+  padding: 20px 30px; }
+  @media only screen and (max-width: 420px) {
+    .subscription-wrapper {
+      padding: 10px; } }
+  .subscription-wrapper .popup-description {
+    margin: 20px 0; }
+  .subscription-wrapper .btn-link {
+    float: right;
+    width: auto; }
 
 .innerpage {
   background-color: #fcfcfc;

@@ -28,13 +28,22 @@
 	<div (click)="close()" class="btn">Окей</div>
 </div>
 
-<div [@dialog] *ngIf="gs.popupName == 'extendSubscription'" class="popup login">
+<div [@dialog] *ngIf="gs.popupName == 'extendSubscription'" class="popup login" (click)="close()">
 </div>
-<div [@dialog] *ngIf="gs.popupName == 'extendSubscription'" class="popup-wrapper login-wrapper updateInfo">
+<div [@dialog] *ngIf="gs.popupName == 'extendSubscription'" class="popup-wrapper login-wrapper subscription-wrapper">
 	<div (click)="close()" class="popup-close modal-close"></div>
-	<p *ngIf="!gs.subscription" class="popup-description">Срок действия подписки истек</p>
-	<p *ngIf="gs.subscription" class="popup-description">Срок действия подписки истекает {{gs.userInfo.subscription.expires_at}}</p>
+	<ng-container *ngIf="!gs.userInfo.subscription">
+		<div class="event-title">Ой!</div>
+		<p class="popup-description">Истек срок Вашей подписки</p>
+	</ng-container>
+	<ng-container *ngIf="gs.userInfo.subscription">
+		<div class="event-title">Продление подписки</div>
+		<p class="popup-description">Срок действия подписки истекает {{gs.userInfo.subscription.expires_at}}</p>
+	</ng-container>
 	<p class="popup-description">Подписка дает вам возможность бронировать неограниченное количество мероприятий со скидками</p>
-	<div (click)="gs.initTransaction('SM', 200)" class="btn">Продлить на месяц - 200&nbsp;руб.</div>
-	<div (click)="gs.initTransaction('SA', 1900)" class="btn">Продлить на год - 1900&nbsp;руб.</div>
+	<div class="btns">
+		<div (click)="gs.initTransaction('SM', 200)" class="btn">Продлить на месяц<br>за 200&nbsp;руб.</div>
+		<div (click)="gs.initTransaction('SA', 1900)" class="btn">Продлить на год<br>за 1900&nbsp;руб.</div>
+		<div (click)="close()" class="btn btn-link">Продлю позже</div>
+	</div>
 </div>

@@ -300,6 +300,9 @@ var MainComponent = (function () {
         for (var item in data.activities) {
             for (var location_1 in data.activities[item].locations) {
                 for (var time in data.activities[item].locations[location_1].time_slots) {
+                    var discount = 0;
+                    if (data.activities[item].locations[location_1].time_slots[time].price_without_discount > 0)
+                        discount = (1 - data.activities[item].locations[location_1].time_slots[time].price / data.activities[item].locations[location_1].time_slots[time].price_without_discount) * 100;
                     this.events.push({
                         'id': data.activities[item].id,
                         'name': data.activities[item].name,
@@ -321,7 +324,8 @@ var MainComponent = (function () {
                                 'end_time': data.activities[item].locations[location_1].time_slots[time].end_time,
                                 'free_seats': data.activities[item].locations[location_1].time_slots[time].free_seats,
                                 'allocated_seats': data.activities[item].locations[location_1].time_slots[time].allocated_seats,
-                                'price': data.activities[item].locations[location_1].time_slots[time].price
+                                'price': data.activities[item].locations[location_1].time_slots[time].price,
+                                'discount': discount
                             }
                         },
                         'provider': {

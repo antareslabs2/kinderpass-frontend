@@ -335,6 +335,10 @@ export class MainComponent implements OnInit {
 		for( let item in data.activities) {
 			for( let location in data.activities[item].locations) {
 				for (let time in data.activities[item].locations[location].time_slots) {
+					let discount = 0;
+					if (data.activities[item].locations[location].time_slots[time].price_without_discount > 0)
+						discount = (1-data.activities[item].locations[location].time_slots[time].price/data.activities[item].locations[location].time_slots[time].price_without_discount)*100;
+
 					this.events.push({
 						'id': data.activities[item].id,
 						'name': data.activities[item].name,
@@ -356,7 +360,8 @@ export class MainComponent implements OnInit {
 								'end_time': data.activities[item].locations[location].time_slots[time].end_time,
 								'free_seats': data.activities[item].locations[location].time_slots[time].free_seats,
 								'allocated_seats': data.activities[item].locations[location].time_slots[time].allocated_seats,
-								'price': data.activities[item].locations[location].time_slots[time].price
+								'price': data.activities[item].locations[location].time_slots[time].price,
+								'discount': discount
 							}
 						},
 						'provider': {

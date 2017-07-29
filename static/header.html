@@ -6,8 +6,12 @@
 				<p>KinderPass</p>
 			</a>
 		</div><!-- 
-	 --><div *ngIf="gs.isAuthenticated" (click)="toogleLK()" class="user">
-			<p class="user-name" [class.user-name_icon]="gs.userInfo.name.length <= 1" ><img src="app/img/profile.png" alt=""><span>{{gs.userInfo.name}}</span></p>
+	 --><div *ngIf="gs.isAuthenticated" class="user">
+			<ng-container *ngIf="gs.userInfo.subscription">
+				<p *ngIf="gs.userInfo.subscription.expires_at" (click)="gs.openPopup('extendSubscription')" [class.user-subscription-extend]="gs.extendSubscription" class="user-subscription user-subscription-link"><span>Подписка </span>до {{gs.userInfo.subscription.expires_at}}</p>
+				<p *ngIf="gs.userInfo.subscription.balance" class="user-subscription"><span>Баланс: </span>{{gs.userInfo.subscription.balance}} P</p>
+			</ng-container>
+			<p class="user-name" (click)="toogleLK()"  [class.user-name_icon]="gs.userInfo.name.length <= 1" ><img src="app/img/profile.png" alt=""><span>{{gs.userInfo.name}}</span></p>
 		</div><!-- 
 	 --><div class="links" *ngIf="!gs.isAuthenticated">
 			<a routerLink="/about">О проекте</a><span (click)="gs.openPopup('login')">Войти</span><a routerLink="/contacts">Контакты</a>
@@ -31,23 +35,6 @@
 					<tr>
 						<td>E-mail</td>
 						<td>{{gs.userInfo.email}}</td>
-					</tr>
-				</table>
-			</div>
-			<div class="user-menu-item">
-				<div class="user-menu-title">
-					<img src="app/img/sub.png" alt="">
-					<p>Подписка</p>
-					<a *ngIf="!gs.userInfo.subscription || gs.extendSubscription" class="user-menu-btn btn" (click)="gs.popupName='extendSubscription'" fragment="subscription">Продлить</a>
-				</div>
-				<table *ngIf="gs.userInfo.subscription">
-					<tr *ngIf="gs.userInfo.subscription.balance">
-						<td>Баланс:</td>
-						<td>{{gs.userInfo.subscription.balance}}</td>
-					</tr>
-					<tr>
-						<td>Подписка до:</td>
-						<td [class.user-menu-subscription]="gs.extendSubscription">{{gs.userInfo.subscription.expires_at}}</td>
 					</tr>
 				</table>
 			</div>
