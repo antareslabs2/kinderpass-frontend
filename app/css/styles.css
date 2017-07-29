@@ -308,7 +308,8 @@ textarea.textarea {
             line-height: 20px;
             display: inline-block; } }
   .header .links {
-    text-align: center; }
+    text-align: center;
+    padding-top: 14px; }
     @media only screen and (max-width: 420px) {
       .header .links {
         width: 70%;
@@ -432,7 +433,8 @@ textarea.textarea {
         border: 1px solid #f49ac1;
         margin-left: 10px;
         background-color: #b77db5;
-        border-radius: 10px; }
+        border-radius: 10px;
+        font-size: 18px; }
         .header.header-auth .user-subscription-extend {
           background-color: #f49ac1; }
         .header.header-auth .user-subscription-link {
@@ -1364,15 +1366,15 @@ textarea.textarea {
   padding: 1%;
   border-radius: 15px;
   border: 8px solid #fff;
-  background-color: #02ba61; }
-  .msg-wrapper-cancel {
-    background-color: #ff3366; }
-  .msg-wrapper-close:before, .msg-wrapper-close:after {
-    background-color: #FFF; }
+  background-color: #fff; }
   .msg-wrapper .popup-description {
     font-size: 26px;
-    color: #fff;
+    color: #8e7dba;
     font-family: 'matias'; }
+  .msg-wrapper-cancel .popup-description {
+    color: #ff3366; }
+  .msg-wrapper-close:before, .msg-wrapper-close:after {
+    background-color: #FFF; }
 
 .subscription-wrapper {
   padding: 20px 30px; }
