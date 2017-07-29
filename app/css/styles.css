@@ -439,7 +439,7 @@ textarea.textarea {
           background-color: #f49ac1; }
         .header.header-auth .user-subscription-link {
           cursor: pointer;
-          text-decoration: underline dashed; }
+          text-decoration: underline solid; }
           .header.header-auth .user-subscription-link:hover {
             background-color: #f49ac1; }
         @media only screen and (max-width: 1080px) {
@@ -469,7 +469,7 @@ textarea.textarea {
     .user-menu {
       right: 85px; } }
   .user-menu-btn {
-    top: 20px;
+    top: 13px;
     position: absolute;
     right: 0;
     cursor: pointer; }
@@ -1571,7 +1571,7 @@ textarea.textarea {
       .eventPage h1 {
         font-size: 20px; } }
   .eventPage p {
-    font-size: 16px;
+    font-size: 18px;
     color: #393939;
     line-height: 1.2;
     margin: 20px 0; }
@@ -1683,7 +1683,7 @@ textarea.textarea {
     margin: 20px 0; }
   .eventPage-additionalInfo {
     color: #8e7dba;
-    font-size: 16px;
+    font-size: 20px;
     margin: 20px 0;
     line-height: 1.2; }
   .eventPage-date {

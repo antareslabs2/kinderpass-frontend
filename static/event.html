@@ -43,8 +43,8 @@
 					<div *ngIf="discount > 0" class="eventPage-discount">Дешевле на {{discount | number:'1.0-0'}}%</div>
 				</div>
 			</div>
-			<p>{{event.description}}</p>
 			<div *ngIf="event.extra" class="eventPage-additionalInfo">Важно: <span [innerHtml]="event.extra"></span></div>
+			<p>{{event.description}}</p>
 			<div class="eventPage-providerInfo">
 				<p>Мероприятие проводит {{event.provider.legal.legal_name}} (ИНН: {{event.provider.legal.tax_num}}, Для претензий и предложений: {{event.provider.legal.contact_phone}}, e-mail: {{event.provider.legal.contact_email}}). Цена билета {{event.locations[0].time_slots[0].price}} руб.<br>Бронирование и оформление билета осуществлено ООО "Киндерпасс" (ИНН: 78203424534, e-mail: claim@kinderpass.ru, телефон +7 (812) 649-26-32) на основании Агентского договора от {{event.provider.legal.contract_date ? event.provider.legal.contract_date : "01.05.2017"}}</p>
 			</div>
