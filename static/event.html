@@ -40,6 +40,7 @@
 					<!-- <button *ngIf="!bookingStatus && !gs.userInfo.subscription" (click)="makingBooking()" class="btn">Купить абонемент и забронировать</button> -->
 					<button *ngIf="!bookingStatus" (click)="makingBooking()" class="btn" [class.disabled]="isDisable" [disabled]="isDisable">Забронировать</button>
 					<button *ngIf="bookingStatus" class="btn btn-disable" [class.disabled]="isDisable" [disabled]="isDisable" (click)="cancelBooking(bookingId)">Отменить бронь</button>
+					<div *ngIf="discount > 0" class="eventPage-discount">Дешевле на {{discount | number:'1.0-0'}}%</div>
 				</div>
 			</div>
 			<p>{{event.description}}</p>

@@ -24,6 +24,7 @@ var EventComponent = (function () {
         this.seats = 1;
         this.subscriptionPrice = 0;
         this.subscriptionDate = moment(new Date()).add(1, 'month').format();
+        this.discount = 0;
     }
     EventComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -48,6 +49,8 @@ var EventComponent = (function () {
         this.httpService.getEventById(this.timeslot_id).subscribe(function (data) {
             if (data.activity) {
                 _this.event = data.activity;
+                if (data.activity.locations[0].time_slots[0].price_without_discount > 0)
+                    _this.discount = (1 - data.activity.locations[0].time_slots[0].price / data.activity.locations[0].time_slots[0].price_without_discount) * 100;
                 _this.needSubscription();
             }
         });

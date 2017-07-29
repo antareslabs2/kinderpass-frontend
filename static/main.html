@@ -108,7 +108,7 @@
 						<div class="results-item-recommendation">{{item.description | truncate:200 }}</div>
 						<div class="results-item-location">{{item.locations.address}}</div>
 					</div><!-- 
-					 --><div class="results-item-cost">
+				 --><div class="results-item-cost">
 						<div class="results-item-time"><span>{{item.locations.time_slots.start_time}}</span></div>
 						<div class="results-item-price"><span>{{item.locations.time_slots.price}}</span></div>
 						<div *ngIf="item.locations.time_slots.discount > 0" class="results-item-discount">Со скидкой {{item.locations.time_slots.discount | number:'1.0-0'}}%</div>

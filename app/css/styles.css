@@ -365,7 +365,7 @@ textarea.textarea {
           vertical-align: middle; }
           @media only screen and (max-width: 420px) {
             .header.header-auth .logo a img {
-              width: 42%; } }
+              width: 35%; } }
       .header.header-auth .logo p {
         display: inline-block;
         vertical-align: middle;
@@ -376,7 +376,7 @@ textarea.textarea {
             line-height: 30px; } }
         @media only screen and (max-width: 780px) {
           .header.header-auth .logo p {
-            font-size: 22px; } }
+            font-size: 20px; } }
         @media only screen and (max-width: 360px) {
           .header.header-auth .logo p {
             font-size: 18px;
@@ -1174,7 +1174,8 @@ textarea.textarea {
               padding-right: 20px; } }
       .form .results-item-discount {
         margin-bottom: 10px;
-        color: #02ba61; }
+        color: #02ba61;
+        text-align: center; }
   .form .moreResults {
     text-align: center;
     margin-top: 35px;
@@ -1792,8 +1793,7 @@ textarea.textarea {
     margin-top: 50px; }
     @media only screen and (max-width: 420px) {
       .eventPage-btns {
-        margin-top: 25px;
-        margin-bottom: 25px; } }
+        margin-top: 25px; } }
     .eventPage-btns .btn {
       width: 100%; }
       .eventPage-btns .btn-disable {
@@ -1811,3 +1811,7 @@ textarea.textarea {
       font-size: 11px;
       line-height: 1.2;
       margin: 0; }
+  .eventPage-discount {
+    margin-top: 5px;
+    color: #02ba61;
+    font-size: 18px; }

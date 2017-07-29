@@ -25,6 +25,8 @@ export class EventComponent implements OnInit, OnDestroy  {
 	subscriptionDate: any;
 	subscriptionPrice: number;
 
+	discount : number;
+
 	constructor(private httpService: Api, private route: ActivatedRoute, private gs: GlobalService){
 		this.innerpage = true;
 		this.bookingStatus = false;
@@ -32,6 +34,7 @@ export class EventComponent implements OnInit, OnDestroy  {
 		this.seats = 1;
 		this.subscriptionPrice = 0;
 		this.subscriptionDate = moment(new Date()).add(1, 'month').format();
+		this.discount = 0;
 	}
 
 	ngOnInit(){
@@ -55,6 +58,8 @@ export class EventComponent implements OnInit, OnDestroy  {
 		this.httpService.getEventById(this.timeslot_id).subscribe((data:any) => {
 			if(data.activity){
 				this.event = data.activity;
+				if (data.activity.locations[0].time_slots[0].price_without_discount > 0)
+					this.discount = (1-data.activity.locations[0].time_slots[0].price/data.activity.locations[0].time_slots[0].price_without_discount)*100;
 				this.needSubscription();
 			}
 		});
