@@ -1221,6 +1221,9 @@ textarea.textarea {
     border-radius: 15px;
     text-align: center;
     max-width: 100%; }
+    .popup-wrapper .btn {
+      padding-left: 30px;
+      padding-right: 30px; }
   .popup-title {
     font-size: 26px;
     font-family: 'rounds';
