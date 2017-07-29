@@ -111,7 +111,7 @@
 				 --><div class="results-item-cost">
 						<div class="results-item-time"><span>{{item.locations.time_slots.start_time}}</span></div>
 						<div class="results-item-price"><span>{{item.locations.time_slots.price}}</span></div>
-						<div *ngIf="item.locations.time_slots.discount > 0" class="results-item-discount">Со скидкой {{item.locations.time_slots.discount | number:'1.0-0'}}%</div>
+						<div *ngIf="item.locations.time_slots.discount > 0" class="results-item-discount">Дешевле на {{item.locations.time_slots.discount | number:'1.0-0'}}%</div>
 						<div class="btn" [routerLink]="['/event', item.locations.time_slots.id]">Забронировать</div>
 					</div>
 				</div>
