@@ -175,11 +175,20 @@
 
 				&-extend
 					background-color: #f49ac1
+
 				&-link
 					cursor: pointer
 					text-decoration: underline solid
 					&:hover
 						background-color: #f49ac1
+
+				&-ended
+					background-color: #1cbbb4
+					border: none
+					&:hover
+						background-color: #1aa9a2
+				&-new
+					animation: bg 2s normal ease-in-out
 				+bp($bg)
 					font-size: 16px
 					span
@@ -250,3 +259,13 @@
 	&-logout
 		margin-top: 30px
 		cursor: pointer
+
+@keyframes bg 
+	0%
+		opacity: 0.3
+	25%
+		opacity: 1
+	50%
+		opacity: 0.3
+	100%
+		opacity: 1

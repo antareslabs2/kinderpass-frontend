@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var api_service_1 = require("./api.service");
 var forms_1 = require("@angular/forms");
@@ -26,6 +27,7 @@ var GlobalService = (function () {
         this.phone = '';
         this.phoneMask = ['+', '7', '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
         this.extendSubscription = false;
+        this.newSubscription = false;
     }
     GlobalService.prototype.openPopup = function (name) {
         this.popupName = name;
@@ -85,6 +87,9 @@ var GlobalService = (function () {
                                     localStorage.removeItem('timeslot_id');
                                     localStorage.removeItem('seats');
                                 });
+                            }
+                            else {
+                                _this.newSubscription = true;
                             }
                             localStorage.removeItem('transaction.id');
                             _this.getUserInfo();

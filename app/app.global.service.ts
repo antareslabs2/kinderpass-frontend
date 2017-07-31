@@ -19,6 +19,7 @@ export class GlobalService {
 
 	contactsForm: FormGroup;
 	extendSubscription:boolean;
+	newSubscription:boolean;
 
 	constructor(public httpService: Api, private fb: FormBuilder){
 		this.userInfo = {};
@@ -31,6 +32,7 @@ export class GlobalService {
 		this.phone = '';
 		this.phoneMask = ['+', '7', '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
 		this.extendSubscription = false;
+		this.newSubscription = false;
 	}
 
 	openPopup(name:string) {
@@ -88,6 +90,8 @@ export class GlobalService {
 									localStorage.removeItem('timeslot_id');
 									localStorage.removeItem('seats');
 								});
+							} else {
+								this.newSubscription = true;
 							}
 							localStorage.removeItem('transaction.id');
 							this.getUserInfo();
