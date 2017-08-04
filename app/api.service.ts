@@ -2,6 +2,9 @@ import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import { Injectable, Inject } from '@angular/core';
 import {HttpService} from './http.service';
 import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/throw';
 
 declare var device: any;
 
@@ -76,8 +79,6 @@ export class Api{
             'amount': amount,
             'transaction_type': type
         }
-        console.log(data)
-        console.log(url)
         return this.http.post(url, data, this.options)
                         .map((resp:Response)=>resp.json())
                         .catch((error:any) =>{
@@ -92,8 +93,6 @@ export class Api{
                         .catch((error:any) =>{return Observable.throw(error);}); 
     }
     makingBooking(timeSlotID:number, seats:number){
-        // In docs method = POST
-         
         let url = this.url + 'api/activities/book/' + timeSlotID + '/' + seats;
 
         return this.http.get(url, this.options)
@@ -102,21 +101,11 @@ export class Api{
     }
 
     cancelBooking(bookingID:number){
-        // In docs method = POST
-         
         let url = this.url + 'api/activities/cancel_booking/' + bookingID;
 
         return this.http.get(url, this.options)
                         .map((resp:Response)=>resp.json())
                         .catch((error:any) =>{return error;});
-    }
-
-    registration(data:any){
-        let headers = new Headers({ 'Content-Type': 'application/json;charset=utf-8' });
-
-        return this.http.post('https://script.google.com/macros/s/AKfycbzLz5xJS2x726J14D04DOYNyuuhIRrAqXlRlaJTf7sYSgoQcfE/exec', data)
-                        .map((resp:Response)=>resp.json())
-                        .catch((error:any) =>{return Observable.throw(error);}); 
     }
 
     getEventById(timeslot_id:number) {

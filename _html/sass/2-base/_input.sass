@@ -14,6 +14,11 @@ input
 	&.error
 		border-color: #5a5a5a
 		color: #5a5a5a
+	&.ng-touched.ng-invalid
+		border: solid red 2px
+		box-shadow: inset 0px 0 3px 0px red
+	&.ng-touched.ng-valid
+		border:solid green 2px
 
 textarea.textarea
 	resize: none

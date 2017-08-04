@@ -28,6 +28,7 @@ var GlobalService = (function () {
         this.phoneMask = ['+', '7', '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
         this.extendSubscription = false;
         this.newSubscription = false;
+        this.policy = true;
     }
     GlobalService.prototype.openPopup = function (name) {
         this.popupName = name;
@@ -111,11 +112,16 @@ var GlobalService = (function () {
                 ],
                 'phone': [this.phone, [
                         forms_1.Validators.required,
+                        this.phoneValidation
                     ]
+                ],
+                'policy': [this.policy, [forms_1.Validators.pattern('true')]
                 ]
             });
-            if (!this.userInfo.phone || !this.userInfo.email)
+            if (!this.userInfo.phone || !this.userInfo.email) {
                 this.popupName = 'updateInfo';
+                this.userInfo.policy = false;
+            }
             else if (this.userInfo.subscription) {
                 var today = moment(new Date()).add(7, 'days').format();
                 var subscription = moment(new Date(this.userInfo.subscription.expires_at.replace(/(\d+).(\d+).(\d+)/, '$3-$2-$1'))).format();
@@ -123,10 +129,12 @@ var GlobalService = (function () {
                     this.extendSubscription = true;
                 else
                     this.extendSubscription = false;
+                this.userInfo.policy = true;
             }
             else if (!this.userInfo.subscription) {
                 this.popupName = "extendSubscription";
                 this.extendSubscription = true;
+                this.userInfo.policy = true;
             }
         }
     };
@@ -140,7 +148,9 @@ var GlobalService = (function () {
         var _this = this;
         this.email = form.controls.email.value;
         this.phone = form.controls.phone.value;
-        if (this.email && this.phone) {
+        this.userInfo.policy = form.controls.policy.value;
+        var length = this.phone.replace(/_/gi, '').length;
+        if (this.email && this.phone && this.userInfo.policy && length == 16) {
             var body = {
                 phone: this.phone,
                 email: this.email
@@ -151,6 +161,7 @@ var GlobalService = (function () {
                     $("html").removeClass('locked');
                     _this.userInfo.phone = _this.phone;
                     _this.userInfo.email = _this.email;
+                    _this.userInfo.policy = true;
                 }
             });
         }
@@ -162,6 +173,9 @@ var GlobalService = (function () {
                 window.location.href = data.alfa.formUrl;
             }
         });
+    };
+    GlobalService.prototype.phoneValidation = function (input) {
+        return input.value.replace(/_/gi, '').length == 16 ? null : { needsExclamation: true };
     };
     return GlobalService;
 }());

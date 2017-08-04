@@ -15,6 +15,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var http_1 = require("@angular/http");
 var core_1 = require("@angular/core");
 var Observable_1 = require("rxjs/Observable");
+require("rxjs/add/operator/catch");
+require("rxjs/add/operator/map");
+require("rxjs/add/observable/throw");
 var Api = (function () {
     function Api(http, _window) {
         this.http = http;
@@ -76,8 +79,6 @@ var Api = (function () {
             'amount': amount,
             'transaction_type': type
         };
-        console.log(data);
-        console.log(url);
         return this.http.post(url, data, this.options)
             .map(function (resp) { return resp.json(); })
             .catch(function (error) {
@@ -92,24 +93,16 @@ var Api = (function () {
             .catch(function (error) { return Observable_1.Observable.throw(error); });
     };
     Api.prototype.makingBooking = function (timeSlotID, seats) {
-        // In docs method = POST
         var url = this.url + 'api/activities/book/' + timeSlotID + '/' + seats;
         return this.http.get(url, this.options)
             .map(function (resp) { return resp.json(); })
             .catch(function (error) { return error; });
     };
     Api.prototype.cancelBooking = function (bookingID) {
-        // In docs method = POST
         var url = this.url + 'api/activities/cancel_booking/' + bookingID;
         return this.http.get(url, this.options)
             .map(function (resp) { return resp.json(); })
             .catch(function (error) { return error; });
-    };
-    Api.prototype.registration = function (data) {
-        var headers = new http_1.Headers({ 'Content-Type': 'application/json;charset=utf-8' });
-        return this.http.post('https://script.google.com/macros/s/AKfycbzLz5xJS2x726J14D04DOYNyuuhIRrAqXlRlaJTf7sYSgoQcfE/exec', data)
-            .map(function (resp) { return resp.json(); })
-            .catch(function (error) { return Observable_1.Observable.throw(error); });
     };
     Api.prototype.getEventById = function (timeslot_id) {
         var url = this.url + 'api/activities/timeslot/' + timeslot_id;

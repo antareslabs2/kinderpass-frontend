@@ -10,7 +10,7 @@ import { GlobalService } from './app.global.service';
 	styles: [`
 		input.ng-touched.ng-invalid {border:solid red 2px;}
 		input.ng-touched.ng-valid {border:solid green 2px;}
-	`],
+	`]
 })
 
 export class RegistrationComponent{ 
@@ -45,10 +45,32 @@ export class RegistrationComponent{
 	submit(event:any):any{
 		let invalidFields = this.validateForm(event.target.parentElement);
 		if (invalidFields.length == 0) {
-			this.httpService.registration($(event.target.parentElement).serialize()).subscribe((data:any) => {
-				  console.log(data);
-				});
-			$(event.target.parentElement).submit();
+			let data = $(event.target.parentElement).serialize();
+			var url = "https://script.google.com/macros/s/AKfycbzLz5xJS2x726J14D04DOYNyuuhIRrAqXlRlaJTf7sYSgoQcfE/exec";
+			$.ajax({
+				url:  url,
+				type: 'POST',
+				data: data,
+				success: function(resp) {
+					$.ajax({
+						url:  './offer-application/offer-gen.php',
+						type: 'POST',
+						data: data,
+						success: function(resp) {
+							var w = window.open('about:blank', '_blank');
+							    w.document.write(resp);
+							    w.document.close();
+							
+						},
+						error: function(resp) {
+							console.log(resp)
+						},
+					});
+				},
+				error: function() {
+				},
+			});
+
 		} else {
 			this.gs.popupName = 'msgCancel';
 			if (invalidFields.length == 1) {

@@ -14,6 +14,7 @@ export class GlobalService {
 
 	email: string;
 	phone:string;
+	policy: boolean;
 
 	phoneMask:any;
 
@@ -33,6 +34,7 @@ export class GlobalService {
 		this.phoneMask = ['+', '7', '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
 		this.extendSubscription = false;
 		this.newSubscription = false;
+		this.policy = true;
 	}
 
 	openPopup(name:string) {
@@ -112,12 +114,16 @@ export class GlobalService {
 						],
 				'phone': [this.phone, [
 							Validators.required,
-							// Validators.pattern("/^([+][0-9]\([0-9]{3}\) [0-9]{3}-[0-9]{4})$/")
+							this.phoneValidation
 							]
+						],
+				'policy': [this.policy, [Validators.pattern('true')]
 						]
 			})
-			if (!this.userInfo.phone || !this.userInfo.email)
+			if (!this.userInfo.phone || !this.userInfo.email) {
 				this.popupName = 'updateInfo';
+				this.userInfo.policy = false;
+			}
 			else if(this.userInfo.subscription) {
 				var today : any = moment(new Date()).add(7,'days').format();
 				var subscription : any = moment(new Date(this.userInfo.subscription.expires_at.replace(/(\d+).(\d+).(\d+)/,'$3-$2-$1'))).format();
@@ -126,9 +132,11 @@ export class GlobalService {
 					this.extendSubscription = true;
 				else
 					this.extendSubscription = false;
+				this.userInfo.policy = true;
 			} else if(!this.userInfo.subscription) {
 				this.popupName = "extendSubscription";
 				this.extendSubscription = true;
+				this.userInfo.policy = true;
 			}
 		}
 	}
@@ -142,7 +150,9 @@ export class GlobalService {
 	update(form:any) : void {
 		this.email = form.controls.email.value;
 		this.phone = form.controls.phone.value;
-		if (this.email && this.phone) {
+		this.userInfo.policy = form.controls.policy.value;
+		let length = this.phone.replace(/_/gi, '').length;
+		if (this.email && this.phone && this.userInfo.policy && length == 16) {
 			let body = {
 				phone: this.phone, 
 				email: this.email
@@ -153,6 +163,7 @@ export class GlobalService {
 					$("html").removeClass('locked');
 					this.userInfo.phone = this.phone;
 					this.userInfo.email = this.email;
+					this.userInfo.policy = true;
 				}
 			});
 		}
@@ -165,5 +176,9 @@ export class GlobalService {
 				window.location.href = data.alfa.formUrl;
 			}
 		});
+	}
+
+	phoneValidation(input: any) {
+		return input.value.replace(/_/gi, '').length==16 ? null : { needsExclamation: true };
 	}
 }

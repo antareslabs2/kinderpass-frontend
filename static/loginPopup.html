@@ -16,6 +16,9 @@
 	<form name="contacts" [formGroup]="gs.contactsForm" (ngSubmit)="update(gs.contactsForm)">
 		<input type="email" formControlName="email" name="email" placeholder="Email">
 		<input type="text" formControlName="phone" name="phone" [textMask]="{mask: gs.phoneMask, showMask: true}" placeholder="Телефон">
+		<div class="popup-policy">
+			<input type="checkbox" formControlName="policy" name="policy" id="policy"><label for="policy">Я прочитал и согласен с условиями обработки персональных данных</label>
+		</div>
 		<button type="submit" [disabled]="!gs.contactsForm.valid" class="btn">Сохранить</button>
 	</form>
 </div>

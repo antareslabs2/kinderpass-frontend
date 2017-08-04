@@ -10,17 +10,17 @@
 				<label><input (click)="opf='ИП'" type="radio" name="opf" value="ИП"> Индивидуальный предприниматель</label>
 				</div>
 				<hr><br>
-				<div id="llc" *ngIf="opf=='ООО'">
-					<input type="text" name="o_name" placeholder="Наименование юридического лица (Без ОПФ)">
-					<input type="text" name="o_address" placeholder="Юридический адрес">
-					<input type="text" name="o_fio" placeholder="ФИО уполномоченного лица">
-					<input type="text" name="o_pos" placeholder="Должность уполномоченного лица">
-					<input type="text" name="o_basis" placeholder="Действующий на основании">
-					<input type="text" name="o_id" placeholder="ОГРН" [textMask]="{mask: o_id}">
-					<input type="text" name="o_tid" placeholder="ИНН" [textMask]="{mask: o_tid}">
-					<input type="text" name="o_kpp" placeholder="КПП" [textMask]="{mask: o_kpp}">
+				<div id="llc" [class.hidden]="opf!='ООО'">
+					<input type="text" name="o_name" placeholder="Наименование юридического лица (Без ОПФ)" value="">
+					<input type="text" name="o_address" placeholder="Юридический адрес" value="">
+					<input type="text" name="o_fio" placeholder="ФИО уполномоченного лица" value="">
+					<input type="text" name="o_pos" placeholder="Должность уполномоченного лица" value="">
+					<input type="text" name="o_basis" placeholder="Действующий на основании" value="">
+					<input type="text" name="o_id" placeholder="ОГРН" [textMask]="{mask: o_id}" value="">
+					<input type="text" name="o_tid" placeholder="ИНН" [textMask]="{mask: o_tid}" value="">
+					<input type="text" name="o_kpp" placeholder="КПП" [textMask]="{mask: o_kpp}" value="">
 				</div>
-				<div id="ie" *ngIf="opf=='ИП'">
+				<div id="ie" [class.hidden]="opf!='ИП'">
 					<input type="text" name="ie_name" placeholder="ФИО индивидуального предпринимателя">
 					<input type="text" name="ie_address" placeholder="Адрес регистрации">
 					<input type="text" name="ie_id" placeholder="ОГРНИП" [textMask]="{mask: ie_id}">

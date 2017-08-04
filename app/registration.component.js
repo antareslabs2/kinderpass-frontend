@@ -31,10 +31,30 @@ var RegistrationComponent = (function () {
     RegistrationComponent.prototype.submit = function (event) {
         var invalidFields = this.validateForm(event.target.parentElement);
         if (invalidFields.length == 0) {
-            this.httpService.registration($(event.target.parentElement).serialize()).subscribe(function (data) {
-                console.log(data);
+            var data_1 = $(event.target.parentElement).serialize();
+            var url = "https://script.google.com/macros/s/AKfycbzLz5xJS2x726J14D04DOYNyuuhIRrAqXlRlaJTf7sYSgoQcfE/exec";
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: data_1,
+                success: function (resp) {
+                    $.ajax({
+                        url: './offer-application/offer-gen.php',
+                        type: 'POST',
+                        data: data_1,
+                        success: function (resp) {
+                            var w = window.open('about:blank', '_blank');
+                            w.document.write(resp);
+                            w.document.close();
+                        },
+                        error: function (resp) {
+                            console.log(resp);
+                        },
+                    });
+                },
+                error: function () {
+                },
             });
-            $(event.target.parentElement).submit();
         }
         else {
             this.gs.popupName = 'msgCancel';
@@ -149,7 +169,7 @@ RegistrationComponent = __decorate([
         selector: 'registration',
         templateUrl: 'static/registration.html',
         providers: [api_service_1.Api],
-        styles: ["\n\t\tinput.ng-touched.ng-invalid {border:solid red 2px;}\n\t\tinput.ng-touched.ng-valid {border:solid green 2px;}\n\t"],
+        styles: ["\n\t\tinput.ng-touched.ng-invalid {border:solid red 2px;}\n\t\tinput.ng-touched.ng-valid {border:solid green 2px;}\n\t"]
     }),
     __metadata("design:paramtypes", [api_service_1.Api, app_global_service_1.GlobalService])
 ], RegistrationComponent);

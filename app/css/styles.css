@@ -102,6 +102,9 @@ button {
   .arrow:hover {
     opacity: 1; }
 
+.hidden {
+  display: none; }
+
 p {
   font-size: 22px;
   font-family: 'matias';
@@ -241,6 +244,10 @@ input:active, input:focus {
 input.error {
   border-color: #5a5a5a;
   color: #5a5a5a; }
+
+input.ng-touched.ng-invalid {
+  border: solid red 2px;
+  box-shadow: inset 0px 0 3px 0px red; }
 
 textarea.textarea {
   resize: none; }
@@ -1207,6 +1214,11 @@ textarea.textarea {
               line-height: 30px;
               background-size: 11px;
               padding-right: 20px; } }
+          .form .results-item-price span.results-item-price-old {
+            color: #666;
+            background: none;
+            text-decoration: line-through;
+            padding-right: 5px; }
       .form .results-item-discount {
         margin-bottom: 10px;
         color: #02ba61;
@@ -1266,6 +1278,19 @@ textarea.textarea {
     color: #939393;
     font-family: 'matias';
     margin: 50px 0; }
+  .popup-policy {
+    margin-bottom: 15px; }
+    .popup-policy label {
+      font-size: 14px;
+      color: #939393;
+      font-family: 'matias';
+      display: inline-block;
+      vertical-align: middle;
+      width: 85%;
+      cursor: pointer;
+      line-height: 1.2;
+      padding-left: 10px;
+      text-align: left; }
   .popup-close {
     position: absolute;
     top: -80px;
@@ -1393,6 +1418,11 @@ textarea.textarea {
     color: #939393; }
     .updateInfo input.ng-invalid {
       border-color: red; }
+    .updateInfo input[type="checkbox"] {
+      width: auto;
+      display: inline-block;
+      vertical-align: top;
+      margin: 0; }
   .updateInfo .btn {
     text-transform: uppercase; }
 
