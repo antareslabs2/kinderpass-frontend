@@ -7,25 +7,25 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var conditions_component_1 = require("../conditions.component");
+var contacts_component_1 = require("../contacts.component");
 var routes = [
-    { path: '', component: conditions_component_1.ConditionsComponent },
+    { path: '', component: contacts_component_1.ContactsComponent },
 ];
 exports.routing = router_1.RouterModule.forChild(routes);
-var ConditionsModule = (function () {
-    function ConditionsModule() {
+var ContactsModule = (function () {
+    function ContactsModule() {
     }
-    return ConditionsModule;
+    return ContactsModule;
 }());
-ConditionsModule = __decorate([
+ContactsModule = __decorate([
     core_1.NgModule({
         imports: [
             exports.routing
         ],
         declarations: [
-            conditions_component_1.ConditionsComponent,
+            contacts_component_1.ContactsComponent,
         ]
     })
-], ConditionsModule);
-exports.ConditionsModule = ConditionsModule;
-//# sourceMappingURL=conditions.module.js.map
+], ContactsModule);
+exports.ContactsModule = ContactsModule;
+//# sourceMappingURL=contacts.module.js.map

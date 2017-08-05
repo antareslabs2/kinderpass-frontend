@@ -1,6 +1,6 @@
-import { NgModule, OnInit, Inject }      from '@angular/core';
+import { NgModule, OnInit, Inject } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, Router, Event, RouterModule, NavigationEnd } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {Ng2PageScrollModule, PageScrollInstance, PageScrollService, EasingLogic} from 'ng2-page-scroll';
@@ -11,10 +11,7 @@ import { AppComponent }   from './app.component';
 import { MainComponent }   from './main.component';
 import { FooterComponent }   from './footer.component';
 import { HeaderComponent }   from './header.component';
-import { RegistrationComponent }   from './registration.component';
-import { EventComponent }   from './event.component';
 
-import { ContactsComponent }   from './contacts.component';
 import { DialogComponent }   from './app.dialog';
 //import { LocationComponent }   from './location.dialog';
 
@@ -38,9 +35,9 @@ const appRoutes: Routes =[
     { path: 'about', loadChildren: 'app/lazy/about.module#AboutModule' },
     { path: 'conditions', loadChildren: 'app/lazy/conditions.module#ConditionsModule' },
     { path: 'policy', loadChildren: 'app/lazy/policy.module#PolicyModule' },
-    { path: 'registration', component: RegistrationComponent},
-    { path: 'event/:id', component: EventComponent },
-    { path: 'contacts', component: ContactsComponent },
+    { path: 'registration', loadChildren: 'app/lazy/registration.module#RegistrationModule'},
+    { path: 'event/:id', loadChildren: 'app/lazy/event.module#EventModule' },
+    { path: 'contacts', loadChildren: 'app/lazy/contacts.module#ContactsModule' },
     { path: '**', redirectTo: '/'}
 ];
 
@@ -53,9 +50,6 @@ const appRoutes: Routes =[
         DialogComponent, 
         //LocationComponent,
         MainComponent, 
-        RegistrationComponent, 
-        EventComponent,
-        ContactsComponent,
         TruncatePipe,
         KeysPipe
     ],

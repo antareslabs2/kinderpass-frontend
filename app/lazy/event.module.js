@@ -7,25 +7,29 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var conditions_component_1 = require("../conditions.component");
+var common_1 = require("@angular/common");
+var event_component_1 = require("../event.component");
+var angular2_moment_1 = require("angular2-moment");
 var routes = [
-    { path: '', component: conditions_component_1.ConditionsComponent },
+    { path: '', component: event_component_1.EventComponent },
 ];
 exports.routing = router_1.RouterModule.forChild(routes);
-var ConditionsModule = (function () {
-    function ConditionsModule() {
+var EventModule = (function () {
+    function EventModule() {
     }
-    return ConditionsModule;
+    return EventModule;
 }());
-ConditionsModule = __decorate([
+EventModule = __decorate([
     core_1.NgModule({
         imports: [
-            exports.routing
+            exports.routing,
+            common_1.CommonModule,
+            angular2_moment_1.MomentModule
         ],
         declarations: [
-            conditions_component_1.ConditionsComponent,
+            event_component_1.EventComponent
         ]
     })
-], ConditionsModule);
-exports.ConditionsModule = ConditionsModule;
-//# sourceMappingURL=conditions.module.js.map
+], EventModule);
+exports.EventModule = EventModule;
+//# sourceMappingURL=event.module.js.map

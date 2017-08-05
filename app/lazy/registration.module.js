@@ -7,25 +7,27 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var conditions_component_1 = require("../conditions.component");
+var registration_component_1 = require("../registration.component");
+var angular2_text_mask_1 = require("angular2-text-mask");
 var routes = [
-    { path: '', component: conditions_component_1.ConditionsComponent },
+    { path: '', component: registration_component_1.RegistrationComponent },
 ];
 exports.routing = router_1.RouterModule.forChild(routes);
-var ConditionsModule = (function () {
-    function ConditionsModule() {
+var RegistrationModule = (function () {
+    function RegistrationModule() {
     }
-    return ConditionsModule;
+    return RegistrationModule;
 }());
-ConditionsModule = __decorate([
+RegistrationModule = __decorate([
     core_1.NgModule({
         imports: [
-            exports.routing
+            exports.routing,
+            angular2_text_mask_1.TextMaskModule
         ],
         declarations: [
-            conditions_component_1.ConditionsComponent,
+            registration_component_1.RegistrationComponent
         ]
     })
-], ConditionsModule);
-exports.ConditionsModule = ConditionsModule;
-//# sourceMappingURL=conditions.module.js.map
+], RegistrationModule);
+exports.RegistrationModule = RegistrationModule;
+//# sourceMappingURL=registration.module.js.map

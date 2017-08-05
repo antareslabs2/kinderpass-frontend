@@ -814,7 +814,7 @@ textarea.textarea {
       text-align: center; }
       @media only screen and (max-width: 780px) {
         .steps-wrap p {
-          font-size: 16px;
+          font-size: 20px;
           line-height: 1.2; } }
 
 .options {
@@ -876,10 +876,10 @@ textarea.textarea {
 
 .form {
   background-color: #8e7dba;
-  padding: 20px 0; }
+  padding: 0 0 20px; }
   @media only screen and (max-width: 420px) {
     .form {
-      padding: 90px 0 20px; } }
+      padding: 30px 0 20px; } }
   .form .wrapper {
     overflow: hidden; }
   .form .week {

@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var forms_1 = require("@angular/forms");
@@ -24,9 +23,6 @@ var app_component_1 = require("./app.component");
 var main_component_1 = require("./main.component");
 var footer_component_1 = require("./footer.component");
 var header_component_1 = require("./header.component");
-var registration_component_1 = require("./registration.component");
-var event_component_1 = require("./event.component");
-var contacts_component_1 = require("./contacts.component");
 var app_dialog_1 = require("./app.dialog");
 //import { LocationComponent }   from './location.dialog';
 var api_service_1 = require("./api.service");
@@ -45,9 +41,9 @@ var appRoutes = [
     { path: 'about', loadChildren: 'app/lazy/about.module#AboutModule' },
     { path: 'conditions', loadChildren: 'app/lazy/conditions.module#ConditionsModule' },
     { path: 'policy', loadChildren: 'app/lazy/policy.module#PolicyModule' },
-    { path: 'registration', component: registration_component_1.RegistrationComponent },
-    { path: 'event/:id', component: event_component_1.EventComponent },
-    { path: 'contacts', component: contacts_component_1.ContactsComponent },
+    { path: 'registration', loadChildren: 'app/lazy/registration.module#RegistrationModule' },
+    { path: 'event/:id', loadChildren: 'app/lazy/event.module#EventModule' },
+    { path: 'contacts', loadChildren: 'app/lazy/contacts.module#ContactsModule' },
     { path: '**', redirectTo: '/' }
 ];
 var AppModule = (function () {
@@ -90,9 +86,6 @@ AppModule = __decorate([
             app_dialog_1.DialogComponent,
             //LocationComponent,
             main_component_1.MainComponent,
-            registration_component_1.RegistrationComponent,
-            event_component_1.EventComponent,
-            contacts_component_1.ContactsComponent,
             pipes_1.TruncatePipe,
             convertToArray_1.KeysPipe
         ],
