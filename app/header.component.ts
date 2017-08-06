@@ -6,7 +6,7 @@ import {DOCUMENT} from '@angular/platform-browser';
 
 @Component({
 	selector: 'headerTemplate',
-	templateUrl: 'static/header.html'
+	templateUrl: `static/header.html?v=${new Date().getTime()}`
 })
 
 export class HeaderComponent{ 

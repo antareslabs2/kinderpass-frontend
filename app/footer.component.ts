@@ -3,7 +3,7 @@ import { Component, HostListener } from '@angular/core';
 
 @Component({
 	selector: 'footerTemplate',
-	templateUrl: 'static/footer.html'
+	templateUrl: `static/footer.html?v=${new Date().getTime()}`
 })
 
 export class FooterComponent { 

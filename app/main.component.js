@@ -28,7 +28,6 @@ var MainComponent = (function () {
         this.document = document;
         this.hash = '';
         this.gs.innerpage = false;
-        this.openProfile = false;
         this.resultsToShow = 8;
         this.monday = new Date();
         if (this.monday.getHours() < 23)
@@ -36,7 +35,6 @@ var MainComponent = (function () {
         else
             this.today = moment(new Date()).add(1, 'days').format();
         this.nextMonth = moment(this.today).add(1, 'month').format();
-        this.week = this.monday.getDay();
         this.selectedDate = new Date();
         this.events = [];
         this.dates = [];
@@ -179,7 +177,8 @@ var MainComponent = (function () {
                 _this.curCategory = 0;
             _this.eventsFilter();
         });
-        this.monday = moment(this.monday).startOf('week');
+        this.monday = moment(this.curDate).startOf('week');
+        this.week = moment(this.curDate).diff(this.today, 'days');
         this.initDates();
     };
     MainComponent.prototype.initDates = function () {
@@ -284,14 +283,14 @@ var MainComponent = (function () {
         });
     };
     MainComponent.prototype.nextWeek = function (event) {
-        if (this.week <= 30) {
+        if (this.week < 29) {
             this.monday.add(7, 'd');
             this.initDates();
             this.week += 7;
         }
     };
     MainComponent.prototype.lastWeek = function (event) {
-        if (this.week > 7) {
+        if (this.week > 0) {
             this.monday.subtract(7, 'd');
             this.initDates();
             this.week -= 7;
@@ -299,51 +298,32 @@ var MainComponent = (function () {
     };
     MainComponent.prototype.parseActivities = function (data) {
         for (var item in data.activities) {
+            var timeslotMin = void 0;
+            var timeslotMax = void 0;
+            var priceMax = void 0;
+            var priceMin = void 0;
             for (var location_1 in data.activities[item].locations) {
                 for (var time in data.activities[item].locations[location_1].time_slots) {
                     var discount = 0;
                     if (data.activities[item].locations[location_1].time_slots[time].price_without_discount > 0)
                         discount = (1 - data.activities[item].locations[location_1].time_slots[time].price / data.activities[item].locations[location_1].time_slots[time].price_without_discount) * 100;
-                    this.events.push({
-                        'id': data.activities[item].id,
-                        'name': data.activities[item].name,
-                        'description': data.activities[item].description,
-                        'photo': data.activities[item].photo,
-                        'duration': data.activities[item].duration,
-                        'age_from': data.activities[item].age_from,
-                        'age_to': data.activities[item].age_to,
-                        'extra': data.activities[item].extra,
-                        'locations': {
-                            'id': data.activities[item].locations[location_1].id,
-                            'address': data.activities[item].locations[location_1].address,
-                            'latitude': data.activities[item].locations[location_1].latitude,
-                            'longitude': data.activities[item].locations[location_1].longitude,
-                            'time_slots': {
-                                'id': data.activities[item].locations[location_1].time_slots[time].id,
-                                'date': data.activities[item].locations[location_1].time_slots[time].date,
-                                'start_time': data.activities[item].locations[location_1].time_slots[time].start_time,
-                                'end_time': data.activities[item].locations[location_1].time_slots[time].end_time,
-                                'free_seats': data.activities[item].locations[location_1].time_slots[time].free_seats,
-                                'allocated_seats': data.activities[item].locations[location_1].time_slots[time].allocated_seats,
-                                'price': data.activities[item].locations[location_1].time_slots[time].price,
-                                'discount': discount
-                            }
-                        },
-                        'provider': {
-                            'id': data.activities[item].provider.id,
-                            'name': data.activities[item].provider.name,
-                            'legal': {
-                                'contract_date': data.activities[item].provider.legal.contract_date,
-                                'legal_name': data.activities[item].provider.legal.legal_name,
-                                'contact_phone': data.activities[item].provider.legal.contact_phone,
-                                'contact_email': data.activities[item].provider.legal.contact_email,
-                                'tax_num': data.activities[item].provider.legal.tax_num,
-                            }
-                        }
-                    });
+                    if (!timeslotMin || timeslotMin > data.activities[item].locations[location_1].time_slots[time].start_time)
+                        timeslotMin = data.activities[item].locations[location_1].time_slots[time].start_time;
+                    if (!timeslotMax || timeslotMax < data.activities[item].locations[location_1].time_slots[time].end_time)
+                        timeslotMax = data.activities[item].locations[location_1].time_slots[time].end_time;
+                    if (!priceMin || priceMin > data.activities[item].locations[location_1].time_slots[time].price)
+                        priceMin = data.activities[item].locations[location_1].time_slots[time].price;
+                    if (!priceMax || priceMax < data.activities[item].locations[location_1].time_slots[time].price)
+                        priceMax = data.activities[item].locations[location_1].time_slots[time].price;
                 }
             }
+            data.activities[item]['time_min'] = timeslotMin;
+            data.activities[item]['time_max'] = timeslotMax;
+            data.activities[item]['price_min'] = priceMin;
+            if (priceMin != priceMax)
+                data.activities[item]['price_max'] = priceMax;
         }
+        this.events = data.activities;
     };
     MainComponent.prototype.districtsFilter = function (districts) {
         this.params.districts = districts;
@@ -360,6 +340,7 @@ var MainComponent = (function () {
         return titles[(number % 100 > 4 && number % 100 < 20) ? 2 : cases[(number % 10 < 5) ? number % 10 : 5]];
     };
     MainComponent.prototype.openCourse = function (course) {
+        localStorage.setItem('event', JSON.stringify(course));
         this.router.navigateByUrl("/event/" + course.id);
     };
     return MainComponent;
@@ -367,7 +348,7 @@ var MainComponent = (function () {
 MainComponent = __decorate([
     core_1.Component({
         selector: 'main-app',
-        templateUrl: 'static/main.html',
+        templateUrl: "static/main.html?v=" + new Date().getTime(),
         providers: [api_service_1.Api]
     }),
     __param(4, core_1.Inject(platform_browser_1.DOCUMENT)),

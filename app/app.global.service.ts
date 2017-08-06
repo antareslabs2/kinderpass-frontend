@@ -3,6 +3,7 @@ import { Api } from './api.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import * as moment from 'moment';
+declare var ga:Function;
 
 @Injectable()
 export class GlobalService {
@@ -22,7 +23,7 @@ export class GlobalService {
 	extendSubscription:boolean;
 	newSubscription:boolean;
 
-	constructor(public httpService: Api, private fb: FormBuilder){
+	constructor(public httpService: Api, private fb: FormBuilder, @Inject(Window) private _window: Window){
 		this.userInfo = {};
 		this.isAuthenticated = false;
 		this.popupName = '';
@@ -179,6 +180,15 @@ export class GlobalService {
 	}
 
 	phoneValidation(input: any) {
-		return input.value.replace(/_/gi, '').length==16 ? null : { needsExclamation: true };
+		if (input.value)
+			return input.value.replace(/_/gi, '').length==16 ? null : { needsExclamation: true };
+	}
+
+	openLoginPopup() {
+		this.openPopup('login');
+		if(this._window.location.hostname == 'kinderpass.ru')
+			ga('send', 'event', 'Main', 'OpenAuthPopup', 'Prod');
+		else if (this._window.location.hostname == 'front.kinderpass.ru')
+			ga('send', 'event', 'Main', 'OpenAuthPopup', 'Test');
 	}
 }

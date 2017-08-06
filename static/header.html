@@ -17,7 +17,7 @@
 			<p class="user-name" (click)="toogleLK()"  [class.user-name_icon]="gs.userInfo.name.length <= 1" ><img src="app/img/profile.png" alt=""><span>{{gs.userInfo.name}}</span></p>
 		</div><!-- 
 	 --><div class="links" *ngIf="!gs.isAuthenticated">
-			<a routerLink="/about">О проекте</a><span (click)="gs.openPopup('login')">Войти</span><a routerLink="/contacts">Контакты</a>
+			<a routerLink="/about">О проекте</a><span (click)="gs.openLoginPopup()">Войти</span><a routerLink="/contacts">Контакты</a>
 		</div>
 		<div *ngIf="openProfile" class="user-menu">
 			<div class="user-menu-item">

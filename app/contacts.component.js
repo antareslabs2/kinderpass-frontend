@@ -18,7 +18,7 @@ var ContactsComponent = (function () {
 ContactsComponent = __decorate([
     core_1.Component({
         selector: 'contacts',
-        templateUrl: '../static/contacts.html'
+        templateUrl: "../static/contacts.html?v=" + new Date().getTime()
     }),
     __metadata("design:paramtypes", [])
 ], ContactsComponent);

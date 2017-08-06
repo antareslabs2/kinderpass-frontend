@@ -18,7 +18,7 @@ var ConditionsComponent = (function () {
 ConditionsComponent = __decorate([
     core_1.Component({
         selector: 'conditions',
-        templateUrl: '../static/conditions.html'
+        templateUrl: "../static/conditions.html?v=" + new Date().getTime()
     }),
     __metadata("design:paramtypes", [])
 ], ConditionsComponent);

@@ -37,7 +37,7 @@ var DialogComponent = (function () {
 DialogComponent = __decorate([
     core_1.Component({
         selector: 'app-dialog',
-        templateUrl: 'static/loginPopup.html',
+        templateUrl: "static/loginPopup.html?v=" + new Date().getTime(),
         animations: [
             animations_1.trigger('dialog', [
                 animations_1.transition('void => *', [

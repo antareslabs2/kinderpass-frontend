@@ -31,7 +31,7 @@ __decorate([
 FooterComponent = __decorate([
     core_1.Component({
         selector: 'footerTemplate',
-        templateUrl: 'static/footer.html'
+        templateUrl: "static/footer.html?v=" + new Date().getTime()
     }),
     __metadata("design:paramtypes", [])
 ], FooterComponent);

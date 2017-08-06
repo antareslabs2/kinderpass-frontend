@@ -45,7 +45,7 @@ var HeaderComponent = (function () {
 HeaderComponent = __decorate([
     core_1.Component({
         selector: 'headerTemplate',
-        templateUrl: 'static/header.html'
+        templateUrl: "static/header.html?v=" + new Date().getTime()
     }),
     __param(3, core_1.Inject(platform_browser_1.DOCUMENT)),
     __metadata("design:paramtypes", [app_global_service_1.GlobalService, router_1.Router, ng2_page_scroll_1.PageScrollService, Object])

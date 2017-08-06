@@ -7,7 +7,7 @@ import * as moment from 'moment';
 
 @Component({
 	selector: 'event',
-	templateUrl: 'static/event.html',
+	templateUrl: `static/event.html?v=${new Date().getTime()}`,
 	providers: [Api]
 })
 
@@ -26,6 +26,10 @@ export class EventComponent implements OnInit, OnDestroy  {
 	subscriptionPrice: number;
 
 	discount : number;
+	selectedLocation : number;
+	selectedTime : number;
+	
+	showEvent : boolean;
 
 	constructor(private httpService: Api, private route: ActivatedRoute, private gs: GlobalService){
 		this.innerpage = true;
@@ -35,12 +39,17 @@ export class EventComponent implements OnInit, OnDestroy  {
 		this.subscriptionPrice = 0;
 		this.subscriptionDate = moment(new Date()).add(1, 'month').format();
 		this.discount = 0;
+		this.selectedLocation = 0;
+		this.selectedTime = 0;
+		this.showEvent = false;
 	}
 
 	ngOnInit(){
 		this.sub = this.route.params.subscribe(params => {
 			this.timeslot_id = +params['id'];
-			this.loadEvent();
+			// this.loadEvent();
+			this.event = JSON.parse(localStorage.getItem('event'));
+			console.log(this.event)
 			if(!this.gs.isAuthenticated){
 				this.httpService.getInfo().subscribe((data:any) => {
 					this.checkBooking();
@@ -108,7 +117,7 @@ export class EventComponent implements OnInit, OnDestroy  {
 			this.gs.openPopup('login');
 		else {
 			this.isDisable = true;
-			let price = this.event.locations[0].time_slots[0].price * this.seats + this.subscriptionPrice;
+			let price = this.event.locations[this.selectedLocation].time_slots[this.selectedTime].price * this.seats + this.subscriptionPrice;
 			let userBalance = 0;
 			if (this.gs.userInfo.subscription) {
 				userBalance += this.gs.userInfo.subscription.balance;
@@ -144,7 +153,7 @@ export class EventComponent implements OnInit, OnDestroy  {
 	}
 
 	book() {
-		this.httpService.makingBooking(this.timeslot_id,this.seats).subscribe((data:any) => {
+		this.httpService.makingBooking(this.event.locations[this.selectedLocation].time_slots[this.selectedTime].id,this.seats).subscribe((data:any) => {
 			if (data.status == "OK") {
 				this.gs.msg = "Бронь №" + data.reference_number + " успешно оформлена. Проверьте Вашу электронную почту, Вам должно прийти уведомление";
 				this.gs.getUserInfo();

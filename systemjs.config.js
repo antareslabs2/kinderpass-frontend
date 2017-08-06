@@ -1,4 +1,5 @@
 (function (global) {
+  System.date = new Date().getTime();
   System.config({
     paths: {
       // псевдоним для пути к модулям
@@ -33,8 +34,8 @@
     // пакеты, которые указывают загрузчику System, как загружать файлы без имени и расширения
     packages: {
       app: {
-        main: './main.js',
-        defaultExtension: 'js'
+        main: './main',
+        defaultExtension: 'js?v=' + System.date
       },
       rxjs: {
         defaultExtension: 'js'

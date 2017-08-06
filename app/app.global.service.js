@@ -8,14 +8,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 var core_1 = require("@angular/core");
 var api_service_1 = require("./api.service");
 var forms_1 = require("@angular/forms");
 var moment = require("moment");
 var GlobalService = (function () {
-    function GlobalService(httpService, fb) {
+    function GlobalService(httpService, fb, _window) {
         this.httpService = httpService;
         this.fb = fb;
+        this._window = _window;
         this.userInfo = {};
         this.isAuthenticated = false;
         this.popupName = '';
@@ -174,13 +178,22 @@ var GlobalService = (function () {
         });
     };
     GlobalService.prototype.phoneValidation = function (input) {
-        return input.value.replace(/_/gi, '').length == 16 ? null : { needsExclamation: true };
+        if (input.value)
+            return input.value.replace(/_/gi, '').length == 16 ? null : { needsExclamation: true };
+    };
+    GlobalService.prototype.openLoginPopup = function () {
+        this.openPopup('login');
+        if (this._window.location.hostname == 'kinderpass.ru')
+            ga('send', 'event', 'Main', 'OpenAuthPopup', 'Prod');
+        else if (this._window.location.hostname == 'front.kinderpass.ru')
+            ga('send', 'event', 'Main', 'OpenAuthPopup', 'Test');
     };
     return GlobalService;
 }());
 GlobalService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [api_service_1.Api, forms_1.FormBuilder])
+    __param(2, core_1.Inject(Window)),
+    __metadata("design:paramtypes", [api_service_1.Api, forms_1.FormBuilder, Window])
 ], GlobalService);
 exports.GlobalService = GlobalService;
 //# sourceMappingURL=app.global.service.js.map

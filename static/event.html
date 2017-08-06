@@ -9,38 +9,49 @@
 					<div class="eventPage-freeSeats">
 						<img src="app/img/children.png" alt="">
 						<p>Осталось мест</p>
-						<span>{{event.locations[0].time_slots[0].free_seats}}</span>
+						<span>{{event.locations[selectedLocation].time_slots[selectedTime].free_seats}}</span>
 					</div>
 				</div>
 			</div><!-- 
 		 --><div class="col-1-2 ticketCol">
 				<div class="eventPage-ticket-wrap">
 					<div class="eventPage-title">Билет</div>
-						<div class="eventPage-ticket-fields" [class.needSubscription]="subscriptionPrice">
-							<div class="eventPage-date">{{event.locations[0].time_slots[0].date}}</div>
-							<div class="eventPage-time">{{event.locations[0].time_slots[0].start_time}}-{{event.locations[0].time_slots[0].end_time}}</div>
-							<div class="eventPage-duration">Длительность {{event.duration}} минут</div>
-							<div class="eventPage-address">{{event.locations[0].address}}</div>
-							<div class="eventPage-seats">
-							<div>Количество билетов</div>
-							<div class="eventPage-seats-num">
-								<span (click)="removeTicket()">-</span>
-								<p>{{seats}}</p>
-								<span (click)="addTicket()">+</span>
-							</div>
-							</div>
-							<div class="eventPage-price">Стоимость билетов <span>{{event.locations[0].time_slots[0].price * seats}}</span></div>
-							<ng-container *ngIf="subscriptionPrice">
-								<div class="eventPage-total">Стоимость подписки до {{subscriptionDate | amDateFormat : 'DD.MM.YYYY'}} <span>200</span></div>
-								<div class="eventPage-total">Итого <span>{{event.locations[0].time_slots[0].price * seats + subscriptionPrice}}</span></div>
-							</ng-container>
+					<div *ngIf="showEvent" class="eventPage-ticket-fields" [class.needSubscription]="subscriptionPrice">
+						<div class="eventPage-date">{{event.locations[selectedLocation].time_slots[selectedTime].date}}</div>
+						<div class="eventPage-time">{{event.locations[selectedLocation].time_slots[selectedTime].start_time}}-{{event.locations[selectedLocation].time_slots[selectedTime].end_time}}</div>
+						<div class="eventPage-duration">Длительность {{event.duration}} минут</div>
+						<div class="eventPage-address">{{event.locations[selectedLocation].address}}</div>
+						<div class="eventPage-seats">
+						<div>Количество билетов</div>
+						<div class="eventPage-seats-num">
+							<span (click)="removeTicket()">-</span>
+							<p>{{seats}}</p>
+							<span (click)="addTicket()">+</span>
 						</div>
+						</div>
+						<div class="eventPage-price">Стоимость билетов <span>{{event.locations[selectedLocation].time_slots[selectedTime].price * seats}}</span></div>
+						<ng-container *ngIf="subscriptionPrice">
+							<div class="eventPage-total">Стоимость подписки до {{subscriptionDate | amDateFormat : 'DD.MM.YYYY'}} <span>200</span></div>
+							<div class="eventPage-total">Итого <span>{{event.locations[selectedLocation].time_slots[selectedTime].price * seats + subscriptionPrice}}</span></div>
+						</ng-container>
+					</div>
+					<div *ngIf="!showEvent" class="eventPage-ticket-fields">
+						<div class="eventPage-address">Выберите место посещения:</div>
+						<div class="eventPage-checks"><span *ngFor="let location of event.locations; let i = index" [class.active]="selectedLocation == i" (click)="selectedLocation=i;">{{location.address}}</span></div>
+						<div class="eventPage-duration">Выберите время посещения:</div>
+						<div class="eventPage-checks eventPage-checks-small"><span *ngFor="let time of event.locations[selectedLocation].time_slots; let i = index" [class.active]="selectedTime == i" (click)="selectedTime=i;">{{time.start_time}}-{{time.end_time}}</span></div>
+						<div class="eventPage-price eventPage-price-alt">Цена посещения за 1 человека: <span>{{event.locations[selectedLocation].time_slots[selectedTime].price}}</span></div>
+					</div>
 				</div>
-				<div class="eventPage-btns">
+				<div *ngIf="showEvent" class="eventPage-btns">
+					<a (click)="showEvent=!showEvent" class="btn btn-back"></a>
 					<!-- <button *ngIf="!bookingStatus && !gs.userInfo.subscription" (click)="makingBooking()" class="btn">Купить абонемент и забронировать</button> -->
 					<button *ngIf="!bookingStatus" (click)="makingBooking()" class="btn" [class.disabled]="isDisable" [disabled]="isDisable">Забронировать</button>
 					<button *ngIf="bookingStatus" class="btn btn-disable" [class.disabled]="isDisable" [disabled]="isDisable" (click)="cancelBooking(bookingId)">Отменить бронь</button>
-					<div *ngIf="discount > 0" class="eventPage-discount">Дешевле на {{discount | number:'1.0-0'}}%</div>
+					<!-- <div *ngIf="discount > 0" class="eventPage-discount">Дешевле на {{discount | number:'1.0-0'}}%</div> -->
+				</div>
+				<div *ngIf="!showEvent" class="eventPage-btns">
+					<a class="btn" (click)="showEvent=!showEvent">Далее</a>
 				</div>
 			</div>
 			<div *ngIf="event.extra" class="eventPage-additionalInfo">Важно: <span [innerHtml]="event.extra"></span></div>

@@ -1662,7 +1662,11 @@ textarea.textarea {
       background-image: url("../img/ticketBG.png");
       background-repeat: no-repeat;
       background-size: 100% 100%;
-      padding: 15px 5%; }
+      padding: 15px 4% 30px; }
+      @media only screen and (max-width: 1280px) and (min-width: 1024px) {
+        .eventPage .col-1-2.ticketCol {
+          padding-left: 3vw;
+          padding-right: 3vw; } }
   .eventPage-provider {
     text-align: center;
     padding: 15px 20px;
@@ -1876,6 +1880,24 @@ textarea.textarea {
         .eventPage-btns .btn-disable:hover {
           background-color: #02ba61;
           color: #fff; }
+      .eventPage-btns .btn-back {
+        display: block;
+        width: 47px;
+        height: 46px;
+        margin-right: 12px;
+        float: left;
+        background: #f49ac1 url("../img/arrowWhite.png") 50% 50% no-repeat/60%;
+        padding: 0; }
+        .eventPage-btns .btn-back:hover {
+          background-color: #f076aa; }
+        .eventPage-btns .btn-back + .btn {
+          float: right;
+          width: calc(100% - 59px);
+          height: 46px;
+          padding-top: 0;
+          padding-bottom: 0;
+          vertical-align: middle;
+          line-height: 46px; }
   .eventPage-providerInfo {
     padding: 20px 0;
     border-top: 1px solid #d6d6d6; }
@@ -1888,3 +1910,45 @@ textarea.textarea {
     margin-top: 5px;
     color: #02ba61;
     font-size: 18px; }
+  .eventPage-checks {
+    padding-left: 40px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+        flex-direction: row;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    margin: 10px 0; }
+    .eventPage-checks span {
+      height: 28px;
+      border-radius: 7px;
+      border: 2px solid #d7d7d7;
+      padding: 0 15px;
+      display: -webkit-inline-box;
+      display: -ms-inline-flexbox;
+      display: inline-flex;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+      font-size: 14px;
+      color: #8e7dba;
+      cursor: pointer;
+      margin-right: 5px;
+      margin-bottom: 5px;
+      white-space: nowrap; }
+      .eventPage-checks span.active, .eventPage-checks span:hover {
+        background-color: #02ba61;
+        color: #fff;
+        border-color: #02ba61; }
+    .eventPage-checks-small span {
+      font-size: 12px;
+      padding: 0 13px; }
+  .eventPage-price-alt span {
+    float: none;
+    margin: 0; }

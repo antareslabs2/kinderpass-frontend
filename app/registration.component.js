@@ -166,7 +166,7 @@ var RegistrationComponent = (function () {
 RegistrationComponent = __decorate([
     core_1.Component({
         selector: 'registration',
-        templateUrl: 'static/registration.html',
+        templateUrl: "static/registration.html?v=" + new Date().getTime(),
         providers: [api_service_1.Api],
         styles: ["\n\t\tinput.ng-touched.ng-invalid {border:solid red 2px;}\n\t\tinput.ng-touched.ng-valid {border:solid green 2px;}\n\t"]
     }),

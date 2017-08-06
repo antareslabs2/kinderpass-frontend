@@ -25,12 +25,17 @@ var EventComponent = (function () {
         this.subscriptionPrice = 0;
         this.subscriptionDate = moment(new Date()).add(1, 'month').format();
         this.discount = 0;
+        this.selectedLocation = 0;
+        this.selectedTime = 0;
+        this.showEvent = false;
     }
     EventComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.sub = this.route.params.subscribe(function (params) {
             _this.timeslot_id = +params['id'];
-            _this.loadEvent();
+            // this.loadEvent();
+            _this.event = JSON.parse(localStorage.getItem('event'));
+            console.log(_this.event);
             if (!_this.gs.isAuthenticated) {
                 _this.httpService.getInfo().subscribe(function (data) {
                     _this.checkBooking();
@@ -98,7 +103,7 @@ var EventComponent = (function () {
             this.gs.openPopup('login');
         else {
             this.isDisable = true;
-            var price = this.event.locations[0].time_slots[0].price * this.seats + this.subscriptionPrice;
+            var price = this.event.locations[this.selectedLocation].time_slots[this.selectedTime].price * this.seats + this.subscriptionPrice;
             var userBalance = 0;
             if (this.gs.userInfo.subscription) {
                 userBalance += this.gs.userInfo.subscription.balance;
@@ -137,7 +142,7 @@ var EventComponent = (function () {
     };
     EventComponent.prototype.book = function () {
         var _this = this;
-        this.httpService.makingBooking(this.timeslot_id, this.seats).subscribe(function (data) {
+        this.httpService.makingBooking(this.event.locations[this.selectedLocation].time_slots[this.selectedTime].id, this.seats).subscribe(function (data) {
             if (data.status == "OK") {
                 _this.gs.msg = "Бронь №" + data.reference_number + " успешно оформлена. Проверьте Вашу электронную почту, Вам должно прийти уведомление";
                 _this.gs.getUserInfo();
@@ -194,7 +199,7 @@ var EventComponent = (function () {
 EventComponent = __decorate([
     core_1.Component({
         selector: 'event',
-        templateUrl: 'static/event.html',
+        templateUrl: "static/event.html?v=" + new Date().getTime(),
         providers: [api_service_1.Api]
     }),
     __metadata("design:paramtypes", [api_service_1.Api, router_1.ActivatedRoute, app_global_service_1.GlobalService])
