@@ -23,6 +23,8 @@ export class GlobalService {
 	extendSubscription:boolean;
 	newSubscription:boolean;
 
+	url: any;
+
 	constructor(public httpService: Api, private fb: FormBuilder, @Inject(Window) private _window: Window){
 		this.userInfo = {};
 		this.isAuthenticated = false;
@@ -35,7 +37,8 @@ export class GlobalService {
 		this.phoneMask = ['+', '7', '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
 		this.extendSubscription = false;
 		this.newSubscription = false;
-		this.policy = true;
+		this.policy = false;
+		this.url = {};
 	}
 
 	openPopup(name:string) {
@@ -107,6 +110,7 @@ export class GlobalService {
 			this.isAuthenticated = true;
 			this.email = this.userInfo.email;
 			this.phone = this.userInfo.phone;
+			this.policy = !!(this.userInfo.email && this.userInfo.phone);
 			this.contactsForm = this.fb.group({
 				'email': [this.email, [
 							Validators.required,
@@ -118,12 +122,12 @@ export class GlobalService {
 							this.phoneValidation
 							]
 						],
-				'policy': [this.policy, [Validators.pattern('true')]
+				'policy': [this.policy, [Validators.required, Validators.pattern('true')]
 						]
 			})
 			if (!this.userInfo.phone || !this.userInfo.email) {
 				this.popupName = 'updateInfo';
-				this.userInfo.policy = false;
+				this.policy = false;
 			}
 			else if(this.userInfo.subscription) {
 				var today : any = moment(new Date()).add(7,'days').format();
@@ -133,11 +137,11 @@ export class GlobalService {
 					this.extendSubscription = true;
 				else
 					this.extendSubscription = false;
-				this.userInfo.policy = true;
+				this.policy = true;
 			} else if(!this.userInfo.subscription) {
 				this.popupName = "extendSubscription";
 				this.extendSubscription = true;
-				this.userInfo.policy = true;
+				this.policy = true;
 			}
 		}
 	}
@@ -151,9 +155,9 @@ export class GlobalService {
 	update(form:any) : void {
 		this.email = form.controls.email.value;
 		this.phone = form.controls.phone.value;
-		this.userInfo.policy = form.controls.policy.value;
+		this.policy = form.controls.policy.value;
 		let length = this.phone.replace(/_/gi, '').length;
-		if (this.email && this.phone && this.userInfo.policy && length == 16) {
+		if (this.email && this.phone && this.policy && length == 16) {
 			let body = {
 				phone: this.phone, 
 				email: this.email
@@ -164,7 +168,7 @@ export class GlobalService {
 					$("html").removeClass('locked');
 					this.userInfo.phone = this.phone;
 					this.userInfo.email = this.email;
-					this.userInfo.policy = true;
+					this.policy = true;
 				}
 			});
 		}

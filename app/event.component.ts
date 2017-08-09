@@ -18,8 +18,6 @@ export class EventComponent implements OnInit, OnDestroy  {
 	innerpage: boolean;
 	event: any;
 	seats:number;
-	bookingStatus: boolean;
-	bookingId: number;
 	isDisable:boolean;
 
 	subscriptionDate: any;
@@ -33,7 +31,6 @@ export class EventComponent implements OnInit, OnDestroy  {
 
 	constructor(private httpService: Api, private route: ActivatedRoute, private gs: GlobalService){
 		this.innerpage = true;
-		this.bookingStatus = false;
 		this.isDisable = true;
 		this.seats = 1;
 		this.subscriptionPrice = 0;
@@ -47,18 +44,11 @@ export class EventComponent implements OnInit, OnDestroy  {
 	ngOnInit(){
 		this.sub = this.route.params.subscribe(params => {
 			this.timeslot_id = +params['id'];
-			// this.loadEvent();
-			this.event = JSON.parse(localStorage.getItem('event'));
-			console.log(this.event)
+			this.loadEvent();
 			if(!this.gs.isAuthenticated){
 				this.httpService.getInfo().subscribe((data:any) => {
-					this.checkBooking();
-					this.isDisable = false;
 					this.needSubscription();
 				});
-			} else {
-				this.checkBooking();
-				this.isDisable = false;
 			}
 		});
 	}
@@ -67,21 +57,11 @@ export class EventComponent implements OnInit, OnDestroy  {
 		this.httpService.getEventById(this.timeslot_id).subscribe((data:any) => {
 			if(data.activity){
 				this.event = data.activity;
-				if (data.activity.locations[0].time_slots[0].price_without_discount > 0)
-					this.discount = (1-data.activity.locations[0].time_slots[0].price/data.activity.locations[0].time_slots[0].price_without_discount)*100;
+				// if (data.activity.locations[0].time_slots[0].price_without_discount > 0)
+				// 	this.discount = (1-data.activity.locations[0].time_slots[0].price/data.activity.locations[0].time_slots[0].price_without_discount)*100;
 				this.needSubscription();
 			}
 		});
-	}
-	checkBooking() : void {
-		for(let i in this.gs.userInfo.bookings) {
-			if (this.gs.userInfo.bookings[i].time_slot.id == this.timeslot_id){
-				this.bookingStatus = true;
-				this.bookingId = this.gs.userInfo.bookings[i].id;
-				return;
-			}
-		}
-		this.bookingStatus = false;
 	}
 
 	addTicket() : void {
@@ -158,8 +138,6 @@ export class EventComponent implements OnInit, OnDestroy  {
 				this.gs.msg = "Бронь №" + data.reference_number + " успешно оформлена. Проверьте Вашу электронную почту, Вам должно прийти уведомление";
 				this.gs.getUserInfo();
 				this.loadEvent();
-				this.bookingId = data.booking_id;
-				this.bookingStatus = true;
 				this.gs.openPopup('msg');
 			} else {
 				if (data.reason == "TIME_SLOT_REGISTRATION_IS_OVER") {
@@ -171,30 +149,6 @@ export class EventComponent implements OnInit, OnDestroy  {
 			}
 			this.isDisable = false;
 		});
-	}
-
-	cancelBooking(timeSlotID:number) : void {
-		this.isDisable = true;
-		this.httpService.cancelBooking(timeSlotID).subscribe((data:any) => {
-			if (data.status == "OK") {
-				this.gs.msg = "Ваше бронирование успешно отменено";
-				this.gs.getUserInfo();
-				this.loadEvent();
-				this.bookingStatus = false;
-				this.gs.openPopup('msg');
-			} else {
-				if (data.reason == "CANCELLATION_NOT_POSSIBLE") {
-					this.gs.msg = "Отмена бронирования невозможна";
-				} else if (data.reason == "ALREADY_CANCELLED") {
-					this.gs.msg = "Бронирование уже отменено";
-				} else {
-					this.gs.msg = "Что-то пошло не так. Попробуйте обновить страницу";
-				}
-				this.gs.openPopup('msgCancel');
-			}
-			$("html").addClass('locked');
-			this.isDisable = false;
-		});;
 	}
 
 	ngOnDestroy() {

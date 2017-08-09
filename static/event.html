@@ -1,10 +1,10 @@
 <div class="innerpage">
 	<div class="wrapper">
 		<div *ngIf="event" class="eventPage">
-			<div class="prevPage" [routerLink]="['/']" fragment="filter"><img src="app/img/back.png" alt=""><span>Назад</span></div>
+			<div class="prevPage" [routerLink]="['/']" fragment="filter" [queryParams]="gs.url"><img src="app/img/back.png" alt=""><span>Назад</span></div>
 			<h1>{{event.name}}</h1>
 			<div class="col-1-2 eventCol">
-				<div class="eventPage-provider">{{event.provider.name}}</div><img *ngIf="event.photo" src="img/{{event.photo}}.jpg" alt=""><img *ngIf="!event.photo" src="app/img/placeholder.jpg" alt=""><div class="eventPage-info">
+				<div class="eventPage-provider">{{event.provider.name}}</div><img *ngIf="event.photo" class="eventPage-photo" src="img/{{event.photo}}.jpg" alt=""><img *ngIf="!event.photo" class="eventPage-photo" src="app/img/placeholder.jpg" alt=""><div class="eventPage-info">
 					<div class="eventPage-age">Для детей {{event.age_from}}-{{event.age_to}} лет</div>
 					<div class="eventPage-freeSeats">
 						<img src="app/img/children.png" alt="">
@@ -45,9 +45,7 @@
 				</div>
 				<div *ngIf="showEvent" class="eventPage-btns">
 					<a (click)="showEvent=!showEvent" class="btn btn-back"></a>
-					<!-- <button *ngIf="!bookingStatus && !gs.userInfo.subscription" (click)="makingBooking()" class="btn">Купить абонемент и забронировать</button> -->
-					<button *ngIf="!bookingStatus" (click)="makingBooking()" class="btn" [class.disabled]="isDisable" [disabled]="isDisable">Забронировать</button>
-					<button *ngIf="bookingStatus" class="btn btn-disable" [class.disabled]="isDisable" [disabled]="isDisable" (click)="cancelBooking(bookingId)">Отменить бронь</button>
+					<button (click)="makingBooking()" class="btn">Забронировать</button>
 					<!-- <div *ngIf="discount > 0" class="eventPage-discount">Дешевле на {{discount | number:'1.0-0'}}%</div> -->
 				</div>
 				<div *ngIf="!showEvent" class="eventPage-btns">

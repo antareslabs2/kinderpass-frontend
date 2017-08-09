@@ -13,6 +13,7 @@
 <div [@dialog] *ngIf="gs.popupName == 'updateInfo'" class="popup-wrapper login-wrapper updateInfo">
 	<div *ngIf="gs.userInfo.email && gs.userInfo.phone" (click)="close()" class="popup-close modal-close"></div>
 	<p class="popup-description">Для дальнейшего общения<br>введите свои данные</p>
+	<p class="popup-description">Друзья, телефон и почта нам нужны только для отправки деталей бронирования. Мы никогда и никому не передаём эту информацию</p>
 	<form name="contacts" [formGroup]="gs.contactsForm" (ngSubmit)="update(gs.contactsForm)">
 		<input type="email" formControlName="email" name="email" placeholder="Email">
 		<input type="text" formControlName="phone" name="phone" [textMask]="{mask: gs.phoneMask, showMask: true}" placeholder="Телефон">

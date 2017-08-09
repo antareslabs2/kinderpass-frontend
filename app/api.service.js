@@ -109,6 +109,12 @@ var Api = (function () {
             .map(function (resp) { return resp.json(); })
             .catch(function (error) { return error; });
     };
+    Api.prototype.getBookingById = function (booking_id) {
+        var url = this.url + 'api/activities/get_booking/' + booking_id;
+        return this.http.get(url, this.options)
+            .map(function (resp) { return resp.json(); })
+            .catch(function (error) { return error; });
+    };
     return Api;
 }());
 Api = __decorate([

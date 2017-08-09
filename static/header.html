@@ -1,7 +1,7 @@
 <header [class.header-auth]="gs.isAuthenticated || gs.innerpage" class="header" id="header">
 	<div class="wrapper">
 		<div class="logo">
-			<a routerLink="/">
+			<a routerLink="/" [queryParams]="gs.url">
 				<img src="app/img/logo.png" alt="">
 				<p>KinderPass</p>
 			</a>
@@ -48,7 +48,7 @@
 				</div>
 				<div class="user-menu-booking">
 					<p *ngFor="let book of gs.userInfo.bookings">
-						<a [routerLink]="['/event', book.time_slot.id]" (click)="openProfile=false;">{{book.time_slot.activity.name}}</a>
+						<a [routerLink]="['/booking', book.id]" (click)="openProfile=false;">{{book.time_slot.activity.name}}</a>
 					</p>
 				</div>
 			</div>

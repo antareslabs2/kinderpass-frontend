@@ -112,20 +112,8 @@ var MainComponent = (function () {
                 }
             }
         });
-        var search = location.search.substring(1);
-        if (!location.search) {
-            if (localStorage.getItem('date'))
-                this.curDate = localStorage.getItem('date');
-            if (localStorage.getItem('category'))
-                this.curCategory = parseInt(localStorage.getItem('category'));
-            if (localStorage.getItem('params')) {
-                var p = JSON.parse(localStorage.getItem('params'));
-                for (var i in p) {
-                    this.params[i] = p[i];
-                }
-            }
-        }
-        else {
+        if (location.search) {
+            var search = location.search.substring(1);
             var vars = search.split('&');
             for (var i = 0; i < vars.length; i++) {
                 var pair = vars[i].split('=');
@@ -178,7 +166,10 @@ var MainComponent = (function () {
             _this.eventsFilter();
         });
         this.monday = moment(this.curDate).startOf('week');
-        this.week = moment(this.curDate).diff(this.today, 'days');
+        var s = moment(this.today).startOf('week');
+        var e = moment(this.curDate).startOf('week');
+        this.week = moment(e).diff(s, 'days');
+        console.log(this.week);
         this.initDates();
     };
     MainComponent.prototype.initDates = function () {
@@ -252,19 +243,15 @@ var MainComponent = (function () {
         if (this.params.metro.id && this.params.metro.id.length) {
             getParams.metro_ids = this.params.metro.id;
         }
-        localStorage.setItem('category', JSON.stringify(this.curCategory));
-        localStorage.setItem('date', this.curDate);
-        localStorage.setItem('params', JSON.stringify(getParams));
         if (window.location.hash)
             this.hash = window.location.hash;
-        var filterUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
-        var search = '?';
+        this.gs.url = {};
         for (var key in getParams) {
-            search += key + '=' + getParams[key] + '&';
+            this.gs.url[key] = getParams[key];
         }
-        search += 'category_id=' + this.curCategory + '&date=' + this.curDate;
-        filterUrl += search;
-        window.history.pushState({ path: filterUrl }, '', filterUrl);
+        this.gs.url['category_id'] = this.curCategory;
+        this.gs.url['date'] = this.curDate;
+        this.router.navigate(['/'], { queryParams: this.gs.url });
         this.httpService.getSchedule(this.curCategory, this.curDate, getParams).subscribe(function (data) {
             _this.events = [];
             if (data.results > 0) {
@@ -283,7 +270,7 @@ var MainComponent = (function () {
         });
     };
     MainComponent.prototype.nextWeek = function (event) {
-        if (this.week < 29) {
+        if (this.week < 28) {
             this.monday.add(7, 'd');
             this.initDates();
             this.week += 7;
@@ -340,7 +327,6 @@ var MainComponent = (function () {
         return titles[(number % 100 > 4 && number % 100 < 20) ? 2 : cases[(number % 10 < 5) ? number % 10 : 5]];
     };
     MainComponent.prototype.openCourse = function (course) {
-        localStorage.setItem('event', JSON.stringify(course));
         this.router.navigateByUrl("/event/" + course.id);
     };
     return MainComponent;

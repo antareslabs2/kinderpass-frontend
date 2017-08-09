@@ -136,19 +136,8 @@ export class MainComponent implements OnInit {
 				}
 			}
 		});
-		let search = location.search.substring(1);
-		if(!location.search){
-			if (localStorage.getItem('date'))
-				this.curDate = localStorage.getItem('date');
-			if (localStorage.getItem('category'))
-				this.curCategory = parseInt(localStorage.getItem('category'));
-			if (localStorage.getItem('params')) {
-				let p = JSON.parse(localStorage.getItem('params'));
-				for(let i in p) {
-					this.params[i] = p[i];
-				}
-			}
-		} else {
+		if(location.search){
+			let search = location.search.substring(1);
 			let vars = search.split('&');
 			for (let i = 0; i < vars.length; i++) {
 				let pair = vars[i].split('=');
@@ -168,8 +157,6 @@ export class MainComponent implements OnInit {
 				}
 			}
 		}
-
-
 
 		let d = new Date();
 		
@@ -203,7 +190,10 @@ export class MainComponent implements OnInit {
 			this.eventsFilter();
 		});
 		this.monday= moment(this.curDate).startOf('week');
-		this.week = moment(this.curDate).diff(this.today, 'days');
+		let s = moment(this.today).startOf('week');
+		let e = moment(this.curDate).startOf('week');
+		this.week = moment(e).diff(s, 'days');
+		console.log(this.week)
 		this.initDates();
 
 	}
@@ -282,20 +272,17 @@ export class MainComponent implements OnInit {
 		if (this.params.metro.id && this.params.metro.id.length) {
 			getParams.metro_ids = this.params.metro.id;
 		}
-		localStorage.setItem('category', JSON.stringify(this.curCategory));
-		localStorage.setItem('date', this.curDate);
-		localStorage.setItem('params', JSON.stringify(getParams));
 
 		if (window.location.hash) 
 			this.hash = window.location.hash;
-		let filterUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
-		let search = '?';
+		this.gs.url = {};
 		for (let key in getParams) {
-			search += key+'='+getParams[key]+'&';
+			this.gs.url[key]  = getParams[key];
 		}
-		search += 'category_id=' + this.curCategory + '&date=' + this.curDate;
-		filterUrl += search;
-		window.history.pushState({path:filterUrl},'',filterUrl);
+		this.gs.url['category_id']= this.curCategory;
+		this.gs.url['date'] = this.curDate;
+
+		this.router.navigate(['/'], { queryParams: this.gs.url });
 
 		this.httpService.getSchedule(this.curCategory, this.curDate, getParams).subscribe((data:any) => {
 			this.events = [];
@@ -316,7 +303,7 @@ export class MainComponent implements OnInit {
 	}
 
 	nextWeek(event:any) : void {
-		if (this.week < 29) {
+		if (this.week < 28) {
 			this.monday.add(7,'d');
 			this.initDates();
 			this.week += 7;
@@ -418,7 +405,6 @@ export class MainComponent implements OnInit {
 	}
 			
 	openCourse(course:any) {
-		localStorage.setItem('event', JSON.stringify(course));
 		this.router.navigateByUrl(`/event/${course.id}`);
 	}
 

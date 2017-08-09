@@ -115,4 +115,12 @@ export class Api{
             .map((resp:Response)=>resp.json())
             .catch((error:any) =>{return error;});
     }
+
+    getBookingById(booking_id:number) {
+        let url = this.url + 'api/activities/get_booking/' + booking_id;
+
+        return this.http.get(url, this.options)
+            .map((resp:Response)=>resp.json())
+            .catch((error:any) =>{return error;});
+    }
 }

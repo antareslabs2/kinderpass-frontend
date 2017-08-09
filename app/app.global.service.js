@@ -31,7 +31,8 @@ var GlobalService = (function () {
         this.phoneMask = ['+', '7', '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
         this.extendSubscription = false;
         this.newSubscription = false;
-        this.policy = true;
+        this.policy = false;
+        this.url = {};
     }
     GlobalService.prototype.openPopup = function (name) {
         this.popupName = name;
@@ -107,6 +108,7 @@ var GlobalService = (function () {
             this.isAuthenticated = true;
             this.email = this.userInfo.email;
             this.phone = this.userInfo.phone;
+            this.policy = !!(this.userInfo.email && this.userInfo.phone);
             this.contactsForm = this.fb.group({
                 'email': [this.email, [
                         forms_1.Validators.required,
@@ -118,12 +120,12 @@ var GlobalService = (function () {
                         this.phoneValidation
                     ]
                 ],
-                'policy': [this.policy, [forms_1.Validators.pattern('true')]
+                'policy': [this.policy, [forms_1.Validators.required, forms_1.Validators.pattern('true')]
                 ]
             });
             if (!this.userInfo.phone || !this.userInfo.email) {
                 this.popupName = 'updateInfo';
-                this.userInfo.policy = false;
+                this.policy = false;
             }
             else if (this.userInfo.subscription) {
                 var today = moment(new Date()).add(7, 'days').format();
@@ -132,12 +134,12 @@ var GlobalService = (function () {
                     this.extendSubscription = true;
                 else
                     this.extendSubscription = false;
-                this.userInfo.policy = true;
+                this.policy = true;
             }
             else if (!this.userInfo.subscription) {
                 this.popupName = "extendSubscription";
                 this.extendSubscription = true;
-                this.userInfo.policy = true;
+                this.policy = true;
             }
         }
     };
@@ -151,9 +153,9 @@ var GlobalService = (function () {
         var _this = this;
         this.email = form.controls.email.value;
         this.phone = form.controls.phone.value;
-        this.userInfo.policy = form.controls.policy.value;
+        this.policy = form.controls.policy.value;
         var length = this.phone.replace(/_/gi, '').length;
-        if (this.email && this.phone && this.userInfo.policy && length == 16) {
+        if (this.email && this.phone && this.policy && length == 16) {
             var body = {
                 phone: this.phone,
                 email: this.email
@@ -164,7 +166,7 @@ var GlobalService = (function () {
                     $("html").removeClass('locked');
                     _this.userInfo.phone = _this.phone;
                     _this.userInfo.email = _this.email;
-                    _this.userInfo.policy = true;
+                    _this.policy = true;
                 }
             });
         }

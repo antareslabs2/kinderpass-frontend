@@ -19,7 +19,6 @@ var EventComponent = (function () {
         this.route = route;
         this.gs = gs;
         this.innerpage = true;
-        this.bookingStatus = false;
         this.isDisable = true;
         this.seats = 1;
         this.subscriptionPrice = 0;
@@ -33,19 +32,11 @@ var EventComponent = (function () {
         var _this = this;
         this.sub = this.route.params.subscribe(function (params) {
             _this.timeslot_id = +params['id'];
-            // this.loadEvent();
-            _this.event = JSON.parse(localStorage.getItem('event'));
-            console.log(_this.event);
+            _this.loadEvent();
             if (!_this.gs.isAuthenticated) {
                 _this.httpService.getInfo().subscribe(function (data) {
-                    _this.checkBooking();
-                    _this.isDisable = false;
                     _this.needSubscription();
                 });
-            }
-            else {
-                _this.checkBooking();
-                _this.isDisable = false;
             }
         });
     };
@@ -54,21 +45,11 @@ var EventComponent = (function () {
         this.httpService.getEventById(this.timeslot_id).subscribe(function (data) {
             if (data.activity) {
                 _this.event = data.activity;
-                if (data.activity.locations[0].time_slots[0].price_without_discount > 0)
-                    _this.discount = (1 - data.activity.locations[0].time_slots[0].price / data.activity.locations[0].time_slots[0].price_without_discount) * 100;
+                // if (data.activity.locations[0].time_slots[0].price_without_discount > 0)
+                // 	this.discount = (1-data.activity.locations[0].time_slots[0].price/data.activity.locations[0].time_slots[0].price_without_discount)*100;
                 _this.needSubscription();
             }
         });
-    };
-    EventComponent.prototype.checkBooking = function () {
-        for (var i in this.gs.userInfo.bookings) {
-            if (this.gs.userInfo.bookings[i].time_slot.id == this.timeslot_id) {
-                this.bookingStatus = true;
-                this.bookingId = this.gs.userInfo.bookings[i].id;
-                return;
-            }
-        }
-        this.bookingStatus = false;
     };
     EventComponent.prototype.addTicket = function () {
         if (this.seats < this.event.locations[0].time_slots[0].free_seats)
@@ -147,8 +128,6 @@ var EventComponent = (function () {
                 _this.gs.msg = "Бронь №" + data.reference_number + " успешно оформлена. Проверьте Вашу электронную почту, Вам должно прийти уведомление";
                 _this.gs.getUserInfo();
                 _this.loadEvent();
-                _this.bookingId = data.booking_id;
-                _this.bookingStatus = true;
                 _this.gs.openPopup('msg');
             }
             else {
@@ -162,34 +141,6 @@ var EventComponent = (function () {
             }
             _this.isDisable = false;
         });
-    };
-    EventComponent.prototype.cancelBooking = function (timeSlotID) {
-        var _this = this;
-        this.isDisable = true;
-        this.httpService.cancelBooking(timeSlotID).subscribe(function (data) {
-            if (data.status == "OK") {
-                _this.gs.msg = "Ваше бронирование успешно отменено";
-                _this.gs.getUserInfo();
-                _this.loadEvent();
-                _this.bookingStatus = false;
-                _this.gs.openPopup('msg');
-            }
-            else {
-                if (data.reason == "CANCELLATION_NOT_POSSIBLE") {
-                    _this.gs.msg = "Отмена бронирования невозможна";
-                }
-                else if (data.reason == "ALREADY_CANCELLED") {
-                    _this.gs.msg = "Бронирование уже отменено";
-                }
-                else {
-                    _this.gs.msg = "Что-то пошло не так. Попробуйте обновить страницу";
-                }
-                _this.gs.openPopup('msgCancel');
-            }
-            $("html").addClass('locked');
-            _this.isDisable = false;
-        });
-        ;
     };
     EventComponent.prototype.ngOnDestroy = function () {
         this.sub.unsubscribe();

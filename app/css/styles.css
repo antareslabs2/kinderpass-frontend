@@ -1407,7 +1407,7 @@ textarea.textarea {
     margin: 15px 0; }
 
 .updateInfo {
-  padding: 10px 90px; }
+  padding: 10px 60px; }
   @media only screen and (max-width: 420px) {
     .updateInfo {
       padding: 10px; } }
@@ -1423,6 +1423,8 @@ textarea.textarea {
     color: #939393; }
     .updateInfo input.ng-invalid {
       border-color: red; }
+      .updateInfo input.ng-invalid + label {
+        color: red; }
     .updateInfo input[type="checkbox"] {
       width: auto;
       display: inline-block;
@@ -1648,13 +1650,13 @@ textarea.textarea {
     text-align: center; }
     .eventPage .col-1-2:nth-child(odd) {
       width: 55%; }
-      @media only screen and (max-width: 780px) {
+      @media only screen and (max-width: 1024px) {
         .eventPage .col-1-2:nth-child(odd) {
           width: 100%; } }
     .eventPage .col-1-2:nth-child(even) {
       margin-left: 3%;
       width: 42%; }
-      @media only screen and (max-width: 780px) {
+      @media only screen and (max-width: 1024px) {
         .eventPage .col-1-2:nth-child(even) {
           width: 100%;
           margin: 20px 0 0; } }
@@ -1952,3 +1954,5 @@ textarea.textarea {
   .eventPage-price-alt span {
     float: none;
     margin: 0; }
+  .eventPage-photo {
+    width: 100%; }
