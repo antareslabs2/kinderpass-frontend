@@ -103,8 +103,8 @@ var Api = (function () {
             .map(function (resp) { return resp.json(); })
             .catch(function (error) { return error; });
     };
-    Api.prototype.getEventById = function (timeslot_id) {
-        var url = this.url + 'api/activities/timeslot/' + timeslot_id;
+    Api.prototype.getEventById = function (timeslot_id, date) {
+        var url = this.url + 'api/activities/timeslot/' + date + '/' + timeslot_id;
         return this.http.get(url, this.options)
             .map(function (resp) { return resp.json(); })
             .catch(function (error) { return error; });

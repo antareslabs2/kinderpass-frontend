@@ -42,7 +42,7 @@ var appRoutes = [
     { path: 'conditions', loadChildren: 'app/lazy/conditions.module#ConditionsModule' },
     { path: 'policy', loadChildren: 'app/lazy/policy.module#PolicyModule' },
     { path: 'registration', loadChildren: 'app/lazy/registration.module#RegistrationModule' },
-    { path: 'event/:id', loadChildren: 'app/lazy/event.module#EventModule' },
+    { path: 'event/:date/:id', loadChildren: 'app/lazy/event.module#EventModule' },
     { path: 'booking/:id', loadChildren: 'app/lazy/booking.module#BookingModule' },
     { path: 'contacts', loadChildren: 'app/lazy/contacts.module#ContactsModule' },
     { path: '**', redirectTo: '/' }

@@ -1412,7 +1412,10 @@ textarea.textarea {
     .updateInfo {
       padding: 10px; } }
   .updateInfo .popup-description {
-    margin: 35px 0; }
+    margin: 20px 0; }
+    @media only screen and (max-width: 780px) {
+      .updateInfo .popup-description {
+        margin: 15px 0; } }
   .updateInfo input {
     width: 100%;
     margin-bottom: 20px;

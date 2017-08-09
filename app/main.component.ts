@@ -405,7 +405,7 @@ export class MainComponent implements OnInit {
 	}
 			
 	openCourse(course:any) {
-		this.router.navigateByUrl(`/event/${course.id}`);
+		this.router.navigateByUrl(`/event/${this.curDate}/${course.id}`);
 	}
 
 }

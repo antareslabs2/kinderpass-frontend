@@ -92,6 +92,7 @@ export class Api{
                         .map((resp:Response)=>resp.json())
                         .catch((error:any) =>{return Observable.throw(error);}); 
     }
+
     makingBooking(timeSlotID:number, seats:number){
         let url = this.url + 'api/activities/book/' + timeSlotID + '/' + seats;
 
@@ -108,8 +109,8 @@ export class Api{
                         .catch((error:any) =>{return error;});
     }
 
-    getEventById(timeslot_id:number) {
-        let url = this.url + 'api/activities/timeslot/' + timeslot_id;
+    getEventById(timeslot_id:number, date:string) {
+        let url = this.url + 'api/activities/timeslot/' + date+ '/' + timeslot_id;
 
         return this.http.get(url, this.options)
             .map((resp:Response)=>resp.json())

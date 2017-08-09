@@ -14,6 +14,7 @@ import * as moment from 'moment';
 export class EventComponent implements OnInit, OnDestroy  { 
 	
 	timeslot_id:number;
+	date:string;
 	private sub: any;
 	innerpage: boolean;
 	event: any;
@@ -44,6 +45,7 @@ export class EventComponent implements OnInit, OnDestroy  {
 	ngOnInit(){
 		this.sub = this.route.params.subscribe(params => {
 			this.timeslot_id = +params['id'];
+			this.date = params['date'];
 			this.loadEvent();
 			if(!this.gs.isAuthenticated){
 				this.httpService.getInfo().subscribe((data:any) => {
@@ -54,7 +56,7 @@ export class EventComponent implements OnInit, OnDestroy  {
 	}
 
 	loadEvent() :void {
-		this.httpService.getEventById(this.timeslot_id).subscribe((data:any) => {
+		this.httpService.getEventById(this.timeslot_id, this.date).subscribe((data:any) => {
 			if(data.activity){
 				this.event = data.activity;
 				// if (data.activity.locations[0].time_slots[0].price_without_discount > 0)
@@ -122,7 +124,7 @@ export class EventComponent implements OnInit, OnDestroy  {
 					this.book();
 				}
 			} else {
-				localStorage.setItem('timeslot_id', JSON.stringify(this.timeslot_id));
+				localStorage.setItem('timeslot_id', JSON.stringify(this.event.locations[this.selectedLocation].time_slots[this.selectedTime].id));
 				localStorage.setItem('seats', JSON.stringify(this.seats));
 				if(this.subscriptionPrice)
 					this.gs.initTransaction('SB', (price - userBalance));

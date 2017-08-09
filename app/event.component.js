@@ -32,6 +32,7 @@ var EventComponent = (function () {
         var _this = this;
         this.sub = this.route.params.subscribe(function (params) {
             _this.timeslot_id = +params['id'];
+            _this.date = params['date'];
             _this.loadEvent();
             if (!_this.gs.isAuthenticated) {
                 _this.httpService.getInfo().subscribe(function (data) {
@@ -42,7 +43,7 @@ var EventComponent = (function () {
     };
     EventComponent.prototype.loadEvent = function () {
         var _this = this;
-        this.httpService.getEventById(this.timeslot_id).subscribe(function (data) {
+        this.httpService.getEventById(this.timeslot_id, this.date).subscribe(function (data) {
             if (data.activity) {
                 _this.event = data.activity;
                 // if (data.activity.locations[0].time_slots[0].price_without_discount > 0)
@@ -112,7 +113,7 @@ var EventComponent = (function () {
                 }
             }
             else {
-                localStorage.setItem('timeslot_id', JSON.stringify(this.timeslot_id));
+                localStorage.setItem('timeslot_id', JSON.stringify(this.event.locations[this.selectedLocation].time_slots[this.selectedTime].id));
                 localStorage.setItem('seats', JSON.stringify(this.seats));
                 if (this.subscriptionPrice)
                     this.gs.initTransaction('SB', (price - userBalance));
