@@ -43,7 +43,7 @@ export class BookingComponent implements OnInit, OnDestroy  {
 				this.gs.msg = "Ваше бронирование успешно отменено";
 				this.gs.getUserInfo();
 				// this.loadBooking();
-				this.gs.openPopup('msg');
+				this.gs.openPopup('goToUrl');
 			} else {
 				if (data.reason == "CANCELLATION_NOT_POSSIBLE") {
 					this.gs.msg = "Отмена бронирования невозможна";

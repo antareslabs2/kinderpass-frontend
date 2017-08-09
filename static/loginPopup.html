@@ -32,6 +32,28 @@
 	<div (click)="close()" class="btn">OK</div>
 </div>
 
+<div [@dialog] *ngIf="gs.popupName == 'booking'" (click)="close()" class="popup login">
+</div>
+<div [@dialog] *ngIf="gs.popupName == 'booking'" class="popup-wrapper msg-wrapper">
+	<div class="popup-close modal-close msg-close"(click)="close()" ></div>
+	<p class="popup-description">Бронь № {{gs.booking_id}} оформлена. Проверьте Вашу электронную почту и СМС, Вам должно прийти уведомление</p>
+	<div class="popup-btns">
+		<div class="col-1-2">
+			<div (click)="close()" [routerLink]="['/']" class="btn">На главную</div>
+		</div><!-- 
+	 --><div class="col-1-2">
+			<div (click)="close()" [routerLink]="['/booking', gs.booking_id]" class="btn">Перейти к брони</div>
+		</div>
+	</div>
+</div>
+
+<div [@dialog] *ngIf="gs.popupName == 'goToUrl'" class="popup login">
+</div>
+<div [@dialog] *ngIf="gs.popupName == 'goToUrl'" class="popup-wrapper msg-wrapper">
+	<p class="popup-description">{{gs.msg}}</p>
+	<div (click)="close()" [routerLink]="['/']" class="btn">На главную</div>
+</div>
+
 <div [@dialog] *ngIf="gs.popupName == 'extendSubscription'" class="popup login" (click)="close()">
 </div>
 <div [@dialog] *ngIf="gs.popupName == 'extendSubscription'" class="popup-wrapper login-wrapper subscription-wrapper">

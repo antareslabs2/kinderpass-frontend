@@ -82,7 +82,25 @@
 			transform: rotate(-45deg)
 			+bp($sm)
 				background-color: #17948e
+	
+	&-btns
+		.col-1-2
+			&:first-of-type
+				padding-right: 1%
+				+bp($md)
+					padding: 0
+					margin-bottom: 1%	
+					
+			&:last-of-type
+				padding-left: 1%
+				+bp($md)
+					padding: 0
+					margin-bottom: 1%	
+					
 
+			.btn
+				font-size: 16px
+				width: 100%
 
 .login
 	background: transparentize(#000, .3)

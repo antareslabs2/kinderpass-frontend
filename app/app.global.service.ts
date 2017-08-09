@@ -24,6 +24,7 @@ export class GlobalService {
 	newSubscription:boolean;
 
 	url: any;
+	booking_id: number;
 
 	constructor(public httpService: Api, private fb: FormBuilder, @Inject(Window) private _window: Window){
 		this.userInfo = {};
@@ -82,9 +83,10 @@ export class GlobalService {
 
 								this.httpService.makingBooking(timeslot, seats).subscribe((data:any) => {
 									if (data.status == "OK") {
-										this.msg = "Бронь №"+data.reference_number+" оформлена. Проверьте Вашу электронную почту и СМС, Вам должно прийти уведомление";
+										this.booking_id = data.booking_id;
+
 										this.getUserInfo();
-										this.openPopup('msg');
+										this.openPopup('booking');
 									} else {
 										if (data.reason == "TIME_SLOT_REGISTRATION_IS_OVER") {
 											this.msg = "Завершено бронирование мест на выбранное мероприятие";

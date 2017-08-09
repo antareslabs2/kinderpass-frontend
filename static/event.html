@@ -37,7 +37,7 @@
 					</div>
 					<div *ngIf="!showEvent" class="eventPage-ticket-fields">
 						<div class="eventPage-address">Выберите место посещения:</div>
-						<div class="eventPage-checks"><span *ngFor="let location of event.locations; let i = index" [class.active]="selectedLocation == i" (click)="selectedLocation=i;">{{location.address}}</span></div>
+						<div class="eventPage-checks"><span *ngFor="let location of event.locations; let i = index" [class.active]="selectedLocation == i" (click)="selectedLocation=i;">{{location.address}} {{selectedLocation}}</span></div>
 						<div class="eventPage-duration">Выберите время посещения:</div>
 						<div class="eventPage-checks eventPage-checks-small"><span *ngFor="let time of event.locations[selectedLocation].time_slots; let i = index" [class.active]="selectedTime == i" (click)="selectedTime=i;">{{time.start_time}}-{{time.end_time}}</span></div>
 						<div class="eventPage-price eventPage-price-alt">Цена посещения за 1 человека: <span>{{event.locations[selectedLocation].time_slots[selectedTime].price}}</span></div>

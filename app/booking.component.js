@@ -41,7 +41,7 @@ var BookingComponent = (function () {
                 _this.gs.msg = "Ваше бронирование успешно отменено";
                 _this.gs.getUserInfo();
                 // this.loadBooking();
-                _this.gs.openPopup('msg');
+                _this.gs.openPopup('goToUrl');
             }
             else {
                 if (data.reason == "CANCELLATION_NOT_POSSIBLE") {

@@ -126,10 +126,10 @@ var EventComponent = (function () {
         var _this = this;
         this.httpService.makingBooking(this.event.locations[this.selectedLocation].time_slots[this.selectedTime].id, this.seats).subscribe(function (data) {
             if (data.status == "OK") {
-                _this.gs.msg = "Бронь №" + data.reference_number + " успешно оформлена. Проверьте Вашу электронную почту, Вам должно прийти уведомление";
+                _this.gs.booking_id = data.booking_id;
                 _this.gs.getUserInfo();
                 _this.loadEvent();
-                _this.gs.openPopup('msg');
+                _this.gs.openPopup('booking');
             }
             else {
                 if (data.reason == "TIME_SLOT_REGISTRATION_IS_OVER") {

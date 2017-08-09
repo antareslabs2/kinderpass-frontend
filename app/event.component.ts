@@ -137,10 +137,11 @@ export class EventComponent implements OnInit, OnDestroy  {
 	book() {
 		this.httpService.makingBooking(this.event.locations[this.selectedLocation].time_slots[this.selectedTime].id,this.seats).subscribe((data:any) => {
 			if (data.status == "OK") {
-				this.gs.msg = "Бронь №" + data.reference_number + " успешно оформлена. Проверьте Вашу электронную почту, Вам должно прийти уведомление";
+				this.gs.booking_id = data.booking_id;
+
 				this.gs.getUserInfo();
 				this.loadEvent();
-				this.gs.openPopup('msg');
+				this.gs.openPopup('booking');
 			} else {
 				if (data.reason == "TIME_SLOT_REGISTRATION_IS_OVER") {
 					this.gs.msg = "Завершено бронирование мест на выбранное мероприятие";

@@ -76,9 +76,9 @@ var GlobalService = (function () {
                                 var seats = +localStorage.getItem('seats');
                                 _this.httpService.makingBooking(timeslot, seats).subscribe(function (data) {
                                     if (data.status == "OK") {
-                                        _this.msg = "Бронь №" + data.reference_number + " оформлена. Проверьте Вашу электронную почту и СМС, Вам должно прийти уведомление";
+                                        _this.booking_id = data.booking_id;
                                         _this.getUserInfo();
-                                        _this.openPopup('msg');
+                                        _this.openPopup('booking');
                                     }
                                     else {
                                         if (data.reason == "TIME_SLOT_REGISTRATION_IS_OVER") {
