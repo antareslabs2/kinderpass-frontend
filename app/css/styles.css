@@ -105,6 +105,36 @@ button {
 .hidden {
   display: none; }
 
+.hint {
+  position: absolute;
+  font-size: 12px;
+  width: 150%;
+  top: -65px;
+  right: 0;
+  text-align: right;
+  background: #f7f0f6;
+  border-radius: 5px;
+  padding: 10px;
+  color: #8e7dba;
+  line-height: 1.2;
+  visibility: hidden;
+  transition: all .3s;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none; }
+  .hint:after {
+    position: absolute;
+    content: "";
+    bottom: -20px;
+    right: 5px;
+    width: 10;
+    width: 0;
+    height: 0;
+    display: block;
+    border: 10px solid transparent;
+    border-top-color: #f4f0f6; }
+
 p {
   font-size: 22px;
   font-family: 'matias';
@@ -1658,7 +1688,7 @@ textarea.textarea {
     @media only screen and (max-width: 360px) {
       .eventPage h1 {
         font-size: 20px; } }
-  .eventPage p {
+  .eventPage-p {
     font-size: 18px;
     color: #393939;
     line-height: 1.2;
@@ -1835,11 +1865,16 @@ textarea.textarea {
       display: inline-block;
       vertical-align: middle; }
     .eventPage-seats-num {
-      float: right; }
+      -webkit-user-select: none;
+         -moz-user-select: none;
+          -ms-user-select: none;
+              user-select: none;
+      float: right;
+      position: relative; }
       @media only screen and (max-width: 360px) {
         .eventPage-seats-num {
           float: none; } }
-      .eventPage-seats-num p {
+      .eventPage-seats-num-input {
         color: #8e7dba;
         display: inline-block;
         width: 30px;
@@ -1859,6 +1894,10 @@ textarea.textarea {
         line-height: 30px;
         cursor: pointer;
         font-size: 30px; }
+    .eventPage-seats-disable {
+      opacity: .5; }
+      .eventPage-seats-disable:hover + .hint {
+        visibility: visible; }
   .eventPage-price {
     color: #8e7dba;
     font-size: 16px;

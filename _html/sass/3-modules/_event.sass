@@ -18,7 +18,7 @@
 			font-size: 22px
 		+bp($xs)
 			font-size: 20px
-	p
+	&-p
 		font-size: 18px
 		color: #393939
 		line-height: 1.2
@@ -207,10 +207,12 @@
 			display: inline-block
 			vertical-align: middle
 		&-num
+			user-select: none
 			float: right
+			position: relative
 			+bp($xs)
 				float: none
-			p
+			&-input
 				color: #8e7dba
 				display: inline-block
 				width: 30px
@@ -230,7 +232,12 @@
 				line-height: 30px
 				cursor: pointer
 				font-size: 30px
-
+		
+		&-disable
+			opacity: .5
+			&:hover
+				& + .hint
+					visibility: visible
 	&-price
 		color: #8e7dba
 		font-size: 16px

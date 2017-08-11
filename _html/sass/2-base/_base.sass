@@ -97,3 +97,30 @@ button
 
 .hidden	
 	display: none
+
+.hint
+	position: absolute
+	font-size: 12px
+	width: 150%
+	top: -65px
+	right: 0
+	text-align: right
+	background: #f7f0f6
+	border-radius: 5px
+	padding: 10px
+	color: #8e7dba
+	line-height: 1.2
+	visibility: hidden
+	transition: all .3s
+	user-select: none
+	&:after
+		position: absolute
+		content: ""
+		bottom: -20px
+		right: 5px
+		width: 10
+		width: 0
+		height: 0
+		display: block
+		border: 10px solid transparent
+		border-top-color: #f4f0f6

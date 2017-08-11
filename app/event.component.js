@@ -53,7 +53,7 @@ var EventComponent = (function () {
         });
     };
     EventComponent.prototype.addTicket = function () {
-        if (this.seats < this.event.locations[0].time_slots[0].free_seats)
+        if (this.seats < this.event.locations[this.selectedLocation].time_slots[this.selectedTime].free_seats)
             this.seats += 1;
     };
     EventComponent.prototype.removeTicket = function () {
