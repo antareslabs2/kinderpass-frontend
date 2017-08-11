@@ -127,6 +127,10 @@ var GlobalService = (function () {
                 this.popupName = 'updateInfo';
                 this.policy = false;
             }
+            if (yaCounter44744683) {
+                console.log(this.userInfo.id);
+                yaCounter44744683.userParams({ UserId: this.userInfo.id, UserName: this.userInfo.name });
+            }
             else if (this.userInfo.subscription) {
                 var today = moment(new Date()).add(7, 'days').format();
                 var subscription = moment(new Date(this.userInfo.subscription.expires_at.replace(/(\d+).(\d+).(\d+)/, '$3-$2-$1'))).format();
