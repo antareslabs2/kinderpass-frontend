@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import * as moment from 'moment';
 declare var ga:Function;
+declare var yaCounter44744683:any;
 
 @Injectable()
 export class GlobalService {
@@ -127,17 +128,14 @@ export class GlobalService {
 				'policy': [this.policy, [Validators.required, Validators.pattern('true')]
 						]
 			})
-			if (!this.userInfo.phone || !this.userInfo.email) {
-				this.popupName = 'updateInfo';
-				this.policy = false;
-			}
-
 			if (yaCounter44744683) {
 				console.log(this.userInfo.id);
 				yaCounter44744683.userParams({UserId: this.userInfo.id, UserName: this.userInfo.name});
 			}
-
-			else if(this.userInfo.subscription) {
+			if (!this.userInfo.phone || !this.userInfo.email) {
+				this.popupName = 'updateInfo';
+				this.policy = false;
+			} else if(this.userInfo.subscription) {
 				var today : any = moment(new Date()).add(7,'days').format();
 				var subscription : any = moment(new Date(this.userInfo.subscription.expires_at.replace(/(\d+).(\d+).(\d+)/,'$3-$2-$1'))).format();
 
@@ -146,7 +144,7 @@ export class GlobalService {
 				else
 					this.extendSubscription = false;
 				this.policy = true;
-			} else if(!this.userInfo.subscription) {
+			} else {
 				this.popupName = "extendSubscription";
 				this.extendSubscription = true;
 				this.policy = true;

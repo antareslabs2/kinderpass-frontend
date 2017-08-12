@@ -123,13 +123,13 @@ var GlobalService = (function () {
                 'policy': [this.policy, [forms_1.Validators.required, forms_1.Validators.pattern('true')]
                 ]
             });
-            if (!this.userInfo.phone || !this.userInfo.email) {
-                this.popupName = 'updateInfo';
-                this.policy = false;
-            }
             if (yaCounter44744683) {
                 console.log(this.userInfo.id);
                 yaCounter44744683.userParams({ UserId: this.userInfo.id, UserName: this.userInfo.name });
+            }
+            if (!this.userInfo.phone || !this.userInfo.email) {
+                this.popupName = 'updateInfo';
+                this.policy = false;
             }
             else if (this.userInfo.subscription) {
                 var today = moment(new Date()).add(7, 'days').format();
@@ -140,7 +140,7 @@ var GlobalService = (function () {
                     this.extendSubscription = false;
                 this.policy = true;
             }
-            else if (!this.userInfo.subscription) {
+            else {
                 this.popupName = "extendSubscription";
                 this.extendSubscription = true;
                 this.policy = true;

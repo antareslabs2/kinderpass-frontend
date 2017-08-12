@@ -196,8 +196,11 @@
 					</div><!-- 
 				 --><div class="results-item-cost">
 						<div class="results-item-time"><span>{{item.time_min}}-{{item.time_max}}</span></div>
-						<div class="results-item-price"><span>{{item.price_min}}<ng-container *ngIf="item.price_max">-{{item.price_max}}</ng-container></span></div>
-						<!-- <div *ngIf="item.locations.time_slots.discount > 0" class="results-item-discount">Дешевле на {{item.locations.time_slots.discount | number:'1.0-0'}}%</div> -->
+						<div class="results-item-price">
+							<ng-container *ngIf="item.price_max"><span class="results-item-price-old">от {{item.price_old}}</span> <span>от {{item.price_min}}</span></ng-container>
+							<ng-container *ngIf="!item.price_max"><span *ngIf="item.price_old != item.price_min"class="results-item-price-old">{{item.price_old}} </span><span>{{item.price_min}}</span></ng-container>
+						</div>
+						<div *ngIf="item.discount" class="results-item-discount">Дешевле на {{item.discount | number:'1.0-0'}}%</div>
 						<!-- <div class="btn" [routerLink]="['/event', item.id]">Забронировать</div> -->
 						<div class="btn" (click)="openCourse(item)">Забронировать</div>
 					</div>

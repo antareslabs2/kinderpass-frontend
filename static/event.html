@@ -37,10 +37,20 @@
 						</ng-container>
 					</div>
 					<div *ngIf="!showEvent" class="eventPage-ticket-fields">
-						<div class="eventPage-address">Выберите место посещения:</div>
-						<div class="eventPage-checks"><span *ngFor="let location of event.locations; let i = index" [class.active]="selectedLocation == i" (click)="selectedLocation=i;">{{location.address}}</span></div>
-						<div class="eventPage-duration">Выберите время посещения:</div>
-						<div class="eventPage-checks eventPage-checks-small"><span *ngFor="let time of event.locations[selectedLocation].time_slots; let i = index" [class.active]="selectedTime == i" (click)="selectedTime=i;">{{time.start_time}}-{{time.end_time}}</span></div>
+						<ng-container *ngIf="event.locations.length>1">
+							<div class="eventPage-address">Выберите место посещения:</div>
+							<div class="eventPage-checks"><span *ngFor="let location of event.locations; let i = index" [class.active]="selectedLocation == i" (click)="selectedLocation=i;">{{location.address}}</span></div>
+						</ng-container>
+						<ng-container *ngIf="event.locations.length==1">
+							<div class="eventPage-address">{{event.locations[0].address}}</div>
+						</ng-container>
+						<ng-container *ngIf="event.locations[selectedLocation].time_slots.length>1">
+							<div class="eventPage-duration">Выберите время посещения:</div>
+							<div class="eventPage-checks eventPage-checks-small"><span *ngFor="let time of event.locations[selectedLocation].time_slots; let i = index" [class.active]="selectedTime == i" (click)="selectedTime=i;">{{time.start_time}}-{{time.end_time}}</span></div>
+						</ng-container>
+						<ng-container *ngIf="event.locations[selectedLocation].time_slots.length==1">
+							<div class="eventPage-duration">{{event.locations[selectedLocation].time_slots[0].start_time}}-{{event.locations[selectedLocation].time_slots[0].time.end_time}}</div>
+						</ng-container>
 						<div class="eventPage-price eventPage-price-alt">Цена посещения за 1 человека: <span>{{event.locations[selectedLocation].time_slots[selectedTime].price}}</span></div>
 					</div>
 				</div>

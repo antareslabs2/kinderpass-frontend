@@ -289,11 +289,15 @@ var MainComponent = (function () {
             var timeslotMax = void 0;
             var priceMax = void 0;
             var priceMin = void 0;
+            var priceOld = void 0;
+            var discount = 0;
             for (var location_1 in data.activities[item].locations) {
                 for (var time in data.activities[item].locations[location_1].time_slots) {
-                    var discount = 0;
-                    if (data.activities[item].locations[location_1].time_slots[time].price_without_discount > 0)
-                        discount = (1 - data.activities[item].locations[location_1].time_slots[time].price / data.activities[item].locations[location_1].time_slots[time].price_without_discount) * 100;
+                    if (data.activities[item].locations[location_1].time_slots[time].price_without_discount > 0) {
+                        var tmp = (1 - data.activities[item].locations[location_1].time_slots[time].price / data.activities[item].locations[location_1].time_slots[time].price_without_discount) * 100;
+                        if (tmp > discount)
+                            discount = tmp;
+                    }
                     if (!timeslotMin || timeslotMin > data.activities[item].locations[location_1].time_slots[time].start_time)
                         timeslotMin = data.activities[item].locations[location_1].time_slots[time].start_time;
                     if (!timeslotMax || timeslotMax < data.activities[item].locations[location_1].time_slots[time].end_time)
@@ -302,13 +306,20 @@ var MainComponent = (function () {
                         priceMin = data.activities[item].locations[location_1].time_slots[time].price;
                     if (!priceMax || priceMax < data.activities[item].locations[location_1].time_slots[time].price)
                         priceMax = data.activities[item].locations[location_1].time_slots[time].price;
+                    if (!priceOld || priceOld > data.activities[item].locations[location_1].time_slots[time].price_without_discount)
+                        priceOld = data.activities[item].locations[location_1].time_slots[time].price_without_discount;
                 }
             }
             data.activities[item]['time_min'] = timeslotMin;
             data.activities[item]['time_max'] = timeslotMax;
             data.activities[item]['price_min'] = priceMin;
-            if (priceMin != priceMax)
+            data.activities[item]['price_old'] = priceOld;
+            if (priceMin != priceMax) {
                 data.activities[item]['price_max'] = priceMax;
+            }
+            if (discount > 0) {
+                data.activities[item]['discount'] = discount;
+            }
         }
         this.events = data.activities;
     };
