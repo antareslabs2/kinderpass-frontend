@@ -128,6 +128,10 @@ var GlobalService = (function () {
                 yaCounter44744683.userParams({ UserId: this.userInfo.id, UserName: this.userInfo.name });
             }
             ga('set', 'userId', this.userInfo.id);
+            if (this._window.location.hostname == 'kinderpass.ru')
+                ga('send', 'event', 'Main', 'user_auth_' + this.userInfo.id, 'Prod');
+            else if (this._window.location.hostname == 'front.kinderpass.ru')
+                ga('send', 'event', 'Main', 'user_auth_' + this.userInfo.id, 'Test');
             if (!this.userInfo.phone || !this.userInfo.email) {
                 this.popupName = 'updateInfo';
                 this.policy = false;
