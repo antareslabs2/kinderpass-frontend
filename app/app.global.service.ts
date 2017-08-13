@@ -132,6 +132,7 @@ export class GlobalService {
 				console.log(this.userInfo.id);
 				yaCounter44744683.userParams({UserId: this.userInfo.id, UserName: this.userInfo.name});
 			}
+			ga('set','userId',this.userInfo.id)
 			if (!this.userInfo.phone || !this.userInfo.email) {
 				this.popupName = 'updateInfo';
 				this.policy = false;
