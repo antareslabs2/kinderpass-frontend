@@ -4,7 +4,7 @@
 			<div class="prevPage" [routerLink]="['/']" fragment="filter" [queryParams]="gs.url"><img src="app/img/back.png" alt=""><span>Назад</span></div>
 			<h1>{{event.time_slot.activity.name}}</h1>
 			<div class="col-1-2 eventCol">
-				<div class="eventPage-provider">{{event.time_slot.activity.provider.name}}</div><img *ngIf="event.photo" class="eventPage-photo" src="img/{{event.photo}}.jpg" alt=""><img *ngIf="!event.photo" class="eventPage-photo" src="app/img/placeholder.jpg" alt=""><div class="eventPage-info">
+				<div class="eventPage-provider">{{event.time_slot.activity.provider.name}}</div><img *ngIf="event.time_slot.activity.photo" class="eventPage-photo" src="img/{{event.time_slot.activity.photo}}.jpg" alt=""><img *ngIf="!event.time_slot.activity.photo" class="eventPage-photo" src="app/img/placeholder.jpg" alt=""><div class="eventPage-info">
 					<div class="eventPage-age">Для детей {{event.time_slot.activity.age_from}}-{{event.time_slot.activity.age_to}} лет</div>
 					<div class="eventPage-freeSeats">
 						<img src="app/img/children.png" alt="">
