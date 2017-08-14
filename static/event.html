@@ -55,8 +55,8 @@
 					</div>
 				</div>
 				<div *ngIf="showEvent" class="eventPage-btns">
-					<a (click)="showEvent=!showEvent" class="btn btn-back"></a>
-					<button (click)="makingBooking()" class="btn">Забронировать</button>
+					<a *ngIf="event.locations.length!=1 || event.locations[0].time_slots.length!=1" (click)="showEvent=!showEvent" class="btn btn-back"></a>
+					<button (click)="makingBooking()" class="btn">Купить</button>
 					<!-- <div *ngIf="discount > 0" class="eventPage-discount">Дешевле на {{discount | number:'1.0-0'}}%</div> -->
 				</div>
 				<div *ngIf="!showEvent" class="eventPage-btns">

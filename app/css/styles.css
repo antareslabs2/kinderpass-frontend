@@ -1253,7 +1253,8 @@ textarea.textarea {
             color: #666;
             background: none;
             text-decoration: line-through;
-            padding-right: 5px; }
+            padding-right: 5px;
+            font-size: 22px; }
       .form .results-item-discount {
         margin-bottom: 10px;
         color: #02ba61;
