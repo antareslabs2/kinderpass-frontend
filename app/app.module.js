@@ -25,7 +25,7 @@ var main_component_1 = require("./main.component");
 var footer_component_1 = require("./footer.component");
 var header_component_1 = require("./header.component");
 var app_dialog_1 = require("./app.dialog");
-//import { LocationComponent }   from './location.dialog';
+//import { LocationComponent }   from '../location.dialog';
 var api_service_1 = require("./api.service");
 var pipes_1 = require("./pipes");
 var convertToArray_1 = require("./convertToArray");
@@ -38,14 +38,14 @@ var moment = require("moment");
 moment.locale('ru');
 var appRoutes = [
     { path: '', component: main_component_1.MainComponent },
-    { path: 'offer', loadChildren: 'app/lazy/offer.module#OfferModule' },
-    { path: 'about', loadChildren: 'app/lazy/about.module#AboutModule' },
-    { path: 'conditions', loadChildren: 'app/lazy/conditions.module#ConditionsModule' },
-    { path: 'policy', loadChildren: 'app/lazy/policy.module#PolicyModule' },
-    { path: 'registration', loadChildren: 'app/lazy/registration.module#RegistrationModule' },
-    { path: 'event/:date/:id', loadChildren: 'app/lazy/event.module#EventModule' },
-    { path: 'booking/:id', loadChildren: 'app/lazy/booking.module#BookingModule' },
-    { path: 'contacts', loadChildren: 'app/lazy/contacts.module#ContactsModule' },
+    { path: 'offer', loadChildren: '../app/lazy/offer.module#OfferModule' },
+    { path: 'about', loadChildren: '../app/lazy/about.module#AboutModule' },
+    { path: 'conditions', loadChildren: '../app/lazy/conditions.module#ConditionsModule' },
+    { path: 'policy', loadChildren: '../app/lazy/policy.module#PolicyModule' },
+    { path: 'registration', loadChildren: '../app/lazy/registration.module#RegistrationModule' },
+    { path: 'event/:date/:id', loadChildren: '../app/lazy/event.module#EventModule' },
+    { path: 'booking/:id', loadChildren: '../app/lazy/booking.module#BookingModule' },
+    { path: 'contacts', loadChildren: '../app/lazy/contacts.module#ContactsModule' },
     { path: '**', redirectTo: '/' }
 ];
 var AppModule = (function () {
