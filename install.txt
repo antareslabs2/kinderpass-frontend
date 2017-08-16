@@ -5,5 +5,11 @@ typings install dt~jquery --save --global
 use "npm start" in project folder to start server  
 
 Сборка для прода
+npm install webpack -g
+npm install file-loader —save-dev
 
-"webpack" из корня папки. Важно помнить, что для сборки у нас отдельный index.html (index_webpack.html). Правки необходимо дублировать 
+Перед сборкой рекомендуется удалить содержимое папки dist/ кроме папки js/, в которой лежит device.js
+
+Запустить "webpack" из корня папки. Важно помнить, что для сборки у нас отдельный index.html (index_webpack.html). Правки необходимо дублировать 
+
+После успешного завершения сборки в папке dist появятся скомпилированные файлы (*.html/*.js/*.css) и папка assets со статикой. На сервер нужно залить всё содержимое папки dist, предварительно удалив аналочные файлы *.html/*.js/*.css и папку assets на сервере
