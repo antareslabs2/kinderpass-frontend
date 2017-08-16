@@ -131,6 +131,7 @@ var EventComponent = (function () {
                 _this.gs.booking_id = data.booking_id;
                 _this.gs.getUserInfo();
                 _this.loadEvent();
+                ga('send', 'pageview', '/virtual/bookingdone');
                 _this.gs.openPopup('booking');
             }
             else {

@@ -133,6 +133,7 @@ export class GlobalService {
 				yaCounter44744683.userParams({UserId: this.userInfo.id, UserName: this.userInfo.name});
 			}
 			ga('set','userId',this.userInfo.id);
+			ga('send', 'pageview', '/virtual/auth');
 			if(this._window.location.hostname == 'kinderpass.ru')
 				ga('send', 'event', 'Main', 'user_auth_'+this.userInfo.id, 'Prod');
 			else if (this._window.location.hostname == 'front.kinderpass.ru')
@@ -181,6 +182,7 @@ export class GlobalService {
 					this.userInfo.phone = this.phone;
 					this.userInfo.email = this.email;
 					this.policy = true;
+					ga('send', 'pageview', '/virtual/mailphonesaved');
 				}
 			});
 		}
@@ -202,6 +204,7 @@ export class GlobalService {
 
 	openLoginPopup() {
 		this.openPopup('login');
+		ga('send', 'pageview', '/virtual/openauth');
 		if(this._window.location.hostname == 'kinderpass.ru')
 			ga('send', 'event', 'Main', 'OpenAuthPopup', 'Prod');
 		else if (this._window.location.hostname == 'front.kinderpass.ru')
