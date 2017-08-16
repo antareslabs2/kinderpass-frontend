@@ -6,7 +6,6 @@ use "npm start" in project folder to start server
 
 Сборка для прода
 npm install webpack -g
-npm install file-loader —save-dev
 
 Перед сборкой рекомендуется удалить содержимое папки dist/ кроме папки js/, в которой лежит device.js
 
