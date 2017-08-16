@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var api_service_1 = require("./api.service");
 var app_global_service_1 = require("./app.global.service");
@@ -28,12 +29,8 @@ var MainComponent = (function () {
         this.document = document;
         this.hash = '';
         this.gs.innerpage = false;
-        this.resultsToShow = 8;
         this.monday = new Date();
-        if (this.monday.getHours() < 23)
-            this.today = new Date();
-        else
-            this.today = moment(new Date()).add(1, 'days').format();
+        this.today = new Date();
         this.nextMonth = moment(this.today).add(1, 'month').format();
         this.selectedDate = new Date();
         this.events = [];
@@ -139,7 +136,7 @@ var MainComponent = (function () {
         var d = new Date();
         if (this.curDate) {
             if (moment(d).isSameOrAfter(this.curDate, 'day')) {
-                if (d.getHours() < 23) {
+                if (d.getHours() < 18) {
                     this.selectedDate = d;
                     this.curDate = moment(d).format("YYYYMMDD");
                 }
@@ -150,15 +147,20 @@ var MainComponent = (function () {
             }
             else {
                 if (moment(this.curDate).isAfter(this.nextMonth, 'day'))
-                    if (d.getHours() < 23)
+                    if (d.getHours() < 18)
                         this.curDate = moment(d).format("YYYYMMDD");
                     else
                         this.curDate = moment(d).add(1, 'd').format("YYYYMMDD");
                 this.selectedDate = moment(this.curDate);
             }
         }
-        else
-            this.curDate = moment(d).format("YYYYMMDD");
+        else {
+            if (this.monday.getHours() < 18)
+                this.curDate = moment(d).format("YYYYMMDD");
+            else
+                this.curDate = moment(d).add(1, 'days').format("YYYYMMDD");
+            this.selectedDate = moment(this.curDate);
+        }
         this.httpService.getCategories().subscribe(function (data) {
             _this.categories = _this.categories.concat(data.categories);
             if (!_this.curCategory)
@@ -169,7 +171,6 @@ var MainComponent = (function () {
         var s = moment(this.today).startOf('week');
         var e = moment(this.curDate).startOf('week');
         this.week = moment(e).diff(s, 'days');
-        console.log(this.week);
         this.initDates();
     };
     MainComponent.prototype.initDates = function () {
@@ -257,9 +258,8 @@ var MainComponent = (function () {
             if (data.results > 0) {
                 _this.parseActivities(data);
             }
-            _this.resultsToShow = 8;
             if (_this.hash) {
-                var pageScrollInstance_1 = ng2_page_scroll_1.PageScrollInstance.newInstance({ document: _this.document, scrollTarget: _this.hash, pageScrollDuration: 1000 });
+                var pageScrollInstance_1 = ng2_page_scroll_1.PageScrollInstance.newInstance({ document: _this.document, scrollTarget: _this.hash, pageScrollDuration: 0 });
                 var th_1 = _this;
                 th_1.pageScrollService.start(pageScrollInstance_1);
                 setTimeout(function () {
@@ -308,6 +308,45 @@ var MainComponent = (function () {
                         priceMax = data.activities[item].locations[location_1].time_slots[time].price;
                     if (!priceOld || priceOld > data.activities[item].locations[location_1].time_slots[time].price_without_discount)
                         priceOld = data.activities[item].locations[location_1].time_slots[time].price_without_discount;
+                    // this.events.push({
+                    // 	'id': data.activities[item].id,
+                    // 	'name': data.activities[item].name,
+                    // 	'description': data.activities[item].description,
+                    // 	'photo': data.activities[item].photo,
+                    // 	'duration': data.activities[item].duration,
+                    // 	'age_from': data.activities[item].age_from,
+                    // 	'age_to': data.activities[item].age_to,
+                    // 	'extra': data.activities[item].extra,
+                    // 	'locations': {
+                    // 		'id': data.activities[item].locations[location].id,
+                    // 		'address': data.activities[item].locations[location].address,
+                    // 		'latitude': data.activities[item].locations[location].latitude,
+                    // 		'longitude': data.activities[item].locations[location].longitude,
+                    // 		'time_slots':{
+                    // 			'id': data.activities[item].locations[location].time_slots[time].id,
+                    // 			'date': data.activities[item].locations[location].time_slots[time].date,
+                    // 			'start_time': data.activities[item].locations[location].time_slots[time].start_time,
+                    // 			'end_time': data.activities[item].locations[location].time_slots[time].end_time,
+                    // 			'free_seats': data.activities[item].locations[location].time_slots[time].free_seats,
+                    // 			'allocated_seats': data.activities[item].locations[location].time_slots[time].allocated_seats,
+                    // 			'price': data.activities[item].locations[location].time_slots[time].price,
+                    // 			'discount': discount
+                    // 		}
+                    // 	},
+                    // 	'provider': {
+                    // 		'id': data.activities[item].provider.id,
+                    // 		'name': data.activities[item].provider.name,
+                    // 		'legal': {
+                    // 			'contract_date': data.activities[item].provider.legal.contract_date,
+                    // 			'legal_name': data.activities[item].provider.legal.legal_name,
+                    // 			'contact_phone': data.activities[item].provider.legal.contact_phone,
+                    // 			'contact_email': data.activities[item].provider.legal.contact_email,
+                    // 			'tax_num': data.activities[item].provider.legal.tax_num,
+                    // 		}
+                    // 	},
+                    // 	'time_min': timeslotMin,
+                    // 	'time_max': timeslotMax
+                    // });
                 }
             }
             data.activities[item]['time_min'] = timeslotMin;
@@ -345,7 +384,7 @@ var MainComponent = (function () {
 MainComponent = __decorate([
     core_1.Component({
         selector: 'main-app',
-        templateUrl: "static/main.html?v=" + new Date().getTime(),
+        templateUrl: "../static/main.html?v=" + new Date().getTime(),
         providers: [api_service_1.Api]
     }),
     __param(4, core_1.Inject(platform_browser_1.DOCUMENT)),

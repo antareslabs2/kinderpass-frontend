@@ -1,7 +1,9 @@
 npm install
 npm install typings --global
-npm install slick-carousel --save
 typings install dt~jquery --save --global
-typings install dt~slick-carousel --save --global
 
 use "npm start" in project folder to start server  
+
+Сборка для прода
+
+"webpack" из корня папки. Важно помнить, что для сборки у нас отдельный index.html (index_webpack.html). Правки необходимо дублировать 

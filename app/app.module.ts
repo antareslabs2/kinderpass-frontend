@@ -13,7 +13,7 @@ import { FooterComponent }   from './footer.component';
 import { HeaderComponent }   from './header.component';
 
 import { DialogComponent }   from './app.dialog';
-//import { LocationComponent }   from './location.dialog';
+//import { LocationComponent }   from '../location.dialog';
 
 import { Api }   from './api.service';
 
@@ -31,14 +31,14 @@ moment.locale('ru');
 
 const appRoutes: Routes =[
     { path: '', component: MainComponent},
-    { path: 'offer', loadChildren: 'app/lazy/offer.module#OfferModule' },
-    { path: 'about', loadChildren: 'app/lazy/about.module#AboutModule' },
-    { path: 'conditions', loadChildren: 'app/lazy/conditions.module#ConditionsModule' },
-    { path: 'policy', loadChildren: 'app/lazy/policy.module#PolicyModule' },
-    { path: 'registration', loadChildren: 'app/lazy/registration.module#RegistrationModule'},
-    { path: 'event/:date/:id', loadChildren: 'app/lazy/event.module#EventModule' },
-    { path: 'booking/:id', loadChildren: 'app/lazy/booking.module#BookingModule' },
-    { path: 'contacts', loadChildren: 'app/lazy/contacts.module#ContactsModule' },
+    { path: 'offer', loadChildren: '../app/lazy/offer.module#OfferModule' },
+    { path: 'about', loadChildren: '../app/lazy/about.module#AboutModule' },
+    { path: 'conditions', loadChildren: '../app/lazy/conditions.module#ConditionsModule' },
+    { path: 'policy', loadChildren: '../app/lazy/policy.module#PolicyModule' },
+    { path: 'registration', loadChildren: '../app/lazy/registration.module#RegistrationModule'},
+    { path: 'event/:date/:id', loadChildren: '../app/lazy/event.module#EventModule' },
+    { path: 'booking/:id', loadChildren: '../app/lazy/booking.module#BookingModule' },
+    { path: 'contacts', loadChildren: '../app/lazy/contacts.module#ContactsModule' },
     { path: '**', redirectTo: '/'}
 ];
 

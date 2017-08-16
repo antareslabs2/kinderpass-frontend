@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var api_service_1 = require("./api.service");
 var router_1 = require("@angular/router");
@@ -152,7 +153,7 @@ var EventComponent = (function () {
 EventComponent = __decorate([
     core_1.Component({
         selector: 'event',
-        templateUrl: "static/event.html?v=" + new Date().getTime(),
+        templateUrl: "../static/event.html?v=" + new Date().getTime(),
         providers: [api_service_1.Api]
     }),
     __metadata("design:paramtypes", [api_service_1.Api, router_1.ActivatedRoute, app_global_service_1.GlobalService])

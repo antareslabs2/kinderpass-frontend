@@ -4,7 +4,7 @@ import { GlobalService } from './app.global.service';
 
 @Component({
   selector: 'location-dialog',
-  templateUrl: `static/location.html?v=${new Date().getTime()}`,
+  templateUrl: `../static/location.html?v=${new Date().getTime()}`,
   animations: [
     trigger('location-dialog', [
       transition('void => *', [

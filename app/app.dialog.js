@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var animations_1 = require("@angular/animations");
 var app_global_service_1 = require("./app.global.service");
@@ -37,7 +38,7 @@ var DialogComponent = (function () {
 DialogComponent = __decorate([
     core_1.Component({
         selector: 'app-dialog',
-        templateUrl: "static/loginPopup.html?v=" + new Date().getTime(),
+        templateUrl: "../static/loginPopup.html?v=" + new Date().getTime(),
         animations: [
             animations_1.trigger('dialog', [
                 animations_1.transition('void => *', [

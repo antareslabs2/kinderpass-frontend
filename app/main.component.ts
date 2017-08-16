@@ -10,7 +10,7 @@ import * as $ from 'jquery';
 
 @Component({
 	selector: 'main-app',
-	templateUrl: `static/main.html?v=${new Date().getTime()}`,
+	templateUrl: `../static/main.html?v=${new Date().getTime()}`,
 	providers: [Api]
 })
 
@@ -29,7 +29,6 @@ export class MainComponent implements OnInit {
 	monday: any;
 	times: any;
 	selectedDate:any;
-	resultsToShow:number;
 	msg: string;
 
 	districtsNames:string[];
@@ -47,12 +46,8 @@ export class MainComponent implements OnInit {
 	constructor(private httpService: Api, private router:Router, private gs:GlobalService, private pageScrollService: PageScrollService, @Inject(DOCUMENT) private document: any){
 		this.hash = '';
 		this.gs.innerpage = false;
-		this.resultsToShow = 8;
 		this.monday = new Date();
-		if (this.monday.getHours() < 23)
-			this.today = new Date();
-		else
-			this.today = moment(new Date()).add(1,'days').format();
+		this.today = new Date();
 		this.nextMonth = moment(this.today).add(1, 'month').format();
 
 		this.selectedDate = new Date();
@@ -162,7 +157,7 @@ export class MainComponent implements OnInit {
 		
 		if (this.curDate) {
 			if(moment(d).isSameOrAfter(this.curDate, 'day')) {
-				if (d.getHours() < 23){
+				if (d.getHours() < 18){
 					this.selectedDate = d;
 					this.curDate = moment(d).format("YYYYMMDD");
 				}
@@ -173,14 +168,19 @@ export class MainComponent implements OnInit {
 			}
 			else {
 				if (moment(this.curDate).isAfter(this.nextMonth, 'day'))
-					if (d.getHours() < 23)
+					if (d.getHours() < 18)
 						this.curDate = moment(d).format("YYYYMMDD");
 					else
 						this.curDate = moment(d).add(1, 'd').format("YYYYMMDD");
 				this.selectedDate = moment(this.curDate);
 			}
-		} else 
-			this.curDate = moment(d).format("YYYYMMDD");
+		} else {
+			if (this.monday.getHours() < 18)
+				this.curDate = moment(d).format("YYYYMMDD");
+			else
+				this.curDate = moment(d).add(1,'days').format("YYYYMMDD");
+			this.selectedDate = moment(this.curDate);
+		}
 
 
 		this.httpService.getCategories().subscribe((data:any) => {
@@ -193,7 +193,6 @@ export class MainComponent implements OnInit {
 		let s = moment(this.today).startOf('week');
 		let e = moment(this.curDate).startOf('week');
 		this.week = moment(e).diff(s, 'days');
-		console.log(this.week)
 		this.initDates();
 
 	}
@@ -289,9 +288,8 @@ export class MainComponent implements OnInit {
 			if(data.results > 0) {
 				this.parseActivities(data);
 			}
-			this.resultsToShow = 8;
 			if (this.hash) {
-				let pageScrollInstance: PageScrollInstance = PageScrollInstance.newInstance({document: this.document, scrollTarget: this.hash, pageScrollDuration: 1000});
+				let pageScrollInstance: PageScrollInstance = PageScrollInstance.newInstance({document: this.document, scrollTarget: this.hash, pageScrollDuration: 0});
 				let th = this;
 				th.pageScrollService.start(pageScrollInstance);
 				setTimeout(() => {

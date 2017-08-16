@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var api_service_1 = require("./api.service");
 var app_global_service_1 = require("./app.global.service");
@@ -166,7 +167,7 @@ var RegistrationComponent = (function () {
 RegistrationComponent = __decorate([
     core_1.Component({
         selector: 'registration',
-        templateUrl: "static/registration.html?v=" + new Date().getTime(),
+        templateUrl: "../static/registration.html?v=" + new Date().getTime(),
         providers: [api_service_1.Api],
         styles: ["\n\t\tinput.ng-touched.ng-invalid {border:solid red 2px;}\n\t\tinput.ng-touched.ng-valid {border:solid green 2px;}\n\t"]
     }),

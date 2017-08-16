@@ -4,7 +4,7 @@ import { GlobalService } from './app.global.service';
 
 @Component({
   selector: 'app-dialog',
-  templateUrl: `static/loginPopup.html?v=${new Date().getTime()}`,
+  templateUrl: `../static/loginPopup.html?v=${new Date().getTime()}`,
   animations: [
     trigger('dialog', [
       transition('void => *', [

@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var animations_1 = require("@angular/animations");
 var app_global_service_1 = require("./app.global.service");
@@ -91,7 +92,7 @@ __decorate([
 LocationComponent = __decorate([
     core_1.Component({
         selector: 'location-dialog',
-        templateUrl: "static/location.html?v=" + new Date().getTime(),
+        templateUrl: "../static/location.html?v=" + new Date().getTime(),
         animations: [
             animations_1.trigger('location-dialog', [
                 animations_1.transition('void => *', [

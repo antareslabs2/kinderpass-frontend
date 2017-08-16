@@ -5,7 +5,7 @@ import { GlobalService } from './app.global.service';
 
 @Component({
 	selector: 'registration',
-	templateUrl: `static/registration.html?v=${new Date().getTime()}`,
+	templateUrl: `../static/registration.html?v=${new Date().getTime()}`,
 	providers: [Api],
 	styles: [`
 		input.ng-touched.ng-invalid {border:solid red 2px;}

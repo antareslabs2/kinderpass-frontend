@@ -7,7 +7,7 @@ import * as moment from 'moment';
 
 @Component({
 	selector: 'booking',
-	templateUrl: `static/booking.html?v=${new Date().getTime()}`,
+	templateUrl: `../static/booking.html?v=${new Date().getTime()}`,
 	providers: [Api]
 })
 

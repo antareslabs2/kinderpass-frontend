@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var app_global_service_1 = require("./app.global.service");
 var router_1 = require("@angular/router");
@@ -45,7 +46,7 @@ var HeaderComponent = (function () {
 HeaderComponent = __decorate([
     core_1.Component({
         selector: 'headerTemplate',
-        templateUrl: "static/header.html?v=" + new Date().getTime()
+        templateUrl: "../static/header.html?v=" + new Date().getTime()
     }),
     __param(3, core_1.Inject(platform_browser_1.DOCUMENT)),
     __metadata("design:paramtypes", [app_global_service_1.GlobalService, router_1.Router, ng2_page_scroll_1.PageScrollService, Object])

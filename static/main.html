@@ -16,21 +16,21 @@
 		<h2>Смысл абонемента</h2>
 		<div class="advantages-slider">
 			<div class="advantages-item">
-				<img src="app/img/adItem1.png" alt=""><!-- 
+				<img src="../app/img/adItem1.png" alt=""><!-- 
 			 --><div>
 					<h3>Экономия времени</h3>
 					<p>Просто выберите дату и время. В абонемент входят лучшие классы, занятия и другие активности для единоразового посещения.</p>
 				</div>
 			</div><!-- 
 				 --><div class="advantages-item">
-				<img src="app/img/adItem2.png" alt=""><!-- 
+				<img src="../app/img/adItem2.png" alt=""><!-- 
 			 --><div>
 					<h3>Хорошая скидка 10-50%</h3>
 					<p>Все мероприятия и активности, которые вы бронируете у нас, вам обойдутся дешевле, чем если бы вы пришли туда с улицы.</p>
 				</div>
 			</div><!-- 
 				 --><div class="advantages-item">
-				<img src="app/img/adItem3.png" alt=""><!-- 
+				<img src="../app/img/adItem3.png" alt=""><!-- 
 			 --><div>
 					<h3>Новый мир для детей</h3>
 					<p>Наш абонемент не про постоянные занятия и кружки, а про то, чтобы расширять кругозор вашего ребенка и показать ему мир.</p>
@@ -56,7 +56,7 @@
 		<div class="results">
 			<div class="results-item">
 				<div class="results-item-image" (click)="gs.openLoginPopup()">
-					<img src="img/s000_3.jpg" alt="">
+					<img src="../img/s000_3.jpg" alt="">
 				</div><!-- 
 			 --><div class="results-item-description">
 					<div class="results-item-title" (click)="gs.openLoginPopup()">Интерактивный музей электричества - детям до 12 лет</div>
@@ -71,7 +71,7 @@
 			</div>
 			<div class="results-item">
 				<div class="results-item-image" (click)="gs.openLoginPopup()">
-					<img src="img/s329.jpg" alt="">
+					<img src="../img/s329.jpg" alt="">
 				</div><!-- 
 			 --><div class="results-item-description">
 					<div class="results-item-title" (click)="gs.openLoginPopup()">Прыжки на батутах 2 часа</div>
@@ -86,7 +86,7 @@
 			</div>
 			<div class="results-item">
 				<div class="results-item-image" (click)="gs.openLoginPopup()">
-					<img src="img/s000_24.jpg" alt="">
+					<img src="../img/s000_24.jpg" alt="">
 				</div><!-- 
 			 --><div class="results-item-description">
 					<div class="results-item-title" (click)="gs.openLoginPopup()">Посещение Трогательного зоопарка для ребенка</div>
@@ -101,7 +101,7 @@
 			</div>
 			<div class="results-item">
 				<div class="results-item-image" (click)="gs.openLoginPopup()">
-					<img src="img/s186.jpg" alt="">
+					<img src="../img/s186.jpg" alt="">
 				</div><!-- 
 			 --><div class="results-item-description">
 					<div class="results-item-title" (click)="gs.openLoginPopup()">Занятие по робототехнике 7-12 лет</div>
@@ -116,7 +116,7 @@
 			</div>
 			<div class="results-item">
 				<div class="results-item-image" (click)="gs.openLoginPopup()">
-					<img src="img/s330.jpg" alt="">
+					<img src="../img/s330.jpg" alt="">
 				</div><!-- 
 			 --><div class="results-item-description">
 					<div class="results-item-title" (click)="gs.openLoginPopup()">Мастер-класс по созданию картины из цветного песка</div>
@@ -182,15 +182,13 @@
 	 --><div class="selectedDay">{{selectedDate | date: 'EEEE'}}, {{selectedDate | date: 'dd.MM'}}</div><!-- 
 	 --><div class="results">
 	 		<ng-container *ngIf="events.length > 0">
-				<div class="results-item" *ngFor="let item of events | slice:0:resultsToShow;">
-					<!-- <div class="results-item-image" [routerLink]="['/event', item.id]"> -->
+				<div class="results-item" *ngFor="let item of events" id="event_{{item.id}}">
 					<div class="results-item-image" (click)="openCourse(item)">
-						<img *ngIf="item.photo" src="img/s{{item.photo}}.jpg" alt="">
-						<img *ngIf="!item.photo" src="app/img/placeholder.jpg" alt="">
+						<img *ngIf="item.photo" src="{{'img/s' + item.photo + '.jpg'}}" alt="">
+						<img *ngIf="!item.photo" src="../app/img/placeholder.jpg" alt="">
 					</div><!-- 
 				 --><div class="results-item-description">
-						<!-- <div class="results-item-title" [routerLink]="['/event', item.id]">{{item.name}}</div> -->
-						<div class="results-item-title"  (click)="openCourse(item)">{{item.name}}</div>
+						<div class="results-item-title" (click)="openCourse(item)">{{item.name}}</div>
 						<div class="results-item-recommendation">{{item.description | truncate:200 }}</div>
 						<div class="results-item-location">{{item.locations[0].address}} <span *ngIf="item.locations[0].length>1"> и еще {{item.locations[0].length-1}}</span> </div>
 					</div><!-- 
@@ -201,14 +199,12 @@
 							<ng-container *ngIf="!item.price_max"><span *ngIf="item.price_old != item.price_min"class="results-item-price-old">{{item.price_old}} </span><span>{{item.price_min}}</span></ng-container>
 						</div>
 						<!-- <div *ngIf="item.discount" class="results-item-discount">Дешевле на {{item.discount | number:'1.0-0'}}%</div> -->
-						<!-- <div class="btn" [routerLink]="['/event', item.id]">Купить</div> -->
 						<div class="btn" (click)="openCourse(item)">Купить</div>
 					</div>
 				</div>
 	 		</ng-container>
 	 		<p class="results-notFound" *ngIf="events.length <= 0">Не найдено ни одного мероприятия</p>
 	 	</div>
-	 	<div class="moreResults" *ngIf="resultsToShow < events.length" (click)="resultsToShow = resultsToShow + 8"><span class="btn">Еще (<span>{{events.length - resultsToShow}}</span>)</span></div>
 	</div>
 </div>
 <div *ngIf="!gs.isAuthenticated" class="bottomHelper"></div>
@@ -217,11 +213,11 @@
 		<h2>Цена абонемента</h2>
 		<div>
 			<div class="options-item">
-				<div class="options-price"><span>200</span> <img src="app/img/money.png" alt=""></div>
+				<div class="options-price"><span>200</span> <img src="../app/img/money.png" alt=""></div>
 				<p class="options-description">При оплате каждый месяц</p>
 			</div>
 			<div class="options-item">
-				<div class="options-price"><span>1900</span> <img src="app/img/money.png" alt=""></div>
+				<div class="options-price"><span>1900</span> <img src="../app/img/money.png" alt=""></div>
 				<p class="options-description">При оплате на год вперед</p>
 			</div>
 		</div>

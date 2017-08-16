@@ -1,13 +1,13 @@
 <div class="innerpage">
 	<div class="wrapper">
 		<div *ngIf="event" class="eventPage">
-			<div class="prevPage" [routerLink]="['/']" fragment="filter" [queryParams]="gs.url"><img src="app/img/back.png" alt=""><span>Назад</span></div>
+			<div class="prevPage" [routerLink]="['/']" fragment="event_{{timeslot_id}}" [queryParams]="gs.url"><img src="../app/img/back.png" alt=""><span>Назад</span></div>
 			<h1>{{event.name}}</h1>
 			<div class="col-1-2 eventCol">
-				<div class="eventPage-provider">{{event.provider.name}}</div><img *ngIf="event.photo" class="eventPage-photo" src="img/{{event.photo}}.jpg" alt=""><img *ngIf="!event.photo" class="eventPage-photo" src="app/img/placeholder.jpg" alt=""><div class="eventPage-info">
+				<div class="eventPage-provider">{{event.provider.name}}</div><img *ngIf="event.photo" class="eventPage-photo" src="{{'img/' + event.photo + '.jpg'}}" alt=""><img *ngIf="!event.photo" class="eventPage-photo" src="../app/img/placeholder.jpg" alt=""><div class="eventPage-info">
 					<div class="eventPage-age">Для детей {{event.age_from}}-{{event.age_to}} лет</div>
 					<div class="eventPage-freeSeats">
-						<img src="app/img/children.png" alt="">
+						<img src="../app/img/children.png" alt="">
 						<p class="eventPage-p">Осталось мест</p>
 						<span>{{event.locations[selectedLocation].time_slots[selectedTime].free_seats}}</span>
 					</div>

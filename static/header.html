@@ -2,7 +2,7 @@
 	<div class="wrapper">
 		<div class="logo">
 			<a routerLink="/" [queryParams]="gs.url">
-				<img src="app/img/logo.png" alt="">
+				<img src="../app/img/logo.png" alt="">
 				<p>KinderPass</p>
 			</a>
 		</div><!-- 
@@ -14,7 +14,7 @@
 			<ng-container *ngIf="!gs.userInfo.subscription">
 				<p (click)="gs.openPopup('extendSubscription')" class="user-subscription user-subscription-link user-subscription-ended">Нет подписки</p>
 			</ng-container>
-			<p class="user-name" (click)="toogleLK()"  [class.user-name_icon]="gs.userInfo.name.length <= 1" ><img src="app/img/profile.png" alt=""><span>{{gs.userInfo.name}}</span></p>
+			<p class="user-name" (click)="toogleLK()"  [class.user-name_icon]="gs.userInfo.name.length <= 1" ><img src="../app/img/profile.png" alt=""><span>{{gs.userInfo.name}}</span></p>
 		</div><!-- 
 	 --><div class="links" *ngIf="!gs.isAuthenticated">
 			<a routerLink="/about">О проекте</a><span (click)="gs.openLoginPopup()">Войти</span><a routerLink="/contacts">Контакты</a>
@@ -22,9 +22,9 @@
 		<div *ngIf="openProfile" class="user-menu">
 			<div class="user-menu-item">
 				<div class="user-menu-title">
-					<img src="app/img/profile.png" alt="">
+					<img src="../app/img/profile.png" alt="">
 					<p>Профиль</p>
-					<div class="user-menu-btn" (click)="gs.openPopup('updateInfo')"><img src="app/img/edit.png" alt=""></div>
+					<div class="user-menu-btn" (click)="gs.openPopup('updateInfo')"><img src="../app/img/edit.png" alt=""></div>
 				</div>
 				<table>
 					<tr>
@@ -43,7 +43,7 @@
 			</div>
 			<div *ngIf="gs.userInfo.bookings.length" class="user-menu-item">
 				<div class="user-menu-title">
-					<img src="app/img/ticketLK.png" alt="">
+					<img src="../app/img/ticketLK.png" alt="">
 					<p>Брони</p>
 				</div>
 				<div class="user-menu-booking">
