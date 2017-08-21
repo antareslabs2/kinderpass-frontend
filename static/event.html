@@ -1,7 +1,7 @@
 <div class="innerpage">
 	<div class="wrapper">
 		<div *ngIf="event" class="eventPage">
-			<div class="prevPage" [routerLink]="['/']" fragment="event_{{timeslot_id}}" [queryParams]="gs.url"><img src="../app/img/back.png" alt=""><span>Назад</span></div>
+			<div class="prevPage"  [routerLink]="['/']" fragment="event_{{timeslot_id}}" [queryParams]="gs.url"><img src="../app/img/back.png" alt=""><span>Назад</span></div>
 			<h1>{{event.name}}</h1>
 			<div class="col-1-2 eventCol">
 				<div class="eventPage-provider">{{event.provider.name}}</div><img *ngIf="event.photo" class="eventPage-photo" src="{{'img/' + event.photo + '.jpg'}}" alt=""><img *ngIf="!event.photo" class="eventPage-photo" src="../app/img/placeholder.jpg" alt=""><div class="eventPage-info">

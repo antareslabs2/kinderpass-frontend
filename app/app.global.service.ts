@@ -1,6 +1,7 @@
 import {Injectable, Inject} from '@angular/core';
 import { Api } from './api.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Location } from '@angular/common'
 
 import * as moment from 'moment';
 declare var ga:Function;
@@ -27,7 +28,9 @@ export class GlobalService {
 	url: any;
 	booking_id: number;
 
-	constructor(public httpService: Api, private fb: FormBuilder, @Inject(Window) private _window: Window){
+	fragment: string;
+
+	constructor(public httpService: Api, private fb: FormBuilder, @Inject(Window) private _window: Window, private _location: Location){
 		this.userInfo = {};
 		this.isAuthenticated = false;
 		this.popupName = '';
@@ -41,6 +44,7 @@ export class GlobalService {
 		this.newSubscription = false;
 		this.policy = false;
 		this.url = {};
+		this.fragment = '';
 	}
 
 	openPopup(name:string) {
@@ -128,16 +132,7 @@ export class GlobalService {
 				'policy': [this.policy, [Validators.required, Validators.pattern('true')]
 						]
 			})
-			if (yaCounter44744683) {
-				console.log(this.userInfo.id);
-				yaCounter44744683.userParams({UserId: this.userInfo.id, UserName: this.userInfo.name});
-			}
-			ga('set','userId',this.userInfo.id);
-			ga('send', 'pageview', '/virtual/auth');
-			if(this._window.location.hostname == 'kinderpass.ru')
-				ga('send', 'event', 'Main', 'user_auth_'+this.userInfo.id, 'Prod');
-			else if (this._window.location.hostname == 'front.kinderpass.ru')
-				ga('send', 'event', 'Main', 'user_auth_'+this.userInfo.id, 'Test');
+
 
 			if (!this.userInfo.phone || !this.userInfo.email) {
 				this.popupName = 'updateInfo';
@@ -209,5 +204,14 @@ export class GlobalService {
 			ga('send', 'event', 'Main', 'OpenAuthPopup', 'Prod');
 		else if (this._window.location.hostname == 'front.kinderpass.ru')
 			ga('send', 'event', 'Main', 'OpenAuthPopup', 'Test');
+	}
+
+	declOfNum(number:number, titles:string[]) {  
+		let cases = [2, 0, 1, 1, 1, 2];  
+		return titles[ (number%100>4 && number%100<20)? 2 : cases[(number%10<5)?number%10:5] ];  
+	}
+
+	goBack() {
+		this._location.back();
 	}
 }

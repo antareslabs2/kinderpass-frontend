@@ -1,7 +1,7 @@
 <div class="innerpage">
 	<div class="wrapper">
 		<div *ngIf="event" class="eventPage">
-			<div class="prevPage" [routerLink]="['/']" fragment="filter" [queryParams]="gs.url"><img src="../app/img/back.png" alt=""><span>Назад</span></div>
+			<div class="prevPage" (click)="gs.goBack()"><img src="../app/img/back.png" alt=""><span>Назад</span></div>
 			<h1>{{event.time_slot.activity.name}}</h1>
 			<div class="col-1-2 eventCol">
 				<div class="eventPage-provider">{{event.time_slot.activity.provider.name}}</div><img *ngIf="event.time_slot.activity.photo" class="eventPage-photo" src="{{'img/' + event.time_slot.activity.photo + '.jpg'}}" alt=""><img *ngIf="!event.time_slot.activity.photo" class="eventPage-photo" src="../app/img/placeholder.jpg" alt=""><div class="eventPage-info">

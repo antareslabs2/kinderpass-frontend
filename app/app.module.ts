@@ -24,6 +24,12 @@ import { HttpModule, RequestOptions, XHRBackend }   from '@angular/http';
 import { HttpService } from './http.service';
 import { LOCALE_ID } from '@angular/core';
 import { TextMaskModule } from 'angular2-text-mask';
+import { PerfectScrollbarModule } from 'angular2-perfect-scrollbar';
+import { PerfectScrollbarConfigInterface } from 'angular2-perfect-scrollbar';
+ 
+const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true
+};
 
 import {MomentModule} from 'angular2-moment';
 import * as moment from 'moment';
@@ -38,12 +44,13 @@ const appRoutes: Routes =[
     { path: 'registration', loadChildren: '../app/lazy/registration.module#RegistrationModule'},
     { path: 'event/:date/:id', loadChildren: '../app/lazy/event.module#EventModule' },
     { path: 'booking/:id', loadChildren: '../app/lazy/booking.module#BookingModule' },
+    { path: 'bookings', loadChildren: '../app/lazy/bookings.module#BookingsModule' },
     { path: 'contacts', loadChildren: '../app/lazy/contacts.module#ContactsModule' },
     { path: '**', redirectTo: '/'}
 ];
 
 @NgModule({
-    imports: [ BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, BrowserAnimationsModule, RouterModule.forRoot(appRoutes), Ng2PageScrollModule.forRoot(), TextMaskModule, MomentModule ],
+    imports: [ BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, BrowserAnimationsModule, RouterModule.forRoot(appRoutes), Ng2PageScrollModule.forRoot(), TextMaskModule, MomentModule, PerfectScrollbarModule.forRoot(PERFECT_SCROLLBAR_CONFIG) ],
     declarations: [ 
         FooterComponent, 
         HeaderComponent, 

@@ -33,6 +33,10 @@ var http_1 = require("@angular/http");
 var http_service_1 = require("./http.service");
 var core_2 = require("@angular/core");
 var angular2_text_mask_1 = require("angular2-text-mask");
+var angular2_perfect_scrollbar_1 = require("angular2-perfect-scrollbar");
+var PERFECT_SCROLLBAR_CONFIG = {
+    suppressScrollX: true
+};
 var angular2_moment_1 = require("angular2-moment");
 var moment = require("moment");
 moment.locale('ru');
@@ -45,6 +49,7 @@ var appRoutes = [
     { path: 'registration', loadChildren: '../app/lazy/registration.module#RegistrationModule' },
     { path: 'event/:date/:id', loadChildren: '../app/lazy/event.module#EventModule' },
     { path: 'booking/:id', loadChildren: '../app/lazy/booking.module#BookingModule' },
+    { path: 'bookings', loadChildren: '../app/lazy/bookings.module#BookingsModule' },
     { path: 'contacts', loadChildren: '../app/lazy/contacts.module#ContactsModule' },
     { path: '**', redirectTo: '/' }
 ];
@@ -80,7 +85,7 @@ var AppModule = (function () {
 }());
 AppModule = __decorate([
     core_1.NgModule({
-        imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, forms_1.ReactiveFormsModule, http_1.HttpModule, animations_1.BrowserAnimationsModule, router_1.RouterModule.forRoot(appRoutes), ng2_page_scroll_1.Ng2PageScrollModule.forRoot(), angular2_text_mask_1.TextMaskModule, angular2_moment_1.MomentModule],
+        imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, forms_1.ReactiveFormsModule, http_1.HttpModule, animations_1.BrowserAnimationsModule, router_1.RouterModule.forRoot(appRoutes), ng2_page_scroll_1.Ng2PageScrollModule.forRoot(), angular2_text_mask_1.TextMaskModule, angular2_moment_1.MomentModule, angular2_perfect_scrollbar_1.PerfectScrollbarModule.forRoot(PERFECT_SCROLLBAR_CONFIG)],
         declarations: [
             footer_component_1.FooterComponent,
             header_component_1.HeaderComponent,

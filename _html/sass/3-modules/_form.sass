@@ -11,358 +11,459 @@
 	.wrapper 
 		overflow: hidden
 		
-	.week
-		text-align: center
-		position: relative
-		&-day
-			display: inline-block
-			width: 13%
-			padding: 25px 0 15px
-			background-color: #8e7dba
-			transition: .3s
-			cursor: pointer
-			border-top-left-radius: 20px
-			border-top-right-radius: 20px
+.week
+	text-align: center
+	position: relative
+	&-day
+		display: inline-block
+		width: 13%
+		padding: 25px 0 15px
+		background-color: #8e7dba
+		transition: .3s
+		cursor: pointer
+		border-top-left-radius: 20px
+		border-top-right-radius: 20px
+		.desktop
+			display: block
+		.mobile
+			display: none
+		+bp(600px)
+			border-bottom: 5px solid #8e7dba
+			width: 12%
+			&.filters-option-active
+				border-bottom: 5px solid #1cbbb4
+				padding: 15px 0
 			.desktop
-				display: block
-			.mobile
 				display: none
-			+bp(600px)
-				border-bottom: 5px solid #8e7dba
-				width: 12%
-				&.filters-option-active
-					border-bottom: 5px solid #1cbbb4
-					padding: 15px 0
-				.desktop
-					display: none
-				.mobile
-					display: block
-					span
-						font-size: 12px
+			.mobile
+				display: block
+				span
+					font-size: 12px
+		&:hover
+			background-color: #1cbbb4
+		+bp($sm)
 			&:hover
-				background-color: #1cbbb4
-			+bp($sm)
-				&:hover
-					background-color: #8e7dba
-			p
-				font-size: 18px
-				+bp(1024px)
-					font-size: 16px
+				background-color: #8e7dba
+		p
+			font-size: 18px
+			+bp(1024px)
+				font-size: 16px
 
-			span
-				font-size: 24px
-				+bp(1024px)
-					font-size: 20px
+		span
+			font-size: 24px
+			+bp(1024px)
+				font-size: 20px
 
-		.lastWeek,
-		.nextWeek
+	.lastWeek,
+	.nextWeek
+		position: absolute
+		border-radius: 50%
+		background-color: transparentize(#FFF, .9)
+		top: 15px
+		width: 70px
+		height: 70px
+		cursor: pointer
+		transition: .5s
+		overflow: hidden
+		+bp($sm)
+			width: 50px
+			height: 50px
+			top: 25%
+		&:hover,
+		&:focus,
+		&:active
+			background-color: #FFF
+		
+		&:after
+			background-image: url("../img/arrowWeek.png")
+			background-repeat: no-repeat
+			background-position: 50% 50%
+			background-size: 60px
 			position: absolute
-			border-radius: 50%
-			background-color: transparentize(#FFF, .9)
-			top: 15px
-			width: 70px
-			height: 70px
-			cursor: pointer
-			transition: .5s
-			overflow: hidden
+			width: 100%
+			height: 100%
+			top: 0
+			left: 0
+			content: ''
 			+bp($sm)
-				width: 50px
-				height: 50px
-				top: 25%
-			&:hover,
-			&:focus,
-			&:active
-				background-color: #FFF
-			
+				background-image: url("../img/mobile/arrowFilters.png")
+				background-size: 26px
+				background-position: -25% 50%
+
+	.lastWeek
+		left: -83px
+		+bp($md)
+			left: -70px
 			&:after
-				background-image: url("../img/arrowWeek.png")
-				background-repeat: no-repeat
-				background-position: 50% 50%
-				background-size: 60px
-				position: absolute
-				width: 100%
-				height: 100%
-				top: 0
-				left: 0
-				content: ''
-				+bp($sm)
-					background-image: url("../img/mobile/arrowFilters.png")
-					background-size: 26px
-					background-position: -25% 50%
+				left: 35px
+		+bp($sm)
+			left: -30px
+			&:after
+				left: 25px
 
-		.lastWeek
-			left: -83px
-			+bp($md)
-				left: -70px
-				&:after
-					left: 35px
-			+bp($sm)
-				left: -30px
-				&:after
-					left: 25px
+	.nextWeek
+		right: -83px
+		transform: scale(-1, 1)
+		+bp($md)
+			right: -70px
+			&:after
+				left: 35px
+		+bp($sm)
+			right: -30px
+			&:after
+				left: 25px
+				
+.filters
+	&-item
+		background-color: #9a8ac1
+		border-radius: 20px
+		padding: 20px
+		display: inline-block
+		vertical-align: top
+		margin-right: 1%
+		text-align: center
+		margin-bottom: 10px
+		+bp($sm)
+			padding: 15px
+		
+		span
+			display: inline-block
 
-		.nextWeek
-			right: -83px
-			transform: scale(-1, 1)
-			+bp($md)
-				right: -70px
-				&:after
-					left: 35px
+	&-option
+		font-size: 18px
+		text-decoration: underline
+		padding: 15px
+		background-color: transparent
+		transition: .3s
+		border-radius: 15px
+		cursor: pointer
+		margin-right: 5px
+		position: relative
+		+bp($sm)
+			margin: 0
+			padding: 10px
+		&:hover
+			text-decoration: none
+		
+		&-active
+			text-decoration: none
+			background-color: #1cbbb4
+
 			+bp($sm)
-				right: -30px
-				&:after
-					left: 25px
-					
-	.filters
+				background-color: #1cbbb4 !important
+				border-bottom: 5px solid #1cbbb4
+
+	&-text
+		font-size: 12px
+		margin: 0 5%
+
+	&-location
+		width: 33%
+		+bp($md)
+			width: 100%
+
+		select[name=districts]
+			visibility: hidden
+			display: none
+			&.vis
+				visibility: visible
+				display: block
+		.locations
+			display: inline-block
+			span
+				display: inline
+
+	&-time
+		width: 28%
+		+bp($md)
+			width: 100%
+
+	&-age
+		width: 37%
+		margin-right: 0
+		+bp($md)
+			width: 100%
+
+	&-category
+		display: block
+		margin-right: 0
+		p
+			padding-top: 10px
+			font-size: 14px
+			line-height: 15px
+			color: rgba(252, 252, 252, 0.84)
+			+bp($sm)
+				font-size: 12px
+	
+	&__title
+		position: absolute
+		width: 100%
+		text-align: center
+		left: 0
+		top: 0
+		z-index: 2
+	
+	&__list
+		position: absolute
+		top: 20px
+		left: 35px
+		width: 315px
+		background-color: $white
+		z-index: 1
+		text-align: left
+		border: 2px solid rgb(225, 225, 225)
+		border-bottom-left-radius: 12px
+		border-bottom-right-radius: 12px
+		box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.47)
+		transition: all .3s
+		overflow: hidden
+		visibility: hidden
+		
+		&-wrap
+			position: relative
+			height: 52px
+			z-index: 1
+
 		&-item
-			background-color: #9a8ac1
-			border-radius: 20px
-			padding: 20px
+			padding: 10px 15px
+			font-size: 0
+			cursor: pointer
+			user-select: none
+			&-title
+				font-size: 18px
+				font-family: 'matias'
+				color: #808080
+				line-height: 1.1
+				display: inline-block
+				vertical-align: middle
+				width: calc(100% - 17px)
+				padding-left: 12px
+
+			&-checkbox
+				display: inline-block
+				vertical-align: middle
+				width: 17px
+				height: 17px
+				border-radius: 2px
+				border: 1px solid #808080
+			&-selected
+				background-color: #02ba61
+				border-color: #02ba61
+				position: relative
+				&:after
+					position: absolute
+					top: 50%
+					left: 50%
+					width: 7px
+					height: 5px
+					border: 2px solid $white
+					border-top: none
+					border-right: none
+					content: ''
+					margin-top: -6px
+					margin-left: -5px
+					transform: rotate(-45deg)
+
+			&:nth-child(even)
+				background-color: #fafafa
+	
+		&-btns
+			padding: 11px 22px
+			text-align: center
+			.btn
+				font-size: 16px
+				text-transform: none
+				width: 48%
+				margin-right: 2%
+				&-reset-line
+					padding: 6px 0
+
+	&__scroll
+		padding-top: 0 !important
+		height: 370px !important
+		overflow: hidden !important
+		&-body
+			margin-right: 25px
+
+.selectedDay
+	text-align: center
+	border-top-left-radius: 30px
+	border-top-right-radius: 30px
+	background-color: #1cbbb4
+	padding: 25px 0
+	font-size: 30px
+	font-family: "rounds"
+	+bp($sm)
+		font-size: 20px
+
+.results
+	background-color: #FFF
+	padding: 30px 30px 15px
+	border-bottom-left-radius: 30px
+	border-bottom-right-radius: 30px
+	min-height: 87px
+	+bp($sm)
+		padding: 10px
+	
+	&-notFound
+		color: #8e7dba
+		text-align: center
+		font-size: 24px
+		font-family: 'rounds'
+		+bp($sm)
+			font-size: 16px
+			margin: 5% 0
+
+	&-item
+		color: #8e7dba
+		margin: 10px 0 50px
+
+		&-image
 			display: inline-block
 			vertical-align: top
-			margin-right: 1%
-			text-align: center
-			margin-bottom: 10px
-			+bp($sm)
-				padding: 15px
-			
-			span
-				display: inline-block
-
-		&-option
-			font-size: 18px
-			text-decoration: underline
-			padding: 15px
-			background-color: transparent
-			transition: .3s
-			border-radius: 15px
+			width: 20%
 			cursor: pointer
-			margin-right: 5px
 			+bp($sm)
-				margin: 0
-				padding: 10px
-			&:hover
-				text-decoration: none
-			
-			&-active
-				text-decoration: none
-				background-color: #1cbbb4
-
-				+bp($sm)
-					background-color: #1cbbb4 !important
-					border-bottom: 5px solid #1cbbb4
-
-		&-text
-			font-size: 12px
-			margin: 0 5%
-	
-		&-location
-			width: 33%
-			+bp($sm)
+				width: 40%
+				float: left
+				margin-right: 10px
+				margin-bottom: 10px
+			img
 				width: 100%
-			.locations
-				span
-					display: inline
+				border-radius: 20px
 
-		&-time
-			width: 39%
-			+bp($sm)
-				width: 100%
 
-		&-age
+		&-description
+			display: inline-block
+			vertical-align: top
 			width: 60%
-			margin-right: 0
+			padding: 0 25px
+			position: relative
+			min-height: 140px
 			+bp($sm)
+				font-size: 16px
+				padding: 0 5px
+				display: block
 				width: 100%
 
-		&-category
-			display: block
-			margin-right: 0
-			p
-				padding-top: 10px
-				font-size: 14px
-				line-height: 15px
-				color: rgba(252, 252, 252, 0.84)
-				+bp($sm)
-					font-size: 12px
-					
-	.selectedDay
-		text-align: center
-		border-top-left-radius: 30px
-		border-top-right-radius: 30px
-		background-color: #1cbbb4
-		padding: 25px 0
-		font-size: 30px
-		font-family: "rounds"
-		+bp($sm)
-			font-size: 20px
-
-	.results
-		background-color: #FFF
-		padding: 30px 30px 15px
-		border-bottom-left-radius: 30px
-		border-bottom-right-radius: 30px
-		min-height: 87px
-		+bp($sm)
-			padding: 10px
-		
-		&-notFound
-			color: #8e7dba
-			text-align: center
+		&-title
 			font-size: 24px
 			font-family: 'rounds'
+			cursor: pointer
+			text-decoration: none
+			color: inherit
 			+bp($sm)
 				font-size: 16px
-				margin: 5% 0
 
-		&-item
-			color: #8e7dba
-			margin: 10px 0 50px
+		&-recommendation
+			font-size: 16px
+			margin: 15px 0
+			+bp($sm)
+				font-size: 14px
+				min-height: 25px
 
-			&-image
-				display: inline-block
-				vertical-align: top
-				width: 20%
-				cursor: pointer
-				+bp($sm)
-					width: 40%
-					float: left
-					margin-right: 10px
-					margin-bottom: 10px
-				img
-					width: 100%
-					border-radius: 20px
-
-
-			&-description
-				display: inline-block
-				vertical-align: top
-				width: 60%
-				padding: 0 25px
-				position: relative
-				min-height: 140px
-				+bp($sm)
-					font-size: 16px
-					padding: 0 5px
-					display: block
-					width: 100%
-
-			&-title
-				font-size: 24px
-				font-family: 'rounds'
-				cursor: pointer
-				+bp($sm)
-					font-size: 16px
-
-			&-recommendation
+		&-location
+			font-size: 20px
+			width: 100%
+			padding-left: 40px
+			padding-top: 5px
+			background-image: url("../img/location.png")
+			background-repeat: no-repeat
+			background-position: center left
+			background-size: 23px
+			min-height: 30px
+			line-height: 30px
+			+bp($sm)
 				font-size: 16px
-				margin: 15px 0
-				+bp($sm)
-					font-size: 14px
-					min-height: 25px
+				line-height: 20px
+				background-position: 3px 50%
+				clear: both
 
-			&-location
-				font-size: 20px
+		&-cost
+			display: inline-block
+			vertical-align: top
+			width: 20%
+			text-align: center
+			padding-left: 10px
+			+bp($sm)
+				display: block
 				width: 100%
+				text-align: left
+				padding: 0 5px
+			.btn	
+				width: 100%
+				font-size: 18px
+				+bp(950px)
+					font-size: 16px
+
+				+bp(900px)
+					font-size: 14px
+
+				+bp(700px)
+					font-size: 12px
+					
+				+bp($sm)
+					vertical-align: middle
+					text-align: center
+					font-size: 18px
+
+		&-time
+			+bp($sm)
+				margin: 10px 0
+				display: inline-block
+				vertical-align: middle
+			span
+				font-size: 24px
 				padding-left: 40px
-				padding-top: 5px
-				background-image: url("../img/location.png")
+				background-image: url("../img/time.png")
 				background-repeat: no-repeat
 				background-position: center left
-				background-size: 23px
+				background-size: 29px
 				min-height: 30px
 				line-height: 30px
+
+		&-price
+			margin: 10px 0
+			+bp($sm)
+				float: right
+			span
+				color: #ea6fe3
+				font-size: 32px
+				padding-right: 25px
+				background-image: url("../img/money.png")
+				background-repeat: no-repeat
+				background-position: 100% 45%
+				background-size: 17px
+				min-height: 35px
+				line-height: 40px
 				+bp($sm)
-					font-size: 16px
-					line-height: 20px
-					background-position: 3px 50%
-					clear: both
-
-			&-cost
-				display: inline-block
-				vertical-align: top
-				width: 20%
-				text-align: center
-				padding-left: 10px
-				+bp($sm)
-					display: block
-					width: 100%
-					text-align: left
-					padding: 0 5px
-				.btn	
-					width: 100%
-					font-size: 18px
-					+bp(950px)
-						font-size: 16px
-
-					+bp(900px)
-						font-size: 14px
-
-					+bp(700px)
-						font-size: 12px
-						
-					+bp($sm)
-						vertical-align: middle
-						text-align: center
-						font-size: 18px
-
-			&-time
-				+bp($sm)
-					margin: 10px 0
-					display: inline-block
-					vertical-align: middle
-				span
 					font-size: 24px
-					padding-left: 40px
-					background-image: url("../img/time.png")
-					background-repeat: no-repeat
-					background-position: center left
-					background-size: 29px
-					min-height: 30px
 					line-height: 30px
+					background-size: 11px
+					padding-right: 20px
+				&.results-item-price-old
+					color: #666
+					background: none
+					text-decoration: line-through
+					padding-right: 5px
+					font-size: 22px
 
-			&-price
-				margin: 10px 0
-				+bp($sm)
-					float: right
-				span
-					color: #ea6fe3
-					font-size: 32px
-					padding-right: 25px
-					background-image: url("../img/money.png")
-					background-repeat: no-repeat
-					background-position: 100% 45%
-					background-size: 17px
-					min-height: 35px
-					line-height: 40px
-					+bp($sm)
-						font-size: 24px
-						line-height: 30px
-						background-size: 11px
-						padding-right: 20px
-					&.results-item-price-old
-						color: #666
-						background: none
-						text-decoration: line-through
-						padding-right: 5px
-						font-size: 22px
+		&-discount
+			margin-bottom: 10px
+			color: #02ba61
+			text-align: center
 
-			&-discount
-				margin-bottom: 10px
-				color: #02ba61
-				text-align: center
-	
-	.moreResults
-		text-align: center
-		margin-top: 35px
-		color: #fff
-		cursor: pointer
-		.btn
-			padding: 10px
-			background-color: #1cbbb4
-			text-transform: none
-			&:hover
-				background-color: #1aa9a2
+.moreResults
+	text-align: center
+	margin-top: 35px
+	color: #fff
+	cursor: pointer
+	.btn
+		padding: 10px
+		background-color: #1cbbb4
+		text-transform: none
+		&:hover
+			background-color: #1aa9a2
 .bottomHelper
 	height: 200px
 	background-image: url("../img/bottomHelper.png")

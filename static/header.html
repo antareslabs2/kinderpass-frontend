@@ -44,7 +44,7 @@
 			<div *ngIf="gs.userInfo.bookings.length" class="user-menu-item">
 				<div class="user-menu-title">
 					<img src="../app/img/ticketLK.png" alt="">
-					<p>Брони</p>
+					<p (click)="toogleLK()"><a routerLink="bookings">Брони</a></p>
 				</div>
 				<div class="user-menu-booking">
 					<p *ngFor="let book of gs.userInfo.bookings">

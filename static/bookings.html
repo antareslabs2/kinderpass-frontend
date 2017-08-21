@@ -1,0 +1,46 @@
+<div class="innerpage">
+	<div class="wrapper">
+		<div class="eventPage">
+			<div class="prevPage" (click)="gs.goBack()"><img src="../app/img/back.png" alt=""><span>Назад</span></div>
+			<h1>ВАШИ БРОНИРОВАНИЯ</h1>
+			<div class="bookings">
+				<div class="results-item" *ngFor="let booking of bookings">
+					<div class="bookings__info">
+						<div class="results-item-image" [routerLink]="['/booking', booking.id]" >
+							<div *ngIf="booking.days_to_event > 0 || booking.time_to_event > 0" class="eventPage-provider">Через <ng-container *ngIf="booking.days_to_event > 0">{{booking.days_to_event}} {{gs.declOfNum(booking.days_to_event, ['день', 'дня', 'дней'])}}</ng-container><ng-container *ngIf="booking.days_to_event > 0 && booking.time_to_event > 0"> и </ng-container><ng-container *ngIf="booking.time_to_event > 0">{{booking.time_to_event}} {{gs.declOfNum(booking.time_to_event, ['час', 'часа', 'часов'])}}</ng-container></div>
+							<div *ngIf="booking.days_to_event <= 0 && booking.time_to_event <= 0" class="eventPage-provider">Мероприятие началось</div>
+							<img *ngIf="booking.time_slot.activity.photo" src="{{'img/s' + booking.time_slot.activity.photo + '.jpg'}}" alt="">
+							<img *ngIf="!booking.time_slot.activity.photo" src="../app/img/placeholder.jpg" alt=""><div class="eventPage-info"></div>
+						</div><!-- 
+					 --><div class="results-item-description">
+							<div>{{booking.time_slot.activity.name}}</div>
+							<div class="eventPage-address">{{booking.time_slot.location.address}}</div>
+							<div class="eventPage-date">{{booking.time_slot.date| amDateFormat :'DD MMMM YYYY, dddd'}}</div>
+							<div class="eventPage-time dib">{{booking.time_slot.start_time}}-{{booking.time_slot.end_time}}</div>
+							<div class="eventPage-duration dib">Длительность: {{booking.time_slot.activity.duration}} минут</div>
+						</div>
+						<div *ngIf="booking.time_slot.activity.extra" class="eventPage-additionalInfo">Важно: <span [innerHtml]="booking.time_slot.activity.extra"></span></div> 
+					</div><!--
+				 --><div class="ticket">
+						<div class="ticket__header">
+							<div class="eventPage-title">Билет</div>
+							<div class="bookings__tickets">
+								<div class="bookings__tickets-title">{{booking.seats}} <span class="bookings__tickets-sep">х</span> Обычный билет:</div>
+								<div class="bookings__tickets-price">
+									{{booking.seats}} <span class="bookings__tickets-sep">х</span> {{booking.time_slot.price}} <span class="bookings__tickets-sep">=</span> {{booking.seats*booking.time_slot.price}}
+								</div>
+							</div>
+							<div class="bookings__tickets-total">
+								Итого: {{booking.seats*booking.time_slot.price}}
+							</div>
+						</div><div class="ticket__helper"></div><div class="ticket__footer">
+							<button (click)="makingBooking(booking.booking_id)" class="btn">Отменить бронь</button>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

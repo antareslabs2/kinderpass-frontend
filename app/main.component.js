@@ -18,6 +18,7 @@ var app_global_service_1 = require("./app.global.service");
 var router_1 = require("@angular/router");
 var ng2_page_scroll_1 = require("ng2-page-scroll");
 var platform_browser_1 = require("@angular/platform-browser");
+var animations_1 = require("@angular/animations");
 var moment = require("moment");
 var $ = require("jquery");
 var MainComponent = (function () {
@@ -59,56 +60,34 @@ var MainComponent = (function () {
             'age_to': null,
             'time_from': 8,
             'time_to': 23,
-            'districts': {},
-            'metro': {}
+            'districts': [],
+            'metro': []
         };
-        this.districts = {};
-        this.metro = {};
-        this.districtsNames = ["Адмиралтейский", "Василеостровский", "Выборгский", "Калининский", "Кировский", "Колпинский", "Красногвардейский", "Красносельский", "Кронштадтский", "Курортный", "Московский", "Невский", "Петроградский", "Петродворцовый", "Приморский", "Пушкинский", "Фрунзенский", "Центральный", "Павловский", "Ломоносовский"];
-        this.metroStations = ["Ладожская", "Проспект Большевиков", "Улица Дыбенко", "Елизаровская", "Ломоносовская", "Пролетарская", "Обухово", "Рыбацкое", "Новочеркасская", "Лиговский проспект", "Площадь Александра Невского 2", "Площадь Александра Невского 1", "Бухарестская", "Международная", "Волковская", "Обводный канал 1", "Фрунзенская", "Московские ворота", "Электросила", "Парк Победы", "Московская", "Звездная", "Купчино", "Звенигородская", "Пушкинская", "Владимировская", "Достоевская", "Спасская", "Маяковская", "Гостиный двор", "Площадь Восстания", "Садовая", "Сенная площадь", "Технологический институт 1", "Технологический институт 2", "Невский проспект", "Балтийская", "Кировский завод", "Нарвская", "Автово", "Ленинский проспект", "Проспект Ветеранов", "Адмиралтейская", "Василеостровская", "Приморская", "Спортивная", "Чкаловская", "Горьковская", "Петроградская", "Черная речка", "Пионерская", "Удельная", "Крестовский остров", "Комендантский проспект", "Старая деревня", "Озерки", "Парнас", "Проспект просвещения", "Площадь Мужества", "Политехническая", "Академическая", "Гражданский проспект", "Девяткино", "Чернышевская", "Площадь Ленина", "Выборгская", "Лесная"];
+        this.districts = [];
+        this.metro = [];
         this.categories = [{ id: 0, name: "Все" }];
+        this.showDistricts = false;
+        this.selectedDistricts = [];
     }
     MainComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.gs.innerpage = false;
-        for (var i in this.districtsNames) {
-            var tmp = {};
-            this.districts[this.districtsNames[i]] = {
-                'selected': false,
-                'active': false
-            };
-        }
         this.httpService.getDistricts().subscribe(function (data) {
             for (var i in data.districts) {
-                if (_this.districts.hasOwnProperty(data.districts[i].name)) {
-                    _this.districts[data.districts[i].name].active = true;
-                    _this.districts[data.districts[i].name].id = data.districts[i].id;
-                    if (_this.params.districts.id && _this.params.districts.id.indexOf(data.districts[i].id) != -1) {
-                        _this.districts[data.districts[i].name].selected = true;
-                        _this.params.districts.name.push(data.districts[i].name);
-                    }
+                if (_this.params.districts.indexOf(data.districts[i].id) != -1) {
+                    data.districts[i].selected = true;
+                    _this.selectedDistricts.push(data.districts[i].name);
                 }
             }
+            _this.districts = data.districts;
         });
-        for (var i in this.metroStations) {
-            var tmp = {};
-            this.metro[this.metroStations[i]] = {
-                'selected': false,
-                'active': false
-            };
-        }
-        this.httpService.getMetro().subscribe(function (data) {
-            for (var i in data.metro) {
-                if (_this.metro.hasOwnProperty(data.metro[i].name)) {
-                    _this.metro[data.metro[i].name].active = true;
-                    _this.metro[data.metro[i].name].id = data.metro[i].id;
-                    if (_this.params.metro.id && _this.params.metro.id.indexOf(data.metro[i].id) != -1) {
-                        _this.metro[data.metro[i].name].selected = true;
-                        _this.params.metro.name.push(data.metro[i].name);
-                    }
-                }
-            }
-        });
+        // this.httpService.getMetro().subscribe((data:any) => {
+        // 	for(let i in data.metro) {
+        // 		if (this.params.metro.indexOf(data.metro[i].id) != -1)
+        // 			data.metro[i].selected = true;
+        // 	}
+        // 	this.metro = data.metro;
+        // });
         if (location.search) {
             var search = location.search.substring(1);
             var vars = search.split('&');
@@ -124,12 +103,10 @@ var MainComponent = (function () {
                     this.curCategory = parseInt(pair[1]);
                 }
                 else if (pair[0] == 'metro_ids') {
-                    this.params.metro.id = decodeURIComponent(pair[1]).split(',').map(Number);
-                    this.params.metro.name = [];
+                    this.params.metro = decodeURIComponent(pair[1]).split(',').map(Number);
                 }
                 else if (pair[0] == 'district_ids') {
-                    this.params.districts.id = decodeURIComponent(pair[1]).split(',').map(Number);
-                    this.params.districts.name = [];
+                    this.params.districts = decodeURIComponent(pair[1]).split(',').map(Number);
                 }
             }
         }
@@ -238,12 +215,17 @@ var MainComponent = (function () {
             getParams.time_from = this.params.time_from;
         if (this.params.time_to != null)
             getParams.time_to = this.params.time_to;
-        if (this.params.districts.id && this.params.districts.id.length) {
-            getParams.district_ids = this.params.districts.id;
+        if (this.params.districts.length) {
+            for (var key in this.params.districts) {
+                if (getParams.district_ids)
+                    getParams.district_ids += ',' + this.params.districts[key];
+                else
+                    getParams.district_ids = this.params.districts[key];
+            }
         }
-        if (this.params.metro.id && this.params.metro.id.length) {
-            getParams.metro_ids = this.params.metro.id;
-        }
+        // if (this.params.metro) {
+        // 	getParams.metro_ids = this.params.metro;
+        // }
         if (window.location.hash)
             this.hash = window.location.hash;
         this.gs.url = {};
@@ -362,30 +344,98 @@ var MainComponent = (function () {
         }
         this.events = data.activities;
     };
-    MainComponent.prototype.districtsFilter = function (districts) {
-        this.params.districts = districts;
-        this.params.metro = {};
+    MainComponent.prototype.districtsFilter = function (ind) {
+        if (this.params.districts.length) {
+            var index = this.params.districts.indexOf(this.districts[ind].id);
+            if (index == -1) {
+                this.params.districts.push(this.districts[ind].id);
+                this.selectedDistricts.push(this.districts[ind].name);
+            }
+            else {
+                this.params.districts.splice(index, 1);
+                index = this.selectedDistricts.indexOf(this.districts[ind].name);
+                this.selectedDistricts.splice(index, 1);
+            }
+        }
+        else {
+            this.params.districts.push(this.districts[ind].id);
+            this.selectedDistricts.push(this.districts[ind].name);
+        }
+        this.districts[ind].selected = !this.districts[ind].selected;
+        // this.params.metro = {};
+        this.eventsFilter();
+    };
+    MainComponent.prototype.resetDistrictFilter = function () {
+        this.params.districts = [];
+        for (var ind in this.districts) {
+            this.districts[ind].selected = false;
+        }
+        this.selectedDistricts = [];
         this.eventsFilter();
     };
     MainComponent.prototype.metroFilter = function (metro) {
-        this.params.districts = {};
+        this.params.districts = [];
         this.params.metro = metro;
         this.eventsFilter();
     };
-    MainComponent.prototype.declOfNum = function (number, titles) {
-        var cases = [2, 0, 1, 1, 1, 2];
-        return titles[(number % 100 > 4 && number % 100 < 20) ? 2 : cases[(number % 10 < 5) ? number % 10 : 5]];
+    MainComponent.prototype.toggleLocations = function () {
+        if (!device.desktop()) {
+            $('select[name="districts"]').addClass('vis');
+            setTimeout(function () {
+                $('#districts').focus();
+            }, 1000);
+        }
+        else
+            this.showDistricts = !this.showDistricts;
     };
-    MainComponent.prototype.openCourse = function (course) {
-        this.router.navigateByUrl("/event/" + this.curDate + "/" + course.id);
+    MainComponent.prototype.change = function (options) {
+        var selectedValues = Array.apply(null, options)
+            .filter(function (option) { return option.selected; })
+            .map(function (option) { return +option.value.split(': ')[1]; });
+        this.params.districts = selectedValues;
+        this.eventsFilter();
     };
     return MainComponent;
 }());
+__decorate([
+    core_1.ViewChild('select'),
+    __metadata("design:type", Object)
+], MainComponent.prototype, "myInput", void 0);
 MainComponent = __decorate([
     core_1.Component({
         selector: 'main-app',
         templateUrl: "../static/main.html?v=" + new Date().getTime(),
-        providers: [api_service_1.Api]
+        providers: [api_service_1.Api],
+        animations: [
+            animations_1.trigger('slideToggleH', [
+                animations_1.state('1', animations_1.style({
+                    height: '450px',
+                    marginTop: "20px",
+                    visibility: "visible"
+                })),
+                animations_1.state('0', animations_1.style({
+                    height: 0,
+                    marginTop: 0,
+                    visibility: "hidden"
+                })),
+                animations_1.transition('1 => 0', animations_1.animate(250)),
+                animations_1.transition('0 => 1', animations_1.animate('0.2s 250ms ease-out'))
+            ]),
+            animations_1.trigger('slideToggleW', [
+                animations_1.state('1', animations_1.style({
+                    width: "315px",
+                    left: "35px",
+                    backgroundColor: "#1cbbb4"
+                })),
+                animations_1.state('0', animations_1.style({
+                    width: "100%",
+                    left: "0",
+                    backgroundColor: "#9a8ac1"
+                })),
+                animations_1.transition('1 => 0', animations_1.animate('0.2s 250ms ease-out')),
+                animations_1.transition('0 => 1', animations_1.animate(250))
+            ])
+        ]
     }),
     __param(4, core_1.Inject(platform_browser_1.DOCUMENT)),
     __metadata("design:paramtypes", [api_service_1.Api, router_1.Router, app_global_service_1.GlobalService, ng2_page_scroll_1.PageScrollService, Object])

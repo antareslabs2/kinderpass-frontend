@@ -15,12 +15,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var api_service_1 = require("./api.service");
 var forms_1 = require("@angular/forms");
+var common_1 = require("@angular/common");
 var moment = require("moment");
 var GlobalService = (function () {
-    function GlobalService(httpService, fb, _window) {
+    function GlobalService(httpService, fb, _window, _location) {
         this.httpService = httpService;
         this.fb = fb;
         this._window = _window;
+        this._location = _location;
         this.userInfo = {};
         this.isAuthenticated = false;
         this.popupName = '';
@@ -34,6 +36,7 @@ var GlobalService = (function () {
         this.newSubscription = false;
         this.policy = false;
         this.url = {};
+        this.fragment = '';
     }
     GlobalService.prototype.openPopup = function (name) {
         this.popupName = name;
@@ -124,16 +127,6 @@ var GlobalService = (function () {
                 'policy': [this.policy, [forms_1.Validators.required, forms_1.Validators.pattern('true')]
                 ]
             });
-            if (yaCounter44744683) {
-                console.log(this.userInfo.id);
-                yaCounter44744683.userParams({ UserId: this.userInfo.id, UserName: this.userInfo.name });
-            }
-            ga('set', 'userId', this.userInfo.id);
-            ga('send', 'pageview', '/virtual/auth');
-            if (this._window.location.hostname == 'kinderpass.ru')
-                ga('send', 'event', 'Main', 'user_auth_' + this.userInfo.id, 'Prod');
-            else if (this._window.location.hostname == 'front.kinderpass.ru')
-                ga('send', 'event', 'Main', 'user_auth_' + this.userInfo.id, 'Test');
             if (!this.userInfo.phone || !this.userInfo.email) {
                 this.popupName = 'updateInfo';
                 this.policy = false;
@@ -203,12 +196,19 @@ var GlobalService = (function () {
         else if (this._window.location.hostname == 'front.kinderpass.ru')
             ga('send', 'event', 'Main', 'OpenAuthPopup', 'Test');
     };
+    GlobalService.prototype.declOfNum = function (number, titles) {
+        var cases = [2, 0, 1, 1, 1, 2];
+        return titles[(number % 100 > 4 && number % 100 < 20) ? 2 : cases[(number % 10 < 5) ? number % 10 : 5]];
+    };
+    GlobalService.prototype.goBack = function () {
+        this._location.back();
+    };
     return GlobalService;
 }());
 GlobalService = __decorate([
     core_1.Injectable(),
     __param(2, core_1.Inject(Window)),
-    __metadata("design:paramtypes", [api_service_1.Api, forms_1.FormBuilder, Window])
+    __metadata("design:paramtypes", [api_service_1.Api, forms_1.FormBuilder, Window, common_1.Location])
 ], GlobalService);
 exports.GlobalService = GlobalService;
 //# sourceMappingURL=app.global.service.js.map

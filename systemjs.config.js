@@ -30,7 +30,8 @@
       'angular2-text-mask': 'npm:angular2-text-mask/dist/angular2TextMask.js',
       'rxjs': 'npm:rxjs',
       'moment': 'npm:moment/min/moment-with-locales.min.js',
-      'angular2-moment': 'npm:angular2-moment'
+      'angular2-moment': 'npm:angular2-moment',
+      'angular2-perfect-scrollbar': 'npm:angular2-perfect-scrollbar/bundles/angular2-perfect-scrollbar.umd.js'
     },
     // пакеты, которые указывают загрузчику System, как загружать файлы без имени и расширения
     packages: {

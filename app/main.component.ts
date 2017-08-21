@@ -1,21 +1,53 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { Api } from './api.service';
 import { GlobalService } from './app.global.service';
 import { Router } from "@angular/router";
 import { PageScrollConfig, PageScrollService, PageScrollInstance } from 'ng2-page-scroll';
 import {DOCUMENT} from '@angular/platform-browser';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 import * as moment from 'moment';
 import * as $ from 'jquery';
+declare var device: any;
 
 @Component({
 	selector: 'main-app',
 	templateUrl: `../static/main.html?v=${new Date().getTime()}`,
-	providers: [Api]
+	providers: [Api],
+	animations: [
+		trigger('slideToggleH', [
+			state('1' , style({ 
+				height: '450px', 
+				marginTop: "20px",
+				visibility: "visible"
+			})),
+			state('0', style({ 
+				height: 0,
+				marginTop: 0,
+				visibility: "hidden"
+			})),
+			transition('1 => 0', animate(250)),
+			transition('0 => 1', animate('0.2s 250ms ease-out'))
+		]),
+		trigger('slideToggleW', [
+			state('1' , style({ 
+				width: "315px", 
+				left: "35px", 
+				backgroundColor: "#1cbbb4"
+			})),
+			state('0', style({ 
+				width: "100%", 
+				left: "0", 
+				backgroundColor: "#9a8ac1"
+			})),
+			transition('1 => 0', animate('0.2s 250ms ease-out')),
+			transition('0 => 1', animate(250))
+		])
+	]
 })
 
 export class MainComponent implements OnInit { 
-	
+	@ViewChild('select') myInput: any;
 	categories:any;
 	events:any;
 	dates:any[];
@@ -31,17 +63,17 @@ export class MainComponent implements OnInit {
 	selectedDate:any;
 	msg: string;
 
-	districtsNames:string[];
-	metroStations:string[];
-
-	metro:any;
-	districts: any;
+	metro: any[];
+	districts: any[];
+	selectedDistricts: string[];
 	
 	curDate:string;
 	curCategory : number;
 	params:any;
 
 	hash: string;
+
+	showDistricts : boolean;
 
 	constructor(private httpService: Api, private router:Router, private gs:GlobalService, private pageScrollService: PageScrollService, @Inject(DOCUMENT) private document: any){
 		this.hash = '';
@@ -77,60 +109,37 @@ export class MainComponent implements OnInit {
 			'age_to': null,
 			'time_from': 8,
 			'time_to': 23,
-			'districts': {},
-			'metro': {}
+			'districts': [],
+			'metro': []
 		};
-		this.districts = {};
-		this.metro = {};
-		this.districtsNames = [ "Адмиралтейский", "Василеостровский", "Выборгский", "Калининский", "Кировский", "Колпинский", "Красногвардейский", "Красносельский", "Кронштадтский", "Курортный", "Московский", "Невский", "Петроградский", "Петродворцовый", "Приморский", "Пушкинский", "Фрунзенский", "Центральный", "Павловский", "Ломоносовский" ];
-		this.metroStations = [ "Ладожская", "Проспект Большевиков", "Улица Дыбенко", "Елизаровская", "Ломоносовская", "Пролетарская", "Обухово", "Рыбацкое", "Новочеркасская", "Лиговский проспект", "Площадь Александра Невского 2", "Площадь Александра Невского 1", "Бухарестская", "Международная", "Волковская", "Обводный канал 1", "Фрунзенская", "Московские ворота", "Электросила", "Парк Победы", "Московская", "Звездная", "Купчино", "Звенигородская", "Пушкинская", "Владимировская", "Достоевская", "Спасская", "Маяковская", "Гостиный двор", "Площадь Восстания", "Садовая", "Сенная площадь", "Технологический институт 1", "Технологический институт 2", "Невский проспект", "Балтийская", "Кировский завод", "Нарвская", "Автово", "Ленинский проспект", "Проспект Ветеранов", "Адмиралтейская", "Василеостровская", "Приморская", "Спортивная", "Чкаловская", "Горьковская", "Петроградская", "Черная речка", "Пионерская", "Удельная", "Крестовский остров", "Комендантский проспект", "Старая деревня", "Озерки", "Парнас", "Проспект просвещения", "Площадь Мужества", "Политехническая", "Академическая", "Гражданский проспект", "Девяткино", "Чернышевская", "Площадь Ленина", "Выборгская", "Лесная" ];
+		this.districts = [];
+		this.metro = [];
 		this.categories = [{id:0,name:"Все"}];
+		this.showDistricts = false;
+		this.selectedDistricts = [];
 	}
 
 	ngOnInit(){
 		this.gs.innerpage = false;
- 
-		for (let i in this.districtsNames) {
-				let tmp = {};
-				this.districts[this.districtsNames[i]] = {
-					'selected':false,
-					'active': false
-				};
-		}
 
 		this.httpService.getDistricts().subscribe((data:any) => {
 			for(let i in data.districts) {
-				if (this.districts.hasOwnProperty(data.districts[i].name)) {
-					 this.districts[data.districts[i].name].active = true;
-					 this.districts[data.districts[i].name].id = data.districts[i].id;
-					 if (this.params.districts.id && this.params.districts.id.indexOf(data.districts[i].id) != -1) {
-						this.districts[data.districts[i].name].selected = true;
-						this.params.districts.name.push(data.districts[i].name);
-					 }
+				if (this.params.districts.indexOf(data.districts[i].id) != -1){
+					data.districts[i].selected = true;
+					this.selectedDistricts.push(data.districts[i].name);
 				}
 			}
+			this.districts = data.districts;
 		});
 
-		for (let i in this.metroStations) {
-				let tmp = {};
-				this.metro[this.metroStations[i]] = {
-					'selected':false,
-					'active': false
-				};
-		}
+		// this.httpService.getMetro().subscribe((data:any) => {
+		// 	for(let i in data.metro) {
+		// 		if (this.params.metro.indexOf(data.metro[i].id) != -1)
+		// 			data.metro[i].selected = true;
+		// 	}
+		// 	this.metro = data.metro;
+		// });
 
-		this.httpService.getMetro().subscribe((data:any) => {
-			for(let i in data.metro) {
-				if (this.metro.hasOwnProperty(data.metro[i].name)) {
-					 this.metro[data.metro[i].name].active = true;
-					 this.metro[data.metro[i].name].id = data.metro[i].id;
-					 if (this.params.metro.id && this.params.metro.id.indexOf(data.metro[i].id) != -1) {
-						this.metro[data.metro[i].name].selected = true;
-						this.params.metro.name.push(data.metro[i].name);
-					 }
-				}
-			}
-		});
 		if(location.search){
 			let search = location.search.substring(1);
 			let vars = search.split('&');
@@ -143,12 +152,9 @@ export class MainComponent implements OnInit {
 				} else if (pair[0] == 'category_id') {
 					this.curCategory = parseInt(pair[1]);
 				} else if (pair[0] == 'metro_ids') {
-					this.params.metro.id = decodeURIComponent(pair[1]).split(',').map(Number);
-					this.params.metro.name=[];
+					this.params.metro = decodeURIComponent(pair[1]).split(',').map(Number);
 				} else if (pair[0] == 'district_ids') {
-					this.params.districts.id = decodeURIComponent(pair[1]).split(',').map(Number);
-					this.params.districts.name=[];
-
+					this.params.districts = decodeURIComponent(pair[1]).split(',').map(Number);
 				}
 			}
 		}
@@ -265,12 +271,17 @@ export class MainComponent implements OnInit {
 			getParams.time_from = this.params.time_from;
 		if (this.params.time_to != null)
 			getParams.time_to = this.params.time_to;
-		if (this.params.districts.id && this.params.districts.id.length) {
-			getParams.district_ids = this.params.districts.id;
+		if (this.params.districts.length) {
+			for (let key in this.params.districts) {
+				if (getParams.district_ids)
+					getParams.district_ids += ',' + this.params.districts[key] ;
+				else
+					getParams.district_ids = this.params.districts[key];
+			}
 		}
-		if (this.params.metro.id && this.params.metro.id.length) {
-			getParams.metro_ids = this.params.metro.id;
-		}
+		// if (this.params.metro) {
+		// 	getParams.metro_ids = this.params.metro;
+		// }
 
 		if (window.location.hash) 
 			this.hash = window.location.hash;
@@ -396,25 +407,57 @@ export class MainComponent implements OnInit {
 		this.events = data.activities;
 	}
 	
-	districtsFilter(districts:any) : void {
-		this.params.districts = districts;
-		this.params.metro = {};
+	districtsFilter(ind:number) : void {
+		if (this.params.districts.length) {
+			let index = this.params.districts.indexOf(this.districts[ind].id);
+			if (index == -1) {
+				this.params.districts.push(this.districts[ind].id);
+				this.selectedDistricts.push(this.districts[ind].name);
+			} else {
+				this.params.districts.splice(index, 1);
+				index = this.selectedDistricts.indexOf(this.districts[ind].name);
+				this.selectedDistricts.splice(index, 1);
+			}
+		} else {
+			this.params.districts.push(this.districts[ind].id);
+			this.selectedDistricts.push(this.districts[ind].name);
+		}
+		this.districts[ind].selected = !this.districts[ind].selected;
+		// this.params.metro = {};
 		this.eventsFilter();
 	}
 
+	resetDistrictFilter() {
+		this.params.districts = [];
+		for( let ind in this.districts) {
+			this.districts[ind].selected = false;
+		}
+		this.selectedDistricts = [];
+		this.eventsFilter();
+	}
+	
 	metroFilter(metro:any) : void {
-		this.params.districts = {};
+		this.params.districts = [];
 		this.params.metro = metro;
 		this.eventsFilter();
 	}	
 
-	declOfNum(number:number, titles:string[]) : string {  
-			let cases = [2, 0, 1, 1, 1, 2];  
-			return titles[ (number%100>4 && number%100<20)? 2 : cases[(number%10<5)?number%10:5] ];  
-	}
-			
-	openCourse(course:any) {
-		this.router.navigateByUrl(`/event/${this.curDate}/${course.id}`);
+	toggleLocations() {
+		if (!device.desktop()) {
+			$('select[name="districts"]').addClass('vis');
+
+			setTimeout(() => {
+				$('#districts').focus();
+			}, 1000);
+		} else
+			this.showDistricts = !this.showDistricts;
 	}
 
+	change(options: any) {
+		let selectedValues = Array.apply(null,options)
+		      .filter((option : any) => option.selected)
+		      .map((option : any) => +option.value.split(': ')[1])
+		this.params.districts = selectedValues;
+		this.eventsFilter();
+	}
 }

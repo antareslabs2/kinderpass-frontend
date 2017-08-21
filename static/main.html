@@ -137,14 +137,36 @@
 	<div class="wrapper">
 		<h2>Расписание</h2>
 		<div class="filters">
-			<!-- <div class="filters-item filters-location">
-				<span class="filters-option" [class.filters-option-active]="params.districts.id && params.districts.id.length" (click)="gs.openPopup('districts');">Район</span>
-				<span class="filters-text">или</span>
-				<span class="filters-option" [class.filters-option-active]="params.metro.id && params.metro.id.length" (click)="gs.openPopup('metro');">Метро</span>
-				<p *ngIf="params.metro.id" class="locations">{{params.metro.name[0]}}<span *ngIf="params.metro.name.length>1"> и еще {{params.metro.name.length - 1}} {{declOfNum(params.metro.name.length - 1, ['станция','станции','станций'])}}</span></p>
-				<p *ngIf="params.districts.id" class="locations">{{params.districts.name[0]}}<span *ngIf="params.districts.name.length>1"> и еще {{params.districts.name.length - 1}} {{declOfNum(params.districts.name.length - 1, ['район','района','районов'])}}</span></p>
-			</div>
-			--><!-- 
+			<div class="filters-item filters-location">
+				<!-- <span class="filters-option" [class.filters-option-active]="params.districts.id && params.districts.id.length" (click)="gs.openPopup('districts');">Район</span> -->
+				<!-- <span class="filters-text">или</span>
+				<span class="filters-option" [class.filters-option-active]="params.metro.id && params.metro.id.length" (click)="gs.openPopup('metro');">Метро</span> -->
+				<!-- <p *ngIf="params.metro.id" class="locations">{{params.metro.name[0]}}<span *ngIf="params.metro.name.length>1"> и еще {{params.metro.name.length - 1}} {{declOfNum(params.metro.name.length - 1, ['станция','станции','станций'])}}</span></p> -->
+				<div class="filters__list-wrap">
+					<div [@slideToggleW]="showDistricts" class="filters-option filters__title" [class.filters__title-opened]="showDistricts" (click)="toggleLocations()"><span *ngIf="selectedDistricts.length>0">{{selectedDistricts[0]}} <span *ngIf="selectedDistricts.length>1"> и еще {{selectedDistricts.length - 1}} {{gs.declOfNum(selectedDistricts.length - 1, ['район','района','районов'])}}</span></span><span *ngIf="selectedDistricts.length==0">Все районы</span></div>
+					
+					<div [@slideToggleH]="showDistricts" class="filters__list">
+						<perfect-scrollbar [@slideToggleH]="showDistricts" class="filters__scroll">
+							<div class="filters__scroll-body">
+								<div class="filters__list-item" *ngFor="let district of districts; let i = index;" (click)="districtsFilter(i)">
+									<div [class.filters__list-item-selected]="district.selected" class="filters__list-item-checkbox"></div>
+									<div class="filters__list-item-title">{{district.name}}</div>
+								</div>
+							</div>
+						</perfect-scrollbar>
+						<div class="filters__list-btns btns">
+							<div class="btn btn-reset-line dib" (click)="resetDistrictFilter()">Сбросить</div>
+							<div class="btn dib" (click)="toggleLocations()">Ок</div>
+						</div>
+					</div>
+
+				</div>
+				<select *ngIf="districts.length" name="districts" id="districts" multiple (change)="change($event.target.options)" [(ngModel)]="params.districts">
+					<option  *ngFor="let district of districts; let i = index;" [ngValue]="district.id">{{district.name}}</option>
+				</select>
+				<!-- <div *ngIf="params.districts.id" class="filters-option locations">{{params.districts.name[0]}}<span *ngIf="params.districts.name.length>1"> и еще {{params.districts.name.length - 1}} {{declOfNum(params.districts.name.length - 1, ['район','района','районов'])}}</span></div> -->
+
+			</div><!-- 
 		 --><div class="filters-item filters-time">
 				<span class="filters-option" *ngFor="let time of times;" [class.filters-option-active]="params.time_from==time.time_from && params.time_to==time.time_to" (click)="filterByTime($event, time)">{{time.key}}</span>
 			</div><!-- 
@@ -183,12 +205,12 @@
 	 --><div class="results">
 	 		<ng-container *ngIf="events.length > 0">
 				<div class="results-item" *ngFor="let item of events" id="event_{{item.id}}">
-					<div class="results-item-image" (click)="openCourse(item)">
+					<a class="results-item-image" [routerLink]="['/event', curDate, item.id]">
 						<img *ngIf="item.photo" src="{{'img/s' + item.photo + '.jpg'}}" alt="">
 						<img *ngIf="!item.photo" src="../app/img/placeholder.jpg" alt="">
-					</div><!-- 
+					</a><!-- 
 				 --><div class="results-item-description">
-						<div class="results-item-title" (click)="openCourse(item)">{{item.name}}</div>
+						<a class="results-item-title" [routerLink]="['/event', curDate, item.id]">{{item.name}}</a>
 						<div class="results-item-recommendation">{{item.description | truncate:200 }}</div>
 						<div class="results-item-location">{{item.locations[0].address}} <span *ngIf="item.locations[0].length>1"> и еще {{item.locations[0].length-1}}</span> </div>
 					</div><!-- 
@@ -199,7 +221,7 @@
 							<ng-container *ngIf="!item.price_max"><span *ngIf="item.price_old != item.price_min"class="results-item-price-old">{{item.price_old}} </span><span>{{item.price_min}}</span></ng-container>
 						</div>
 						<!-- <div *ngIf="item.discount" class="results-item-discount">Дешевле на {{item.discount | number:'1.0-0'}}%</div> -->
-						<div class="btn" (click)="openCourse(item)">Купить</div>
+						<a class="btn" [routerLink]="['/event', curDate, item.id]">Купить</a>
 					</div>
 				</div>
 	 		</ng-container>
