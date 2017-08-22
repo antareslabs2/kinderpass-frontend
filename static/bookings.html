@@ -13,7 +13,7 @@
 							<img *ngIf="!booking.time_slot.activity.photo" src="../app/img/placeholder.jpg" alt=""><div class="eventPage-info"></div>
 						</div><!-- 
 					 --><div class="results-item-description">
-							<div>{{booking.time_slot.activity.name}}</div>
+							<div [routerLink]="['/booking', booking.id]" >{{booking.time_slot.activity.name}}</div>
 							<div class="eventPage-address">{{booking.time_slot.location.address}}</div>
 							<div class="eventPage-date">{{booking.time_slot.date| amDateFormat :'DD MMMM YYYY, dddd'}}</div>
 							<div class="eventPage-time dib">{{booking.time_slot.start_time}}-{{booking.time_slot.end_time}}</div>
@@ -34,7 +34,7 @@
 								Итого: {{booking.seats*booking.time_slot.price}}
 							</div>
 						</div><div class="ticket__helper"></div><div class="ticket__footer">
-							<button (click)="makingBooking(booking.booking_id)" class="btn">Отменить бронь</button>
+							<button (click)="cancelBooking(booking.id)" class="btn">Отменить бронь</button>
 						</div>
 					</div>
 					

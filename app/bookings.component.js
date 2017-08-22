@@ -50,6 +50,7 @@ var BookingsComponent = (function () {
     };
     BookingsComponent.prototype.cancelBooking = function (bookingId) {
         var _this = this;
+        console.log(bookingId);
         this.httpService.cancelBooking(bookingId).subscribe(function (data) {
             if (data.status == "OK") {
                 _this.gs.msg = "Ваше бронирование успешно отменено";

@@ -17,7 +17,7 @@ declare var device: any;
 	animations: [
 		trigger('slideToggleH', [
 			state('1' , style({ 
-				height: '450px', 
+				height: '410px', 
 				marginTop: "20px",
 				visibility: "visible"
 			})),
@@ -74,6 +74,7 @@ export class MainComponent implements OnInit {
 	hash: string;
 
 	showDistricts : boolean;
+	desktop : boolean;
 
 	constructor(private httpService: Api, private router:Router, private gs:GlobalService, private pageScrollService: PageScrollService, @Inject(DOCUMENT) private document: any){
 		this.hash = '';
@@ -117,6 +118,7 @@ export class MainComponent implements OnInit {
 		this.categories = [{id:0,name:"Все"}];
 		this.showDistricts = false;
 		this.selectedDistricts = [];
+		this.desktop = device.desktop();
 	}
 
 	ngOnInit(){
@@ -443,20 +445,13 @@ export class MainComponent implements OnInit {
 	}	
 
 	toggleLocations() {
-		if (!device.desktop()) {
-			$('select[name="districts"]').addClass('vis');
-
-			setTimeout(() => {
-				$('#districts').focus();
-			}, 1000);
-		} else
-			this.showDistricts = !this.showDistricts;
+		this.showDistricts = !this.showDistricts;
 	}
 
 	change(options: any) {
 		let selectedValues = Array.apply(null,options)
-		      .filter((option : any) => option.selected)
-		      .map((option : any) => +option.value.split(': ')[1])
+			  .filter((option : any) => option.selected)
+			  .map((option : any) => +option.value.split(': ')[1])
 		this.params.districts = selectedValues;
 		this.eventsFilter();
 	}

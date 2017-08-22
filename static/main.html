@@ -142,7 +142,7 @@
 				<!-- <span class="filters-text">или</span>
 				<span class="filters-option" [class.filters-option-active]="params.metro.id && params.metro.id.length" (click)="gs.openPopup('metro');">Метро</span> -->
 				<!-- <p *ngIf="params.metro.id" class="locations">{{params.metro.name[0]}}<span *ngIf="params.metro.name.length>1"> и еще {{params.metro.name.length - 1}} {{declOfNum(params.metro.name.length - 1, ['станция','станции','станций'])}}</span></p> -->
-				<div class="filters__list-wrap">
+				<div *ngIf="desktop" class="filters__list-wrap">
 					<div [@slideToggleW]="showDistricts" class="filters-option filters__title" [class.filters__title-opened]="showDistricts" (click)="toggleLocations()"><span *ngIf="selectedDistricts.length>0">{{selectedDistricts[0]}} <span *ngIf="selectedDistricts.length>1"> и еще {{selectedDistricts.length - 1}} {{gs.declOfNum(selectedDistricts.length - 1, ['район','района','районов'])}}</span></span><span *ngIf="selectedDistricts.length==0">Все районы</span></div>
 					
 					<div [@slideToggleH]="showDistricts" class="filters__list">
@@ -161,9 +161,12 @@
 					</div>
 
 				</div>
-				<select *ngIf="districts.length" name="districts" id="districts" multiple (change)="change($event.target.options)" [(ngModel)]="params.districts">
-					<option  *ngFor="let district of districts; let i = index;" [ngValue]="district.id">{{district.name}}</option>
-				</select>
+				<ng-container *ngIf="districts.length && !desktop">
+					<span class="filters__mobile-title">Выберите район</span>
+					<select name="districts" id="districts" multiple (change)="change($event.target.options)" [(ngModel)]="params.districts" class="vis">
+						<option  *ngFor="let district of districts; let i = index;" [ngValue]="district.id">{{district.name}}</option>
+					</select>
+				</ng-container>
 				<!-- <div *ngIf="params.districts.id" class="filters-option locations">{{params.districts.name[0]}}<span *ngIf="params.districts.name.length>1"> и еще {{params.districts.name.length - 1}} {{declOfNum(params.districts.name.length - 1, ['район','района','районов'])}}</span></div> -->
 
 			</div><!-- 

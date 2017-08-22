@@ -1089,12 +1089,15 @@ textarea.textarea {
   @media only screen and (max-width: 780px) {
     .filters-location {
       width: 100%; } }
-  .filters-location select[name=districts] {
-    visibility: hidden;
-    display: none; }
-    .filters-location select[name=districts].vis {
-      visibility: visible;
-      display: block; }
+  .filters-location select {
+    width: 100%;
+    background-color: transparent;
+    color: #fff;
+    line-height: 20;
+    padding: 15px;
+    display: block;
+    margin: 0 auto;
+    font-size: 18px; }
   .filters-location .locations {
     display: inline-block; }
     .filters-location .locations span {
@@ -1209,10 +1212,13 @@ textarea.textarea {
 
 .filters__scroll {
   padding-top: 0 !important;
-  height: 370px !important;
+  height: 330px !important;
   overflow: hidden !important; }
   .filters__scroll-body {
     margin-right: 25px; }
+
+.filters__mobile-title {
+  padding-bottom: 10px; }
 
 .selectedDay {
   text-align: center;
@@ -2141,15 +2147,17 @@ textarea.textarea {
 .bookings .results-item {
   margin: 55px 0 110px;
   position: relative; }
-  @media only screen and (max-width: 1080px) {
-    .bookings .results-item-image {
-      width: 100%;
-      display: block;
-      float: none; } }
-  .bookings .results-item-image img {
-    border-radius: 0; }
+  .bookings .results-item-image {
+    width: 30%; }
+    @media only screen and (max-width: 1080px) {
+      .bookings .results-item-image {
+        width: 100%;
+        display: block;
+        float: none; } }
+    .bookings .results-item-image img {
+      border-radius: 0; }
   .bookings .results-item-description {
-    width: 80%;
+    width: 70%;
     padding-top: 5px; }
     @media only screen and (max-width: 1080px) {
       .bookings .results-item-description {

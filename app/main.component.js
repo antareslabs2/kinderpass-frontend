@@ -68,6 +68,7 @@ var MainComponent = (function () {
         this.categories = [{ id: 0, name: "Все" }];
         this.showDistricts = false;
         this.selectedDistricts = [];
+        this.desktop = device.desktop();
     }
     MainComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -379,14 +380,7 @@ var MainComponent = (function () {
         this.eventsFilter();
     };
     MainComponent.prototype.toggleLocations = function () {
-        if (!device.desktop()) {
-            $('select[name="districts"]').addClass('vis');
-            setTimeout(function () {
-                $('#districts').focus();
-            }, 1000);
-        }
-        else
-            this.showDistricts = !this.showDistricts;
+        this.showDistricts = !this.showDistricts;
     };
     MainComponent.prototype.change = function (options) {
         var selectedValues = Array.apply(null, options)
@@ -409,7 +403,7 @@ MainComponent = __decorate([
         animations: [
             animations_1.trigger('slideToggleH', [
                 animations_1.state('1', animations_1.style({
-                    height: '450px',
+                    height: '410px',
                     marginTop: "20px",
                     visibility: "visible"
                 })),

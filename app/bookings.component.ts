@@ -49,6 +49,7 @@ export class BookingsComponent implements OnInit {
 	}
 	
 	cancelBooking(bookingId:number) : void {
+		console.log(bookingId)
 		this.httpService.cancelBooking(bookingId).subscribe((data:any) => {
 			if (data.status == "OK") {
 				this.gs.msg = "Ваше бронирование успешно отменено";

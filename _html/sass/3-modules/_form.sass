@@ -162,12 +162,16 @@
 		+bp($md)
 			width: 100%
 
-		select[name=districts]
-			visibility: hidden
-			display: none
-			&.vis
-				visibility: visible
-				display: block
+		select
+			width: 100%
+			background-color: transparent
+			color: #fff
+			line-height: 20
+			padding: 15px
+			display: block
+			margin: 0 auto
+			font-size: 18px;
+
 		.locations
 			display: inline-block
 			span
@@ -280,11 +284,15 @@
 
 	&__scroll
 		padding-top: 0 !important
-		height: 370px !important
+		height: 330px !important
 		overflow: hidden !important
 		&-body
 			margin-right: 25px
-
+	
+	&__mobile
+		&-title
+			padding-bottom: 10px
+			
 .selectedDay
 	text-align: center
 	border-top-left-radius: 30px

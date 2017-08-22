@@ -127,6 +127,16 @@ var GlobalService = (function () {
                 'policy': [this.policy, [forms_1.Validators.required, forms_1.Validators.pattern('true')]
                 ]
             });
+            if (yaCounter44744683) {
+                console.log(this.userInfo.id);
+                yaCounter44744683.userParams({ UserId: this.userInfo.id, UserName: this.userInfo.name });
+            }
+            ga('set', 'userId', this.userInfo.id);
+            ga('send', 'pageview', '/virtual/auth');
+            if (this._window.location.hostname == 'kinderpass.ru')
+                ga('send', 'event', 'Main', 'user_auth_' + this.userInfo.id, 'Prod');
+            else if (this._window.location.hostname == 'front.kinderpass.ru')
+                ga('send', 'event', 'Main', 'user_auth_' + this.userInfo.id, 'Test');
             if (!this.userInfo.phone || !this.userInfo.email) {
                 this.popupName = 'updateInfo';
                 this.policy = false;
