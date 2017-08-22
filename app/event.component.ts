@@ -64,6 +64,7 @@ export class EventComponent implements OnInit, OnDestroy  {
 				// 	this.discount = (1-data.activity.locations[0].time_slots[0].price/data.activity.locations[0].time_slots[0].price_without_discount)*100;
 				this.needSubscription();
 				this.showEvent = this.event.locations.length==1 && this.event.locations[0].time_slots.length==1;
+				ga('send', 'pageview', '/virtual/eventopened');
 			}
 		});
 	}
@@ -100,6 +101,7 @@ export class EventComponent implements OnInit, OnDestroy  {
 		if (!this.gs.isAuthenticated)
 			this.gs.openPopup('login');
 		else {
+			ga('send', 'pageview', '/virtual/bookbtnclicked');
 			this.isDisable = true;
 			let price = this.event.locations[this.selectedLocation].time_slots[this.selectedTime].price * this.seats + this.subscriptionPrice;
 			let userBalance = 0;

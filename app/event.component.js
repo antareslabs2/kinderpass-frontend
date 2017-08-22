@@ -51,6 +51,7 @@ var EventComponent = (function () {
                 // 	this.discount = (1-data.activity.locations[0].time_slots[0].price/data.activity.locations[0].time_slots[0].price_without_discount)*100;
                 _this.needSubscription();
                 _this.showEvent = _this.event.locations.length == 1 && _this.event.locations[0].time_slots.length == 1;
+                ga('send', 'pageview', '/virtual/eventopened');
             }
         });
     };
@@ -86,6 +87,7 @@ var EventComponent = (function () {
         if (!this.gs.isAuthenticated)
             this.gs.openPopup('login');
         else {
+            ga('send', 'pageview', '/virtual/bookbtnclicked');
             this.isDisable = true;
             var price = this.event.locations[this.selectedLocation].time_slots[this.selectedTime].price * this.seats + this.subscriptionPrice;
             var userBalance = 0;

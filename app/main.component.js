@@ -160,10 +160,12 @@ var MainComponent = (function () {
         }
     };
     MainComponent.prototype.filterByCategory = function (event, category) {
+        ga('send', 'pageview', '/virtual/userfilter/category');
         this.curCategory = this.curCategory == category ? 0 : category;
         this.eventsFilter();
     };
     MainComponent.prototype.filterByDate = function (event, d) {
+        ga('send', 'pageview', '/virtual/userfilter/date');
         if (moment(d).isSameOrAfter(this.today, 'day') && moment(d).isSameOrBefore(this.nextMonth, 'day')) {
             this.curDate = moment(d).format("YYYYMMDD");
             this.selectedDate = d;
@@ -179,11 +181,13 @@ var MainComponent = (function () {
         }
     };
     MainComponent.prototype.filterByOption = function (event) {
+        ga('send', 'pageview', '/virtual/userfilter/option');
         $(event.target).siblings().removeClass('filters-option-active');
         $(event.target).toggleClass('filters-option-active');
         this.eventsFilter();
     };
     MainComponent.prototype.filterByTime = function (event, time) {
+        ga('send', 'pageview', '/virtual/userfilter/time');
         if (this.params.time_from == time.time_from && this.params.time_to == time.time_to) {
             this.params.time_from = 8;
             this.params.time_to = 23;
@@ -195,6 +199,7 @@ var MainComponent = (function () {
         this.eventsFilter();
     };
     MainComponent.prototype.filterByAge = function (event, age) {
+        ga('send', 'pageview', '/virtual/userfilter/age');
         if (this.params.age_from == age[0]) {
             this.params.age_from = null;
             this.params.age_to = null;
@@ -346,6 +351,7 @@ var MainComponent = (function () {
         this.events = data.activities;
     };
     MainComponent.prototype.districtsFilter = function (ind) {
+        ga('send', 'pageview', '/virtual/userfilter/district');
         if (this.params.districts.length) {
             var index = this.params.districts.indexOf(this.districts[ind].id);
             if (index == -1) {

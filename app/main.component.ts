@@ -9,6 +9,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 import * as moment from 'moment';
 import * as $ from 'jquery';
 declare var device: any;
+declare var ga:Function;
 
 @Component({
 	selector: 'main-app',
@@ -215,12 +216,14 @@ export class MainComponent implements OnInit {
 	}
 
 	filterByCategory(event:any, category: number):void {
+		ga('send', 'pageview', '/virtual/userfilter/category');
 		this.curCategory = this.curCategory == category ? 0 : category;
 
 		this.eventsFilter();
 	}
 
 	filterByDate(event:any, d: any) : void {
+		ga('send', 'pageview', '/virtual/userfilter/date');
 		if(moment(d).isSameOrAfter(this.today, 'day') && moment(d).isSameOrBefore(this.nextMonth, 'day')) {
 			this.curDate = moment(d).format("YYYYMMDD");
 			this.selectedDate = d;
@@ -236,12 +239,14 @@ export class MainComponent implements OnInit {
 	}
 
 	filterByOption(event:any) : void {
+		ga('send', 'pageview', '/virtual/userfilter/option');
 		$(event.target).siblings().removeClass('filters-option-active');
 		$(event.target).toggleClass('filters-option-active');
 		this.eventsFilter();
 	}
 
 	filterByTime(event:any, time:any) {
+		ga('send', 'pageview', '/virtual/userfilter/time');
 		if (this.params.time_from == time.time_from && this.params.time_to == time.time_to) {
 			this.params.time_from = 8;
 			this.params.time_to = 23;
@@ -253,6 +258,7 @@ export class MainComponent implements OnInit {
 	}
 
 	filterByAge(event:any, age:number[]) {
+		ga('send', 'pageview', '/virtual/userfilter/age');
 		if (this.params.age_from == age[0]) {
 			this.params.age_from = null;
 			this.params.age_to = null;
@@ -281,6 +287,8 @@ export class MainComponent implements OnInit {
 					getParams.district_ids = this.params.districts[key];
 			}
 		}
+		
+
 		// if (this.params.metro) {
 		// 	getParams.metro_ids = this.params.metro;
 		// }
@@ -410,6 +418,7 @@ export class MainComponent implements OnInit {
 	}
 	
 	districtsFilter(ind:number) : void {
+		ga('send', 'pageview', '/virtual/userfilter/district');
 		if (this.params.districts.length) {
 			let index = this.params.districts.indexOf(this.districts[ind].id);
 			if (index == -1) {
