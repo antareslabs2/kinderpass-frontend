@@ -27,13 +27,13 @@ declare var ga:Function;
 				marginTop: 0,
 				visibility: "hidden"
 			})),
-			transition('1 => 0', animate(250)),
-			transition('0 => 1', animate('0.2s 250ms ease-out'))
+			transition('1 => 0', animate(150)),
+			transition('0 => 1', animate('0.1s 150ms ease-out'))
 		]),
 		trigger('slideToggleW', [
 			state('1' , style({ 
 				width: "315px", 
-				left: "35px", 
+				left: "5px", 
 				backgroundColor: "#1cbbb4"
 			})),
 			state('0', style({ 
@@ -41,8 +41,8 @@ declare var ga:Function;
 				left: "0", 
 				backgroundColor: "#9a8ac1"
 			})),
-			transition('1 => 0', animate('0.2s 250ms ease-out')),
-			transition('0 => 1', animate(250))
+			transition('1 => 0', animate('0.1s 150ms ease-out')),
+			transition('0 => 1', animate(150))
 		])
 	]
 })
@@ -120,6 +120,17 @@ export class MainComponent implements OnInit {
 		this.showDistricts = false;
 		this.selectedDistricts = [];
 		this.desktop = device.desktop();
+		let th = this;
+		$(document).click(function (e){ 
+			if (th.showDistricts) {
+				let list = $(".filters__list"); 
+				let title = $(".filters-location"); 
+				if (list.is(e.target) && !list.has(e.target).length === 0 || !title.is(e.target) && title.has(e.target).length === 0 ) { 
+					th.showDistricts = false;
+				}
+			}
+			
+		});
 	}
 
 	ngOnInit(){

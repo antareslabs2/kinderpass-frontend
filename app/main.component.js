@@ -69,6 +69,16 @@ var MainComponent = (function () {
         this.showDistricts = false;
         this.selectedDistricts = [];
         this.desktop = device.desktop();
+        var th = this;
+        $(document).click(function (e) {
+            if (th.showDistricts) {
+                var list = $(".filters__list");
+                var title = $(".filters-location");
+                if (list.is(e.target) && !list.has(e.target).length === 0 || !title.is(e.target) && title.has(e.target).length === 0) {
+                    th.showDistricts = false;
+                }
+            }
+        });
     }
     MainComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -418,13 +428,13 @@ MainComponent = __decorate([
                     marginTop: 0,
                     visibility: "hidden"
                 })),
-                animations_1.transition('1 => 0', animations_1.animate(250)),
-                animations_1.transition('0 => 1', animations_1.animate('0.2s 250ms ease-out'))
+                animations_1.transition('1 => 0', animations_1.animate(150)),
+                animations_1.transition('0 => 1', animations_1.animate('0.1s 150ms ease-out'))
             ]),
             animations_1.trigger('slideToggleW', [
                 animations_1.state('1', animations_1.style({
                     width: "315px",
-                    left: "35px",
+                    left: "5px",
                     backgroundColor: "#1cbbb4"
                 })),
                 animations_1.state('0', animations_1.style({
@@ -432,8 +442,8 @@ MainComponent = __decorate([
                     left: "0",
                     backgroundColor: "#9a8ac1"
                 })),
-                animations_1.transition('1 => 0', animations_1.animate('0.2s 250ms ease-out')),
-                animations_1.transition('0 => 1', animations_1.animate(250))
+                animations_1.transition('1 => 0', animations_1.animate('0.1s 150ms ease-out')),
+                animations_1.transition('0 => 1', animations_1.animate(150))
             ])
         ]
     }),
