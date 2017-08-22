@@ -163,7 +163,7 @@
 				</div>
 				<ng-container *ngIf="districts.length && !desktop">
 					<span class="filters__mobile-title">Выберите район</span>
-					<select name="districts" id="districts" multiple (change)="change($event.target.options)" [(ngModel)]="params.districts" class="vis">
+					<select size="1" name="districts" id="districts" multiple (change)="change($event.target.options)" [(ngModel)]="params.districts" class="vis">
 						<option  *ngFor="let district of districts; let i = index;" [ngValue]="district.id">{{district.name}}</option>
 					</select>
 				</ng-container>
