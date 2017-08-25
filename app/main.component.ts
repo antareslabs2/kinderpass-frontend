@@ -125,7 +125,7 @@ export class MainComponent implements OnInit {
 			if (th.showDistricts) {
 				let list = $(".filters__list"); 
 				let title = $(".filters-location"); 
-				if (list.is(e.target) && !list.has(e.target).length === 0 || !title.is(e.target) && title.has(e.target).length === 0 ) { 
+				if (list.is(e.target) && list.has(e.target).length || !title.is(e.target) && !title.has(e.target).length ) { 
 					th.showDistricts = false;
 				}
 			}

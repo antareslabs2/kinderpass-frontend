@@ -74,7 +74,7 @@ var MainComponent = (function () {
             if (th.showDistricts) {
                 var list = $(".filters__list");
                 var title = $(".filters-location");
-                if (list.is(e.target) && !list.has(e.target).length === 0 || !title.is(e.target) && title.has(e.target).length === 0) {
+                if (list.is(e.target) && list.has(e.target).length || !title.is(e.target) && !title.has(e.target).length) {
                     th.showDistricts = false;
                 }
             }
