@@ -12,59 +12,64 @@
 						<span>{{event.locations[selectedLocation].time_slots[selectedTime].free_seats}}</span>
 					</div>
 				</div>
+				<div *ngIf="event.extra" class="eventPage-additionalInfo">Важно: <span [innerHtml]="event.extra"></span></div>
+				<p class="eventPage-p">{{event.description}}</p>
 			</div><!-- 
-		 --><div class="col-1-2 ticketCol">
-				<div class="eventPage-ticket-wrap">
-					<div class="eventPage-title">Билет</div>
-					<div *ngIf="showEvent" class="eventPage-ticket-fields" [class.needSubscription]="subscriptionPrice">
-						<div class="eventPage-date">{{event.locations[selectedLocation].time_slots[selectedTime].date}}</div>
-						<div class="eventPage-time">{{event.locations[selectedLocation].time_slots[selectedTime].start_time}}-{{event.locations[selectedLocation].time_slots[selectedTime].end_time}}</div>
-						<div class="eventPage-duration">Длительность {{event.duration}} минут</div>
-						<div class="eventPage-address">{{event.locations[selectedLocation].address}}</div>
-						<div class="eventPage-seats">
-						<div>Количество билетов</div>
-						<div class="eventPage-seats-num">
-							<span [class.eventPage-seats-disable]="seats<=1" (click)="removeTicket()">-</span>
-							<p class="eventPage-seats-num-input">{{seats}}</p>
-							<span [class.eventPage-seats-disable]="seats >= event.locations[selectedLocation].time_slots[selectedTime].free_seats" (click)="addTicket()">+</span>
-							<p *ngIf="seats >= event.locations[selectedLocation].time_slots[selectedTime].free_seats" class="hint">Достигнуто максимальное количество свободных мест</p>
+		 --><div class="col-1-2">
+		 		<div class="ticket">
+					<div class="ticket__header">
+						<div class="eventPage-title">Билет</div>
+						<div class="eventPage-ticket-fields">
+							<ng-container *ngIf="event.locations.length>1">
+								<div class="eventPage-address">Выберите место посещения:</div>
+								<div class="eventPage-checks"><span *ngFor="let location of event.locations; let i = index" [class.active]="selectedLocation == i" (click)="selectedLocation=i; calcTotal();">{{location.address}}</span></div>
+							</ng-container>
+							<ng-container *ngIf="event.locations.length==1">
+								<div class="eventPage-address">{{event.locations[0].address}}</div>
+							</ng-container>
+							<ng-container *ngIf="event.locations[selectedLocation].time_slots.length>1">
+								<div class="eventPage-duration">Выберите время посещения:</div>
+								<div class="eventPage-checks eventPage-checks-small"><span *ngFor="let time of event.locations[selectedLocation].time_slots; let i = index" [class.active]="selectedTime == i" (click)="selectedTime=i; calcTotal();">{{time.start_time}}-{{time.end_time}}</span></div>
+							</ng-container>
+							<ng-container *ngIf="event.locations[selectedLocation].time_slots.length==1">
+								<div class="eventPage-duration">{{event.locations[selectedLocation].time_slots[0].start_time}}-{{event.locations[selectedLocation].time_slots[0].end_time}}</div>
+							</ng-container>
+							<div class="eventPage-date">{{event.locations[selectedLocation].time_slots[selectedTime].date| amDateFormat :'DD MMMM YYYY, dddd'}}</div>
+							<div class="eventPage-duration">Длительность {{event.duration}} минут</div>
+							<ng-container *ngIf="event.locations[selectedLocation].time_slots[selectedTime].tickets.length>0">
+								<div class="eventPage__line"></div>
+								<div class="eventPage__ticket">
+									<div class="eventPage__ticket-item" *ngFor="let ticket of event.locations[selectedLocation].time_slots[selectedTime].tickets; let i = index">
+										<div class="eventPage__ticket-name">{{ticket.ticket_type_name}}</div>
+										<div class="eventPage__ticket-seats-wrap">
+											<div class="eventPage__ticket-seats">
+												<span [class.eventPage__ticket-seats-disable]="ticket.seats==0" (click)="removeTicket(ticket)">-</span>
+												<p class="eventPage__ticket-seats-input">{{ticket.seats}}</p>
+												<span [class.eventPage__ticket-seats-disable]="ticket.seats >= ticket.allocated_seats" (click)="addTicket(ticket)">+</span>
+												<p *ngIf="ticket.seats >= ticket.allocated_seats" class="hint">Достигнуто максимальное количество свободных мест</p>
+											</div>
+											<p class="eventPage__ticket-price">{{ticket.price * ticket.seats}}</p>
+										</div>
+
+									</div>
+								</div>
+								<ng-container *ngIf="subscriptionPrice">
+									<div class="eventPage-subscription">Оплата подписки на 1 месяц: <span>200</span></div>
+								</ng-container>
+								<div class="eventPage-total-wrap">
+									<div class="eventPage-total">Итого к оплате: <span>{{total + subscriptionPrice}}</span></div>
+								</div>
+								<p *ngIf="discount>0" class="eventPage-discount-wrap">Вы сэконимите <span class="eventPage-discount">{{discount}} рублей</span>, купив этот билет чере Киндерпасс</p>
+							</ng-container>
+
 						</div>
+					</div><div class="ticket__helper"></div><div class="ticket__footer">
+						<div class="eventPage-btns">
+							<button (click)="makingBooking()" class="btn">Купить билет</button>
 						</div>
-						<div class="eventPage-price">Стоимость билетов <span>{{event.locations[selectedLocation].time_slots[selectedTime].price * seats}}</span></div>
-						<ng-container *ngIf="subscriptionPrice">
-							<div class="eventPage-total">Стоимость подписки до {{subscriptionDate | amDateFormat : 'DD.MM.YYYY'}} <span>200</span></div>
-							<div class="eventPage-total">Итого <span>{{event.locations[selectedLocation].time_slots[selectedTime].price * seats + subscriptionPrice}}</span></div>
-						</ng-container>
 					</div>
-					<div *ngIf="!showEvent" class="eventPage-ticket-fields">
-						<ng-container *ngIf="event.locations.length>1">
-							<div class="eventPage-address">Выберите место посещения:</div>
-							<div class="eventPage-checks"><span *ngFor="let location of event.locations; let i = index" [class.active]="selectedLocation == i" (click)="selectedLocation=i;">{{location.address}}</span></div>
-						</ng-container>
-						<ng-container *ngIf="event.locations.length==1">
-							<div class="eventPage-address">{{event.locations[0].address}}</div>
-						</ng-container>
-						<ng-container *ngIf="event.locations[selectedLocation].time_slots.length>1">
-							<div class="eventPage-duration">Выберите время посещения:</div>
-							<div class="eventPage-checks eventPage-checks-small"><span *ngFor="let time of event.locations[selectedLocation].time_slots; let i = index" [class.active]="selectedTime == i" (click)="selectedTime=i;">{{time.start_time}}-{{time.end_time}}</span></div>
-						</ng-container>
-						<ng-container *ngIf="event.locations[selectedLocation].time_slots.length==1">
-							<div class="eventPage-duration">{{event.locations[selectedLocation].time_slots[0].start_time}}-{{event.locations[selectedLocation].time_slots[0].end_time}}</div>
-						</ng-container>
-						<div class="eventPage-price eventPage-price-alt">Цена посещения за 1 человека: <span>{{event.locations[selectedLocation].time_slots[selectedTime].price}}</span></div>
-					</div>
-				</div>
-				<div *ngIf="showEvent" class="eventPage-btns">
-					<a *ngIf="event.locations.length!=1 || event.locations[0].time_slots.length!=1" (click)="showEvent=!showEvent" class="btn btn-back"></a>
-					<button (click)="makingBooking()" class="btn">Купить</button>
-					<!-- <div *ngIf="discount > 0" class="eventPage-discount">Дешевле на {{discount | number:'1.0-0'}}%</div> -->
-				</div>
-				<div *ngIf="!showEvent" class="eventPage-btns">
-					<a class="btn" (click)="showEvent=!showEvent">Далее</a>
 				</div>
 			</div>
-			<div *ngIf="event.extra" class="eventPage-additionalInfo">Важно: <span [innerHtml]="event.extra"></span></div>
-			<p class="eventPage-p">{{event.description}}</p>
 			<div class="eventPage-providerInfo">
 				<p class="eventPage-p">Мероприятие проводит {{event.provider.legal.legal_name}} (ИНН: {{event.provider.legal.tax_num}}, Для претензий и предложений: {{event.provider.legal.contact_phone}}, e-mail: {{event.provider.legal.contact_email}}). Цена билета {{event.locations[0].time_slots[0].price}} руб.<br>Бронирование и оформление билета осуществлено ООО "Киндерпасс" (ИНН: 78203424534, e-mail: claim@kinderpass.ru, телефон +7 (812) 649-26-32) на основании Агентского договора от {{event.provider.legal.contract_date ? event.provider.legal.contract_date : "01.05.2017"}}</p>
 			</div>

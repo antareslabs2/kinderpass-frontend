@@ -93,10 +93,10 @@ export class Api{
                         .catch((error:any) =>{return Observable.throw(error);}); 
     }
 
-    makingBooking(timeSlotID:number, seats:number){
-        let url = this.url + 'api/activities/book/' + timeSlotID + '/' + seats;
+    makingBooking(timeSlotID:number, tickets:any){
+        let url = this.url + 'api/activities/book/' + timeSlotID;
 
-        return this.http.get(url, this.options)
+        return this.http.post(url, tickets,  this.options)
                         .map((resp:Response)=>resp.json())
                         .catch((error:any) =>{return error;});
     }

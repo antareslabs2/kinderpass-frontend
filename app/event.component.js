@@ -21,13 +21,15 @@ var EventComponent = (function () {
         this.gs = gs;
         this.innerpage = true;
         this.isDisable = true;
-        this.seats = 1;
+        this.seats = 0;
         this.subscriptionPrice = 0;
         this.subscriptionDate = moment(new Date()).add(1, 'month').format();
         this.discount = 0;
         this.selectedLocation = 0;
         this.selectedTime = 0;
-        this.showEvent = false;
+        this.selectedTicket = 0;
+        this.total = 0;
+        this.discount = 0;
     }
     EventComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -46,22 +48,38 @@ var EventComponent = (function () {
         var _this = this;
         this.httpService.getEventById(this.timeslot_id, this.date).subscribe(function (data) {
             if (data.activity) {
+                for (var i in data.activity.locations) {
+                    for (var j in data.activity.locations[i].time_slots) {
+                        var date = moment(data.activity.locations[i].time_slots[j].date.replace(/(\d+).(\d+).(\d+)/, '$3-$2-$1')).add(data.activity.locations[i].time_slots[j].start_time.split(':')[0], 'h').format();
+                        data.activity.locations[i].time_slots[j].date = date;
+                        for (var z in data.activity.locations[i].time_slots[j].tickets) {
+                            var d = data.activity.locations[i].time_slots[j].tickets[z];
+                            if (d.price_without_discount > 0) {
+                                var discount = d.price_without_discount - d.price;
+                                // var discount = (1-d.price/d.price_without_discount)*100;
+                                data.activity.locations[i].time_slots[j].tickets[z].discount = discount;
+                            }
+                            data.activity.locations[i].time_slots[j].tickets[z].seats = 0;
+                        }
+                    }
+                }
                 _this.event = data.activity;
-                // if (data.activity.locations[0].time_slots[0].price_without_discount > 0)
-                // 	this.discount = (1-data.activity.locations[0].time_slots[0].price/data.activity.locations[0].time_slots[0].price_without_discount)*100;
                 _this.needSubscription();
-                _this.showEvent = _this.event.locations.length == 1 && _this.event.locations[0].time_slots.length == 1;
                 ga('send', 'pageview', '/virtual/eventopened');
             }
         });
     };
-    EventComponent.prototype.addTicket = function () {
-        if (this.seats < this.event.locations[this.selectedLocation].time_slots[this.selectedTime].free_seats)
-            this.seats += 1;
+    EventComponent.prototype.addTicket = function (ticket) {
+        if (ticket.seats < ticket.free_seats) {
+            ticket.seats += 1;
+            this.calcTotal();
+        }
     };
-    EventComponent.prototype.removeTicket = function () {
-        if (this.seats > 1)
-            this.seats -= 1;
+    EventComponent.prototype.removeTicket = function (ticket) {
+        if (ticket.seats >= 1) {
+            ticket.seats -= 1;
+            this.calcTotal();
+        }
     };
     EventComponent.prototype.needSubscription = function () {
         if (this.gs.userInfo.subscription) {
@@ -82,6 +100,15 @@ var EventComponent = (function () {
             this.subscriptionDate = moment(new Date()).add(1, 'month').format();
         }
     };
+    EventComponent.prototype.calcTotal = function () {
+        this.total = 0;
+        this.discount = 0;
+        for (var i in this.event.locations[this.selectedLocation].time_slots[this.selectedTime].tickets) {
+            var d = this.event.locations[this.selectedLocation].time_slots[this.selectedTime].tickets[i];
+            this.total += d.price * d.seats;
+            this.discount += d.discount * d.seats;
+        }
+    };
     EventComponent.prototype.makingBooking = function () {
         var _this = this;
         if (!this.gs.isAuthenticated)
@@ -89,7 +116,7 @@ var EventComponent = (function () {
         else {
             ga('send', 'pageview', '/virtual/bookbtnclicked');
             this.isDisable = true;
-            var price = this.event.locations[this.selectedLocation].time_slots[this.selectedTime].price * this.seats + this.subscriptionPrice;
+            var price = this.total + this.subscriptionPrice;
             var userBalance = 0;
             if (this.gs.userInfo.subscription) {
                 userBalance += this.gs.userInfo.subscription.balance;
@@ -128,7 +155,17 @@ var EventComponent = (function () {
     };
     EventComponent.prototype.book = function () {
         var _this = this;
-        this.httpService.makingBooking(this.event.locations[this.selectedLocation].time_slots[this.selectedTime].id, this.seats).subscribe(function (data) {
+        var tickets = this.event.locations[this.selectedLocation].time_slots[this.selectedTime].tickets;
+        console.log(tickets);
+        var data = {};
+        for (var i in tickets) {
+            console.log(i);
+            if (tickets[i].seats > 0) {
+                data[tickets[i].ticket_type_key] = tickets[i].seats;
+            }
+        }
+        console.log(data);
+        this.httpService.makingBooking(this.event.locations[this.selectedLocation].time_slots[this.selectedTime].id, data).subscribe(function (data) {
             if (data.status == "OK") {
                 _this.gs.booking_id = data.booking_id;
                 _this.gs.getUserInfo();

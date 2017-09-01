@@ -92,9 +92,9 @@ var Api = (function () {
             .map(function (resp) { return resp.json(); })
             .catch(function (error) { return Observable_1.Observable.throw(error); });
     };
-    Api.prototype.makingBooking = function (timeSlotID, seats) {
-        var url = this.url + 'api/activities/book/' + timeSlotID + '/' + seats;
-        return this.http.get(url, this.options)
+    Api.prototype.makingBooking = function (timeSlotID, tickets) {
+        var url = this.url + 'api/activities/book/' + timeSlotID;
+        return this.http.post(url, tickets, this.options)
             .map(function (resp) { return resp.json(); })
             .catch(function (error) { return error; });
     };

@@ -39,10 +39,10 @@
 	<p class="popup-description">Бронь № {{gs.booking_id}} оформлена. Проверьте Вашу электронную почту и СМС, Вам должно прийти уведомление</p>
 	<div class="popup-btns">
 		<div class="col-1-2">
-			<div (click)="close()" [routerLink]="['/']" class="btn">На главную</div>
+			<a (click)="close()" [routerLink]="['/']" class="btn">На главную</a>
 		</div><!-- 
 	 --><div class="col-1-2">
-			<div (click)="close()" [routerLink]="['/booking', gs.booking_id]" class="btn">Перейти к брони</div>
+			<div (click)="close()" [routerLink]="['/booking', gs.booking_id]" class="btn">Посмотреть билет</div>
 		</div>
 	</div>
 </div>
