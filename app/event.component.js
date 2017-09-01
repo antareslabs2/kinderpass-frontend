@@ -70,7 +70,7 @@ var EventComponent = (function () {
         });
     };
     EventComponent.prototype.addTicket = function (ticket) {
-        if (ticket.seats < ticket.free_seats) {
+        if (ticket.seats < ticket.allocated_seats) {
             ticket.seats += 1;
             this.calcTotal();
         }
@@ -114,42 +114,44 @@ var EventComponent = (function () {
         if (!this.gs.isAuthenticated)
             this.gs.openPopup('login');
         else {
-            ga('send', 'pageview', '/virtual/bookbtnclicked');
-            this.isDisable = true;
-            var price = this.total + this.subscriptionPrice;
-            var userBalance = 0;
-            if (this.gs.userInfo.subscription) {
-                userBalance += this.gs.userInfo.subscription.balance;
-            }
-            if ((price - userBalance) <= 0) {
-                if (this.subscriptionPrice) {
-                    this.httpService.initTransaction('SM', this.subscriptionPrice).subscribe(function (data) {
-                        if (data.status == 'OK') {
-                            _this.httpService.checkTransaction(data.transaction.id).subscribe(function (data) {
-                                if (data.status = "OK") {
-                                    if (data.transaction.status == 'C') {
-                                        _this.book();
+            if (this.total > 0) {
+                ga('send', 'pageview', '/virtual/bookbtnclicked');
+                this.isDisable = true;
+                var price = this.total + this.subscriptionPrice;
+                var userBalance = 0;
+                if (this.gs.userInfo.subscription) {
+                    userBalance += this.gs.userInfo.subscription.balance;
+                }
+                if ((price - userBalance) <= 0) {
+                    if (this.subscriptionPrice) {
+                        this.httpService.initTransaction('SM', this.subscriptionPrice).subscribe(function (data) {
+                            if (data.status == 'OK') {
+                                _this.httpService.checkTransaction(data.transaction.id).subscribe(function (data) {
+                                    if (data.status = "OK") {
+                                        if (data.transaction.status == 'C') {
+                                            _this.book();
+                                        }
+                                        else {
+                                            _this.gs.msg = "Что-то пошло не так. Попробуйте обновить страницу";
+                                            _this.gs.openPopup('msgCancel');
+                                        }
                                     }
-                                    else {
-                                        _this.gs.msg = "Что-то пошло не так. Попробуйте обновить страницу";
-                                        _this.gs.openPopup('msgCancel');
-                                    }
-                                }
-                            });
-                        }
-                    });
+                                });
+                            }
+                        });
+                    }
+                    else {
+                        this.book();
+                    }
                 }
                 else {
-                    this.book();
+                    localStorage.setItem('timeslot_id', JSON.stringify(this.event.locations[this.selectedLocation].time_slots[this.selectedTime].id));
+                    localStorage.setItem('seats', JSON.stringify(this.seats));
+                    if (this.subscriptionPrice)
+                        this.gs.initTransaction('SB', (price - userBalance));
+                    else
+                        this.gs.initTransaction('B', (price - userBalance));
                 }
-            }
-            else {
-                localStorage.setItem('timeslot_id', JSON.stringify(this.event.locations[this.selectedLocation].time_slots[this.selectedTime].id));
-                localStorage.setItem('seats', JSON.stringify(this.seats));
-                if (this.subscriptionPrice)
-                    this.gs.initTransaction('SB', (price - userBalance));
-                else
-                    this.gs.initTransaction('B', (price - userBalance));
             }
         }
     };

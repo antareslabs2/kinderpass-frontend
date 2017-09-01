@@ -88,7 +88,7 @@ export class EventComponent implements OnInit, OnDestroy  {
 	}
 
 	addTicket(ticket: any) : void {
-		if (ticket.seats < ticket.free_seats) {
+		if (ticket.seats < ticket.allocated_seats) {
 			ticket.seats +=1;
 			this.calcTotal();
 		}
@@ -135,39 +135,41 @@ export class EventComponent implements OnInit, OnDestroy  {
 		if (!this.gs.isAuthenticated)
 			this.gs.openPopup('login');
 		else {
-			ga('send', 'pageview', '/virtual/bookbtnclicked');
-			this.isDisable = true;
-			let price = this.total + this.subscriptionPrice;
-			let userBalance = 0;
-			if (this.gs.userInfo.subscription) {
-				userBalance += this.gs.userInfo.subscription.balance;
-			}
-			if ((price - userBalance) <= 0) {
-				if(this.subscriptionPrice) {
-					this.httpService.initTransaction('SM', this.subscriptionPrice).subscribe((data:any) => {
-						if(data.status == 'OK') {
-							this.httpService.checkTransaction(data.transaction.id).subscribe((data:any) => {
-								if(data.status = "OK") {
-									if (data.transaction.status == 'C') {
-										this.book();
-									} else {
-										this.gs.msg = "Что-то пошло не так. Попробуйте обновить страницу";
-										this.gs.openPopup('msgCancel');
-									}
-								}
-							})
-						}
-					});
-				} else {
-					this.book();
+			if(this.total > 0) {
+				ga('send', 'pageview', '/virtual/bookbtnclicked');
+				this.isDisable = true;
+				let price = this.total + this.subscriptionPrice;
+				let userBalance = 0;
+				if (this.gs.userInfo.subscription) {
+					userBalance += this.gs.userInfo.subscription.balance;
 				}
-			} else {
-				localStorage.setItem('timeslot_id', JSON.stringify(this.event.locations[this.selectedLocation].time_slots[this.selectedTime].id));
-				localStorage.setItem('seats', JSON.stringify(this.seats));
-				if(this.subscriptionPrice)
-					this.gs.initTransaction('SB', (price - userBalance));
-				else
-					this.gs.initTransaction('B', (price - userBalance));
+				if ((price - userBalance) <= 0) {
+					if(this.subscriptionPrice) {
+						this.httpService.initTransaction('SM', this.subscriptionPrice).subscribe((data:any) => {
+							if(data.status == 'OK') {
+								this.httpService.checkTransaction(data.transaction.id).subscribe((data:any) => {
+									if(data.status = "OK") {
+										if (data.transaction.status == 'C') {
+											this.book();
+										} else {
+											this.gs.msg = "Что-то пошло не так. Попробуйте обновить страницу";
+											this.gs.openPopup('msgCancel');
+										}
+									}
+								})
+							}
+						});
+					} else {
+						this.book();
+					}
+				} else {
+					localStorage.setItem('timeslot_id', JSON.stringify(this.event.locations[this.selectedLocation].time_slots[this.selectedTime].id));
+					localStorage.setItem('seats', JSON.stringify(this.seats));
+					if(this.subscriptionPrice)
+						this.gs.initTransaction('SB', (price - userBalance));
+					else
+						this.gs.initTransaction('B', (price - userBalance));
+				}
 			}
 		}
 	}
