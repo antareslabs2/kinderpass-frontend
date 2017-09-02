@@ -32,6 +32,15 @@ export class BookingComponent implements OnInit, OnDestroy  {
 	loadBooking() :void {
 		this.httpService.getBookingById(this.booking_id).subscribe((data:any) => {
 			if(data.activity){
+				data.activity.total = 0;
+				for(let i in data.activity.tickets) {
+					for(let j in data.activity.time_slot.tickets) {
+						if (data.activity.time_slot.tickets[j].ticket_type_key == data.activity.tickets[i].ticket_type_key) {
+							data.activity.tickets[i].price = data.activity.time_slot.tickets[j].price;
+						}
+					}
+					data.activity.total += data.activity.tickets[i].price * data.activity.tickets[i].seats;
+				}
 				this.event = data.activity;
 			}
 		});

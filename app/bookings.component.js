@@ -21,6 +21,7 @@ var BookingsComponent = (function () {
         this._location = _location;
         this.innerpage = true;
         this.bookings = [];
+        this.number = 0;
     }
     BookingsComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -43,6 +44,16 @@ var BookingsComponent = (function () {
                     data.activity.time_slot.date = date;
                     data.activity.days_to_event = moment(date).diff(today, 'days');
                     data.activity.time_to_event = moment(date).diff(today, 'hours') - data.activity.days_to_event * 24;
+                    var ticket = void 0;
+                    data.activity.total = 0;
+                    for (var i in data.activity.tickets) {
+                        for (var j in data.activity.time_slot.tickets) {
+                            if (data.activity.time_slot.tickets[j].ticket_type_key == data.activity.tickets[i].ticket_type_key) {
+                                data.activity.tickets[i].price = data.activity.time_slot.tickets[j].price;
+                            }
+                        }
+                        data.activity.total += data.activity.tickets[i].price * data.activity.tickets[i].seats;
+                    }
                     _this.bookings.push(data.activity);
                 }
             });

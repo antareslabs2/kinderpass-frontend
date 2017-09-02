@@ -16,11 +16,12 @@ export class BookingsComponent implements OnInit {
 	booking_id:number;
 	innerpage: boolean;
 	bookings: any[];
+	total: number;
  
 	constructor(private httpService: Api, private gs: GlobalService, private _location: Location){
 		this.innerpage = true;
 		this.bookings = [];
-
+		this.number = 0;
 	}
 
 	ngOnInit(){
@@ -42,7 +43,19 @@ export class BookingsComponent implements OnInit {
 					data.activity.time_slot.date = date;
 					data.activity.days_to_event = moment(date).diff(today, 'days');
 					data.activity.time_to_event = moment(date).diff(today, 'hours') - data.activity.days_to_event*24;
-					this.bookings.push(data.activity)
+
+					let ticket
+
+					data.activity.total = 0;
+					for(let i in data.activity.tickets) {
+						for(let j in data.activity.time_slot.tickets) {
+							if (data.activity.time_slot.tickets[j].ticket_type_key == data.activity.tickets[i].ticket_type_key) {
+								data.activity.tickets[i].price = data.activity.time_slot.tickets[j].price;
+							}
+						}
+						data.activity.total += data.activity.tickets[i].price * data.activity.tickets[i].seats;
+					}
+					this.bookings.push(data.activity);
 				}
 			});
 		}

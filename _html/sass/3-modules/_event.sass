@@ -55,7 +55,7 @@
 
 
 	&-provider
-		text-align: left
+		text-align: center
 		padding: 15px 20px
 		background-color: #7864ac
 		border-top-left-radius: 17px
@@ -86,7 +86,7 @@
 
 	&-age
 		float: right
-		margin-top: 10px
+		margin-top: 6px
 		+bp($bg)
 			float: none
 			margin: 0
@@ -169,7 +169,7 @@
 		padding-left: 40px
 		background-image: url("../img/location.png")
 		background-repeat: no-repeat
-		background-position: 6px 0
+		background-position: 4px 0
 		background-size: 20px
 		line-height: 28px
 		margin: 10px 0
@@ -202,8 +202,8 @@
 		margin: 25px 0 0
 		background-image: url("../img/ticket.png")
 		background-repeat: no-repeat
-		background-position: 0 20px
-		background-size: 33px
+		background-position: 0 22px
+		background-size: 30px
 		font-size: 16px
 		line-height: 33px
 		padding: 20px 0 20px 40px
@@ -265,9 +265,13 @@
 			font-size: 18px
 			vertical-align: middle
 			margin: 0 0 0 10px
-			min-width: 25px
+			min-width: 45px
 			line-height: 22px
 			text-align: right
+			&.price
+				&:after
+					width: 9px
+					top: 4px
 
 	&-price
 		color: #8e7dba

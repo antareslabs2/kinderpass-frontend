@@ -128,3 +128,18 @@ button
 .dib
 	display: inline-block
 	vertical-align: top
+
+.price
+	position: relative
+	padding-right: 15px
+	&:after
+		content: ''
+		background-image: url("../img/moneyP.png")
+		display: inline-block
+		width: 10px
+		height: 100%
+		position: absolute
+		top: 5px
+		right: 0
+		background-size: contain
+		background-repeat: no-repeat

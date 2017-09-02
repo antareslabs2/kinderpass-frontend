@@ -31,6 +31,15 @@ var BookingComponent = (function () {
         var _this = this;
         this.httpService.getBookingById(this.booking_id).subscribe(function (data) {
             if (data.activity) {
+                data.activity.total = 0;
+                for (var i in data.activity.tickets) {
+                    for (var j in data.activity.time_slot.tickets) {
+                        if (data.activity.time_slot.tickets[j].ticket_type_key == data.activity.tickets[i].ticket_type_key) {
+                            data.activity.tickets[i].price = data.activity.time_slot.tickets[j].price;
+                        }
+                    }
+                    data.activity.total += data.activity.tickets[i].price * data.activity.tickets[i].seats;
+                }
                 _this.event = data.activity;
             }
         });

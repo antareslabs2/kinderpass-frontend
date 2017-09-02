@@ -13,7 +13,7 @@
 							<img *ngIf="!booking.time_slot.activity.photo" src="../app/img/placeholder.jpg" alt=""><div class="eventPage-info"></div>
 						</div><!-- 
 					 --><div class="results-item-description">
-							<div [routerLink]="['/booking', booking.id]" >{{booking.time_slot.activity.name}}</div>
+							<div [routerLink]="['/booking', booking.id]" class="bookings-link">{{booking.time_slot.activity.name}}</div>
 							<div class="eventPage-address">{{booking.time_slot.location.address}}</div>
 							<div class="eventPage-date">{{booking.time_slot.date| amDateFormat :'DD MMMM YYYY, dddd'}}</div>
 							<div class="eventPage-time dib">{{booking.time_slot.start_time}}-{{booking.time_slot.end_time}}</div>
@@ -23,15 +23,15 @@
 					</div><!--
 				 --><div class="ticket">
 						<div class="ticket__header">
-							<div class="eventPage-title">Билет</div>
-							<div class="bookings__tickets">
-								<div class="bookings__tickets-title">{{booking.seats}} <span class="bookings__tickets-sep">х</span> Обычный билет:</div>
+							<div class="eventPage-title">Билеты</div>
+							<div class="bookings__tickets" *ngFor="let ticket of booking.tickets;">
+								<div class="bookings__tickets-title">{{ticket.seats}} <span class="bookings__tickets-sep">х</span> {{ticket.ticket_type_name}}:</div>
 								<div class="bookings__tickets-price">
-									{{booking.seats}} <span class="bookings__tickets-sep">х</span> {{booking.time_slot.price}} <span class="bookings__tickets-sep">=</span> {{booking.seats*booking.time_slot.price}}
+									{{ticket.seats}}шт. <span class="bookings__tickets-sep">х</span> <span class="price">{{ticket.price}}</span> <span class="bookings__tickets-sep">=</span> <span class="price">{{ticket.seats*ticket.price}}</span>
 								</div>
 							</div>
 							<div class="bookings__tickets-total">
-								Итого: {{booking.seats*booking.time_slot.price}}
+								Итого: <span class="price">{{booking.total}}</span>
 							</div>
 						</div><div class="ticket__helper"></div><div class="ticket__footer">
 							<button (click)="cancelBooking(booking.id)" class="btn">Отменить бронь</button>

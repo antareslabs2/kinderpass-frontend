@@ -48,7 +48,7 @@
 												<span [class.eventPage__ticket-seats-disable]="ticket.seats >= ticket.allocated_seats" (click)="addTicket(ticket)">+</span>
 												<p *ngIf="ticket.seats >= ticket.allocated_seats" class="hint">Достигнуто максимальное количество свободных мест</p>
 											</div>
-											<p class="eventPage__ticket-price">{{ticket.price * ticket.seats}}</p>
+											<p class="eventPage__ticket-price price">{{ticket.price * ticket.seats}}</p>
 										</div>
 
 									</div>
@@ -59,7 +59,7 @@
 								<div class="eventPage-total-wrap">
 									<div class="eventPage-total">Итого к оплате: <span>{{total + subscriptionPrice}}</span></div>
 								</div>
-								<p *ngIf="discount>0" class="eventPage-discount-wrap">Вы сэконимите <span class="eventPage-discount">{{discount}} рублей</span>, купив этот билет чере Киндерпасс</p>
+								<p *ngIf="discount>0" class="eventPage-discount-wrap">Вы сэкономите <span class="eventPage-discount">{{discount}} рублей</span>, купив этот билет через Киндерпасс</p>
 							</ng-container>
 
 						</div>

@@ -139,6 +139,21 @@ button {
   display: inline-block;
   vertical-align: top; }
 
+.price {
+  position: relative;
+  padding-right: 15px; }
+  .price:after {
+    content: '';
+    background-image: url("../img/moneyP.png");
+    display: inline-block;
+    width: 10px;
+    height: 100%;
+    position: absolute;
+    top: 5px;
+    right: 0;
+    background-size: contain;
+    background-repeat: no-repeat; }
+
 p {
   font-size: 22px;
   font-family: 'matias';
@@ -1364,7 +1379,7 @@ textarea.textarea {
       @media only screen and (max-width: 420px) {
         .results-item-price {
           float: right; } }
-      .results-item-price span {
+      .results-item-price > span {
         color: #ea6fe3;
         font-size: 32px;
         padding-right: 25px;
@@ -1375,17 +1390,18 @@ textarea.textarea {
         min-height: 35px;
         line-height: 40px; }
         @media only screen and (max-width: 420px) {
-          .results-item-price span {
+          .results-item-price > span {
             font-size: 24px;
             line-height: 30px;
             background-size: 11px;
             padding-right: 20px; } }
-        .results-item-price span.results-item-price-old {
-          color: #666;
+        .results-item-price > span.results-item-price-old {
+          color: #8e7dba;
           background: none;
-          text-decoration: line-through;
           padding-right: 5px;
           font-size: 22px; }
+          .results-item-price > span.results-item-price-old span {
+            text-decoration: line-through; }
     .results-item-discount {
       margin-bottom: 10px;
       color: #02ba61;
@@ -1855,7 +1871,7 @@ textarea.textarea {
   .eventPage .ticket__header {
     padding: 15px 30px 0; }
   .eventPage-provider {
-    text-align: left;
+    text-align: center;
     padding: 15px 20px;
     background-color: #7864ac;
     border-top-left-radius: 17px;
@@ -1885,7 +1901,7 @@ textarea.textarea {
         text-align: center; } }
   .eventPage-age {
     float: right;
-    margin-top: 10px; }
+    margin-top: 6px; }
     @media only screen and (max-width: 1080px) {
       .eventPage-age {
         float: none;
@@ -1956,7 +1972,7 @@ textarea.textarea {
     padding-left: 40px;
     background-image: url("../img/location.png");
     background-repeat: no-repeat;
-    background-position: 6px 0;
+    background-position: 4px 0;
     background-size: 20px;
     line-height: 28px;
     margin: 10px 0; }
@@ -1987,8 +2003,8 @@ textarea.textarea {
     margin: 25px 0 0;
     background-image: url("../img/ticket.png");
     background-repeat: no-repeat;
-    background-position: 0 20px;
-    background-size: 33px;
+    background-position: 0 22px;
+    background-size: 30px;
     font-size: 16px;
     line-height: 33px;
     padding: 20px 0 20px 40px;
@@ -2046,9 +2062,12 @@ textarea.textarea {
       font-size: 18px;
       vertical-align: middle;
       margin: 0 0 0 10px;
-      min-width: 25px;
+      min-width: 45px;
       line-height: 22px;
       text-align: right; }
+      .eventPage__ticket-price.price:after {
+        width: 9px;
+        top: 4px; }
   .eventPage-price {
     color: #8e7dba;
     font-size: 16px;
@@ -2271,8 +2290,8 @@ textarea.textarea {
       padding-bottom: 15px; } }
 
 .bookings__tickets {
-  padding: 0 10px;
-  font-size: 20px; }
+  font-size: 20px;
+  color: #8e7dba; }
   .bookings__tickets-price {
     text-align: right;
     margin-bottom: 20px; }
@@ -2280,7 +2299,16 @@ textarea.textarea {
     padding: 0 10px; }
   .bookings__tickets-total {
     font-size: 30px;
-    text-align: center; }
+    text-align: center;
+    color: #8e7dba; }
+    .bookings__tickets-total .price {
+      padding-right: 20px; }
+      .bookings__tickets-total .price:after {
+        width: 15px;
+        top: 7px; }
+
+.bookings-link {
+  cursor: pointer; }
 
 .ticket__header {
   padding: 15px 15px 0;
@@ -2326,3 +2354,27 @@ textarea.textarea {
   opacity: 1 !important;
   border-radius: 12px !important;
   width: 14px !important; }
+
+.metro {
+  display: inline-block;
+  padding: 0 0 0 15px;
+  position: relative; }
+  .metro:before {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    top: 50%;
+    margin-top: -5px;
+    left: 0;
+    content: ''; }
+  .metro-1:before {
+    background-color: #d40333; }
+  .metro-2:before {
+    background-color: #0076b6; }
+  .metro-3:before {
+    background-color: #009750; }
+  .metro-4:before {
+    background-color: #e47103; }
+  .metro-5:before {
+    background-color: #69237b; }

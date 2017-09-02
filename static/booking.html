@@ -18,35 +18,23 @@
 		 --><div class="col-1-2">
  		 		<div class="ticket">
  					<div class="ticket__header">
- 						<div class="eventPage-title">Билет</div>
+ 						<div class="eventPage-title">Билеты</div>
  						<div class="eventPage-ticket-fields">
  							<div class="eventPage-date">{{event.time_slot.date}}</div>
  							<div class="eventPage-time">{{event.time_slot.start_time}}-{{event.time_slot.end_time}}</div>
  							<div class="eventPage-duration">Длительность {{event.time_slot.activity.duration}} минут</div>
  							<div class="eventPage-address">{{event.time_slot.location.address}}</div>
- 							<div class="eventPage-ticket-fields">
- 								<div class="eventPage-seats">
- 								<div>Количество билетов</div>
- 								<div class="eventPage-seats-num">{{event.seats}}</div>
- 								</div>
- 								<div class="eventPage-price">Стоимость билетов <span>{{event.time_slot.price * event.seats}}</span></div>
- 							</div>
- 							<ng-container *ngIf="event.time_slot.tickets.length>0">
- 								<div class="eventPage__line"></div>
- 								<div class="eventPage__ticket">
- 									<div class="eventPage__ticket-item" *ngFor="let ticket of event.time_slot.tickets; let i = index">
- 										<div class="eventPage__ticket-name">{{ticket.ticket_type_name}}</div>
- 										<div class="eventPage__ticket-seats-wrap">
- 											<div class="eventPage__ticket-seats">
- 												<p class="eventPage__ticket-seats-input">{{ticket.seats}}</p>
- 											</div>
- 											<p class="eventPage__ticket-price">{{ticket.price * ticket.seats}}</p>
- 										</div>
-
- 									</div>
- 								</div>
+ 							<ng-container *ngIf="event.tickets.length>0">
+								<div class="bookings__tickets" *ngFor="let ticket of event.tickets; let i = index">
+									<div class="bookings__tickets-title">{{ticket.seats}} <span class="bookings__tickets-sep">х</span> {{ticket.ticket_type_name}}:</div>
+									<div class="bookings__tickets-price">
+										{{ticket.seats}}шт. <span class="bookings__tickets-sep">х</span> <span class="price">{{ticket.price}}</span> <span class="bookings__tickets-sep">=</span> <span class="price">{{ticket.seats*ticket.price}}</span>
+									</div>
+								</div>
  								<div class="eventPage-total-wrap">
- 									<div class="eventPage-total">Стоимость билетов: <span>{{event.time_slot.price * event.seats}}</span></div>
+ 									<div class="bookings__tickets-total">
+ 										Итого: <span class="price">{{event.total}}</span>
+ 									</div>
  								</div>
  							</ng-container>
 
