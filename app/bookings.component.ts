@@ -16,12 +16,10 @@ export class BookingsComponent implements OnInit {
 	booking_id:number;
 	innerpage: boolean;
 	bookings: any[];
-	total: number;
  
 	constructor(private httpService: Api, private gs: GlobalService, private _location: Location){
 		this.innerpage = true;
 		this.bookings = [];
-		this.number = 0;
 	}
 
 	ngOnInit(){

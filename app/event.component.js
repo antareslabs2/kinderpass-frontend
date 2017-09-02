@@ -29,7 +29,6 @@ var EventComponent = (function () {
         this.selectedTime = 0;
         this.selectedTicket = 0;
         this.total = 0;
-        this.discount = 0;
     }
     EventComponent.prototype.ngOnInit = function () {
         var _this = this;

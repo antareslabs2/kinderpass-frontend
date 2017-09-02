@@ -31,7 +31,6 @@ export class EventComponent implements OnInit, OnDestroy  {
 	selectedTicket : number;
 	
 	total: number;
-	discount: number;
 
 	constructor(private httpService: Api, private route: ActivatedRoute, private gs: GlobalService){
 		this.innerpage = true;
@@ -44,7 +43,6 @@ export class EventComponent implements OnInit, OnDestroy  {
 		this.selectedTime = 0;
 		this.selectedTicket = 0;
 		this.total = 0;
-		this.discount = 0;
 	}
 
 	ngOnInit(){

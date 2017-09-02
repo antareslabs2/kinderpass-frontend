@@ -21,7 +21,6 @@ var BookingsComponent = (function () {
         this._location = _location;
         this.innerpage = true;
         this.bookings = [];
-        this.number = 0;
     }
     BookingsComponent.prototype.ngOnInit = function () {
         var _this = this;
