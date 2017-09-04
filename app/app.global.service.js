@@ -77,7 +77,7 @@ var GlobalService = (function () {
                         else if (data.transaction.status == 'C') {
                             if (localStorage.getItem('timeslot_id')) {
                                 var timeslot = +localStorage.getItem('timeslot_id');
-                                var seats = +localStorage.getItem('seats');
+                                var seats = JSON.parse(localStorage.getItem('seats'));
                                 _this.httpService.makingBooking(timeslot, seats).subscribe(function (data) {
                                     if (data.status == "OK") {
                                         _this.booking_id = data.booking_id;

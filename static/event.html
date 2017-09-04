@@ -40,7 +40,7 @@
 								<div class="eventPage__line"></div>
 								<div class="eventPage__ticket">
 									<div class="eventPage__ticket-item" *ngFor="let ticket of event.locations[selectedLocation].time_slots[selectedTime].tickets; let i = index">
-										<div class="eventPage__ticket-name">{{ticket.ticket_type_name}}</div>
+										<div class="eventPage__ticket-name">{{ticket.ticket_type_name}} (<span class="price">{{ticket.price}}</span>)</div>
 										<div class="eventPage__ticket-seats-wrap">
 											<div class="eventPage__ticket-seats">
 												<span [class.eventPage__ticket-seats-disable]="ticket.seats==0" (click)="removeTicket(ticket)">-</span>
@@ -65,7 +65,7 @@
 						</div>
 					</div><div class="ticket__helper"></div><div class="ticket__footer">
 						<div class="eventPage-btns">
-							<button (click)="makingBooking()" class="btn">Купить билет</button>
+							<button (click)="makingBooking()" [class.disabled]="total<=0" class="btn">Купить билет</button>
 						</div>
 					</div>
 				</div>

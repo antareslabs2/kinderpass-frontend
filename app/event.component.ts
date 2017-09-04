@@ -63,6 +63,7 @@ export class EventComponent implements OnInit, OnDestroy  {
 			if(data.activity){
 				for( var i in data.activity.locations) {
 					for (var j in data.activity.locations[i].time_slots) {
+						data.activity.locations[i].time_slots[j].tickets.sort(this.sortTicketsByPrice);
 						var date = moment(data.activity.locations[i].time_slots[j].date.replace(/(\d+).(\d+).(\d+)/,'$3-$2-$1')).add(data.activity.locations[i].time_slots[j].start_time.split(':')[0], 'h').format();
 						data.activity.locations[i].time_slots[j].date = date;
 						for(var z in data.activity.locations[i].time_slots[j].tickets) {
@@ -83,6 +84,10 @@ export class EventComponent implements OnInit, OnDestroy  {
 				ga('send', 'pageview', '/virtual/eventopened');
 			}
 		});
+	}
+
+	sortTicketsByPrice(a:any, b:any) : number {
+		return a.price - b.price;
 	}
 
 	addTicket(ticket: any) : void {
@@ -162,7 +167,14 @@ export class EventComponent implements OnInit, OnDestroy  {
 					}
 				} else {
 					localStorage.setItem('timeslot_id', JSON.stringify(this.event.locations[this.selectedLocation].time_slots[this.selectedTime].id));
-					localStorage.setItem('seats', JSON.stringify(this.seats));
+					let tickets = this.event.locations[this.selectedLocation].time_slots[this.selectedTime].tickets;
+					var data = {};
+					for (let i in tickets) {
+						if(tickets[i].seats > 0) {
+							data[tickets[i].ticket_type_key] = tickets[i].seats;
+						}
+					}
+					localStorage.setItem('seats', JSON.stringify(data));
 					if(this.subscriptionPrice)
 						this.gs.initTransaction('SB', (price - userBalance));
 					else
@@ -174,15 +186,12 @@ export class EventComponent implements OnInit, OnDestroy  {
 
 	book() {
 		let tickets = this.event.locations[this.selectedLocation].time_slots[this.selectedTime].tickets;
-		console.log(tickets);
 		var data = {};
 		for (let i in tickets) {
-			console.log(i)
 			if(tickets[i].seats > 0) {
 				data[tickets[i].ticket_type_key] = tickets[i].seats;
 			}
 		}
-		console.log(data)
 		this.httpService.makingBooking(this.event.locations[this.selectedLocation].time_slots[this.selectedTime].id,data).subscribe((data:any) => {
 			if (data.status == "OK") {
 				this.gs.booking_id = data.booking_id;

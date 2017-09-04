@@ -12,8 +12,8 @@
 						<span>{{event.time_slot.free_seats}}</span>
 					</div>
 				</div>
-				<div *ngIf="event.extra" class="eventPage-additionalInfo">Важно: <span [innerHtml]="event.extra"></span></div>
-				<p class="eventPage-p">{{event.description}}</p>
+				<div *ngIf="event.time_slot.activity.extra" class="eventPage-additionalInfo">Важно: <span [innerHtml]="event.time_slot.activity.extra"></span></div>
+				<p class="eventPage-p">{{event.time_slot.activity.description}}</p>
 			</div><!-- 
 		 --><div class="col-1-2">
  		 		<div class="ticket">

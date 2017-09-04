@@ -275,6 +275,8 @@ img {
     text-decoration: underline;
     line-height: 1.2;
     padding: 0; }
+  .btn.disabled {
+    opacity: .5; }
 
 .btns .btn:last-of-type {
   margin: 0; }
@@ -315,6 +317,30 @@ textarea.textarea {
   font-family: 'rounds';
   src: url("../fonts/roundsblack.ttf");
   src: url("../fonts/roundsblack.woff") format("woff"), url("../fonts/roundsblack.ttf") format("truetype"), url("../fonts/roundsblack.woff2") format("woff2"); }
+
+.metro {
+  display: inline-block;
+  padding: 0 0 0 15px;
+  position: relative; }
+  .metro:before {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    top: 50%;
+    margin-top: -5px;
+    left: 0;
+    content: ''; }
+  .metro-1:before {
+    background-color: #d40333; }
+  .metro-2:before {
+    background-color: #0076b6; }
+  .metro-3:before {
+    background-color: #009750; }
+  .metro-4:before {
+    background-color: #e47103; }
+  .metro-5:before {
+    background-color: #69237b; }
 
 .header {
   padding: 35px 0 25px;
@@ -1324,7 +1350,7 @@ textarea.textarea {
       background-position: center left;
       background-size: 23px;
       min-height: 30px;
-      line-height: 30px; }
+      line-height: 25px; }
       @media only screen and (max-width: 420px) {
         .results-item-location {
           font-size: 16px;
@@ -1406,6 +1432,12 @@ textarea.textarea {
       margin-bottom: 10px;
       color: #02ba61;
       text-align: center; }
+    .results-item-metro {
+      float: right; }
+      @media only screen and (max-width: 1080px) {
+        .results-item-metro {
+          float: none;
+          display: block; } }
 
 .moreResults {
   text-align: center;
@@ -1869,7 +1901,7 @@ textarea.textarea {
           padding-left: 3vw;
           padding-right: 3vw; } }
   .eventPage .ticket__header {
-    padding: 15px 30px 0; }
+    padding: 15px 25px 0; }
   .eventPage-provider {
     text-align: center;
     padding: 15px 20px;
@@ -2031,7 +2063,15 @@ textarea.textarea {
       position: relative;
       display: inline-block; }
       .eventPage__ticket-seats-wrap {
-        float: right; }
+        float: right;
+        width: 150px;
+        margin-left: 10px; }
+        @media only screen and (max-width: 1080px) {
+          .eventPage__ticket-seats-wrap {
+            float: none;
+            width: auto;
+            display: block;
+            margin: 0; } }
       .eventPage__ticket-seats-input {
         color: #8e7dba;
         display: inline-block;
@@ -2061,13 +2101,24 @@ textarea.textarea {
       color: #8e7dba;
       font-size: 18px;
       vertical-align: middle;
-      margin: 0 0 0 10px;
-      min-width: 45px;
+      min-width: 55px;
       line-height: 22px;
       text-align: right; }
       .eventPage__ticket-price.price:after {
         width: 9px;
         top: 4px; }
+    .eventPage__ticket-name {
+      width: calc(100% - 160px);
+      line-height: 20px; }
+      @media only screen and (max-width: 1080px) {
+        .eventPage__ticket-name {
+          width: 100%;
+          display: block; } }
+      .eventPage__ticket-name .price {
+        padding-right: 12px; }
+        .eventPage__ticket-name .price:after {
+          width: 9px;
+          top: 3px; }
   .eventPage-price {
     color: #8e7dba;
     font-size: 16px;
@@ -2354,27 +2405,3 @@ textarea.textarea {
   opacity: 1 !important;
   border-radius: 12px !important;
   width: 14px !important; }
-
-.metro {
-  display: inline-block;
-  padding: 0 0 0 15px;
-  position: relative; }
-  .metro:before {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    top: 50%;
-    margin-top: -5px;
-    left: 0;
-    content: ''; }
-  .metro-1:before {
-    background-color: #d40333; }
-  .metro-2:before {
-    background-color: #0076b6; }
-  .metro-3:before {
-    background-color: #009750; }
-  .metro-4:before {
-    background-color: #e47103; }
-  .metro-5:before {
-    background-color: #69237b; }

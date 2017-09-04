@@ -84,7 +84,7 @@ export class GlobalService {
 						} else if (data.transaction.status == 'C') {
 							if(localStorage.getItem('timeslot_id')) {
 								let timeslot : number = + localStorage.getItem('timeslot_id');
-								let seats : number = + localStorage.getItem('seats');
+								let seats : any = JSON.parse(localStorage.getItem('seats'));
 
 								this.httpService.makingBooking(timeslot, seats).subscribe((data:any) => {
 									if (data.status == "OK") {
