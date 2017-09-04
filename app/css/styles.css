@@ -1339,7 +1339,8 @@ textarea.textarea {
       @media only screen and (max-width: 420px) {
         .results-item-recommendation {
           font-size: 14px;
-          min-height: 25px; } }
+          min-height: 25px;
+          margin: 10px 0; } }
     .results-item-location {
       font-size: 20px;
       width: 100%;
