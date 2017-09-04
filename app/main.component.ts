@@ -352,10 +352,10 @@ export class MainComponent implements OnInit {
 		for( let item in data.activities) {
 			let timeslotMin: string;
 			let timeslotMax: string;
-			let priceMax: number;
-			let priceMin: number;
-			let priceOld: number;
-			let discount = 0;
+			let priceMax: number  = 0;
+			let priceMin: number  = 0;
+			let priceOld: number  = 0;
+			let discount: number = 0;
 			for( let location in data.activities[item].locations) {
 				for (let time in data.activities[item].locations[location].time_slots) {
 					if (data.activities[item].locations[location].time_slots[time].price_without_discount > 0) {
@@ -367,60 +367,24 @@ export class MainComponent implements OnInit {
 						timeslotMin = data.activities[item].locations[location].time_slots[time].start_time;
 					if (!timeslotMax || timeslotMax < data.activities[item].locations[location].time_slots[time].end_time)
 						timeslotMax = data.activities[item].locations[location].time_slots[time].end_time;
+					if (data.activities[item].locations[location].time_slots[time].ticket_types_num > 1) {
+
+						// if (!priceMax || priceMax < data.activities[item].locations[location].time_slots[time].price)
+							// priceMax = data.activities[item].locations[location].time_slots[time].price;
+						if (!priceOld || priceOld > data.activities[item].locations[location].time_slots[time].price_without_discount)
+							priceOld = data.activities[item].locations[location].time_slots[time].price_without_discount;
+					}
 					if (!priceMin || priceMin > data.activities[item].locations[location].time_slots[time].price)
 						priceMin = data.activities[item].locations[location].time_slots[time].price;
-					if (!priceMax || priceMax < data.activities[item].locations[location].time_slots[time].price)
-						priceMax = data.activities[item].locations[location].time_slots[time].price;
-					if (!priceOld || priceOld > data.activities[item].locations[location].time_slots[time].price_without_discount)
-						priceOld = data.activities[item].locations[location].time_slots[time].price_without_discount;
-					// this.events.push({
-					// 	'id': data.activities[item].id,
-					// 	'name': data.activities[item].name,
-					// 	'description': data.activities[item].description,
-					// 	'photo': data.activities[item].photo,
-					// 	'duration': data.activities[item].duration,
-					// 	'age_from': data.activities[item].age_from,
-					// 	'age_to': data.activities[item].age_to,
-					// 	'extra': data.activities[item].extra,
-					// 	'locations': {
-					// 		'id': data.activities[item].locations[location].id,
-					// 		'address': data.activities[item].locations[location].address,
-					// 		'latitude': data.activities[item].locations[location].latitude,
-					// 		'longitude': data.activities[item].locations[location].longitude,
-					// 		'time_slots':{
-					// 			'id': data.activities[item].locations[location].time_slots[time].id,
-					// 			'date': data.activities[item].locations[location].time_slots[time].date,
-					// 			'start_time': data.activities[item].locations[location].time_slots[time].start_time,
-					// 			'end_time': data.activities[item].locations[location].time_slots[time].end_time,
-					// 			'free_seats': data.activities[item].locations[location].time_slots[time].free_seats,
-					// 			'allocated_seats': data.activities[item].locations[location].time_slots[time].allocated_seats,
-					// 			'price': data.activities[item].locations[location].time_slots[time].price,
-					// 			'discount': discount
-					// 		}
-					// 	},
-					// 	'provider': {
-					// 		'id': data.activities[item].provider.id,
-					// 		'name': data.activities[item].provider.name,
-					// 		'legal': {
-					// 			'contract_date': data.activities[item].provider.legal.contract_date,
-					// 			'legal_name': data.activities[item].provider.legal.legal_name,
-					// 			'contact_phone': data.activities[item].provider.legal.contact_phone,
-					// 			'contact_email': data.activities[item].provider.legal.contact_email,
-					// 			'tax_num': data.activities[item].provider.legal.tax_num,
-					// 		}
-					// 	},
-					// 	'time_min': timeslotMin,
-					// 	'time_max': timeslotMax
-					// });
 				}
 			}
 			data.activities[item]['time_min'] = timeslotMin;
 			data.activities[item]['time_max'] = timeslotMax;
 			data.activities[item]['price_min'] = priceMin;
 			data.activities[item]['price_old'] = priceOld;
-			if (priceMin != priceMax) {
-				data.activities[item]['price_max'] = priceMax;
-			}
+			// if (priceMin != priceMax) {
+			// 	data.activities[item]['price_max'] = priceMax;
+			// }
 			if (discount > 0) {
 				data.activities[item]['discount'] = discount;
 			}
