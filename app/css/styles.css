@@ -2281,8 +2281,9 @@ textarea.textarea {
   .eventPage-scrollBtn {
     float: right;
     display: none;
-    padding: 10px 20px;
-    border-radius: 10px; }
+    padding: 5px 20px;
+    border-radius: 10px;
+    margin-top: 3px; }
     .eventPage-scrollBtn:after {
       clear: both;
       content: " ";
