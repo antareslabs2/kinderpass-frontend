@@ -79,6 +79,7 @@ var MainComponent = (function () {
                 }
             }
         });
+        this.resultsMessage = "Не найдено ни одного мероприятия";
     }
     MainComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -222,6 +223,8 @@ var MainComponent = (function () {
     };
     MainComponent.prototype.eventsFilter = function () {
         var _this = this;
+        this.events = [];
+        this.resultsMessage = "Загружаю расписание";
         var getParams = {};
         if (this.params.age_from != null)
             getParams.age_from = this.params.age_from;
@@ -255,6 +258,10 @@ var MainComponent = (function () {
             _this.events = [];
             if (data.results > 0) {
                 _this.parseActivities(data);
+                _this.resultsMessage = "";
+            }
+            else {
+                _this.resultsMessage = "Не найдено ни одного мероприятия";
             }
             if (_this.hash) {
                 var pageScrollInstance_1 = ng2_page_scroll_1.PageScrollInstance.newInstance({ document: _this.document, scrollTarget: _this.hash, pageScrollDuration: 0 });
@@ -370,10 +377,6 @@ var MainComponent = (function () {
     };
     return MainComponent;
 }());
-__decorate([
-    core_1.ViewChild('select'),
-    __metadata("design:type", Object)
-], MainComponent.prototype, "myInput", void 0);
 MainComponent = __decorate([
     core_1.Component({
         selector: 'main-app',

@@ -28,7 +28,7 @@
 </div>
 <div [@dialog] *ngIf="gs.popupName == 'msg' || gs.popupName == 'msgCancel'" class="popup-wrapper msg-wrapper" [class.msg-wrapper-cancel]="gs.popupName == 'msgCancel'">
 	<div class="popup-close modal-close msg-close"(click)="close()" ></div>
-	<p class="popup-description">{{gs.msg}}</p>
+	<p class="popup-description">{{gs.msg}}erwe</p>
 	<div (click)="close()" class="btn">OK</div>
 </div>
 
@@ -38,12 +38,8 @@
 	<div class="popup-close modal-close msg-close"(click)="close()" ></div>
 	<p class="popup-description">Бронь № {{gs.booking_id}} оформлена. Проверьте Вашу электронную почту и СМС, Вам должно прийти уведомление</p>
 	<div class="popup-btns">
-		<div class="col-1-2">
-			<a (click)="close()" [routerLink]="['/']" class="btn">На главную</a>
-		</div><!-- 
-	 --><div class="col-1-2">
-			<div (click)="close()" [routerLink]="['/booking', gs.booking_id]" class="btn">Посмотреть билет</div>
-		</div>
+		<div (click)="close()" [routerLink]="['/booking', gs.booking_id]" class="btn">Посмотреть билет</div>
+		<a (click)="close()" [routerLink]="['/']" class="btn btn-link">На главную</a>
 	</div>
 </div>
 
@@ -66,7 +62,7 @@
 		<div class="event-title">Продление подписки</div>
 		<p class="popup-description">Срок действия подписки истекает {{gs.userInfo.subscription.expires_at}}</p>
 	</ng-container>
-	<p class="popup-description">Подписка дает вам возможность бронировать неограниченное количество мероприятий со скидками</p>
+	<p class="popup-description">Абонемент дает вам возможность бронировать неограниченное количество мероприятий со скидками</p>
 	<div class="btns">
 		<div (click)="gs.initTransaction('SM', 200)" class="btn">Продлить на месяц<br>за 200&nbsp;руб.</div>
 		<div (click)="gs.initTransaction('SA', 1900)" class="btn">Продлить на год<br>за 1900&nbsp;руб.</div>

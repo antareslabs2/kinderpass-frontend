@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ViewChild } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Api } from './api.service';
 import { GlobalService } from './app.global.service';
 import { Router } from "@angular/router";
@@ -48,7 +48,7 @@ declare var ga:Function;
 })
 
 export class MainComponent implements OnInit { 
-	@ViewChild('select') myInput: any;
+
 	categories:any;
 	events:any;
 	dates:any[];
@@ -76,6 +76,8 @@ export class MainComponent implements OnInit {
 
 	showDistricts : boolean;
 	desktop : boolean;
+
+	resultsMessage: string;
 
 	constructor(private httpService: Api, private router:Router, private gs:GlobalService, private pageScrollService: PageScrollService, @Inject(DOCUMENT) private document: any){
 		this.hash = '';
@@ -131,6 +133,7 @@ export class MainComponent implements OnInit {
 			}
 			
 		});
+		this.resultsMessage = "Не найдено ни одного мероприятия";
 	}
 
 	ngOnInit(){
@@ -281,6 +284,8 @@ export class MainComponent implements OnInit {
 	}
 
 	eventsFilter() : void {
+		this.events = [];
+		this.resultsMessage = "Загружаю расписание";
 		let getParams:any = {};
 		if (this.params.age_from != null)
 			getParams.age_from = this.params.age_from;
@@ -319,6 +324,9 @@ export class MainComponent implements OnInit {
 			this.events = [];
 			if(data.results > 0) {
 				this.parseActivities(data);
+				this.resultsMessage = "";
+			} else {
+				this.resultsMessage = "Не найдено ни одного мероприятия";
 			}
 			if (this.hash) {
 				let pageScrollInstance: PageScrollInstance = PageScrollInstance.newInstance({document: this.document, scrollTarget: this.hash, pageScrollDuration: 0});

@@ -84,23 +84,13 @@
 				background-color: #17948e
 	
 	&-btns
-		.col-1-2
-			&:first-of-type
-				padding-right: 1%
-				+bp($md)
-					padding: 0
-					margin-bottom: 1%	
-					
-			&:last-of-type
-				padding-left: 1%
-				+bp($md)
-					padding: 0
-					margin-bottom: 1%	
-					
-
-			.btn
-				font-size: 16px
-				width: 100%
+		text-align: center
+		.btn
+			display: block
+			width: 100%
+			margin: 10px 0
+			&-link
+				text-transform: none
 
 .login
 	background: transparentize(#000, .3)
@@ -231,6 +221,7 @@
 			font-size: 26px
 			color: #8e7dba
 			font-family: 'matias'
+			margin: 35px 0
 
 		&-cancel
 			//background-color: rgb(255, 51, 102)

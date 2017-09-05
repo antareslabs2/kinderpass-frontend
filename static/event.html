@@ -4,8 +4,9 @@
 			<div class="prevPage"  [routerLink]="['/']" fragment="event_{{timeslot_id}}" [queryParams]="gs.url"><img src="../app/img/back.png" alt=""><span>Назад</span></div>
 			<h1>{{event.name}}</h1>
 			<div class="col-1-2 eventCol">
-				<div class="eventPage-provider">{{event.provider.name}}</div><img *ngIf="event.photo" class="eventPage-photo" src="{{'img/' + event.photo + '.jpg'}}" alt=""><img *ngIf="!event.photo" class="eventPage-photo" src="../app/img/placeholder.jpg" alt=""><div class="eventPage-info">
-					<div class="eventPage-age">Для детей {{event.age_from}}-{{event.age_to}} лет</div>
+				<div class="eventPage-provider">{{event.provider.name}}</div><img *ngIf="event.photo" class="eventPage-photo" src="{{'img/' + event.photo + '.jpg'}}" alt=""><img *ngIf="!event.photo" class="eventPage-photo" src="../app/img/placeholder.jpg" alt=""><div class="eventPage-info" [class.eventPage-info-small]="event.age_to >= 99">
+					<div *ngIf="event.age_to < 99" class="eventPage-age">Для детей {{event.age_from}}-{{event.age_to}} лет</div>
+					<div *ngIf="event.age_to >= 99" class="eventPage-age">Для детей от {{event.age_from}} лет и взрослых</div>
 					<div class="eventPage-freeSeats">
 						<img src="../app/img/children.png" alt="">
 						<p class="eventPage-p">Осталось мест</p>
@@ -14,6 +15,7 @@
 				</div>
 				<div *ngIf="event.extra" class="eventPage-additionalInfo">Важно: <span [innerHtml]="event.extra"></span></div>
 				<p class="eventPage-p">{{event.description}}</p>
+
 			</div><!-- 
 		 --><div class="col-1-2">
 		 		<div class="ticket">
@@ -50,7 +52,7 @@
 											</div>
 											<p class="eventPage__ticket-price price">{{ticket.price * ticket.seats}}</p>
 										</div>
-
+										<p class="eventPage__ticket-description">{{ticket.ticket_type_description}}</p>
 									</div>
 								</div>
 								<ng-container *ngIf="subscriptionPrice">
@@ -65,7 +67,8 @@
 						</div>
 					</div><div class="ticket__helper"></div><div class="ticket__footer">
 						<div class="eventPage-btns">
-							<button (click)="makingBooking()" [class.disabled]="total<=0" class="btn">Купить билет</button>
+							<button *ngIf="total>0" (click)="makingBooking()" [class.disabled]="total<=0" class="btn">Купить билет</button>
+							<button *ngIf="total<=0" class="btn disabled">Выберите количество билетов</button>
 						</div>
 					</div>
 				</div>

@@ -275,8 +275,13 @@ img {
     text-decoration: underline;
     line-height: 1.2;
     padding: 0; }
+    .btn.btn-link:hover {
+      text-decoration: none; }
   .btn.disabled {
-    opacity: .5; }
+    opacity: .5;
+    cursor: default; }
+    .btn.disabled:hover {
+      background-color: #02ba61; }
 
 .btns .btn:last-of-type {
   margin: 0; }
@@ -1285,13 +1290,13 @@ textarea.textarea {
   @media only screen and (max-width: 420px) {
     .results {
       padding: 10px; } }
-  .results-notFound {
+  .results-message {
     color: #8e7dba;
     text-align: center;
     font-size: 24px;
     font-family: 'rounds'; }
     @media only screen and (max-width: 420px) {
-      .results-notFound {
+      .results-message {
         font-size: 16px;
         margin: 5% 0; } }
   .results-item {
@@ -1545,21 +1550,14 @@ textarea.textarea {
       @media only screen and (max-width: 420px) {
         .popup-close:after {
           background-color: #17948e; } }
-  .popup-btns .col-1-2:first-of-type {
-    padding-right: 1%; }
-    @media only screen and (max-width: 780px) {
-      .popup-btns .col-1-2:first-of-type {
-        padding: 0;
-        margin-bottom: 1%; } }
-  .popup-btns .col-1-2:last-of-type {
-    padding-left: 1%; }
-    @media only screen and (max-width: 780px) {
-      .popup-btns .col-1-2:last-of-type {
-        padding: 0;
-        margin-bottom: 1%; } }
-  .popup-btns .col-1-2 .btn {
-    font-size: 16px;
-    width: 100%; }
+  .popup-btns {
+    text-align: center; }
+    .popup-btns .btn {
+      display: block;
+      width: 100%;
+      margin: 10px 0; }
+      .popup-btns .btn-link {
+        text-transform: none; }
 
 .login {
   background: rgba(0, 0, 0, 0.7); }
@@ -1673,7 +1671,8 @@ textarea.textarea {
   .msg-wrapper .popup-description {
     font-size: 26px;
     color: #8e7dba;
-    font-family: 'matias'; }
+    font-family: 'matias';
+    margin: 35px 0; }
   .msg-wrapper-cancel .popup-description {
     color: #ff3366; }
   .msg-wrapper-close:before, .msg-wrapper-close:after {
@@ -1903,6 +1902,9 @@ textarea.textarea {
           padding-right: 3vw; } }
   .eventPage .ticket__header {
     padding: 15px 25px 0; }
+    @media only screen and (max-width: 780px) {
+      .eventPage .ticket__header {
+        padding: 15px 15px 0; } }
   .eventPage-provider {
     text-align: center;
     padding: 15px 20px;
@@ -1922,6 +1924,18 @@ textarea.textarea {
          object-fit: cover;
       width: 100%;
       height: 100%; }
+  .eventPage-freeSeats p,
+  .eventPage-freeSeats span,
+  .eventPage-freeSeats img {
+    display: inline-block;
+    vertical-align: middle; }
+  .eventPage-freeSeats p {
+    margin: 0 15px;
+    color: inherit;
+    font-size: 24px; }
+  .eventPage-freeSeats span {
+    font-size: 44px;
+    line-height: 44px; }
   .eventPage-info {
     background-color: #f49ac1;
     border-bottom-left-radius: 17px;
@@ -1932,6 +1946,15 @@ textarea.textarea {
     @media only screen and (max-width: 1080px) {
       .eventPage-info {
         text-align: center; } }
+    .eventPage-info-small {
+      font-size: 18px; }
+      .eventPage-info-small .eventPage-freeSeats p {
+        font-size: 18px; }
+      .eventPage-info-small .eventPage-freeSeats img {
+        max-width: 30px; }
+      .eventPage-info-small .eventPage-freeSeats span {
+        font-size: 36px;
+        line-height: 36px; }
   .eventPage-age {
     float: right;
     margin-top: 6px; }
@@ -1966,18 +1989,6 @@ textarea.textarea {
     @media only screen and (max-width: 420px) {
       .eventPage-title {
         font-size: 20px; } }
-  .eventPage-freeSeats p,
-  .eventPage-freeSeats span,
-  .eventPage-freeSeats img {
-    display: inline-block;
-    vertical-align: middle; }
-  .eventPage-freeSeats p {
-    margin: 0 15px;
-    color: inherit;
-    font-size: 24px; }
-  .eventPage-freeSeats span {
-    font-size: 44px;
-    line-height: 44px; }
   .eventPage-description {
     color: #000;
     font-size: 20px;
@@ -2120,6 +2131,12 @@ textarea.textarea {
         .eventPage__ticket-name .price:after {
           width: 9px;
           top: 3px; }
+    .eventPage__ticket-description {
+      color: #8e7dba;
+      font-size: 14px;
+      font-style: italic;
+      line-height: 16px;
+      clear: both; }
   .eventPage-price {
     color: #8e7dba;
     font-size: 16px;
