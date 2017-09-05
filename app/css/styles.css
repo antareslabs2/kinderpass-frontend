@@ -74,6 +74,9 @@ button {
     vertical-align: middle; }
   .prevPage img {
     margin-right: 10px; }
+  @media only screen and (max-width: 780px) {
+    .prevPage {
+      font-size: 20px; } }
   .prevPage:hover {
     opacity: 1; }
 
@@ -1877,18 +1880,18 @@ textarea.textarea {
     text-align: left; }
   .eventPage .col-1-2 {
     margin-top: 20px; }
-    .eventPage .col-1-2:nth-child(odd) {
+    .eventPage .col-1-2:nth-of-type(odd) {
       width: 55%;
       text-align: center; }
       @media only screen and (max-width: 1024px) {
-        .eventPage .col-1-2:nth-child(odd) {
+        .eventPage .col-1-2:nth-of-type(odd) {
           width: 100%; } }
-    .eventPage .col-1-2:nth-child(even) {
+    .eventPage .col-1-2:nth-of-type(even) {
       margin-left: 3%;
       width: 42%;
       margin-bottom: 3%; }
       @media only screen and (max-width: 1024px) {
-        .eventPage .col-1-2:nth-child(even) {
+        .eventPage .col-1-2:nth-of-type(even) {
           width: 100%;
           margin: 20px 0 0; } }
     .eventPage .col-1-2.ticketCol {
@@ -2045,13 +2048,9 @@ textarea.textarea {
     line-height: 30px; }
   .eventPage__ticket {
     margin: 25px 0 0;
-    background-image: url("../img/ticket.png");
-    background-repeat: no-repeat;
-    background-position: 0 22px;
-    background-size: 30px;
     font-size: 16px;
     line-height: 33px;
-    padding: 20px 0 20px 40px;
+    padding: 20px 0;
     border-top: 1px solid #cecdd5;
     position: relative; }
     .eventPage__ticket:after {
@@ -2063,6 +2062,10 @@ textarea.textarea {
       content: '';
       height: 1px;
       margin-left: -25%; }
+    @media only screen and (max-width: 1080px) {
+      .eventPage__ticket-item {
+        position: relative;
+        padding-bottom: 30px; } }
     .eventPage__ticket-item div {
       color: #8e7dba;
       display: inline-block;
@@ -2083,7 +2086,10 @@ textarea.textarea {
             float: none;
             width: auto;
             display: block;
-            margin: 0; } }
+            margin: 0;
+            position: absolute;
+            bottom: 0;
+            left: 0; } }
       .eventPage__ticket-seats-input {
         color: #8e7dba;
         display: inline-block;
@@ -2136,7 +2142,8 @@ textarea.textarea {
       font-size: 14px;
       font-style: italic;
       line-height: 16px;
-      clear: both; }
+      clear: both;
+      margin-bottom: 5px; }
   .eventPage-price {
     color: #8e7dba;
     font-size: 16px;
@@ -2271,6 +2278,21 @@ textarea.textarea {
       min-width: 40px;
       text-align: right;
       font-size: 18px; }
+  .eventPage-scrollBtn {
+    float: right;
+    display: none;
+    padding: 10px 20px;
+    border-radius: 10px; }
+    .eventPage-scrollBtn:after {
+      clear: both;
+      content: " ";
+      display: block;
+      height: 0;
+      visibility: hidden;
+      width: 0; }
+    @media only screen and (max-width: 780px) {
+      .eventPage-scrollBtn {
+        display: block; } }
 
 .bookings .results-item {
   margin: 55px 0 110px;

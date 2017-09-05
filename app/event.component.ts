@@ -1,7 +1,9 @@
-import { Component, OnInit, OnDestroy  } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { Api } from './api.service';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from './app.global.service';
+import { PageScrollConfig, PageScrollService, PageScrollInstance } from 'ng2-page-scroll';
+import {DOCUMENT} from '@angular/platform-browser';
 
 import * as moment from 'moment';
 declare var ga:Function;
@@ -32,7 +34,7 @@ export class EventComponent implements OnInit, OnDestroy  {
 	
 	total: number;
 
-	constructor(private httpService: Api, private route: ActivatedRoute, private gs: GlobalService){
+	constructor(private httpService: Api, private route: ActivatedRoute, private gs: GlobalService, private pageScrollService: PageScrollService, @Inject(DOCUMENT) private document: any){
 		this.innerpage = true;
 		this.isDisable = true;
 		this.seats = 0;
@@ -212,6 +214,11 @@ export class EventComponent implements OnInit, OnDestroy  {
 		});
 	}
 	
+	scrollToTicket() {
+		let pageScrollInstance: PageScrollInstance = PageScrollInstance.newInstance({document: this.document, scrollTarget: "#ticket", pageScrollDuration: 100});
+		this.pageScrollService.start(pageScrollInstance);
+	}
+
 	ngOnDestroy() {
 		this.sub.unsubscribe();
 	}

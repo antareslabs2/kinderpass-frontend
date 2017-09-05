@@ -2,6 +2,7 @@
 	<div class="wrapper">
 		<div *ngIf="event" class="eventPage">
 			<div class="prevPage"  [routerLink]="['/']" fragment="event_{{timeslot_id}}" [queryParams]="gs.url"><img src="../app/img/back.png" alt=""><span>Назад</span></div>
+			<div class="btn eventPage-scrollBtn" (click)="scrollToTicket()">Купить билет</div>
 			<h1>{{event.name}}</h1>
 			<div class="col-1-2 eventCol">
 				<div class="eventPage-provider">{{event.provider.name}}</div><img *ngIf="event.photo" class="eventPage-photo" src="{{'img/' + event.photo + '.jpg'}}" alt=""><img *ngIf="!event.photo" class="eventPage-photo" src="../app/img/placeholder.jpg" alt=""><div class="eventPage-info" [class.eventPage-info-small]="event.age_to >= 99">
@@ -18,7 +19,7 @@
 
 			</div><!-- 
 		 --><div class="col-1-2">
-		 		<div class="ticket">
+		 		<div class="ticket" id="ticket">
 					<div class="ticket__header">
 						<div class="eventPage-title">Билет</div>
 						<div class="eventPage-ticket-fields">
@@ -52,7 +53,7 @@
 											</div>
 											<p class="eventPage__ticket-price price">{{ticket.price * ticket.seats}}</p>
 										</div>
-										<p class="eventPage__ticket-description">{{ticket.ticket_type_description}}</p>
+										<p *ngIf="ticket.ticket_type_description" class="eventPage__ticket-description">{{ticket.ticket_type_description}}</p>
 									</div>
 								</div>
 								<ng-container *ngIf="subscriptionPrice">

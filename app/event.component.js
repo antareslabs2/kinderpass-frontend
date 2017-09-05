@@ -8,17 +8,24 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var api_service_1 = require("./api.service");
 var router_1 = require("@angular/router");
 var app_global_service_1 = require("./app.global.service");
+var ng2_page_scroll_1 = require("ng2-page-scroll");
+var platform_browser_1 = require("@angular/platform-browser");
 var moment = require("moment");
 var EventComponent = (function () {
-    function EventComponent(httpService, route, gs) {
+    function EventComponent(httpService, route, gs, pageScrollService, document) {
         this.httpService = httpService;
         this.route = route;
         this.gs = gs;
+        this.pageScrollService = pageScrollService;
+        this.document = document;
         this.innerpage = true;
         this.isDisable = true;
         this.seats = 0;
@@ -194,6 +201,10 @@ var EventComponent = (function () {
             _this.isDisable = false;
         });
     };
+    EventComponent.prototype.scrollToTicket = function () {
+        var pageScrollInstance = ng2_page_scroll_1.PageScrollInstance.newInstance({ document: this.document, scrollTarget: "#ticket", pageScrollDuration: 100 });
+        this.pageScrollService.start(pageScrollInstance);
+    };
     EventComponent.prototype.ngOnDestroy = function () {
         this.sub.unsubscribe();
     };
@@ -205,7 +216,8 @@ EventComponent = __decorate([
         templateUrl: "../static/event.html?v=" + new Date().getTime(),
         providers: [api_service_1.Api]
     }),
-    __metadata("design:paramtypes", [api_service_1.Api, router_1.ActivatedRoute, app_global_service_1.GlobalService])
+    __param(4, core_1.Inject(platform_browser_1.DOCUMENT)),
+    __metadata("design:paramtypes", [api_service_1.Api, router_1.ActivatedRoute, app_global_service_1.GlobalService, ng2_page_scroll_1.PageScrollService, Object])
 ], EventComponent);
 exports.EventComponent = EventComponent;
 //# sourceMappingURL=event.component.js.map
