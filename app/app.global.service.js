@@ -127,16 +127,6 @@ var GlobalService = (function () {
                 'policy': [this.policy, [forms_1.Validators.required, forms_1.Validators.pattern('true')]
                 ]
             });
-            if (yaCounter44744683) {
-                console.log(this.userInfo.id);
-                yaCounter44744683.userParams({ UserId: this.userInfo.id, UserName: this.userInfo.name });
-            }
-            ga('set', 'userId', this.userInfo.id);
-            ga('send', 'pageview', '/virtual/auth');
-            if (this._window.location.hostname == 'kinderpass.ru')
-                ga('send', 'event', 'Main', 'user_auth_' + this.userInfo.id, 'Prod');
-            else if (this._window.location.hostname == 'front.kinderpass.ru')
-                ga('send', 'event', 'Main', 'user_auth_' + this.userInfo.id, 'Test');
             if (!this.userInfo.phone || !this.userInfo.email) {
                 this.popupName = 'updateInfo';
                 this.policy = false;
@@ -155,6 +145,19 @@ var GlobalService = (function () {
                 this.extendSubscription = true;
                 this.policy = true;
             }
+            var th_1 = this;
+            window.onload = function () {
+                if (yaCounter44744683) {
+                    console.log(th_1.userInfo.id);
+                    yaCounter44744683.userParams({ UserId: th_1.userInfo.id, UserName: th_1.userInfo.name });
+                }
+                ga('set', 'userId', th_1.userInfo.id);
+                ga('send', 'pageview', '/virtual/auth');
+                if (th_1._window.location.hostname == 'kinderpass.ru')
+                    ga('send', 'event', 'Main', 'user_auth_' + th_1.userInfo.id, 'Prod');
+                else if (th_1._window.location.hostname == 'front.kinderpass.ru')
+                    ga('send', 'event', 'Main', 'user_auth_' + th_1.userInfo.id, 'Test');
+            };
         }
     };
     GlobalService.prototype.logout = function () {
@@ -169,7 +172,8 @@ var GlobalService = (function () {
         this.phone = form.controls.phone.value;
         this.policy = form.controls.policy.value;
         var length = this.phone.replace(/_/gi, '').length;
-        if (this.email && this.phone && this.policy && length >= 10) {
+        // if (this.email && this.phone && this.policy && length >= 10) {
+        if (this.email && this.phone && this.policy && length >= 16) {
             var body = {
                 phone: this.phone,
                 email: this.email

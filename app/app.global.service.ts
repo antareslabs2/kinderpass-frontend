@@ -133,16 +133,6 @@ export class GlobalService {
 						]
 			})
 
-			if (yaCounter44744683) {
-				console.log(this.userInfo.id);
-				yaCounter44744683.userParams({UserId: this.userInfo.id, UserName: this.userInfo.name});
-			}
-			ga('set','userId',this.userInfo.id);
-			ga('send', 'pageview', '/virtual/auth');
-			if(this._window.location.hostname == 'kinderpass.ru')
-				ga('send', 'event', 'Main', 'user_auth_'+this.userInfo.id, 'Prod');
-			else if (this._window.location.hostname == 'front.kinderpass.ru')
-				ga('send', 'event', 'Main', 'user_auth_'+this.userInfo.id, 'Test');
 
 			if (!this.userInfo.phone || !this.userInfo.email) {
 				this.popupName = 'updateInfo';
@@ -160,6 +150,21 @@ export class GlobalService {
 				this.popupName = "extendSubscription";
 				this.extendSubscription = true;
 				this.policy = true;
+			}
+			let th = this;
+			window.onload = function() {
+
+				if (yaCounter44744683) {
+					console.log(th.userInfo.id);
+					yaCounter44744683.userParams({UserId: th.userInfo.id, UserName: th.userInfo.name});
+				}
+				ga('set','userId',th.userInfo.id);
+				ga('send', 'pageview', '/virtual/auth');
+				if(th._window.location.hostname == 'kinderpass.ru')
+					ga('send', 'event', 'Main', 'user_auth_'+th.userInfo.id, 'Prod');
+				else if (th._window.location.hostname == 'front.kinderpass.ru')
+					ga('send', 'event', 'Main', 'user_auth_'+th.userInfo.id, 'Test');
+
 			}
 		}
 	}
