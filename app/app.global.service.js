@@ -169,7 +169,7 @@ var GlobalService = (function () {
         this.phone = form.controls.phone.value;
         this.policy = form.controls.policy.value;
         var length = this.phone.replace(/_/gi, '').length;
-        if (this.email && this.phone && this.policy && length == 16) {
+        if (this.email && this.phone && this.policy && length >= 10) {
             var body = {
                 phone: this.phone,
                 email: this.email
@@ -195,8 +195,10 @@ var GlobalService = (function () {
         });
     };
     GlobalService.prototype.phoneValidation = function (input) {
-        if (input.value)
-            return input.value.replace(/_/gi, '').length == 16 ? null : { needsExclamation: true };
+        if (input.value) {
+            return input.value.length >= 10 ? null : { needsExclamation: true };
+            // return input.value.replace(/_/gi, '').length==16 ? null : { needsExclamation: true };
+        }
     };
     GlobalService.prototype.openLoginPopup = function () {
         this.openPopup('login');

@@ -3,50 +3,51 @@
 		<div *ngIf="event" class="eventPage">
 			<div class="prevPage" (click)="gs.goBack()"><img src="../app/img/back.png" alt=""><span>Назад</span></div>
 			<h1>{{event.time_slot.activity.name}}</h1>
-			<div class="col-1-2 eventCol">
-				<div class="eventPage-provider">{{event.time_slot.activity.provider.name}}</div><img *ngIf="event.time_slot.activity.photo" class="eventPage-photo" src="{{'img/' + event.time_slot.activity.photo + '.jpg'}}" alt=""><img *ngIf="!event.time_slot.activity.photo" class="eventPage-photo" src="../app/img/placeholder.jpg" alt=""><div class="eventPage-info">
-					<div class="eventPage-age">Для детей {{event.time_slot.activity.age_from}}-{{event.time_slot.activity.age_to}} лет</div>
-					<div class="eventPage-freeSeats">
-						<img src="../app/img/children.png" alt="">
-						<p>Осталось мест</p>
-						<span>{{event.time_slot.free_seats}}</span>
+			<div>
+				<div class="col-1-2 eventCol">
+					<div class="eventPage-provider">{{event.time_slot.activity.provider.name}}</div><img *ngIf="event.time_slot.activity.photo" class="eventPage-photo" src="{{'img/' + event.time_slot.activity.photo + '.jpg'}}" alt=""><img *ngIf="!event.time_slot.activity.photo" class="eventPage-photo" src="../app/img/placeholder.jpg" alt=""><div class="eventPage-info">
+						<div class="eventPage-age">Для детей {{event.time_slot.activity.age_from}}-{{event.time_slot.activity.age_to}} лет</div>
+						<div class="eventPage-freeSeats">
+							<img src="../app/img/children.png" alt="">
+							<p>Осталось мест</p>
+							<span>{{event.time_slot.free_seats}}</span>
+						</div>
 					</div>
-				</div>
-				<div *ngIf="event.time_slot.activity.extra" class="eventPage-additionalInfo">Важно: <span [innerHtml]="event.time_slot.activity.extra"></span></div>
-				<p class="eventPage-p">{{event.time_slot.activity.description}}</p>
-			</div><!-- 
-		 --><div class="col-1-2">
- 		 		<div class="ticket">
- 					<div class="ticket__header">
- 						<div class="eventPage-title">Билеты</div>
- 						<div class="eventPage-ticket-fields">
- 							<div class="eventPage-date">{{event.time_slot.date}}</div>
- 							<div class="eventPage-time">{{event.time_slot.start_time}}-{{event.time_slot.end_time}}</div>
- 							<div class="eventPage-duration">Длительность {{event.time_slot.activity.duration}} минут</div>
- 							<div class="eventPage-address">{{event.time_slot.location.address}}</div>
- 							<ng-container *ngIf="event.tickets.length>0">
-								<div class="bookings__tickets" *ngFor="let ticket of event.tickets; let i = index">
-									<div class="bookings__tickets-title">{{ticket.seats}} <span class="bookings__tickets-sep">х</span> {{ticket.ticket_type_name}}:</div>
-									<div class="bookings__tickets-price">
-										{{ticket.seats}}шт. <span class="bookings__tickets-sep">х</span> <span class="price">{{ticket.price}}</span> <span class="bookings__tickets-sep">=</span> <span class="price">{{ticket.seats*ticket.price}}</span>
+					<div *ngIf="event.time_slot.activity.extra" class="eventPage-additionalInfo">Важно: <span [innerHtml]="event.time_slot.activity.extra"></span></div>
+					<p class="eventPage-p">{{event.time_slot.activity.description}}</p>
+				</div><!-- 
+			 --><div class="col-1-2">
+	 		 		<div class="ticket">
+	 					<div class="ticket__header">
+	 						<div class="eventPage-title">Билеты</div>
+	 						<div class="eventPage-ticket-fields">
+	 							<div class="eventPage-date">{{event.time_slot.date}}</div>
+	 							<div class="eventPage-time">{{event.time_slot.start_time}}-{{event.time_slot.end_time}}</div>
+	 							<div class="eventPage-duration">Длительность {{event.time_slot.activity.duration}} минут</div>
+	 							<div class="eventPage-address">{{event.time_slot.location.address}}</div>
+	 							<ng-container *ngIf="event.tickets.length>0">
+									<div class="bookings__tickets" *ngFor="let ticket of event.tickets; let i = index">
+										<div class="bookings__tickets-title">{{ticket.seats}} <span class="bookings__tickets-sep">х</span> {{ticket.ticket_type_name}}:</div>
+										<div class="bookings__tickets-price">
+											{{ticket.seats}}шт. <span class="bookings__tickets-sep">х</span> <span class="price">{{ticket.price}}</span> <span class="bookings__tickets-sep">=</span> <span class="price">{{ticket.seats*ticket.price}}</span>
+										</div>
 									</div>
-								</div>
- 								<div class="eventPage-total-wrap">
- 									<div class="bookings__tickets-total">
- 										Итого: <span class="price">{{event.total}}</span>
- 									</div>
- 								</div>
- 							</ng-container>
+	 								<div class="eventPage-total-wrap">
+	 									<div class="bookings__tickets-total">
+	 										Итого: <span class="price">{{event.total}}</span>
+	 									</div>
+	 								</div>
+	 							</ng-container>
 
- 						</div>
- 					</div><div class="ticket__helper"></div><div class="ticket__footer">
- 						<div class="eventPage-btns">
- 							<button (click)="cancelBooking(event.id)" class="btn">Отменить бронь</button>
- 						</div>
- 					</div>
- 				</div>
+	 						</div>
+	 					</div><div class="ticket__helper"></div><div class="ticket__footer">
+	 						<div class="eventPage-btns">
+	 							<button (click)="cancelBooking(event.id)" class="btn">Отменить бронь</button>
+	 						</div>
+	 					</div>
+	 				</div>
+				</div>
 			</div>
-
 			<div class="eventPage-providerInfo">
 				<p>Мероприятие проводит {{event.time_slot.activity.provider.legal.legal_name}} (ИНН: {{event.time_slot.activity.provider.legal.tax_num}}, Для претензий и предложений: {{event.time_slot.activity.provider.legal.contact_phone}}, e-mail: {{event.time_slot.activity.provider.legal.contact_email}}). Цена билета {{event.time_slot.price}} руб.<br>Бронирование и оформление билета осуществлено ООО "Киндерпасс" (ИНН: 78203424534, e-mail: claim@kinderpass.ru, телефон +7 (812) 649-26-32) на основании Агентского договора от {{event.time_slot.activity.provider.legal.contract_date ? event.time_slot.activity.provider.legal.contract_date : "01.05.2017"}}</p>
 			</div>

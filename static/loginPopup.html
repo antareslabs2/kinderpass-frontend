@@ -16,7 +16,8 @@
 	<p class="popup-description">Друзья, телефон и почта нам нужны только для отправки деталей бронирования. Мы никогда и никому не передаём эту информацию</p>
 	<form name="contacts" [formGroup]="gs.contactsForm" (ngSubmit)="update(gs.contactsForm)">
 		<input type="email" formControlName="email" name="email" placeholder="Email">
-		<input type="text" formControlName="phone" name="phone" [textMask]="{mask: gs.phoneMask, showMask: true}" placeholder="Телефон">
+		<input type="text" formControlName="phone" name="phone" placeholder="Телефон">
+		<!-- <input type="text" formControlName="phone" name="phone" [textMask]="{mask: gs.phoneMask, showMask: true}" placeholder="Телефон"> -->
 		<div class="popup-policy">
 			<input type="checkbox" formControlName="policy" name="policy" id="policy"><label for="policy">Я прочитал и согласен с условиями обработки персональных данных</label>
 		</div>
