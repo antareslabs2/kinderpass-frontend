@@ -111,7 +111,7 @@ var GlobalService = (function () {
             this.userInfo = data;
             this.isAuthenticated = true;
             this.email = this.userInfo.email;
-            this.phone = this.userInfo.phone.split("+7")[1];
+            this.phone = this.userInfo.phone ? this.userInfo.phone.split("+7")[1] : '';
             this.policy = !!(this.userInfo.email && this.userInfo.phone);
             this.contactsForm = this.fb.group({
                 'email': [this.email, [

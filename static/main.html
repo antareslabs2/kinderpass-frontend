@@ -236,7 +236,8 @@
 				 --><div class="results-item-cost">
 						<div class="results-item-time"><span>{{item.time_min}}-{{item.time_max}}</span></div>
 						<div class="results-item-price">
-							<span *ngIf="item.price_old>0 && item.price_old != item.price_min"class="results-item-price-old">от <span>{{item.price_old}}</span> </span><span>{{item.price_min}}</span>
+							<span *ngIf="item.price_old>0 && item.price_old != item.price_min"class="results-item-price-old">от <span>{{item.price_old}}</span> </span>
+							<span *ngIf="item.price_old==0 && item.price_without_discount>0 && item.price_without_discount != item.price_min"class="results-item-price-old"><span>{{item.price_without_discount}}</span> </span><span>{{item.price_min}}</span>
 						</div>
 						<!-- <div *ngIf="item.discount" class="results-item-discount">Дешевле на {{item.discount | number:'1.0-0'}}%</div> -->
 						<a class="btn" [routerLink]="['/event', curDate, item.id]">Купить</a>

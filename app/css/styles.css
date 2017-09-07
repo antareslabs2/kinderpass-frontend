@@ -1652,7 +1652,8 @@ textarea.textarea {
     font-size: 18px;
     border: 2px solid #e1e1e1;
     color: #939393;
-    vertical-align: top; }
+    vertical-align: top;
+    border-radius: 0; }
     .updateInfo input.ng-invalid {
       border-color: red; }
       .updateInfo input.ng-invalid + label {
@@ -1663,7 +1664,8 @@ textarea.textarea {
       vertical-align: top;
       margin: 0; }
     .updateInfo input[name="phone"] {
-      width: 90%; }
+      width: 90%;
+      margin-bottom: 0; }
   .updateInfo .phoneCode {
     width: 10%;
     display: inline-block;
@@ -1671,6 +1673,14 @@ textarea.textarea {
     color: #939393;
     background-color: #e1e1e1;
     line-height: 44px; }
+  .updateInfo-hint {
+    color: #939393;
+    font-size: 14px;
+    text-align: left;
+    font-style: italic;
+    margin-top: 3px; }
+  .updateInfo-wrap {
+    margin-bottom: 10px; }
   .updateInfo .btn {
     text-transform: uppercase; }
 

@@ -16,7 +16,10 @@
 	<p class="popup-description">Друзья, телефон и почта нам нужны только для отправки деталей бронирования. Мы никогда и никому не передаём эту информацию</p>
 	<form name="contacts" [formGroup]="gs.contactsForm" (ngSubmit)="update(gs.contactsForm)">
 		<input type="email" formControlName="email" name="email" placeholder="Email">
-		<span class="phoneCode">+7</span><input type="text" formControlName="phone" name="phone" placeholder="Телефон">
+		<div class="updateInfo-wrap">
+			<span class="phoneCode">+7</span><input type="text" formControlName="phone" name="phone" placeholder="Телефон">
+			<div class="updateInfo-hint">Например: 987 654 32 10</div>
+		</div>
 		<!-- <input type="text" formControlName="phone" name="phone" [textMask]="{mask: gs.phoneMask, showMask: true}" placeholder="Телефон"> -->
 		<div class="popup-policy">
 			<input type="checkbox" formControlName="policy" name="policy" id="policy"><label for="policy">Я прочитал и согласен с условиями обработки персональных данных</label>

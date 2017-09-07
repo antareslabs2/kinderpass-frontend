@@ -194,7 +194,8 @@
 		border: 2px solid #e1e1e1
 		color: #939393
 		vertical-align: top
-		
+		border-radius: 0
+
 		&.ng-invalid
 			border-color: red
 			+ label
@@ -208,6 +209,7 @@
 		
 		&[name="phone"]
 			width: 90%
+			margin-bottom: 0
 
 	.phoneCode
 		width: 10%
@@ -216,7 +218,17 @@
 		color: #939393
 		background-color: #e1e1e1
 		line-height: 44px
+	
+	&-hint
+		color: #939393
+		font-size: 12px
+		text-align: left
+		font-style: italic
+		margin-top: 3px
 
+	&-wrap
+		margin-bottom: 10px
+	
 	.btn
 		text-transform: uppercase
 

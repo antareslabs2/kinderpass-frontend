@@ -360,7 +360,7 @@ export class MainComponent implements OnInit {
 		for( let item in data.activities) {
 			let timeslotMin: string;
 			let timeslotMax: string;
-			let priceMax: number  = 0;
+			let priceWithoutDiscount: number  = 0;
 			let priceMin: number  = 0;
 			let priceOld: number  = 0;
 			let discount: number = 0;
@@ -376,11 +376,13 @@ export class MainComponent implements OnInit {
 					if (!timeslotMax || timeslotMax < data.activities[item].locations[location].time_slots[time].end_time)
 						timeslotMax = data.activities[item].locations[location].time_slots[time].end_time;
 					if (data.activities[item].locations[location].time_slots[time].ticket_types_num > 1) {
-
-						// if (!priceMax || priceMax < data.activities[item].locations[location].time_slots[time].price)
-							// priceMax = data.activities[item].locations[location].time_slots[time].price;
 						if (!priceOld || priceOld > data.activities[item].locations[location].time_slots[time].price_without_discount)
 							priceOld = data.activities[item].locations[location].time_slots[time].price_without_discount;
+					} else {
+
+						if (!priceWithoutDiscount || priceWithoutDiscount < data.activities[item].locations[location].time_slots[time].price_without_discount)
+							priceWithoutDiscount = data.activities[item].locations[location].time_slots[time].price_without_discount;
+
 					}
 					if (!priceMin || priceMin > data.activities[item].locations[location].time_slots[time].price)
 						priceMin = data.activities[item].locations[location].time_slots[time].price;
@@ -390,9 +392,7 @@ export class MainComponent implements OnInit {
 			data.activities[item]['time_max'] = timeslotMax;
 			data.activities[item]['price_min'] = priceMin;
 			data.activities[item]['price_old'] = priceOld;
-			// if (priceMin != priceMax) {
-			// 	data.activities[item]['price_max'] = priceMax;
-			// }
+			data.activities[item]['price_without_discount'] = priceWithoutDiscount;
 			if (discount > 0) {
 				data.activities[item]['discount'] = discount;
 			}

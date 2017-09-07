@@ -292,7 +292,7 @@ var MainComponent = (function () {
         for (var item in data.activities) {
             var timeslotMin = void 0;
             var timeslotMax = void 0;
-            var priceMax = 0;
+            var priceWithoutDiscount = 0;
             var priceMin = 0;
             var priceOld = 0;
             var discount = 0;
@@ -308,10 +308,12 @@ var MainComponent = (function () {
                     if (!timeslotMax || timeslotMax < data.activities[item].locations[location_1].time_slots[time].end_time)
                         timeslotMax = data.activities[item].locations[location_1].time_slots[time].end_time;
                     if (data.activities[item].locations[location_1].time_slots[time].ticket_types_num > 1) {
-                        // if (!priceMax || priceMax < data.activities[item].locations[location].time_slots[time].price)
-                        // priceMax = data.activities[item].locations[location].time_slots[time].price;
                         if (!priceOld || priceOld > data.activities[item].locations[location_1].time_slots[time].price_without_discount)
                             priceOld = data.activities[item].locations[location_1].time_slots[time].price_without_discount;
+                    }
+                    else {
+                        if (!priceWithoutDiscount || priceWithoutDiscount < data.activities[item].locations[location_1].time_slots[time].price_without_discount)
+                            priceWithoutDiscount = data.activities[item].locations[location_1].time_slots[time].price_without_discount;
                     }
                     if (!priceMin || priceMin > data.activities[item].locations[location_1].time_slots[time].price)
                         priceMin = data.activities[item].locations[location_1].time_slots[time].price;
@@ -321,9 +323,7 @@ var MainComponent = (function () {
             data.activities[item]['time_max'] = timeslotMax;
             data.activities[item]['price_min'] = priceMin;
             data.activities[item]['price_old'] = priceOld;
-            // if (priceMin != priceMax) {
-            // 	data.activities[item]['price_max'] = priceMax;
-            // }
+            data.activities[item]['price_without_discount'] = priceWithoutDiscount;
             if (discount > 0) {
                 data.activities[item]['discount'] = discount;
             }
