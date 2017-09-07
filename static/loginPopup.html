@@ -18,7 +18,7 @@
 		<input type="email" formControlName="email" name="email" placeholder="Email">
 		<div class="updateInfo-wrap">
 			<span class="phoneCode">+7</span><input type="text" formControlName="phone" name="phone" placeholder="Телефон">
-			<div class="updateInfo-hint">Например: 987 654 32 10</div>
+			<div class="updateInfo-hint" *ngIf="!gs.contactsForm.controls['phone'].valid">Пожалуйста, введите правильный номер телефона</div>
 		</div>
 		<!-- <input type="text" formControlName="phone" name="phone" [textMask]="{mask: gs.phoneMask, showMask: true}" placeholder="Телефон"> -->
 		<div class="popup-policy">
