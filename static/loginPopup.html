@@ -4,8 +4,8 @@
 	<div (click)="close()" class="popup-close modal-close"></div>
 	<p class="popup-title">Войти</p>
 	<p class="popup-description">Чтобы продолжить,<br>войдите через социальную сеть</p>
-	<a href="{{apiURL}}oauth/login/vk-oauth2/?next=http://kinderpass.ru/" class="btn btn-vk">Vkontakte</a>
-	<a href="{{apiURL}}oauth/login/facebook/?next=http://kinderpass.ru/" class="btn btn-fb">Facebook</a>
+	<a href="{{apiURL}}oauth/login/vk-oauth2/?next=http://kinderpass.ru/" class="btn btn-vk" (click)="socialclick()">Vkontakte</a>
+	<a href="{{apiURL}}oauth/login/facebook/?next=http://kinderpass.ru/" class="btn btn-fb" (click)="socialclick()">Facebook</a>
 </div>
 
 <div [@dialog] *ngIf="gs.popupName == 'updateInfo'" class="popup login">

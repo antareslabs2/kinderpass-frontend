@@ -95,6 +95,7 @@ export class EventComponent implements OnInit, OnDestroy  {
 	addTicket(ticket: any) : void {
 		if (ticket.seats < ticket.allocated_seats) {
 			ticket.seats +=1;
+			ga('send', 'pageview', '/virtual/eventaddticket');
 			this.calcTotal();
 		}
 	}

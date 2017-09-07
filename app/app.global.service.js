@@ -129,6 +129,7 @@ var GlobalService = (function () {
             });
             if (!this.userInfo.phone || !this.userInfo.email) {
                 this.popupName = 'updateInfo';
+                ga('send', 'pageview', '/virtual/mailphoneopened');
                 this.policy = false;
             }
             else if (this.userInfo.subscription) {

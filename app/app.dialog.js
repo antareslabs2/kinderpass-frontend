@@ -30,6 +30,9 @@ var DialogComponent = (function () {
         this.gs.popupName = '';
         $("html").removeClass('locked');
     };
+    DialogComponent.prototype.socialclick = function () {
+        ga('send', 'pageview', '/virtual/socialclicked');
+    };
     DialogComponent.prototype.update = function (form) {
         this.gs.update(form);
     };

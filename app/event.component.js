@@ -82,6 +82,7 @@ var EventComponent = (function () {
     EventComponent.prototype.addTicket = function (ticket) {
         if (ticket.seats < ticket.allocated_seats) {
             ticket.seats += 1;
+            ga('send', 'pageview', '/virtual/eventaddticket');
             this.calcTotal();
         }
     };
