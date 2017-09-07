@@ -2,6 +2,8 @@ import { Component, Inject } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { GlobalService } from './app.global.service';
 
+declare var ga:Function;
+
 @Component({
   selector: 'app-dialog',
   templateUrl: `../static/loginPopup.html?v=${new Date().getTime()}`,
@@ -34,6 +36,10 @@ export class DialogComponent {
   close() : void {
     this.gs.popupName = '';
     $("html").removeClass('locked');
+  }
+
+  socialclick() : void {
+    ga('send', 'pageview', '/virtual/socialclicked');
   }
 
   update(form:any) : void {

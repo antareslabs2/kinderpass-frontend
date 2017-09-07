@@ -136,6 +136,7 @@ export class GlobalService {
 
 			if (!this.userInfo.phone || !this.userInfo.email) {
 				this.popupName = 'updateInfo';
+				ga('send', 'pageview', '/virtual/mailphoneopened');
 				this.policy = false;
 			} else if(this.userInfo.subscription) {
 				var today : any = moment(new Date()).add(7,'days').format();
