@@ -111,7 +111,7 @@ var GlobalService = (function () {
             this.userInfo = data;
             this.isAuthenticated = true;
             this.email = this.userInfo.email;
-            this.phone = this.userInfo.phone;
+            this.phone = this.userInfo.phone.split("+7")[1];
             this.policy = !!(this.userInfo.email && this.userInfo.phone);
             this.contactsForm = this.fb.group({
                 'email': [this.email, [
@@ -169,11 +169,10 @@ var GlobalService = (function () {
     GlobalService.prototype.update = function (form) {
         var _this = this;
         this.email = form.controls.email.value;
-        this.phone = form.controls.phone.value;
+        this.phone = '+7' + form.controls.phone.value.replace(/[^0-9]+/g, "");
         this.policy = form.controls.policy.value;
-        var length = this.phone.replace(/_/gi, '').length;
-        // if (this.email && this.phone && this.policy && length >= 10) {
-        if (this.email && this.phone && this.policy && length >= 16) {
+        var length = this.phone.length;
+        if (this.email && this.phone && this.policy && length == 12) {
             var body = {
                 phone: this.phone,
                 email: this.email
@@ -200,8 +199,7 @@ var GlobalService = (function () {
     };
     GlobalService.prototype.phoneValidation = function (input) {
         if (input.value) {
-            return input.value.length >= 10 ? null : { needsExclamation: true };
-            // return input.value.replace(/_/gi, '').length==16 ? null : { needsExclamation: true };
+            return input.value.replace(/[^0-9]+/g, "").length == 10 ? null : { needsExclamation: true };
         }
     };
     GlobalService.prototype.openLoginPopup = function () {

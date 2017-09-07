@@ -116,7 +116,7 @@ export class GlobalService {
 			this.userInfo = data;
 			this.isAuthenticated = true;
 			this.email = this.userInfo.email;
-			this.phone = this.userInfo.phone;
+			this.phone = this.userInfo.phone.split("+7")[1];
 			this.policy = !!(this.userInfo.email && this.userInfo.phone);
 			this.contactsForm = this.fb.group({
 				'email': [this.email, [
@@ -177,11 +177,10 @@ export class GlobalService {
 
 	update(form:any) : void {
 		this.email = form.controls.email.value;
-		this.phone = form.controls.phone.value;
+		this.phone = '+7'+ form.controls.phone.value.replace(/[^0-9]+/g, "");
 		this.policy = form.controls.policy.value;
-		let length = this.phone.replace(/_/gi, '').length;
-		// if (this.email && this.phone && this.policy && length >= 10) {
-		if (this.email && this.phone && this.policy && length >= 16) {
+		let length = this.phone.length;
+		if (this.email && this.phone && this.policy && length == 12) {
 			let body = {
 				phone: this.phone, 
 				email: this.email
@@ -210,8 +209,7 @@ export class GlobalService {
 
 	phoneValidation(input: any) {
 		if (input.value){
-			return input.value.length>=10 ? null : { needsExclamation: true };
-			// return input.value.replace(/_/gi, '').length==16 ? null : { needsExclamation: true };
+			return input.value.replace(/[^0-9]+/g, "").length==10 ? null : { needsExclamation: true };
 		}
 	}
 

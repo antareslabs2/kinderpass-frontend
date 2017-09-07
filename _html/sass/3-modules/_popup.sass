@@ -193,7 +193,8 @@
 		font-size: 18px
 		border: 2px solid #e1e1e1
 		color: #939393
-
+		vertical-align: top
+		
 		&.ng-invalid
 			border-color: red
 			+ label
@@ -204,6 +205,17 @@
 			display: inline-block
 			vertical-align: top
 			margin: 0
+		
+		&[name="phone"]
+			width: 90%
+
+	.phoneCode
+		width: 10%
+		display: inline-block
+		vertical-align: top
+		color: #939393
+		background-color: #e1e1e1
+		line-height: 44px
 
 	.btn
 		text-transform: uppercase
