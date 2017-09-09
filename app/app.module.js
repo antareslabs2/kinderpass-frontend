@@ -76,7 +76,7 @@ var AppModule = (function () {
                 _this.gs.innerpage = false;
             else {
                 _this.gs.innerpage = true;
-                var pageScrollInstance = ng2_page_scroll_1.PageScrollInstance.newInstance({ document: _this.document, scrollTarget: _this.document.body, pageScrollDuration: 300 });
+                var pageScrollInstance = ng2_page_scroll_1.PageScrollInstance.newInstance({ document: _this.document, scrollTarget: _this.document.body, pageScrollDuration: 0 });
                 _this.pageScrollService.start(pageScrollInstance);
             }
         });

@@ -37,6 +37,11 @@ var GlobalService = (function () {
         this.policy = false;
         this.url = {};
         this.fragment = '';
+        this.formValid = {
+            'phone': true,
+            'email': true
+        };
+        ;
     }
     GlobalService.prototype.openPopup = function (name) {
         this.popupName = name;
@@ -114,17 +119,11 @@ var GlobalService = (function () {
             this.phone = this.userInfo.phone ? this.userInfo.phone.split("+7")[1] : '';
             this.policy = !!(this.userInfo.email && this.userInfo.phone);
             this.contactsForm = this.fb.group({
-                'email': [this.email, [
-                        forms_1.Validators.required,
-                        forms_1.Validators.pattern("^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$")
-                    ]
+                'email': [this.email, []
                 ],
-                'phone': [this.phone, [
-                        forms_1.Validators.required,
-                        this.phoneValidation
-                    ]
+                'phone': [this.phone, []
                 ],
-                'policy': [this.policy, [forms_1.Validators.required, forms_1.Validators.pattern('true')]
+                'policy': [this.policy, []
                 ]
             });
             if (!this.userInfo.phone || !this.userInfo.email) {
@@ -173,7 +172,12 @@ var GlobalService = (function () {
         this.phone = '+7' + form.controls.phone.value.replace(/[^0-9]+/g, "");
         this.policy = form.controls.policy.value;
         var length = this.phone.length;
-        if (this.email && this.phone && this.policy && length == 12) {
+        var re = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/i;
+        this.formValid = {
+            'phone': length == 12,
+            'email': re.test(this.email)
+        };
+        if (this.email && this.phone && this.policy && this.formValid.phone && this.formValid.email) {
             var body = {
                 phone: this.phone,
                 email: this.email

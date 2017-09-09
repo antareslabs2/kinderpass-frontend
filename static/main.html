@@ -182,6 +182,7 @@
 					<select size="1" name="districts" id="districts" multiple (change)="change($event.target.options)" [(ngModel)]="params.districts" class="vis">
 						<option  *ngFor="let district of districts; let i = index;" [ngValue]="district.id">{{district.name}}</option>
 					</select>
+					<div *ngIf="params.districts.length>0" class="filters-reset" (click)="resetDistrictFilter()">Сбросить</div>
 				</ng-container>
 				<!-- <div *ngIf="params.districts.id" class="filters-option locations">{{params.districts.name[0]}}<span *ngIf="params.districts.name.length>1"> и еще {{params.districts.name.length - 1}} {{declOfNum(params.districts.name.length - 1, ['район','района','районов'])}}</span></div> -->
 

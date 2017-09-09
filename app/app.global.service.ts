@@ -29,6 +29,7 @@ export class GlobalService {
 	booking_id: number;
 
 	fragment: string;
+	formValid: any;
 
 	constructor(public httpService: Api, private fb: FormBuilder, @Inject(Window) private _window: Window, private _location: Location){
 		this.userInfo = {};
@@ -45,6 +46,10 @@ export class GlobalService {
 		this.policy = false;
 		this.url = {};
 		this.fragment = '';
+		this.formValid = {
+			'phone': true,
+			'email': true
+		};;
 	}
 
 	openPopup(name:string) {
@@ -120,16 +125,13 @@ export class GlobalService {
 			this.policy = !!(this.userInfo.email && this.userInfo.phone);
 			this.contactsForm = this.fb.group({
 				'email': [this.email, [
-							Validators.required,
-							Validators.pattern("^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$")
 							]
 						],
 				'phone': [this.phone, [
-							Validators.required,
-							this.phoneValidation
 							]
 						],
-				'policy': [this.policy, [Validators.required, Validators.pattern('true')]
+				'policy': [this.policy, [
+							]
 						]
 			})
 
@@ -181,7 +183,12 @@ export class GlobalService {
 		this.phone = '+7'+ form.controls.phone.value.replace(/[^0-9]+/g, "");
 		this.policy = form.controls.policy.value;
 		let length = this.phone.length;
-		if (this.email && this.phone && this.policy && length == 12) {
+		let re = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/i;
+		this.formValid = {
+			'phone': length == 12,
+			'email': re.test(this.email)
+		};
+		if (this.email && this.phone && this.policy && this.formValid.phone && this.formValid.email) {
 			let body = {
 				phone: this.phone, 
 				email: this.email
@@ -196,6 +203,7 @@ export class GlobalService {
 					ga('send', 'pageview', '/virtual/mailphonesaved');
 				}
 			});
+
 		}
 	}
 

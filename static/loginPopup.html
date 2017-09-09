@@ -15,10 +15,10 @@
 	<p class="popup-description">Для дальнейшего общения<br>введите свои данные</p>
 	<p class="popup-description">Друзья, телефон и почта нам нужны только для отправки деталей бронирования. Мы никогда и никому не передаём эту информацию</p>
 	<form name="contacts" [formGroup]="gs.contactsForm" (ngSubmit)="update(gs.contactsForm)">
-		<input type="email" formControlName="email" name="email" placeholder="Email">
+		<input type="email" formControlName="email" name="email" placeholder="Email" [class.ng-invalid]="!gs.formValid.email" (focus)="gs.formValid.email=true">
 		<div class="updateInfo-wrap">
-			<span class="phoneCode">+7</span><input type="text" formControlName="phone" name="phone" placeholder="Телефон">
-			<div class="updateInfo-hint" *ngIf="!gs.contactsForm.controls['phone'].valid">Пожалуйста, введите правильный номер телефона</div>
+			<span class="phoneCode">+7</span><input type="text" formControlName="phone" name="phone" placeholder="Телефон" [class.ng-invalid]="!gs.formValid.phone" (focus)="gs.formValid.phone=true">
+			<div class="updateInfo-hint" *ngIf="!gs.formValid.phone">Пожалуйста, введите правильный номер телефона</div>
 		</div>
 		<!-- <input type="text" formControlName="phone" name="phone" [textMask]="{mask: gs.phoneMask, showMask: true}" placeholder="Телефон"> -->
 		<div class="popup-policy">

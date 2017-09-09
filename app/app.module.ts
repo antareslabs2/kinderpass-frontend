@@ -95,7 +95,7 @@ export class AppModule {
             this.gs.innerpage = false;
         else {
             this.gs.innerpage = true;
-            let pageScrollInstance: PageScrollInstance = PageScrollInstance.newInstance({document: this.document, scrollTarget: this.document.body, pageScrollDuration: 300});
+            let pageScrollInstance: PageScrollInstance = PageScrollInstance.newInstance({document: this.document, scrollTarget: this.document.body, pageScrollDuration: 0});
             this.pageScrollService.start(pageScrollInstance);
         }
     });
