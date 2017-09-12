@@ -84,7 +84,7 @@ export class MainComponent implements OnInit {
 		this.gs.innerpage = false;
 		this.monday = new Date();
 		this.today = new Date();
-		this.nextMonth = moment(this.today).add(1, 'month').format();
+		this.nextMonth = moment(this.today).add(1, 'month').format('YYYYMMDD');
 
 		this.selectedDate = new Date();
 		this.events = [];

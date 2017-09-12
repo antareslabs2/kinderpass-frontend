@@ -1,269 +1,274 @@
-
-<div *ngIf="!gs.isAuthenticated" class="firstScreen">
-	<div class="wrapper">
-		<div class="title">
-			<h1>Абонемент на лучшие детские мероприятия Питера</h1>
-			<p>Киндерпасс дает возможность найти, записаться и посетить интересные мастер-классы и детские активности с хорошей скидкой</p>
-			<a pageScroll href="#subscription" class="btn btn-line">Попробовать</a>
-		</div>
-	</div>
-
-</div>
-<!-- BODY -->
-
-<div *ngIf="!gs.isAuthenticated" class="advantages">
-	<div class="wrapper">
-		<h2>Смысл абонемента</h2>
-		<div class="advantages-slider">
-			<div class="advantages-item">
-				<img src="../app/img/adItem1.png" alt=""><!-- 
-			 --><div>
-					<h3>Экономия времени</h3>
-					<p>Просто выберите дату и время. В абонемент входят лучшие классы, занятия и другие активности для единоразового посещения.</p>
-				</div>
-			</div><!-- 
-				 --><div class="advantages-item">
-				<img src="../app/img/adItem2.png" alt=""><!-- 
-			 --><div>
-					<h3>Хорошая скидка 10-50%</h3>
-					<p>Все мероприятия и активности, которые вы бронируете у нас, вам обойдутся дешевле, чем если бы вы пришли туда с улицы.</p>
-				</div>
-			</div><!-- 
-				 --><div class="advantages-item">
-				<img src="../app/img/adItem3.png" alt=""><!-- 
-			 --><div>
-					<h3>Новый мир для детей</h3>
-					<p>Наш абонемент не про постоянные занятия и кружки, а про то, чтобы расширять кругозор вашего ребенка и показать ему мир.</p>
-				</div>
+<ng-container *ngIf="!gs.isAuthenticated; else isAuthenticatedBlock">
+	<div  class="firstScreen">
+		<div class="wrapper">
+			<div class="title">
+				<h1>Абонемент на лучшие детские мероприятия Питера</h1>
+				<p>Киндерпасс дает возможность найти, записаться и посетить интересные мастер-классы и детские активности с хорошей скидкой</p>
+				<a pageScroll href="#subscription" class="btn btn-line">Попробовать</a>
 			</div>
 		</div>
-	</div>
-</div>
 
-<div *ngIf="!gs.isAuthenticated" class="steps">
-	<div class="wrapper">
-		<h2>Как все устроено</h2><!-- 
-	 --><div class="steps-wrap">
-			<p>Киндерпасс устроен по клубному принципу. Каждый родитель покупает членство (абонемент), и взамен получает возможность бронировать все детские мероприятия и активности с хорошей скидкой.</p>
-			<!--<p>Вам нужно зарегистрироваться в Киндерпассе через ФБ или ВК, оплатить абонемент банковской карточкой (это безопасно, мы работаем с нашим партнером - Альфа-Банком) и можно сразу же начать бронировать мероприятия и ходить на них.</p>-->
-		</div>
 	</div>
-</div>
-<div *ngIf="!gs.isAuthenticated" class="form" id="filter">
-	<div class="wrapper">
-		<h2>Расписание</h2>
-		<div class="selectedDay">Лучшие мероприятия на сегодня</div>
-		<div class="results">
-
-			<div class="results-item">
-				<div class="results-item-image" (click)="gs.openLoginPopup()">
-					<img src="../img/s112.jpg" alt="">
-				</div><!-- 
-			 --><div class="results-item-description">
-					<div class="results-item-title" (click)="gs.openLoginPopup()">Детская площадка Планета Игр</div>
-					<div class="results-item-recommendation">Уникальные, яркие и безопасные аттракционы, интересные детям младшего возраста. Активно играть и веселиться можно в любое время, несмотря на погодные условия.</div>
-					<div class="results-item-location">Балканская пл. д.5 </div>
-				</div><!-- 
-			 --><div class="results-item-cost">
-					<div class="results-item-time"><span>10:00-22:00</span></div>
-					<div class="results-item-price"><span class="results-item-price-old"><span>400</span></span> <span>250</span></div>
-					<div class="btn" (click)="gs.openLoginPopup()">Купить</div>
-				</div>
-			</div>
-			<div class="results-item">
-				<div class="results-item-image" (click)="gs.openLoginPopup()">
-					<img src="../img/s59.jpg" alt="">
-				</div><!-- 
-			 --><div class="results-item-description">
-					<div class="results-item-title" (click)="gs.openLoginPopup()">Веревочный парк - нижняя трасса на 2 часа</div>
-					<div class="results-item-recommendation">Самый крупный веревочный крытый парк Европы. Билет включает в себя прохождение веревочной трассы первого уровня сложности на высоте 1м в течение 2-х часов.&nbsp;Небольшая высота позволяет без страха сосред...</div>
-					<div class="results-item-location">Приморский пр. д.72 А</div>
-				</div><!-- 
-			 --><div class="results-item-cost">
-					<div class="results-item-time"><span>10:00-22:00</span></div>
-					<div class="results-item-price"><span class="results-item-price-old"><span>500</span></span> <span>400</span></div>
-					<div class="btn" (click)="gs.openLoginPopup()">Купить</div>
-				</div>
-			</div>
-			<div class="results-item">
-				<div class="results-item-image" (click)="gs.openLoginPopup()">
-					<img src="../img/s351.jpg" alt="">
-				</div><!-- 
-			 --><div class="results-item-description">
-					<div class="results-item-title" (click)="gs.openLoginPopup()">Спектакль "Цветик-Семицветик"</div>
-					<div class="results-item-recommendation">Многим известная сказка о совершенно обычной девочке Жене, которая как и все дети очень любит мечтать и фантазировать. Однако, замечтавшись, зачастую можно потерять свою дорогу. И тогда находятся те, ...</div>
-					<div class="results-item-location">ул. Комиссара Смирнова, д.15 (ДК "Выборгский")</div>
-				</div><!-- 
-			 --><div class="results-item-cost">
-					<div class="results-item-time"><span>15:00-16:00</span></div>
-					<div class="results-item-price"><span class="results-item-price-old"><span>600</span></span> <span>450</span></div>
-					<div class="btn" (click)="gs.openLoginPopup()">Купить</div>
-				</div>
-			</div>
-			<div class="results-item">
-				<div class="results-item-image" (click)="gs.openLoginPopup()">
-					<img src="../img/s295.jpg" alt="">
-				</div><!-- 
-			 --><div class="results-item-description">
-					<div class="results-item-title" (click)="gs.openLoginPopup()">Батутный парк на 2 часа.</div>
-					<div class="results-item-recommendation">Отличный активный отдых для детей в оптимальной дозе! Прыжки на батуте развивают ловкость, владение телом, силу ног и выносливость. И конечно это весело и захватывающе!</div>
-					<div class="results-item-location">Пулковское шоссе 25 к.1 лит.А</div>
-				</div><!-- 
-			 --><div class="results-item-cost">
-					<div class="results-item-time"><span>10:00-14:00</span></div>
-					<div class="results-item-price"><span class="results-item-price-old"><span>600</span></span> <span>400</span></div>
-					<div class="btn" (click)="gs.openLoginPopup()">Купить</div>
-				</div>
-			</div>
-			<div class="results-item">
-				<div class="results-item-image" (click)="gs.openLoginPopup()">
-					<img src="../img/s186.jpg" alt="">
-				</div><!-- 
-			 --><div class="results-item-description">
-					<div class="results-item-title" (click)="gs.openLoginPopup()">Занятие по робототехнике 5-6 лет</div>
-					<div class="results-item-recommendation">Увлекательные занятия для юных изобретателей.&nbsp;Ребенок учится собирать роботов: знакомится с механикой&nbsp;и программированием.&nbsp;Программа включает&nbsp;три этапа: конструирование сказочного питомца и дома, уста...</div>
-					<div class="results-item-location">ул. Яхтенная д.6 корп.1</div>
-				</div><!-- 
-			 --><div class="results-item-cost">
-					<div class="results-item-time"><span>11:00-13:00</span></div>
-					<div class="results-item-price"><span class="results-item-price-old"><span>600</span></span> <span>450</span></div>
-					<div class="btn" (click)="gs.openLoginPopup()">Купить</div>
-				</div>
-			</div>
-			<div class="results-item">
-				<div class="results-item-image" (click)="gs.openLoginPopup()">
-					<img src="../img/s364.jpg" alt="">
-				</div><!-- 
-			 --><div class="results-item-description">
-					<div class="results-item-title" (click)="gs.openLoginPopup()">Кукольный спектакль «Лисичкины сказки»</div>
-					<div class="results-item-recommendation">Этот уютный, тёплый спектакль привезёт ребятам сама Лизавета Патрикеевна! Вы увидите две русские народные сказки: «Лисичка со скалочкой» и «Заяц, петух и лиса». Лиса представит сказки ребятам, пообщае...</div>
-					<div class="results-item-location">В.О., 2 линия, д. 25 </div>
-				</div><!-- 
-			 --><div class="results-item-cost">
-					<div class="results-item-time"><span>11:30-12:10</span></div>
-					<div class="results-item-price"><span class="results-item-price-old"><span>400</span></span> <span>350</span></div>
-					<div class="btn" (click)="gs.openLoginPopup()">Купить</div>
-				</div>
-			</div>
-	 	</div>
-	 	<div class="moreResults" (click)="gs.openLoginPopup()"><span class="btn">Еще (<span>17</span>)</span></div>
-	</div>
-</div>
-<div *ngIf="gs.isAuthenticated" class="form form-auth" id="filter">
-	<div class="wrapper">
-		<h2>Расписание</h2>
-		<div class="filters">
-			<div class="filters-item filters-location">
-				<!-- <span class="filters-option" [class.filters-option-active]="params.districts.id && params.districts.id.length" (click)="gs.openPopup('districts');">Район</span> -->
-				<!-- <span class="filters-text">или</span>
-				<span class="filters-option" [class.filters-option-active]="params.metro.id && params.metro.id.length" (click)="gs.openPopup('metro');">Метро</span> -->
-				<!-- <p *ngIf="params.metro.id" class="locations">{{params.metro.name[0]}}<span *ngIf="params.metro.name.length>1"> и еще {{params.metro.name.length - 1}} {{declOfNum(params.metro.name.length - 1, ['станция','станции','станций'])}}</span></p> -->
-				<div *ngIf="desktop" class="filters__list-wrap">
-					<div [@slideToggleW]="showDistricts" class="filters-option filters__title" [class.filters__title-opened]="showDistricts" (click)="toggleLocations()"><span *ngIf="selectedDistricts.length>0">{{selectedDistricts[0]}} <span *ngIf="selectedDistricts.length>1"> и еще {{selectedDistricts.length - 1}} {{gs.declOfNum(selectedDistricts.length - 1, ['район','района','районов'])}}</span></span><span *ngIf="selectedDistricts.length==0">Все районы</span></div>
-					
-					<div [@slideToggleH]="showDistricts" class="filters__list">
-						<perfect-scrollbar [@slideToggleH]="showDistricts" class="filters__scroll">
-							<div class="filters__scroll-body">
-								<div class="filters__list-item" *ngFor="let district of districts; let i = index;" (click)="districtsFilter(i)">
-									<div [class.filters__list-item-selected]="district.selected" class="filters__list-item-checkbox"></div>
-									<div class="filters__list-item-title">{{district.name}}</div>
-								</div>
-							</div>
-						</perfect-scrollbar>
-						<div class="filters__list-btns btns">
-							<div class="btn btn-reset-line dib" (click)="resetDistrictFilter()">Сбросить</div>
-							<div class="btn dib" (click)="toggleLocations()">Ок</div>
-						</div>
+	
+	<div class="advantages">
+		<div class="wrapper">
+			<h2>Смысл абонемента</h2>
+			<div class="advantages-slider">
+				<div class="advantages-item">
+					<img src="../app/img/adItem1.png" alt=""><!-- 
+				 --><div>
+						<h3>Экономия времени</h3>
+						<p>Просто выберите дату и время. В абонемент входят лучшие классы, занятия и другие активности для единоразового посещения.</p>
 					</div>
-
-				</div>
-				<ng-container *ngIf="districts.length && !desktop">
-					<span class="filters__mobile-title">Выберите район</span>
-					<select size="1" name="districts" id="districts" multiple (change)="change($event.target.options)" [(ngModel)]="params.districts" class="vis">
-						<option  *ngFor="let district of districts; let i = index;" [ngValue]="district.id">{{district.name}}</option>
-					</select>
-					<div *ngIf="params.districts.length>0" class="filters-reset" (click)="resetDistrictFilter()">Сбросить</div>
-				</ng-container>
-				<!-- <div *ngIf="params.districts.id" class="filters-option locations">{{params.districts.name[0]}}<span *ngIf="params.districts.name.length>1"> и еще {{params.districts.name.length - 1}} {{declOfNum(params.districts.name.length - 1, ['район','района','районов'])}}</span></div> -->
-
-			</div><!-- 
-		 --><div class="filters-item filters-time">
-				<span class="filters-option" *ngFor="let time of times;" [class.filters-option-active]="params.time_from==time.time_from && params.time_to==time.time_to" (click)="filterByTime($event, time)">{{time.key}}</span>
-			</div><!-- 
-		 --><div class="filters-item filters-age">
-				<span class="filters-option" *ngFor="let age of ages;" [class.filters-option-active]="params.age_from==age[0] && params.age_to==age[1]" (click)="filterByAge($event, age)">{{age[0]}}-{{age[1]}}</span>
-				<span class="filters-text">лет</span>
-			</div><!-- 
-		 --><div class="filters-item filters-category">
-				<span class="filters-option" *ngFor="let category of categories; let i = index;"  (click)="filterByCategory($event, category.id)"
-				[class.filters-option-active]="category.id == curCategory">{{category.name}}</span>
-				<p *ngIf="curCategory == 1">Лучшие места на наш взгляд, чтобы вам было проще выбирать.</p>
-				<p *ngIf="curCategory == 2">Батуты, скалодромы, веревочные парки, парки развлечений.</p>
-				<p *ngIf="curCategory == 3">Картинг, игровые пространства.</p>
-				<p *ngIf="curCategory == 4">Танцы</p>
-				<p *ngIf="curCategory == 5">Любые занятия, где нужно что-то делать руками – робототехника, рисование, лепка, гончарное дело и т.д.</p>
-				<p *ngIf="curCategory == 7">Музеи, театры, зоопарки, кино.</p>
-				<p *ngIf="curCategory == 9">Любые активности, где требуется определенное минимальное количество участников – квесты, футбол, кьюзар и т.д.</p>
-				<p *ngIf="curCategory == 10">Любые развивающие занятия – психология, математика, боевые искусства, ритмопластика.</p>
-			</div>
-		</div>  
-		<div class="week">
-			<div class="week-day" *ngFor="let d of dates;" [class.filters-option-active]="curDate == (d | amDateFormat: 'YYYYMMDD')" (click)="filterByDate($event, d);">
-				<div class="desktop">
-					<p>{{d | amDateFormat : 'dddd'}}</p>
-					<span>{{d | amDateFormat : 'DD MMMM'}}</span>
-				</div>
-				<div class="mobile">
-					<p>{{d | date: 'EE'}}</p>
-					<span>{{d | date:'dd.MM'}}</span>
+				</div><!-- 
+					 --><div class="advantages-item">
+					<img src="../app/img/adItem2.png" alt=""><!-- 
+				 --><div>
+						<h3>Хорошая скидка 10-50%</h3>
+						<p>Все мероприятия и активности, которые вы бронируете у нас, вам обойдутся дешевле, чем если бы вы пришли туда с улицы.</p>
+					</div>
+				</div><!-- 
+					 --><div class="advantages-item">
+					<img src="../app/img/adItem3.png" alt=""><!-- 
+				 --><div>
+						<h3>Новый мир для детей</h3>
+						<p>Наш абонемент не про постоянные занятия и кружки, а про то, чтобы расширять кругозор вашего ребенка и показать ему мир.</p>
+					</div>
 				</div>
 			</div>
-			<div class="lastWeek" (click)="lastWeek($event);"></div>
-			<div class="nextWeek" (click)="nextWeek($event);"></div>
-		</div><!--   
-	 --><div class="selectedDay">{{selectedDate | date: 'EEEE'}}, {{selectedDate | date: 'dd.MM'}}</div><!-- 
-	 --><div class="results">
-	 		<ng-container *ngIf="events.length > 0">
-				<div class="results-item" *ngFor="let item of events" id="event_{{item.id}}">
-					<a class="results-item-image" [routerLink]="['/event', curDate, item.id]">
-						<img *ngIf="item.photo" src="{{'img/s' + item.photo + '.jpg'}}" alt="">
-						<img *ngIf="!item.photo" src="../app/img/placeholder.jpg" alt="">
-					</a><!-- 
+		</div>
+	</div>
+
+	<div class="steps">
+		<div class="wrapper">
+			<h2>Как все устроено</h2><!-- 
+		 --><div class="steps-wrap">
+				<p>Киндерпасс устроен по клубному принципу. Каждый родитель покупает членство (абонемент), и взамен получает возможность бронировать все детские мероприятия и активности с хорошей скидкой.</p>
+				<!--<p>Вам нужно зарегистрироваться в Киндерпассе через ФБ или ВК, оплатить абонемент банковской карточкой (это безопасно, мы работаем с нашим партнером - Альфа-Банком) и можно сразу же начать бронировать мероприятия и ходить на них.</p>-->
+			</div>
+		</div>
+	</div>
+	<div class="form" id="filter">
+		<div class="wrapper">
+			<h2>Расписание</h2>
+			<div class="selectedDay">Лучшие мероприятия на сегодня</div>
+			<div class="results">
+
+				<div class="results-item">
+					<div class="results-item-image" (click)="gs.openLoginPopup()">
+						<img src="../img/s112.jpg" alt="">
+					</div><!-- 
 				 --><div class="results-item-description">
-						<a class="results-item-title" [routerLink]="['/event', curDate, item.id]">{{item.name}}</a>
-						<div class="results-item-recommendation">{{item.description | truncate:200 }}</div>
-						<div class="results-item-location">{{item.locations[0].address}} <span *ngIf="item.locations[0].length>1"> и еще {{item.locations[0].length-1}}</span> <div *ngIf="item.locations[0].metro" class="results-item-metro metro metro-{{item.locations[0].metro.line}}">{{item.locations[0].metro.name}}</div></div>
+						<div class="results-item-title" (click)="gs.openLoginPopup()">Детская площадка Планета Игр</div>
+						<div class="results-item-recommendation">Уникальные, яркие и безопасные аттракционы, интересные детям младшего возраста. Активно играть и веселиться можно в любое время, несмотря на погодные условия.</div>
+						<div class="results-item-location">Балканская пл. д.5 </div>
 					</div><!-- 
 				 --><div class="results-item-cost">
-						<div class="results-item-time"><span>{{item.time_min}}-{{item.time_max}}</span></div>
-						<div class="results-item-price">
-							<span *ngIf="item.price_old>0 && item.price_old != item.price_min"class="results-item-price-old">от <span>{{item.price_old}}</span> </span>
-							<span *ngIf="item.price_old==0 && item.price_without_discount>0 && item.price_without_discount != item.price_min"class="results-item-price-old"><span>{{item.price_without_discount}}</span> </span><span>{{item.price_min}}</span>
-						</div>
-						<!-- <div *ngIf="item.discount" class="results-item-discount">Дешевле на {{item.discount | number:'1.0-0'}}%</div> -->
-						<a class="btn" [routerLink]="['/event', curDate, item.id]">Купить</a>
+						<div class="results-item-time"><span>10:00-22:00</span></div>
+						<div class="results-item-price"><span class="results-item-price-old"><span>400</span></span> <span>250</span></div>
+						<div class="btn" (click)="gs.openLoginPopup()">Купить</div>
 					</div>
 				</div>
-	 		</ng-container>
-	 		<p class="results-message" *ngIf="events.length <= 0">{{resultsMessage}}</p>
-	 	</div>
-	</div>
-</div>
-<div *ngIf="!gs.isAuthenticated" class="bottomHelper"></div>
-<div *ngIf="!gs.isAuthenticated" class="options" id="subscription">
-	<div class="wrapper">
-		<h2>Цена абонемента</h2>
-		<div>
-			<div class="options-item">
-				<div class="options-price"><span>200</span> <img src="../app/img/money.png" alt=""></div>
-				<p class="options-description">При оплате каждый месяц</p>
-			</div>
-			<div class="options-item">
-				<div class="options-price"><span>1900</span> <img src="../app/img/money.png" alt=""></div>
-				<p class="options-description">При оплате на год вперед</p>
-			</div>
+				<div class="results-item">
+					<div class="results-item-image" (click)="gs.openLoginPopup()">
+						<img src="../img/s59.jpg" alt="">
+					</div><!-- 
+				 --><div class="results-item-description">
+						<div class="results-item-title" (click)="gs.openLoginPopup()">Веревочный парк - нижняя трасса на 2 часа</div>
+						<div class="results-item-recommendation">Самый крупный веревочный крытый парк Европы. Билет включает в себя прохождение веревочной трассы первого уровня сложности на высоте 1м в течение 2-х часов.&nbsp;Небольшая высота позволяет без страха сосред...</div>
+						<div class="results-item-location">Приморский пр. д.72 А</div>
+					</div><!-- 
+				 --><div class="results-item-cost">
+						<div class="results-item-time"><span>10:00-22:00</span></div>
+						<div class="results-item-price"><span class="results-item-price-old"><span>500</span></span> <span>400</span></div>
+						<div class="btn" (click)="gs.openLoginPopup()">Купить</div>
+					</div>
+				</div>
+				<div class="results-item">
+					<div class="results-item-image" (click)="gs.openLoginPopup()">
+						<img src="../img/s351.jpg" alt="">
+					</div><!-- 
+				 --><div class="results-item-description">
+						<div class="results-item-title" (click)="gs.openLoginPopup()">Спектакль "Цветик-Семицветик"</div>
+						<div class="results-item-recommendation">Многим известная сказка о совершенно обычной девочке Жене, которая как и все дети очень любит мечтать и фантазировать. Однако, замечтавшись, зачастую можно потерять свою дорогу. И тогда находятся те, ...</div>
+						<div class="results-item-location">ул. Комиссара Смирнова, д.15 (ДК "Выборгский")</div>
+					</div><!-- 
+				 --><div class="results-item-cost">
+						<div class="results-item-time"><span>15:00-16:00</span></div>
+						<div class="results-item-price"><span class="results-item-price-old"><span>600</span></span> <span>450</span></div>
+						<div class="btn" (click)="gs.openLoginPopup()">Купить</div>
+					</div>
+				</div>
+				<div class="results-item">
+					<div class="results-item-image" (click)="gs.openLoginPopup()">
+						<img src="../img/s295.jpg" alt="">
+					</div><!-- 
+				 --><div class="results-item-description">
+						<div class="results-item-title" (click)="gs.openLoginPopup()">Батутный парк на 2 часа.</div>
+						<div class="results-item-recommendation">Отличный активный отдых для детей в оптимальной дозе! Прыжки на батуте развивают ловкость, владение телом, силу ног и выносливость. И конечно это весело и захватывающе!</div>
+						<div class="results-item-location">Пулковское шоссе 25 к.1 лит.А</div>
+					</div><!-- 
+				 --><div class="results-item-cost">
+						<div class="results-item-time"><span>10:00-14:00</span></div>
+						<div class="results-item-price"><span class="results-item-price-old"><span>600</span></span> <span>400</span></div>
+						<div class="btn" (click)="gs.openLoginPopup()">Купить</div>
+					</div>
+				</div>
+				<div class="results-item">
+					<div class="results-item-image" (click)="gs.openLoginPopup()">
+						<img src="../img/s186.jpg" alt="">
+					</div><!-- 
+				 --><div class="results-item-description">
+						<div class="results-item-title" (click)="gs.openLoginPopup()">Занятие по робототехнике 5-6 лет</div>
+						<div class="results-item-recommendation">Увлекательные занятия для юных изобретателей.&nbsp;Ребенок учится собирать роботов: знакомится с механикой&nbsp;и программированием.&nbsp;Программа включает&nbsp;три этапа: конструирование сказочного питомца и дома, уста...</div>
+						<div class="results-item-location">ул. Яхтенная д.6 корп.1</div>
+					</div><!-- 
+				 --><div class="results-item-cost">
+						<div class="results-item-time"><span>11:00-13:00</span></div>
+						<div class="results-item-price"><span class="results-item-price-old"><span>600</span></span> <span>450</span></div>
+						<div class="btn" (click)="gs.openLoginPopup()">Купить</div>
+					</div>
+				</div>
+				<div class="results-item">
+					<div class="results-item-image" (click)="gs.openLoginPopup()">
+						<img src="../img/s364.jpg" alt="">
+					</div><!-- 
+				 --><div class="results-item-description">
+						<div class="results-item-title" (click)="gs.openLoginPopup()">Кукольный спектакль «Лисичкины сказки»</div>
+						<div class="results-item-recommendation">Этот уютный, тёплый спектакль привезёт ребятам сама Лизавета Патрикеевна! Вы увидите две русские народные сказки: «Лисичка со скалочкой» и «Заяц, петух и лиса». Лиса представит сказки ребятам, пообщае...</div>
+						<div class="results-item-location">В.О., 2 линия, д. 25 </div>
+					</div><!-- 
+				 --><div class="results-item-cost">
+						<div class="results-item-time"><span>11:30-12:10</span></div>
+						<div class="results-item-price"><span class="results-item-price-old"><span>400</span></span> <span>350</span></div>
+						<div class="btn" (click)="gs.openLoginPopup()">Купить</div>
+					</div>
+				</div>
+		 	</div>
+		 	<div class="moreResults" (click)="gs.openLoginPopup()"><span class="btn">Еще (<span>17</span>)</span></div>
 		</div>
-		<div class="options-text">Первые два месяца вы пользуетесь абонементом совершенно бесплатно и в полном объеме. Ну разве что при бронировании посещений каждый раз нужно будет вводить данные банковской карты.</div>
-		<button (click)="gs.openLoginPopup()" class="btn btn-line">Попробовать 2 мес<br>бесплатно</button>
 	</div>
-</div>
+	<div class="bottomHelper"></div>
+	<div class="options" id="subscription">
+		<div class="wrapper">
+			<h2>Цена абонемента</h2>
+			<div>
+				<div class="options-item">
+					<div class="options-price"><span>200</span> <img src="../app/img/money.png" alt=""></div>
+					<p class="options-description">При оплате каждый месяц</p>
+				</div>
+				<div class="options-item">
+					<div class="options-price"><span>1900</span> <img src="../app/img/money.png" alt=""></div>
+					<p class="options-description">При оплате на год вперед</p>
+				</div>
+			</div>
+			<div class="options-text">Первые два месяца вы пользуетесь абонементом совершенно бесплатно и в полном объеме. Ну разве что при бронировании посещений каждый раз нужно будет вводить данные банковской карты.</div>
+			<button (click)="gs.openLoginPopup()" class="btn btn-line">Попробовать 2 мес<br>бесплатно</button>
+		</div>
+	</div>
+
+</ng-container>
+
+<ng-template #isAuthenticatedBlock>
+	<div class="form form-auth" id="filter">
+		<div class="wrapper">
+			<h2>Расписание</h2>
+			<div class="filters">
+				<div class="filters-item filters-location">
+					<!-- <span class="filters-option" [class.filters-option-active]="params.districts.id && params.districts.id.length" (click)="gs.openPopup('districts');">Район</span> -->
+					<!-- <span class="filters-text">или</span>
+					<span class="filters-option" [class.filters-option-active]="params.metro.id && params.metro.id.length" (click)="gs.openPopup('metro');">Метро</span> -->
+					<!-- <p *ngIf="params.metro.id" class="locations">{{params.metro.name[0]}}<span *ngIf="params.metro.name.length>1"> и еще {{params.metro.name.length - 1}} {{declOfNum(params.metro.name.length - 1, ['станция','станции','станций'])}}</span></p> -->
+					<div *ngIf="desktop" class="filters__list-wrap">
+						<div [@slideToggleW]="showDistricts" class="filters-option filters__title" [class.filters__title-opened]="showDistricts" (click)="toggleLocations()"><span *ngIf="selectedDistricts.length>0">{{selectedDistricts[0]}} <span *ngIf="selectedDistricts.length>1"> и еще {{selectedDistricts.length - 1}} {{gs.declOfNum(selectedDistricts.length - 1, ['район','района','районов'])}}</span></span><span *ngIf="selectedDistricts.length==0">Все районы</span></div>
+						
+						<div [@slideToggleH]="showDistricts" class="filters__list">
+							<perfect-scrollbar [@slideToggleH]="showDistricts" class="filters__scroll">
+								<div class="filters__scroll-body">
+									<div class="filters__list-item" *ngFor="let district of districts; let i = index;" (click)="districtsFilter(i)">
+										<div [class.filters__list-item-selected]="district.selected" class="filters__list-item-checkbox"></div>
+										<div class="filters__list-item-title">{{district.name}}</div>
+									</div>
+								</div>
+							</perfect-scrollbar>
+							<div class="filters__list-btns btns">
+								<div class="btn btn-reset-line dib" (click)="resetDistrictFilter()">Сбросить</div>
+								<div class="btn dib" (click)="toggleLocations()">Ок</div>
+							</div>
+						</div>
+
+					</div>
+					<ng-container *ngIf="districts.length && !desktop">
+						<span class="filters__mobile-title">Выберите район</span>
+						<select size="1" name="districts" id="districts" multiple (change)="change($event.target.options)" [(ngModel)]="params.districts" class="vis">
+							<option  *ngFor="let district of districts; let i = index;" [ngValue]="district.id">{{district.name}}</option>
+						</select>
+						<div *ngIf="params.districts.length>0" class="filters-reset" (click)="resetDistrictFilter()">Сбросить</div>
+					</ng-container>
+					<!-- <div *ngIf="params.districts.id" class="filters-option locations">{{params.districts.name[0]}}<span *ngIf="params.districts.name.length>1"> и еще {{params.districts.name.length - 1}} {{declOfNum(params.districts.name.length - 1, ['район','района','районов'])}}</span></div> -->
+
+				</div><!-- 
+			 --><div class="filters-item filters-time">
+					<span class="filters-option" *ngFor="let time of times;" [class.filters-option-active]="params.time_from==time.time_from && params.time_to==time.time_to" (click)="filterByTime($event, time)">{{time.key}}</span>
+				</div><!-- 
+			 --><div class="filters-item filters-age">
+					<span class="filters-option" *ngFor="let age of ages;" [class.filters-option-active]="params.age_from==age[0] && params.age_to==age[1]" (click)="filterByAge($event, age)">{{age[0]}}-{{age[1]}}</span>
+					<span class="filters-text">лет</span>
+				</div><!-- 
+			 --><div class="filters-item filters-category">
+					<span class="filters-option" *ngFor="let category of categories; let i = index;"  (click)="filterByCategory($event, category.id)"
+					[class.filters-option-active]="category.id == curCategory">{{category.name}}</span>
+					<p *ngIf="curCategory == 1">Лучшие места на наш взгляд, чтобы вам было проще выбирать.</p>
+					<p *ngIf="curCategory == 2">Батуты, скалодромы, веревочные парки, парки развлечений.</p>
+					<p *ngIf="curCategory == 3">Картинг, игровые пространства.</p>
+					<p *ngIf="curCategory == 4">Танцы</p>
+					<p *ngIf="curCategory == 5">Любые занятия, где нужно что-то делать руками – робототехника, рисование, лепка, гончарное дело и т.д.</p>
+					<p *ngIf="curCategory == 7">Музеи, театры, зоопарки, кино.</p>
+					<p *ngIf="curCategory == 9">Любые активности, где требуется определенное минимальное количество участников – квесты, футбол, кьюзар и т.д.</p>
+					<p *ngIf="curCategory == 10">Любые развивающие занятия – психология, математика, боевые искусства, ритмопластика.</p>
+				</div>
+			</div>  
+			<div class="week">
+				<div class="week-day" *ngFor="let d of dates;" [class.filters-option-active]="curDate == (d | amDateFormat: 'YYYYMMDD')" [class.week-day-hidden]="(today | amDateFormat: 'YYYYMMDD') > (d | amDateFormat: 'YYYYMMDD') || nextMonth < (d | amDateFormat: 'YYYYMMDD')" (click)="filterByDate($event, d);">
+					<div class="desktop">
+						<p>{{d | amDateFormat : 'dddd'}}</p>
+						<span>{{d | amDateFormat : 'DD MMMM'}}</span>
+					</div>
+					<div class="mobile">
+						<p>{{d | date: 'EE'}}</p>
+						<span>{{d | date:'dd.MM'}}</span>
+					</div>
+				</div>
+				<div class="lastWeek" (click)="lastWeek($event);"></div>
+				<div class="nextWeek" (click)="nextWeek($event);"></div>
+			</div><!--   
+		 --><div class="selectedDay">{{selectedDate | date: 'EEEE'}}, {{selectedDate | date: 'dd.MM'}}</div><!-- 
+		 --><div class="results">
+		 		<ng-container *ngIf="events.length > 0">
+					<div class="results-item" *ngFor="let item of events" id="event_{{item.id}}">
+						<a class="results-item-image" [routerLink]="['/event', curDate, item.id]">
+							<img *ngIf="item.photo" src="{{'img/s' + item.photo + '.jpg'}}" alt="">
+							<img *ngIf="!item.photo" src="../app/img/placeholder.jpg" alt="">
+						</a><!-- 
+					 --><div class="results-item-description">
+							<a class="results-item-title" [routerLink]="['/event', curDate, item.id]">{{item.name}}</a>
+							<div class="results-item-recommendation">{{item.description | truncate:200 }}</div>
+							<div class="results-item-location">{{item.locations[0].address}} <span *ngIf="item.locations[0].length>1"> и еще {{item.locations[0].length-1}}</span> <div *ngIf="item.locations[0].metro" class="results-item-metro metro metro-{{item.locations[0].metro.line}}">{{item.locations[0].metro.name}}</div></div>
+						</div><!-- 
+					 --><div class="results-item-cost">
+							<div class="results-item-time"><span>{{item.time_min}}-{{item.time_max}}</span></div>
+							<div class="results-item-price">
+								<span *ngIf="item.price_old>0 && item.price_old != item.price_min"class="results-item-price-old">от <span>{{item.price_old}}</span> </span>
+								<span *ngIf="item.price_old==0 && item.price_without_discount>0 && item.price_without_discount != item.price_min"class="results-item-price-old"><span>{{item.price_without_discount}}</span> </span><span>{{item.price_min}}</span>
+							</div>
+							<!-- <div *ngIf="item.discount" class="results-item-discount">Дешевле на {{item.discount | number:'1.0-0'}}%</div> -->
+							<a class="btn" [routerLink]="['/event', curDate, item.id]">Купить</a>
+						</div>
+					</div>
+		 		</ng-container>
+		 		<p class="results-message" *ngIf="events.length <= 0">{{resultsMessage}}</p>
+		 	</div>
+		</div>
+	</div>
+</ng-template>
+
