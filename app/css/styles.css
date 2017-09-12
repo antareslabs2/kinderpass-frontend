@@ -157,6 +157,30 @@ button {
     background-size: contain;
     background-repeat: no-repeat; }
 
+.sliderArrow {
+  position: absolute;
+  background-image: url("../img/mobile/arrowFilters.png");
+  background-repeat: no-repeat;
+  width: 45px;
+  height: 45px;
+  background-size: 26px 34px;
+  top: 50%;
+  margin-top: -20px;
+  border-radius: 50%;
+  background-color: #FFF;
+  background-position: 6px 4px;
+  cursor: pointer;
+  transition: all .3s;
+  opacity: .5; }
+  .sliderArrow:hover {
+    opacity: 1; }
+  .sliderArrow__prev {
+    left: 5px; }
+  .sliderArrow__next {
+    right: 5px;
+    -webkit-transform: rotate(180deg);
+            transform: rotate(180deg); }
+
 p {
   font-size: 22px;
   font-family: 'matias';
@@ -708,36 +732,38 @@ textarea.textarea {
     margin-top: 30px;
     padding: 0 10px; }
 
-@media only screen and (max-width: 420px) {
-  .slick-dots li {
-    width: 50px;
-    height: 10px; } }
+.slick-dotted.slick-slider {
+  margin-bottom: 0; }
 
-.slick-dots li button {
-  transition: all .3s;
-  display: block;
-  position: relative;
-  background-color: transparent; }
+.slick-dots {
+  bottom: 15px; }
   @media only screen and (max-width: 420px) {
-    .slick-dots li button {
-      width: 100%;
-      height: 100%;
-      background-color: #FFF;
-      opacity: .25; } }
-  .slick-dots li button:before {
-    font-size: 20px;
-    color: #fff; }
+    .slick-dots li {
+      width: 50px;
+      height: 10px; } }
+  .slick-dots li button {
+    transition: all .3s;
+    display: block;
+    position: relative;
+    background-color: transparent; }
     @media only screen and (max-width: 420px) {
-      .slick-dots li button:before {
-        display: none; } }
-
-@media only screen and (max-width: 420px) {
-  .slick-dots li.slick-active button {
-    background-color: #FFF;
-    opacity: 1; } }
-
-.slick-dots li.slick-active button:before {
-  color: #fff; }
+      .slick-dots li button {
+        width: 100%;
+        height: 100%;
+        background-color: #FFF;
+        opacity: .25; } }
+    .slick-dots li button:before {
+      font-size: 20px;
+      color: #fff; }
+      @media only screen and (max-width: 420px) {
+        .slick-dots li button:before {
+          display: none; } }
+  @media only screen and (max-width: 420px) {
+    .slick-dots li.slick-active button {
+      background-color: #FFF;
+      opacity: 1; } }
+  .slick-dots li.slick-active button:before {
+    color: #fff; }
 
 .slick-slide {
   height: auto; }
@@ -1915,7 +1941,8 @@ textarea.textarea {
     margin-top: 20px; }
     .eventPage .col-1-2:nth-of-type(odd) {
       width: 55%;
-      text-align: center; }
+      text-align: center;
+      position: relative; }
       @media only screen and (max-width: 1024px) {
         .eventPage .col-1-2:nth-of-type(odd) {
           width: 100%; } }
@@ -2158,6 +2185,8 @@ textarea.textarea {
       .eventPage__ticket-price.price:after {
         width: 9px;
         top: 4px; }
+      .eventPage__ticket-price.active {
+        color: #02ba61; }
     .eventPage__ticket-name {
       width: calc(100% - 160px);
       line-height: 20px; }
@@ -2166,7 +2195,8 @@ textarea.textarea {
           width: 100%;
           display: block; } }
       .eventPage__ticket-name .price {
-        padding-right: 12px; }
+        padding-right: 12px;
+        color: #02ba61; }
         .eventPage__ticket-name .price:after {
           width: 9px;
           top: 3px; }
@@ -2195,7 +2225,7 @@ textarea.textarea {
   .eventPage-total {
     color: #8e7dba;
     font-size: 20px;
-    line-height: 30px;
+    line-height: 25px;
     display: inline-block;
     border-top: 1px solid #cecdd5;
     padding: 15px 0 15px 40px; }
@@ -2311,6 +2341,9 @@ textarea.textarea {
       min-width: 40px;
       text-align: right;
       font-size: 18px; }
+    .eventPage-subscription .price:after {
+      width: 9px;
+      top: 4px; }
   .eventPage-scrollBtn {
     float: right;
     display: none;
@@ -2327,6 +2360,8 @@ textarea.textarea {
     @media only screen and (max-width: 780px) {
       .eventPage-scrollBtn {
         display: block; } }
+  .eventPage-slider-wrap {
+    position: relative; }
 
 .bookings .results-item {
   margin: 55px 0 110px;

@@ -5,7 +5,21 @@
 			<div class="btn eventPage-scrollBtn" (click)="scrollToTicket()">Купить билет</div>
 			<h1>{{event.name}}</h1>
 			<div class="col-1-2 eventCol">
-				<div class="eventPage-provider">{{event.provider.name}}</div><img *ngIf="event.photo" class="eventPage-photo" src="{{'img/' + event.photo + '.jpg'}}" alt=""><img *ngIf="!event.photo" class="eventPage-photo" src="../app/img/placeholder.jpg" alt=""><div class="eventPage-info" [class.eventPage-info-small]="event.age_to >= 99">
+				<div class="eventPage-provider">{{event.provider.name}}</div>
+				<ng-container *ngIf="event.photos.length>0; else singleImage">
+					<div class="eventPage-slider-wrap">
+						<div class="eventPage-slider">
+							<img *ngFor="let photo of event.photos" class="eventPage-photo" src="{{'http://front.kinderpass.ru/img/' + photo.full}}" alt="">
+						</div>
+						<div class="sliderArrow sliderArrow__prev"></div>
+						<div class="sliderArrow sliderArrow__next"></div>
+					</div>
+				</ng-container>
+				<ng-template #singleImage>
+					<img *ngIf="event.photo" class="eventPage-photo" src="{{'img/' + event.photo + '.jpg'}}" alt="">
+					<img *ngIf="!event.photo" class="eventPage-photo" src="../app/img/placeholder.jpg" alt="">
+				</ng-template>
+				<div class="eventPage-info" [class.eventPage-info-small]="event.age_to >= 99">
 					<div *ngIf="event.age_to < 99" class="eventPage-age">Для детей {{event.age_from}}-{{event.age_to}} лет</div>
 					<div *ngIf="event.age_to >= 99" class="eventPage-age">Для детей от {{event.age_from}} лет и взрослых</div>
 					<div class="eventPage-freeSeats">
@@ -43,7 +57,7 @@
 								<div class="eventPage__line"></div>
 								<div class="eventPage__ticket">
 									<div class="eventPage__ticket-item" *ngFor="let ticket of event.locations[selectedLocation].time_slots[selectedTime].tickets; let i = index">
-										<div class="eventPage__ticket-name">{{ticket.ticket_type_name}} (<span class="price">{{ticket.price}}</span>)</div>
+										<div class="eventPage__ticket-name">{{ticket.ticket_type_name}} <span class="dib">(<span class="price">{{ticket.price}}</span>)</span></div>
 										<div class="eventPage__ticket-seats-wrap">
 											<div class="eventPage__ticket-seats">
 												<span [class.eventPage__ticket-seats-disable]="ticket.seats==0" (click)="removeTicket(ticket)">-</span>
@@ -51,16 +65,16 @@
 												<span [class.eventPage__ticket-seats-disable]="ticket.seats >= ticket.allocated_seats" (click)="addTicket(ticket)">+</span>
 												<p *ngIf="ticket.seats >= ticket.allocated_seats" class="hint">Достигнуто максимальное количество свободных мест</p>
 											</div>
-											<p class="eventPage__ticket-price price">{{ticket.price * ticket.seats}}</p>
+											<p class="eventPage__ticket-price price" [class.active]="ticket.price * ticket.seats > 0">{{ticket.price * ticket.seats}}</p>
 										</div>
 										<p *ngIf="ticket.ticket_type_description" class="eventPage__ticket-description">{{ticket.ticket_type_description}}</p>
 									</div>
 								</div>
 								<ng-container *ngIf="subscriptionPrice">
-									<div class="eventPage-subscription">Оплата подписки на 1 месяц: <span>200</span></div>
+									<div class="eventPage-subscription">Оплата подписки на 1 месяц: <span class="price">200</span></div>
 								</ng-container>
 								<div class="eventPage-total-wrap">
-									<div class="eventPage-total">Итого к оплате: <span>{{total + subscriptionPrice}}</span></div>
+									<div class="eventPage-total">Итого к оплате: <span class="price">{{total + subscriptionPrice}}</span></div>
 								</div>
 								<p *ngIf="discount>0" class="eventPage-discount-wrap">Вы сэкономите <span class="eventPage-discount">{{discount}} рублей</span>, купив этот билет через Киндерпасс</p>
 							</ng-container>

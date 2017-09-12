@@ -19,6 +19,7 @@ var app_global_service_1 = require("./app.global.service");
 var ng2_page_scroll_1 = require("ng2-page-scroll");
 var platform_browser_1 = require("@angular/platform-browser");
 var moment = require("moment");
+require('slick-carousel');
 var EventComponent = (function () {
     function EventComponent(httpService, route, gs, pageScrollService, document) {
         this.httpService = httpService;
@@ -73,6 +74,16 @@ var EventComponent = (function () {
                 _this.event = data.activity;
                 _this.needSubscription();
                 ga('send', 'pageview', '/virtual/eventopened');
+                setTimeout(function () { return $('.eventPage-slider').slick({
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    arrows: true,
+                    dots: true,
+                    prevArrow: $('.sliderArrow__prev'),
+                    nextArrow: $('.sliderArrow__next'),
+                    autoplay: true,
+                    autoplaySpeed: 3000
+                }); }, 0);
             }
         });
     };
@@ -208,6 +219,7 @@ var EventComponent = (function () {
     };
     EventComponent.prototype.ngOnDestroy = function () {
         this.sub.unsubscribe();
+        $('.eventPage-slider').slick('unslick');
     };
     return EventComponent;
 }());

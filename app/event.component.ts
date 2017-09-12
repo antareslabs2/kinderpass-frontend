@@ -6,6 +6,7 @@ import { PageScrollConfig, PageScrollService, PageScrollInstance } from 'ng2-pag
 import {DOCUMENT} from '@angular/platform-browser';
 
 import * as moment from 'moment';
+require('slick-carousel');
 declare var ga:Function;
 
 @Component({
@@ -84,6 +85,17 @@ export class EventComponent implements OnInit, OnDestroy  {
 				this.needSubscription();
 
 				ga('send', 'pageview', '/virtual/eventopened');
+				setTimeout(() => $('.eventPage-slider').slick({
+						slidesToShow: 1,
+						slidesToScroll: 1,
+						arrows: true,
+						dots: true,
+						prevArrow: $('.sliderArrow__prev'),
+						nextArrow: $('.sliderArrow__next'),
+						autoplay: true,
+						autoplaySpeed: 3000
+					}), 0); 
+				
 			}
 		});
 	}
@@ -222,6 +234,7 @@ export class EventComponent implements OnInit, OnDestroy  {
 
 	ngOnDestroy() {
 		this.sub.unsubscribe();
+		$('.eventPage-slider').slick('unslick');
 	}
 
 }	

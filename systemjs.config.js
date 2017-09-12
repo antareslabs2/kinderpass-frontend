@@ -31,7 +31,9 @@
       'rxjs': 'npm:rxjs',
       'moment': 'npm:moment/min/moment-with-locales.min.js',
       'angular2-moment': 'npm:angular2-moment',
-      'angular2-perfect-scrollbar': 'npm:angular2-perfect-scrollbar/bundles/angular2-perfect-scrollbar.umd.js'
+      'angular2-perfect-scrollbar': 'npm:angular2-perfect-scrollbar/bundles/angular2-perfect-scrollbar.umd.js',
+      'slick-carousel': 'npm:slick-carousel/slick/slick.min.js',
+      'slick-carousel-css': 'npm:slick-carousel/slick/slick.css'
     },
     // пакеты, которые указывают загрузчику System, как загружать файлы без имени и расширения
     packages: {

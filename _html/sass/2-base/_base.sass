@@ -145,3 +145,26 @@ button
 		right: 0
 		background-size: contain
 		background-repeat: no-repeat
+
+.sliderArrow
+	position: absolute
+	background-image: url("../img/mobile/arrowFilters.png")
+	background-repeat: no-repeat
+	width: 45px
+	height: 45px
+	background-size: 26px 34px
+	top: 50%
+	margin-top: -20px
+	border-radius: 50%
+	background-color: #FFF
+	background-position: 6px 4px
+	cursor: pointer
+	transition: all .3s
+	opacity: .5
+	&:hover
+		opacity: 1
+	&__prev
+		left: 5px
+	&__next
+		right: 5px
+		transform: rotate(180deg)

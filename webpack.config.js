@@ -60,6 +60,7 @@ module.exports = {
     }),
  
     new HtmlWebpackPlugin({
+      inject: true,
       template: 'index_webpack.html'
     }),
     new ExtractTextPlugin('[name].[hash].css'),
