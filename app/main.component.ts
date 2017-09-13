@@ -79,8 +79,11 @@ export class MainComponent implements OnInit {
 
 	resultsMessage: string;
 
+	traf_cid: string;
+
 	constructor(private httpService: Api, private router:Router, private gs:GlobalService, private pageScrollService: PageScrollService, @Inject(DOCUMENT) private document: any){
 		this.hash = '';
+		this.traf_cid = '';
 		this.gs.innerpage = false;
 		this.monday = new Date();
 		this.today = new Date();
@@ -172,6 +175,8 @@ export class MainComponent implements OnInit {
 					this.params.metro = decodeURIComponent(pair[1]).split(',').map(Number);
 				} else if (pair[0] == 'district_ids') {
 					this.params.districts = decodeURIComponent(pair[1]).split(',').map(Number);
+				} else if (pair[0] == 'cid') {
+					this.traf_cid = pair[1];
 				}
 			}
 		}

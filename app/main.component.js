@@ -29,6 +29,7 @@ var MainComponent = (function () {
         this.pageScrollService = pageScrollService;
         this.document = document;
         this.hash = '';
+        this.traf_cid = '';
         this.gs.innerpage = false;
         this.monday = new Date();
         this.today = new Date();
@@ -119,6 +120,9 @@ var MainComponent = (function () {
                 }
                 else if (pair[0] == 'district_ids') {
                     this.params.districts = decodeURIComponent(pair[1]).split(',').map(Number);
+                }
+                else if (pair[0] == 'cid') {
+                    this.traf_cid = pair[1];
                 }
             }
         }
