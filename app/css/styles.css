@@ -1034,11 +1034,11 @@ textarea.textarea {
           display: block; }
           .week-day .mobile span {
             font-size: 12px; } }
-    .week-day:hover {
+    .week-day:not(.week-day-hidden):hover {
       background-color: #1cbbb4; }
-    @media only screen and (max-width: 420px) {
-      .week-day:hover {
-        background-color: #8e7dba; } }
+      @media only screen and (max-width: 420px) {
+        .week-day:not(.week-day-hidden):hover {
+          background-color: #8e7dba; } }
     .week-day p {
       font-size: 18px; }
       @media only screen and (max-width: 1024px) {
@@ -1049,6 +1049,9 @@ textarea.textarea {
       @media only screen and (max-width: 1024px) {
         .week-day span {
           font-size: 20px; } }
+    .week-day-hidden {
+      opacity: .5;
+      cursor: default; }
   .week .lastWeek,
   .week .nextWeek {
     position: absolute;
@@ -1794,7 +1797,8 @@ textarea.textarea {
       text-align: center;
       font-size: 12px;
       font-style: italic; }
-  .innerpage .page-block strong {
+  .innerpage .page-block strong,
+  .innerpage .page-block b {
     font-weight: bold; }
   .innerpage .page-block ul {
     margin: 20px 0 20px 40px; }

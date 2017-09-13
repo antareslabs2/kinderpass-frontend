@@ -39,10 +39,9 @@
 				display: block
 				span
 					font-size: 12px
-		&:hover
+		&:not(.week-day-hidden):hover
 			background-color: #1cbbb4
-		+bp($sm)
-			&:hover
+			+bp($sm)
 				background-color: #8e7dba
 		p
 			font-size: 18px
@@ -53,6 +52,9 @@
 			font-size: 24px
 			+bp(1024px)
 				font-size: 20px
+		&-hidden
+			opacity: .5
+			cursor: default
 
 	.lastWeek,
 	.nextWeek
