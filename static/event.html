@@ -6,10 +6,10 @@
 			<h1>{{event.name}}</h1>
 			<div class="col-1-2 eventCol">
 				<div class="eventPage-provider">{{event.provider.name}}</div>
-				<ng-container *ngIf="event.photos.length>0; else singleImage">
+				<ng-container *ngIf="event.photos.length>1; else singleImage">
 					<div class="eventPage-slider-wrap">
 						<div class="eventPage-slider">
-							<img *ngFor="let photo of event.photos" class="eventPage-photo" src="{{'http://front.kinderpass.ru/img/' + photo.full}}" alt="">
+							<img *ngFor="let photo of event.photos" class="eventPage-photo" src="{{'img/' + photo.full}}" alt="">
 						</div>
 						<div class="sliderArrow sliderArrow__prev"></div>
 						<div class="sliderArrow sliderArrow__next"></div>
