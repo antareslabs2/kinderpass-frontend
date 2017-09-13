@@ -137,6 +137,10 @@ export class MainComponent implements OnInit {
 			
 		});
 		this.resultsMessage = "Не найдено ни одного мероприятия";
+		this.traf_cid = '';
+		if (localStorage.getItem('cid')) {
+			this.traf_cid = localStorage.getItem('cid');
+		}
 	}
 
 	ngOnInit(){
@@ -177,6 +181,7 @@ export class MainComponent implements OnInit {
 					this.params.districts = decodeURIComponent(pair[1]).split(',').map(Number);
 				} else if (pair[0] == 'cid') {
 					this.traf_cid = pair[1];
+					localStorage.setItem('cid', pair[1]);
 				}
 			}
 		}
@@ -322,6 +327,9 @@ export class MainComponent implements OnInit {
 		}
 		this.gs.url['category_id']= this.curCategory;
 		this.gs.url['date'] = this.curDate;
+		if (this.traf_cid) {
+			this.gs.url['cid'] = this.traf_cid;
+		}
 
 		this.router.navigate(['/'], { queryParams: this.gs.url });
 

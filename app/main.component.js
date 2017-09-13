@@ -81,6 +81,10 @@ var MainComponent = (function () {
             }
         });
         this.resultsMessage = "Не найдено ни одного мероприятия";
+        this.traf_cid = '';
+        if (localStorage.getItem('cid')) {
+            this.traf_cid = localStorage.getItem('cid');
+        }
     }
     MainComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -123,6 +127,7 @@ var MainComponent = (function () {
                 }
                 else if (pair[0] == 'cid') {
                     this.traf_cid = pair[1];
+                    localStorage.setItem('cid', pair[1]);
                 }
             }
         }
@@ -257,6 +262,9 @@ var MainComponent = (function () {
         }
         this.gs.url['category_id'] = this.curCategory;
         this.gs.url['date'] = this.curDate;
+        if (this.traf_cid) {
+            this.gs.url['cid'] = this.traf_cid;
+        }
         this.router.navigate(['/'], { queryParams: this.gs.url });
         this.httpService.getSchedule(this.curCategory, this.curDate, getParams).subscribe(function (data) {
             _this.events = [];
