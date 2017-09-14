@@ -93,7 +93,7 @@ export class MainComponent implements OnInit {
 		this.events = [];
 		this.dates = [];
 		this.months = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
-		this.ages = [[0,2],[3,5],[6,9],[10,14]];
+		this.ages = [[0,3],[3,6],[6,9],[9,14]];
 		this.times = [
 			{
 				"key":"День",
