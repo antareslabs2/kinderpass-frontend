@@ -24,6 +24,12 @@
 			padding-left: 30px
 			padding-right: 30px
 
+		+bp($sm)
+			padding: 10px
+			top: calc(50% + 35px)
+			max-height: calc(100% - 100px)
+			overflow: auto
+
 	&-title
 		font-size: 26px
 		font-family: 'rounds'
@@ -181,15 +187,12 @@
 	
 .updateInfo
 	padding: 10px 60px
-	+bp($sm)
-		padding: 10px
-		top: calc(50% + 35px)
-		max-height: calc(100% - 100px)
-		overflow: auto
 	.popup-description
 		margin: 20px 0
 		+bp($md)
 			margin: 15px 0
+	+bp($sm)
+		padding: 10px
 	input
 		width: 100%
 		margin-bottom: 20px

@@ -190,6 +190,8 @@
 		margin: 10px 0
 		+bp($md)
 			margin-bottom: 0
+		.metro
+			margin-left: 5px
 
 	&-time
 		font-size: 16px
@@ -412,29 +414,31 @@
 		flex-wrap: wrap
 		margin: 10px 0
 
-		span
-			height: 28px
+		> div
+			min-height: 28px
+			line-height: 28px
 			border-radius: 7px
 			border: 2px solid #d7d7d7
 			padding: 0 15px
-			display: -webkit-inline-box
-			display: inline-flex
-			-webkit-box-pack: center
-			justify-content: center
-			-webkit-box-align: center
-			align-items: center
-			font-size: 14px
-			color: #8e7dba
 			cursor: pointer
 			margin-right: 5px
 			margin-bottom: 5px 
-			white-space: nowrap
 
 			&.active,
 			&:hover
 				background-color: #02ba61
-				color: #fff
 				border-color: #02ba61
+				p
+					color: #fff
+			p
+				color: #8e7dba
+				font-size: 14px
+				line-height: 18px
+				display: inline-block
+				vertical-align: middle
+
+			.metro
+				margin-left: 5px
 
 		&-small
 			span

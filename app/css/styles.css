@@ -1530,6 +1530,12 @@ textarea.textarea {
     .popup-wrapper .btn {
       padding-left: 30px;
       padding-right: 30px; }
+    @media only screen and (max-width: 420px) {
+      .popup-wrapper {
+        padding: 10px;
+        top: calc(50% + 35px);
+        max-height: calc(100% - 100px);
+        overflow: auto; } }
   .popup-title {
     font-size: 26px;
     font-family: 'rounds';
@@ -1675,17 +1681,14 @@ textarea.textarea {
 
 .updateInfo {
   padding: 10px 60px; }
-  @media only screen and (max-width: 420px) {
-    .updateInfo {
-      padding: 10px;
-      top: calc(50% + 35px);
-      max-height: calc(100% - 100px);
-      overflow: auto; } }
   .updateInfo .popup-description {
     margin: 20px 0; }
     @media only screen and (max-width: 780px) {
       .updateInfo .popup-description {
         margin: 15px 0; } }
+  @media only screen and (max-width: 420px) {
+    .updateInfo {
+      padding: 10px; } }
   .updateInfo input {
     width: 100%;
     margin-bottom: 20px;
@@ -2090,6 +2093,8 @@ textarea.textarea {
     @media only screen and (max-width: 780px) {
       .eventPage-address {
         margin-bottom: 0; } }
+    .eventPage-address .metro {
+      margin-left: 5px; }
   .eventPage-time {
     font-size: 16px;
     color: #8e7dba;
@@ -2298,30 +2303,28 @@ textarea.textarea {
     -ms-flex-wrap: wrap;
         flex-wrap: wrap;
     margin: 10px 0; }
-    .eventPage-checks span {
-      height: 28px;
+    .eventPage-checks > div {
+      min-height: 28px;
+      line-height: 28px;
       border-radius: 7px;
       border: 2px solid #d7d7d7;
       padding: 0 15px;
-      display: -webkit-inline-box;
-      display: -ms-inline-flexbox;
-      display: inline-flex;
-      -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-      -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-      font-size: 14px;
-      color: #8e7dba;
       cursor: pointer;
       margin-right: 5px;
-      margin-bottom: 5px;
-      white-space: nowrap; }
-      .eventPage-checks span.active, .eventPage-checks span:hover {
+      margin-bottom: 5px; }
+      .eventPage-checks > div.active, .eventPage-checks > div:hover {
         background-color: #02ba61;
-        color: #fff;
         border-color: #02ba61; }
+        .eventPage-checks > div.active p, .eventPage-checks > div:hover p {
+          color: #fff; }
+      .eventPage-checks > div p {
+        color: #8e7dba;
+        font-size: 14px;
+        line-height: 18px;
+        display: inline-block;
+        vertical-align: middle; }
+      .eventPage-checks > div .metro {
+        margin-left: 5px; }
     .eventPage-checks-small span {
       font-size: 12px;
       padding: 0 13px; }

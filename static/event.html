@@ -39,14 +39,18 @@
 						<div class="eventPage-ticket-fields">
 							<ng-container *ngIf="event.locations.length>1">
 								<div class="eventPage-address">Выберите место посещения:</div>
-								<div class="eventPage-checks"><span *ngFor="let location of event.locations; let i = index" [class.active]="selectedLocation == i" (click)="selectedLocation=i; calcTotal();">{{location.address}}</span></div>
+								<div class="eventPage-checks"><div *ngFor="let location of event.locations; let i = index" [class.active]="selectedLocation == i" (click)="selectedLocation=i; calcTotal();">
+									<p>
+										{{location.address}} <ng-container *ngIf="location.metro">, <span class="metro metro-{{location.metro.line}}">{{location.metro.name}}</span></ng-container>
+									</p>
+								</div></div>
 							</ng-container>
 							<ng-container *ngIf="event.locations.length==1">
-								<div class="eventPage-address">{{event.locations[0].address}}</div>
+								<div class="eventPage-address">{{event.locations[0].address}}<ng-container *ngIf="event.locations[0].metro">, <span class="metro metro-{{event.locations[0].metro.line}}">{{event.locations[0].metro.name}}</span></ng-container></div>
 							</ng-container>
 							<ng-container *ngIf="event.locations[selectedLocation].time_slots.length>1">
 								<div class="eventPage-duration">Выберите время посещения:</div>
-								<div class="eventPage-checks eventPage-checks-small"><span *ngFor="let time of event.locations[selectedLocation].time_slots; let i = index" [class.active]="selectedTime == i" (click)="selectedTime=i; calcTotal();">{{time.start_time}}-{{time.end_time}}</span></div>
+								<div class="eventPage-checks eventPage-checks-small"><div *ngFor="let time of event.locations[selectedLocation].time_slots; let i = index" [class.active]="selectedTime == i" (click)="selectedTime=i; calcTotal();"><p>{{time.start_time}}-{{time.end_time}}</p></div></div>
 							</ng-container>
 							<ng-container *ngIf="event.locations[selectedLocation].time_slots.length==1">
 								<div class="eventPage-duration">{{event.locations[selectedLocation].time_slots[0].start_time}}-{{event.locations[selectedLocation].time_slots[0].end_time}}</div>
