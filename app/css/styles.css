@@ -257,13 +257,16 @@ img {
   .btn.btn-line {
     padding: 2%;
     font-size: 38px;
+    font-size: 32px;
     border: 8px solid #fff; }
     @media only screen and (max-width: 780px) {
       .btn.btn-line {
-        font-size: 30px; } }
+        font-size: 30px;
+        font-size: 26px; } }
     @media only screen and (max-width: 420px) {
       .btn.btn-line {
-        font-size: 25px; } }
+        font-size: 25px;
+        font-size: 20px; } }
     .btn.btn-line:hover {
       background-color: #016e3a; }
   .btn.btn-footer {
@@ -769,8 +772,9 @@ textarea.textarea {
   height: auto; }
 
 .firstScreen {
-  background-image: url("../img/firstScreenBG.jpg");
+  background-image: url("../img/firstScreenBG2.jpg");
   background-color: #ba7db8;
+  background-color: #8e7dba;
   background-repeat: no-repeat;
   background-position: 50% 0%;
   background-size: cover;
@@ -782,7 +786,7 @@ textarea.textarea {
       padding-top: 150px; } }
   @media only screen and (max-width: 420px) {
     .firstScreen {
-      background-image: url("../img/mobile/firstScreenBG.jpg");
+      background-image: url("../img/mobile/firstScreenBG2.jpg");
       background-position: 50% 0%;
       padding-top: 100px; } }
   .firstScreen .title {
@@ -1308,6 +1312,18 @@ textarea.textarea {
   font-size: 14px;
   margin-top: 10px; }
 
+.filters-item-mobile {
+  display: none; }
+  @media only screen and (max-width: 420px) {
+    .filters-item-mobile {
+      display: block; } }
+
+@media only screen and (max-width: 420px) {
+  .filters-item-desktop {
+    display: none; }
+    .filters-item-desktop.active {
+      display: block; } }
+
 .selectedDay {
   text-align: center;
   border-top-left-radius: 30px;
@@ -1490,9 +1506,10 @@ textarea.textarea {
   color: #fff;
   cursor: pointer; }
   .moreResults .btn {
-    padding: 10px;
+    padding: 20px;
     background-color: #1cbbb4;
-    text-transform: none; }
+    text-transform: none;
+    font-family: "rounds"; }
     .moreResults .btn:hover {
       background-color: #1aa9a2; }
 

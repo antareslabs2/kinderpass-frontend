@@ -460,4 +460,11 @@ export class MainComponent implements OnInit {
 		this.params.districts = selectedValues;
 		this.eventsFilter();
 	}
+
+	showFilters(e:any) {
+		let text = e.target.textContent;
+		$('.filters-item-desktop').toggleClass('active');
+		e.target.textContent = e.target.dataset.text;
+		e.target.dataset.text = text;
+	}
 }

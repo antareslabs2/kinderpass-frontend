@@ -134,15 +134,15 @@ var GlobalService = (function () {
             else if (this.userInfo.subscription) {
                 var today = moment(new Date()).add(7, 'days').format();
                 var subscription = moment(new Date(this.userInfo.subscription.expires_at.replace(/(\d+).(\d+).(\d+)/, '$3-$2-$1'))).format();
-                if (moment(today).isAfter(subscription, 'day'))
-                    this.extendSubscription = true;
-                else
+                if (!moment(today).isAfter(subscription, 'day'))
                     this.extendSubscription = false;
+                // else
+                // this.extendSubscription = true;
                 this.policy = true;
             }
             else {
-                this.popupName = "extendSubscription";
-                this.extendSubscription = true;
+                // this.popupName = "extendSubscription";
+                // this.extendSubscription = true;
                 this.policy = true;
             }
             var th_1 = this;

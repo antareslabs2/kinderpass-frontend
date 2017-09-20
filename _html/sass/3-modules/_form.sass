@@ -303,7 +303,18 @@
 		text-transform: none
 		font-size: 14px
 		margin-top: 10px		
-		
+	
+	&-item
+		&-mobile
+			display: none
+			+bp($sm)
+				display: block
+		&-desktop
+			+bp($sm)
+				display: none
+				&.active
+					display: block
+					
 .selectedDay
 	text-align: center
 	border-top-left-radius: 30px
@@ -486,9 +497,10 @@
 	color: #fff
 	cursor: pointer
 	.btn
-		padding: 10px
+		padding: 20px
 		background-color: #1cbbb4
 		text-transform: none
+		font-family: "rounds"
 		&:hover
 			background-color: #1aa9a2
 .bottomHelper

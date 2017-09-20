@@ -2,15 +2,16 @@
 	<div  class="firstScreen">
 		<div class="wrapper">
 			<div class="title">
-				<h1>Абонемент на лучшие детские мероприятия Питера</h1>
-				<p>Киндерпасс дает возможность найти, записаться и посетить интересные мастер-классы и детские активности с хорошей скидкой</p>
-				<a pageScroll href="#subscription" class="btn btn-line">Попробовать</a>
+				<h1> Афиша лучших детских мероприятий Питера</h1>
+				<p>Киндерпасс дает возможность суперпросто найти и купить билеты на детские мероприятия и активности</p>
+				<!-- <a pageScroll href="#subscription" class="btn btn-line">Попробовать</a> -->
+				<a (click)="gs.openLoginPopup()" class="btn btn-line">Посмотреть полное расписание</a>
 			</div>
 		</div>
 
 	</div>
 	
-	<div class="advantages">
+	<div class="advantages" style="display:none">
 		<div class="wrapper">
 			<h2>Смысл абонемента</h2>
 			<div class="advantages-slider">
@@ -39,7 +40,7 @@
 		</div>
 	</div>
 
-	<div class="steps">
+	<div class="steps" style="display:none">
 		<div class="wrapper">
 			<h2>Как все устроено</h2><!-- 
 		 --><div class="steps-wrap">
@@ -51,7 +52,6 @@
 	<div class="form" id="filter">
 		<div class="wrapper">
 			<h2 style="margin-bottom: 20px;">Расписание</h2>
-			<div class="moreResults" style="margin-bottom: 20px; margin-top:2px;" (click)="gs.openLoginPopup()"><span class="btn">Посмотреть полное расписание</span></div>
 			<div class="selectedDay">Лучшие мероприятия на сегодня</div>
 			<div class="results">
 
@@ -146,11 +146,11 @@
 					</div>
 				</div>
 		 	</div>
-		 	<div class="moreResults" (click)="gs.openLoginPopup()"><span class="btn">Еще (<span>17</span>)</span></div>
+		 	<div class="moreResults" (click)="gs.openLoginPopup()"><span class="btn">Посмотреть полное расписание</span></div>
 		</div>
 	</div>
-	<div class="bottomHelper"></div>
-	<div class="options" id="subscription">
+	<div class="bottomHelper" style="display:none"></div>
+	<div class="options" id="subscription" style="display:none">
 		<div class="wrapper">
 			<h2>Цена абонемента</h2>
 			<div>
@@ -174,7 +174,10 @@
 		<div class="wrapper">
 			<h2>Расписание</h2><img src="https://ttjaa.voluumtrk.com/conversion.gif?cid={{traf_cid}}&txid={{gs.userInfo.id}}" width="1" height="1"/>
 			<div class="filters">
-				<div class="filters-item filters-location">
+				<div class="filters-item filters-item-mobile">
+					<span class="filters-option" (click)="showFilters($event)" data-text="Скрыть фильтры">Применить фильтры</span>
+				</div><!-- 
+			 --><div class="filters-item filters-location filters-item-desktop">
 					<!-- <span class="filters-option" [class.filters-option-active]="params.districts.id && params.districts.id.length" (click)="gs.openPopup('districts');">Район</span> -->
 					<!-- <span class="filters-text">или</span>
 					<span class="filters-option" [class.filters-option-active]="params.metro.id && params.metro.id.length" (click)="gs.openPopup('metro');">Метро</span> -->
@@ -208,14 +211,14 @@
 					<!-- <div *ngIf="params.districts.id" class="filters-option locations">{{params.districts.name[0]}}<span *ngIf="params.districts.name.length>1"> и еще {{params.districts.name.length - 1}} {{declOfNum(params.districts.name.length - 1, ['район','района','районов'])}}</span></div> -->
 
 				</div><!-- 
-			 --><div class="filters-item filters-time">
+			 --><div class="filters-item filters-time filters-item-desktop">
 					<span class="filters-option" *ngFor="let time of times;" [class.filters-option-active]="params.time_from==time.time_from && params.time_to==time.time_to" (click)="filterByTime($event, time)">{{time.key}}</span>
 				</div><!-- 
-			 --><div class="filters-item filters-age">
+			 --><div class="filters-item filters-age filters-item-desktop">
 					<span class="filters-option" *ngFor="let age of ages;" [class.filters-option-active]="params.age_from==age[0] && params.age_to==age[1]" (click)="filterByAge($event, age)">{{age[0]}}-{{age[1]}}</span>
 					<span class="filters-text">лет</span>
 				</div><!-- 
-			 --><div class="filters-item filters-category">
+			 --><div class="filters-item filters-category filters-item-desktop">
 					<span class="filters-option" *ngFor="let category of categories; let i = index;"  (click)="filterByCategory($event, category.id)"
 					[class.filters-option-active]="category.id == curCategory">{{category.name}}</span>
 					<p *ngIf="curCategory == 1">Лучшие места на наш взгляд, чтобы вам было проще выбирать.</p>

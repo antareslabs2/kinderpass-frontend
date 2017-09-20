@@ -104,23 +104,21 @@ var EventComponent = (function () {
         }
     };
     EventComponent.prototype.needSubscription = function () {
-        if (this.gs.userInfo.subscription) {
-            if (this.event && this.event.locations) {
-                var eventDate = new Date(this.event.locations[0].time_slots[0].date.replace(/(\d+).(\d+).(\d+)/, '$3-$2-$1'));
-                var subscriptionExpires = new Date(this.gs.userInfo.subscription.expires_at.replace(/(\d+).(\d+).(\d+)/, '$3-$2-$1'));
-                if ((eventDate - subscriptionExpires) > 0) {
-                    this.subscriptionPrice = 200;
-                    this.subscriptionDate = moment(subscriptionExpires).add(1, 'month').format();
-                }
-                else {
-                    this.subscriptionPrice = 0;
-                }
-            }
-        }
-        else {
-            this.subscriptionPrice = 200;
-            this.subscriptionDate = moment(new Date()).add(1, 'month').format();
-        }
+        // if (this.gs.userInfo.subscription) {
+        // 	if (this.event && this.event.locations) {
+        // 		let eventDate : any = new Date(this.event.locations[0].time_slots[0].date.replace(/(\d+).(\d+).(\d+)/,'$3-$2-$1'));
+        // 		let subscriptionExpires : any = new Date(this.gs.userInfo.subscription.expires_at.replace(/(\d+).(\d+).(\d+)/,'$3-$2-$1'));
+        // 		if ((eventDate - subscriptionExpires) > 0) {
+        // 			this.subscriptionPrice = 200;
+        // 			this.subscriptionDate = moment(subscriptionExpires).add(1, 'month').format();
+        // 		} else {
+        // 			this.subscriptionPrice = 0;
+        // 		}
+        // 	}
+        // } else {
+        // 	this.subscriptionPrice = 200;
+        // 	this.subscriptionDate = moment(new Date()).add(1, 'month').format();
+        // }
     };
     EventComponent.prototype.calcTotal = function () {
         this.total = 0;

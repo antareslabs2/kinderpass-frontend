@@ -387,6 +387,12 @@ var MainComponent = (function () {
         this.params.districts = selectedValues;
         this.eventsFilter();
     };
+    MainComponent.prototype.showFilters = function (e) {
+        var text = e.target.textContent;
+        $('.filters-item-desktop').toggleClass('active');
+        e.target.textContent = e.target.dataset.text;
+        e.target.dataset.text = text;
+    };
     return MainComponent;
 }());
 MainComponent = __decorate([
