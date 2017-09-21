@@ -5,6 +5,7 @@ import { Router } from "@angular/router";
 import { PageScrollConfig, PageScrollService, PageScrollInstance } from 'ng2-page-scroll';
 import {DOCUMENT} from '@angular/platform-browser';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+require('slick-carousel');
 
 import * as moment from 'moment';
 import * as $ from 'jquery';
@@ -141,6 +142,18 @@ export class MainComponent implements OnInit {
 		if (localStorage.getItem('cid')) {
 			this.traf_cid = localStorage.getItem('cid');
 		}
+
+
+		setTimeout(() => $('.slider').slick({
+						slidesToShow: 1,
+						slidesToScroll: 1,
+						arrows: true,
+						dots: true,
+						prevArrow: $('.slider-arrow-prev'),
+						nextArrow: $('.slider-arrow-next'),
+						autoplay: false,
+						autoplaySpeed: 10000
+					}), 0); 
 	}
 
 	ngOnInit(){

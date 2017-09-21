@@ -19,6 +19,7 @@ var router_1 = require("@angular/router");
 var ng2_page_scroll_1 = require("ng2-page-scroll");
 var platform_browser_1 = require("@angular/platform-browser");
 var animations_1 = require("@angular/animations");
+require('slick-carousel');
 var moment = require("moment");
 var $ = require("jquery");
 var MainComponent = (function () {
@@ -85,6 +86,16 @@ var MainComponent = (function () {
         if (localStorage.getItem('cid')) {
             this.traf_cid = localStorage.getItem('cid');
         }
+        setTimeout(function () { return $('.slider').slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: true,
+            dots: true,
+            prevArrow: $('.slider-arrow-prev'),
+            nextArrow: $('.slider-arrow-next'),
+            autoplay: false,
+            autoplaySpeed: 10000
+        }); }, 0);
     }
     MainComponent.prototype.ngOnInit = function () {
         var _this = this;
