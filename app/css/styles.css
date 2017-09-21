@@ -964,7 +964,7 @@ textarea.textarea {
     padding: 4% 0; }
     .gallery .slider-img {
       width: 100%;
-      padding: 0 5%;
+      padding: 1% 5%;
       display: inline-block;
       vertical-align: top; }
       @media only screen and (max-width: 420px) {
