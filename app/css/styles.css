@@ -257,12 +257,12 @@ img {
   .btn.btn-line {
     padding: 2%;
     font-size: 38px;
-    font-size: 32px;
+    font-size: 30px;
     border: 8px solid #fff; }
     @media only screen and (max-width: 780px) {
       .btn.btn-line {
         font-size: 30px;
-        font-size: 26px; } }
+        font-size: 25px; } }
     @media only screen and (max-width: 420px) {
       .btn.btn-line {
         font-size: 25px;
@@ -1476,16 +1476,8 @@ textarea.textarea {
 
 .moreResults {
   text-align: center;
-  margin-top: 35px;
-  color: #fff;
-  cursor: pointer; }
-  .moreResults .btn {
-    padding: 20px;
-    background-color: #1cbbb4;
-    text-transform: none;
-    font-family: "rounds"; }
-    .moreResults .btn:hover {
-      background-color: #1aa9a2; }
+  margin-top: 30px;
+  margin-bottom: 10px; }
 
 .bottomHelper {
   height: 200px;
