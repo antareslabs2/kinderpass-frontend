@@ -153,6 +153,7 @@ var GlobalService = (function () {
                 }
                 ga('set', 'userId', th_1.userInfo.id);
                 ga('send', 'pageview', '/virtual/auth');
+                fbq('track', 'Login');
                 if (th_1._window.location.hostname == 'kinderpass.ru')
                     ga('send', 'event', 'Main', 'user_auth_' + th_1.userInfo.id, 'Prod');
                 else if (th_1._window.location.hostname == 'front.kinderpass.ru')
