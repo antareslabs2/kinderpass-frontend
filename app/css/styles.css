@@ -2517,9 +2517,11 @@ textarea.textarea {
     max-width: 200px; }
     @media only screen and (max-width: 1080px) {
       .daily-info .results-item-image {
-        max-width: 100%; } }
+        max-width: 100%;
+        margin-bottom: 20px; } }
   .daily-info .results-item-description {
-    width: calc(100% - 200px); }
+    width: calc(100% - 200px);
+    padding-top: 0; }
     @media only screen and (max-width: 1080px) {
       .daily-info .results-item-description {
         width: 100%;
@@ -2559,7 +2561,9 @@ textarea.textarea {
 
 .daily-event {
   color: #02ba61;
-  font-size: 24px; }
+  font-size: 24px;
+  cursor: pointer;
+  text-decoration: none; }
 
 .daily-description {
   font-size: 16px;
