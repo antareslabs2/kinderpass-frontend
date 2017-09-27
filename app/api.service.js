@@ -70,6 +70,12 @@ var Api = (function () {
             .map(function (resp) { return resp.json(); })
             .catch(function (error) { return Observable_1.Observable.throw(error); });
     };
+    Api.prototype.getDailyPicks = function () {
+        var url = this.url + 'api/activities/daily_picks';
+        return this.http.get(url)
+            .map(function (resp) { return resp.json(); })
+            .catch(function (error) { return Observable_1.Observable.throw(error); });
+    };
     Api.prototype.initTransaction = function (type, amount) {
         var url = this.url + 'api/accounts/initiate_transaction';
         if (!device.desktop()) {

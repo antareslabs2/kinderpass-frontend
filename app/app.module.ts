@@ -46,6 +46,7 @@ const appRoutes: Routes =[
     { path: 'booking/:id', loadChildren: '../app/lazy/booking.module#BookingModule' },
     { path: 'bookings', loadChildren: '../app/lazy/bookings.module#BookingsModule' },
     { path: 'contacts', loadChildren: '../app/lazy/contacts.module#ContactsModule' },
+    { path: 'daily', loadChildren: '../app/lazy/daily.module#DailyModule' },
     { path: '**', redirectTo: '/'}
 ];
 

@@ -1,0 +1,33 @@
+<div class="innerpage">
+	<div class="wrapper">
+		<div class="eventPage">
+			<div class="prevPage" [routerLink]="['/']"><img src="../app/img/back.png" alt=""><span>На главную</span></div>
+			<h1>мероприятия дня от Kinderpass.ru</h1>
+			<div class="bookings">
+				<div class="results-item" *ngFor="let event of events">
+					<div class="daily-date">
+						<span>{{event.locations[0].time_slots[0].date| amDateFormat :'DD MMMM YYYY, dddd'}}</span>
+					</div>
+					<div class="daily-info">
+						<div class="results-item-image" [routerLink]="['/event', event.locations[0].time_slots[0].date| amDateFormat :'YYYYMMDD', event.id]">
+							<div class="eventPage-provider"></div>
+							<img *ngIf="event.photo" src="{{'img/s' + event.photo + '.jpg'}}" alt="">
+							<img *ngIf="!event.photo" src="../app/img/placeholder.jpg" alt=""><div class="eventPage-info eventPage-info-daily"></div>
+						</div><!-- 
+					 --><div class="results-item-description">
+					 		<div class="daily-eventLink">
+								<button class="btn" [routerLink]="['/event', event.locations[0].time_slots[0].date, event.id]">Купить</button>
+							</div>
+							<div [routerLink]="['/event', event.locations[0].time_slots[0].date, event.id]" class="daily-event">{{event.name}}</div>
+							<div class="eventPage-address">{{event.locations[0].address}}</div>
+							<div class="eventPage-time dib">{{event.locations[0].time_slots[0].start_time}}-{{event.locations[0].time_slots[0].end_time}}</div>
+							<div class="eventPage-duration dib">Длительность: {{event.duration}} минут</div>
+							<div class="daily-description">{{event.description}}</div> 
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

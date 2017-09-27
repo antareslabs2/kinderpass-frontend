@@ -70,6 +70,13 @@ export class Api{
                         .catch((error:any) =>{return Observable.throw(error);}); 
     }
 
+    getDailyPicks(){
+        let url = this.url + 'api/activities/daily_picks';
+        return this.http.get(url)
+                        .map((resp:Response)=>resp.json())
+                        .catch((error:any) =>{return Observable.throw(error);}); 
+    }
+
     initTransaction(type:string, amount: number){
         let url = this.url + 'api/accounts/initiate_transaction';
         if (!device.desktop()) {

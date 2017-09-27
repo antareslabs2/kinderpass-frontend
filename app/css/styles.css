@@ -1965,6 +1965,8 @@ textarea.textarea {
     border-top-left-radius: 17px;
     border-top-right-radius: 17px;
     color: #fff; }
+    .eventPage-provider-bottom {
+      padding: 7px; }
   .eventPage-image {
     margin: 20px 0;
     height: 320px;
@@ -1999,6 +2001,9 @@ textarea.textarea {
     @media only screen and (max-width: 1080px) {
       .eventPage-info {
         text-align: center; } }
+    .eventPage-info-daily {
+      background-color: #7864ac;
+      padding: 7px; }
     .eventPage-info-small {
       font-size: 18px; }
       .eventPage-info-small .eventPage-freeSeats p {
@@ -2504,3 +2509,58 @@ textarea.textarea {
   opacity: 1 !important;
   border-radius: 12px !important;
   width: 14px !important; }
+
+.daily-info {
+  display: inline-block;
+  vertical-align: top; }
+  .daily-info .results-item-image {
+    max-width: 200px; }
+    @media only screen and (max-width: 1080px) {
+      .daily-info .results-item-image {
+        max-width: 100%; } }
+  .daily-info .results-item-description {
+    width: calc(100% - 200px); }
+    @media only screen and (max-width: 1080px) {
+      .daily-info .results-item-description {
+        width: 100%;
+        padding-bottom: 65px; } }
+  @media only screen and (max-width: 1080px) {
+    .daily-info .eventPage-provider, .daily-info .eventPage-info-daily {
+      padding: 15px 20px; } }
+
+.daily-eventLink {
+  float: right;
+  width: 20%; }
+  @media only screen and (max-width: 780px) {
+    .daily-eventLink {
+      width: 100%;
+      float: none;
+      position: absolute;
+      bottom: 0;
+      left: 0; } }
+  .daily-eventLink .btn {
+    width: 100%;
+    text-align: center; }
+
+.daily-date {
+  color: #b77db5;
+  font-size: 18px;
+  text-align: center;
+  padding-bottom: 30px; }
+  .daily-date span {
+    display: inline-block;
+    padding-left: 35px;
+    background-image: url("../img/dailyDate.png");
+    background-repeat: no-repeat;
+    background-position: center left;
+    background-size: 29px;
+    line-height: 30px;
+    height: 30px; }
+
+.daily-event {
+  color: #02ba61;
+  font-size: 24px; }
+
+.daily-description {
+  font-size: 16px;
+  line-height: 1.5; }
