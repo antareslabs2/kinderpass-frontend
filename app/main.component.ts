@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Api } from './api.service';
 import { GlobalService } from './app.global.service';
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { PageScrollConfig, PageScrollService, PageScrollInstance } from 'ng2-page-scroll';
 import {DOCUMENT} from '@angular/platform-browser';
 import { trigger, state, style, animate, transition } from '@angular/animations';
@@ -81,7 +81,7 @@ export class MainComponent implements OnInit {
 
 	traf_cid: string;
 
-	constructor(private httpService: Api, private router:Router, private gs:GlobalService, private pageScrollService: PageScrollService, @Inject(DOCUMENT) private document: any){
+	constructor(private httpService: Api, private router:Router, private readonly route: ActivatedRoute, private gs:GlobalService, private pageScrollService: PageScrollService, @Inject(DOCUMENT) private document: any){
 		this.hash = '';
 		this.traf_cid = '';
 		this.gs.innerpage = false;
@@ -332,7 +332,7 @@ export class MainComponent implements OnInit {
 			this.gs.url['cid'] = this.traf_cid;
 		}
 
-		this.router.navigate(['/'], { queryParams: this.gs.url });
+		this.router.navigate(['/'], {replaceUrl:true,  relativeTo: this.route, queryParams: this.gs.url });
 
 		this.httpService.getSchedule(this.curCategory, this.curDate, getParams).subscribe((data:any) => {
 			this.events = [];
@@ -467,5 +467,12 @@ export class MainComponent implements OnInit {
 		$('.filters-item-desktop').toggleClass('active');
 		e.target.textContent = e.target.dataset.text;
 		e.target.dataset.text = text;
+	}
+
+	goToEvent(id: number){
+		this.router.navigate(['/'], {fragment: 'event_'+id, queryParams: this.gs.url, relativeTo: this.route, });
+		setTimeout(()=>{
+			this.router.navigate(['/event', this.curDate, id]);
+		});
 	}
 }

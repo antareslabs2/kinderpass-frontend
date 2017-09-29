@@ -22,9 +22,10 @@ var animations_1 = require("@angular/animations");
 var moment = require("moment");
 var $ = require("jquery");
 var MainComponent = (function () {
-    function MainComponent(httpService, router, gs, pageScrollService, document) {
+    function MainComponent(httpService, router, route, gs, pageScrollService, document) {
         this.httpService = httpService;
         this.router = router;
+        this.route = route;
         this.gs = gs;
         this.pageScrollService = pageScrollService;
         this.document = document;
@@ -265,7 +266,7 @@ var MainComponent = (function () {
         if (this.traf_cid) {
             this.gs.url['cid'] = this.traf_cid;
         }
-        this.router.navigate(['/'], { queryParams: this.gs.url });
+        this.router.navigate(['/'], { replaceUrl: true, relativeTo: this.route, queryParams: this.gs.url });
         this.httpService.getSchedule(this.curCategory, this.curDate, getParams).subscribe(function (data) {
             _this.events = [];
             if (data.results > 0) {
@@ -393,6 +394,12 @@ var MainComponent = (function () {
         e.target.textContent = e.target.dataset.text;
         e.target.dataset.text = text;
     };
+    MainComponent.prototype.goToEvent = function (id) {
+        this.router.navigate(['/'], { fragment: 'event_' + id, queryParams: this.gs.url, relativeTo: this.route, });
+        // setTimeout(()=>{
+        this.router.navigate(['/event', this.curDate, id]);
+        // });
+    };
     return MainComponent;
 }());
 MainComponent = __decorate([
@@ -431,8 +438,8 @@ MainComponent = __decorate([
             ])
         ]
     }),
-    __param(4, core_1.Inject(platform_browser_1.DOCUMENT)),
-    __metadata("design:paramtypes", [api_service_1.Api, router_1.Router, app_global_service_1.GlobalService, ng2_page_scroll_1.PageScrollService, Object])
+    __param(5, core_1.Inject(platform_browser_1.DOCUMENT)),
+    __metadata("design:paramtypes", [api_service_1.Api, router_1.Router, router_1.ActivatedRoute, app_global_service_1.GlobalService, ng2_page_scroll_1.PageScrollService, Object])
 ], MainComponent);
 exports.MainComponent = MainComponent;
 //# sourceMappingURL=main.component.js.map

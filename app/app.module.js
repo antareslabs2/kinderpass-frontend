@@ -65,6 +65,7 @@ var AppModule = (function () {
                 return;
             }
             var tree = router.parseUrl(router.url);
+            console.log(tree);
             if (tree.fragment) {
                 var pageScrollInstance_1 = ng2_page_scroll_1.PageScrollInstance.newInstance({ document: _this.document, scrollTarget: '#' + tree.fragment, pageScrollDuration: 1000 });
                 var th_1 = _this;
