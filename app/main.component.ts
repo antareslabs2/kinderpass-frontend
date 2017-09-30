@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { PageScrollConfig, PageScrollService, PageScrollInstance } from 'ng2-page-scroll';
 import {DOCUMENT} from '@angular/platform-browser';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import * as moment from 'moment';
 import * as $ from 'jquery';
@@ -81,7 +82,9 @@ export class MainComponent implements OnInit {
 
 	traf_cid: string;
 
-	constructor(private httpService: Api, private router:Router, private readonly route: ActivatedRoute, private gs:GlobalService, private pageScrollService: PageScrollService, @Inject(DOCUMENT) private document: any){
+	subscribeForm: FormGroup;
+
+	constructor(private httpService: Api, private router:Router, private readonly route: ActivatedRoute, private gs:GlobalService, private pageScrollService: PageScrollService, @Inject(DOCUMENT) private document: any, private fb: FormBuilder){
 		this.hash = '';
 		this.traf_cid = '';
 		this.gs.innerpage = false;
@@ -141,6 +144,9 @@ export class MainComponent implements OnInit {
 		if (localStorage.getItem('cid')) {
 			this.traf_cid = localStorage.getItem('cid');
 		}
+		this.subscribeForm = this.fb.group({
+			'contact': ['', []]
+		})
 
 	}
 
@@ -229,6 +235,19 @@ export class MainComponent implements OnInit {
 		this.week = moment(e).diff(s, 'days');
 		this.initDates();
 
+	}
+
+	subscribtion(form : any): void {
+		let contact = form.controls.contact.value;
+		this.httpService.subscribtion(contact).subscribe((data:any) => {
+			if(data.status == 'OK') {
+				this.gs.msg = 'Спасибо за подписку. Мы свяжемся с вами в ближайшее время'
+				this.gs.openPopup('msg');
+			} else {
+				this.gs.msg = 'Что-то пошло не так. Попробуйте обновить страницу'
+				this.gs.openPopup('msgCancel');
+			}
+		});
 	}
 
 	initDates() : void {

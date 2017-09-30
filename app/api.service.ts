@@ -30,6 +30,12 @@ export class Api{
                         .catch((error:any) =>{return Observable.throw(error);}); 
     }
 
+    subscribtion(data:string){
+        return this.http.post(this.url + 'api/accounts/subscribe', {'contact': data}, this.options)
+                        .map((resp:Response)=>resp.json())
+                        .catch((error:any) =>{return Observable.throw(error);}); 
+    }
+
     updateInfo(data:string){
         return this.http.post(this.url + 'api/accounts/update_contacts', data,  this.options)
                         .map((resp:Response)=>resp.json())

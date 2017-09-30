@@ -36,6 +36,11 @@ var Api = (function () {
             .map(function (resp) { return resp.json(); })
             .catch(function (error) { return Observable_1.Observable.throw(error); });
     };
+    Api.prototype.subscribtion = function (data) {
+        return this.http.post(this.url + 'api/accounts/subscribe', { 'contact': data }, this.options)
+            .map(function (resp) { return resp.json(); })
+            .catch(function (error) { return Observable_1.Observable.throw(error); });
+    };
     Api.prototype.updateInfo = function (data) {
         return this.http.post(this.url + 'api/accounts/update_contacts', data, this.options)
             .map(function (resp) { return resp.json(); })

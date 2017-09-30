@@ -19,16 +19,18 @@ var router_1 = require("@angular/router");
 var ng2_page_scroll_1 = require("ng2-page-scroll");
 var platform_browser_1 = require("@angular/platform-browser");
 var animations_1 = require("@angular/animations");
+var forms_1 = require("@angular/forms");
 var moment = require("moment");
 var $ = require("jquery");
 var MainComponent = (function () {
-    function MainComponent(httpService, router, route, gs, pageScrollService, document) {
+    function MainComponent(httpService, router, route, gs, pageScrollService, document, fb) {
         this.httpService = httpService;
         this.router = router;
         this.route = route;
         this.gs = gs;
         this.pageScrollService = pageScrollService;
         this.document = document;
+        this.fb = fb;
         this.hash = '';
         this.traf_cid = '';
         this.gs.innerpage = false;
@@ -86,6 +88,9 @@ var MainComponent = (function () {
         if (localStorage.getItem('cid')) {
             this.traf_cid = localStorage.getItem('cid');
         }
+        this.subscribeForm = this.fb.group({
+            'contact': ['', []]
+        });
     }
     MainComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -171,6 +176,20 @@ var MainComponent = (function () {
         var e = moment(this.curDate).startOf('week');
         this.week = moment(e).diff(s, 'days');
         this.initDates();
+    };
+    MainComponent.prototype.subscribtion = function (form) {
+        var _this = this;
+        var contact = form.controls.contact.value;
+        this.httpService.subscribtion(contact).subscribe(function (data) {
+            if (data.status == 'OK') {
+                _this.gs.msg = 'Спасибо за подписку. Мы свяжемся с вами в ближайшее время';
+                _this.gs.openPopup('msg');
+            }
+            else {
+                _this.gs.msg = 'Что-то пошло не так. Попробуйте обновить страницу';
+                _this.gs.openPopup('msgCancel');
+            }
+        });
     };
     MainComponent.prototype.initDates = function () {
         this.dates[0] = new Date(this.monday);
@@ -395,10 +414,11 @@ var MainComponent = (function () {
         e.target.dataset.text = text;
     };
     MainComponent.prototype.goToEvent = function (id) {
+        var _this = this;
         this.router.navigate(['/'], { fragment: 'event_' + id, queryParams: this.gs.url, relativeTo: this.route, });
-        // setTimeout(()=>{
-        this.router.navigate(['/event', this.curDate, id]);
-        // });
+        setTimeout(function () {
+            _this.router.navigate(['/event', _this.curDate, id]);
+        });
     };
     return MainComponent;
 }());
@@ -439,7 +459,7 @@ MainComponent = __decorate([
         ]
     }),
     __param(5, core_1.Inject(platform_browser_1.DOCUMENT)),
-    __metadata("design:paramtypes", [api_service_1.Api, router_1.Router, router_1.ActivatedRoute, app_global_service_1.GlobalService, ng2_page_scroll_1.PageScrollService, Object])
+    __metadata("design:paramtypes", [api_service_1.Api, router_1.Router, router_1.ActivatedRoute, app_global_service_1.GlobalService, ng2_page_scroll_1.PageScrollService, Object, forms_1.FormBuilder])
 ], MainComponent);
 exports.MainComponent = MainComponent;
 //# sourceMappingURL=main.component.js.map

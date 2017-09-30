@@ -32,7 +32,7 @@
 </div>
 <div [@dialog] *ngIf="gs.popupName == 'msg' || gs.popupName == 'msgCancel'" class="popup-wrapper msg-wrapper" [class.msg-wrapper-cancel]="gs.popupName == 'msgCancel'">
 	<div class="popup-close modal-close msg-close"(click)="close()" ></div>
-	<p class="popup-description">{{gs.msg}}erwe</p>
+	<p class="popup-description">{{gs.msg}}</p>
 	<div (click)="close()" class="btn">OK</div>
 </div>
 
