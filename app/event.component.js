@@ -130,61 +130,7 @@ var EventComponent = (function () {
             this.discount += d.discount * d.seats;
         }
     };
-    EventComponent.prototype.makingBooking = function () {
-        var _this = this;
-        if (!this.gs.isAuthenticated)
-            this.gs.openPopup('login');
-        else {
-            if (this.total > 0) {
-                ga('send', 'pageview', '/virtual/bookbtnclicked');
-                this.isDisable = true;
-                var price = this.total + this.subscriptionPrice;
-                var userBalance = 0;
-                if (this.gs.userInfo.subscription) {
-                    userBalance += this.gs.userInfo.subscription.balance;
-                }
-                if ((price - userBalance) <= 0) {
-                    if (this.subscriptionPrice) {
-                        this.httpService.initTransaction('SM', this.subscriptionPrice).subscribe(function (data) {
-                            if (data.status == 'OK') {
-                                _this.httpService.checkTransaction(data.transaction.id).subscribe(function (data) {
-                                    if (data.status = "OK") {
-                                        if (data.transaction.status == 'C') {
-                                            _this.book();
-                                        }
-                                        else {
-                                            _this.gs.msg = "Что-то пошло не так. Попробуйте обновить страницу";
-                                            _this.gs.openPopup('msgCancel');
-                                        }
-                                    }
-                                });
-                            }
-                        });
-                    }
-                    else {
-                        this.book();
-                    }
-                }
-                else {
-                    localStorage.setItem('timeslot_id', JSON.stringify(this.event.locations[this.selectedLocation].time_slots[this.selectedTime].id));
-                    var tickets = this.event.locations[this.selectedLocation].time_slots[this.selectedTime].tickets;
-                    var data = {};
-                    for (var i in tickets) {
-                        if (tickets[i].seats > 0) {
-                            data[tickets[i].ticket_type_key] = tickets[i].seats;
-                        }
-                    }
-                    localStorage.setItem('seats', JSON.stringify(data));
-                    if (this.subscriptionPrice)
-                        this.gs.initTransaction('SB', (price - userBalance));
-                    else
-                        this.gs.initTransaction('B', (price - userBalance));
-                }
-            }
-        }
-    };
-    EventComponent.prototype.book = function () {
-        var _this = this;
+    EventComponent.prototype.getBookingInfo = function () {
         var tickets = this.event.locations[this.selectedLocation].time_slots[this.selectedTime].tickets;
         var data = {};
         for (var i in tickets) {
@@ -192,6 +138,61 @@ var EventComponent = (function () {
                 data[tickets[i].ticket_type_key] = tickets[i].seats;
             }
         }
+        return data;
+    };
+    EventComponent.prototype.makingBooking = function () {
+        var _this = this;
+        if (!this.gs.isAuthenticated) {
+            var data = this.getBookingInfo();
+            localStorage.setItem('ticketsPrice', this.total);
+            localStorage.setItem('timeslot_id', JSON.stringify(data));
+            localStorage.setItem('seats', JSON.stringify(this.event.locations[this.selectedLocation].time_slots[this.selectedTime].id));
+            this.gs.openLoginPopup();
+        }
+        else {
+            ga('send', 'pageview', '/virtual/bookbtnclicked');
+            this.isDisable = true;
+            var price = this.total + this.subscriptionPrice;
+            var userBalance = 0;
+            if (this.gs.userInfo.subscription) {
+                userBalance += this.gs.userInfo.subscription.balance;
+            }
+            if ((price - userBalance) <= 0) {
+                if (this.subscriptionPrice) {
+                    this.httpService.initTransaction('SM', this.subscriptionPrice).subscribe(function (data) {
+                        if (data.status == 'OK') {
+                            _this.httpService.checkTransaction(data.transaction.id).subscribe(function (data) {
+                                if (data.status = "OK") {
+                                    if (data.transaction.status == 'C') {
+                                        _this.book();
+                                    }
+                                    else {
+                                        _this.gs.msg = "Что-то пошло не так. Попробуйте обновить страницу";
+                                        _this.gs.openPopup('msgCancel');
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }
+                else {
+                    this.book();
+                }
+            }
+            else {
+                var data = this.getBookingInfo();
+                localStorage.setItem('timeslot_id', JSON.stringify(this.event.locations[this.selectedLocation].time_slots[this.selectedTime].id));
+                localStorage.setItem('seats', JSON.stringify(data));
+                if (this.subscriptionPrice)
+                    this.gs.initTransaction('SB', (price - userBalance));
+                else
+                    this.gs.initTransaction('B', (price - userBalance));
+            }
+        }
+    };
+    EventComponent.prototype.book = function () {
+        var _this = this;
+        var data = this.getBookingInfo();
         this.httpService.makingBooking(this.event.locations[this.selectedLocation].time_slots[this.selectedTime].id, data).subscribe(function (data) {
             if (data.status == "OK") {
                 _this.gs.booking_id = data.booking_id;

@@ -31,6 +31,7 @@ export class GlobalService {
 
 	fragment: string;
 	formValid: any;
+	backUrl: string;
 
 	constructor(public httpService: Api, private fb: FormBuilder, @Inject(Window) private _window: Window, private _location: Location){
 		this.userInfo = {};
@@ -141,19 +142,26 @@ export class GlobalService {
 				this.popupName = 'updateInfo';
 				ga('send', 'pageview', '/virtual/mailphoneopened');
 				this.policy = false;
-			} else if(this.userInfo.subscription) {
-				var today : any = moment(new Date()).add(7,'days').format();
-				var subscription : any = moment(new Date(this.userInfo.subscription.expires_at.replace(/(\d+).(\d+).(\d+)/,'$3-$2-$1'))).format();
-
-				if ( !moment(today).isAfter(subscription, 'day') )
-					this.extendSubscription = false;
-				// else
-					// this.extendSubscription = true;
-				this.policy = true;
 			} else {
-				// this.popupName = "extendSubscription";
-				// this.extendSubscription = true;
-				this.policy = true;
+				if(this.userInfo.subscription) {
+					var today : any = moment(new Date()).add(7,'days').format();
+					var subscription : any = moment(new Date(this.userInfo.subscription.expires_at.replace(/(\d+).(\d+).(\d+)/,'$3-$2-$1'))).format();
+
+					if ( !moment(today).isAfter(subscription, 'day') )
+						this.extendSubscription = false;
+					// else
+						// this.extendSubscription = true;
+					this.policy = true;
+				} else {
+					// this.popupName = "extendSubscription";
+					// this.extendSubscription = true;
+					this.policy = true;
+				}
+				let ticketsPrice = localStorage.getItem('ticketsPrice');
+				if (ticketsPrice) {
+					this.initTransaction('B', ticketsPrice);
+					localStorage.removeItem('ticketsPrice');
+				}
 			}
 			let th = this;
 			window.onload = function() {
@@ -197,6 +205,11 @@ export class GlobalService {
 			};
 			this.httpService.updateInfo(JSON.stringify(body)).subscribe((data:any) => {
 				if (data.phone && data.email) {
+					let ticketsPrice = localStorage.getItem('ticketsPrice');
+					if(ticketsPrice) {
+						this.initTransaction('B', ticketsPrice);
+						localStorage.removeItem('ticketsPrice')
+					}
 					this.popupName = '';
 					$("html").removeClass('locked');
 					this.userInfo.phone = this.phone;
@@ -225,6 +238,7 @@ export class GlobalService {
 	}
 
 	openLoginPopup() {
+		this.backUrl = this._window.location.href;
 		this.openPopup('login');
 		ga('send', 'pageview', '/virtual/openauth');
 		if(this._window.location.hostname == 'kinderpass.ru')

@@ -191,6 +191,10 @@ var GlobalService = (function () {
                     _this.userInfo.email = _this.email;
                     _this.policy = true;
                     ga('send', 'pageview', '/virtual/mailphonesaved');
+                    var ticketsPrice = localStorage.getItem('ticketsPrice');
+                    if (ticketsPrice) {
+                        _this.initTransaction('B', ticketsPrice);
+                    }
                 }
             });
         }
@@ -209,6 +213,7 @@ var GlobalService = (function () {
         }
     };
     GlobalService.prototype.openLoginPopup = function () {
+        this.backUrl = this._window.location.href;
         this.openPopup('login');
         ga('send', 'pageview', '/virtual/openauth');
         if (this._window.location.hostname == 'kinderpass.ru')
