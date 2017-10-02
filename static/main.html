@@ -5,12 +5,13 @@
 				<h1> Афиша лучших детских мероприятий Питера</h1>
 				<p>Киндерпасс дает возможность суперпросто найти и купить билеты на детские мероприятия и активности</p>
 				<a pageScroll href="#filter" class="btn btn-line">Посмотреть<br>все расписание</a>
+				<div class="title-sep">или</div>
 				<div class="subscribe">
 					<div class="subscribe-wrapper">
-						<div class="subscribe-title">Подпишитесь на <span>персональную</span> подборку лучших мероприятий</div>
+						<div class="subscribe-title">Получайте <span>персональные</span> рекомендации лучших мероприятий</div>
 						<form name="subscribe" [formGroup]="subscribeForm" (ngSubmit)="subscribtion(subscribeForm)">
 							<input type="contact" formControlName="contact" name="contact" placeholder="Телефон или Email"><!-- 
-						 --><button type="submit" class="btn btn-line">Подписаться</button>
+						 --><button type="submit" class="btn btn-line">Хочу получать</button>
 						</form>
 					</div>
 				</div>
@@ -62,10 +63,10 @@
 	<div class="wrapper">
 		<div *ngIf="gs.isAuthenticated" class="subscribe subscribe-auth">
 			<div class="subscribe-wrapper">
-				<div class="subscribe-title">Подпишитесь на <span>персональную</span> подборку лучших мероприятий</div>
+				<div class="subscribe-title">Получайте <span>персональные</span> рекомендации лучших мероприятий</div>
 				<form name="subscribe" [formGroup]="subscribeForm" (ngSubmit)="subscribtion(subscribeForm)">
 					<input type="contact" formControlName="contact" name="contact" placeholder="Телефон или Email"><!-- 
-				 --><button type="submit" class="btn btn-line">Подписаться</button>
+				 --><button type="submit" class="btn btn-line">Хочу получать</button>
 				</form>
 			</div>
 		</div>

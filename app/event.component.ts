@@ -165,10 +165,10 @@ export class EventComponent implements OnInit, OnDestroy  {
 
 		if (!this.gs.isAuthenticated){
 			let data = this.getBookingInfo();
-			localStorage.setItem('ticketsPrice', this.total);
+			localStorage.setItem('ticketsPrice', JSON.stringify(this.total));
 			localStorage.setItem('timeslot_id', JSON.stringify(data));
 			localStorage.setItem('seats', JSON.stringify(this.event.locations[this.selectedLocation].time_slots[this.selectedTime].id));
-			this.gs.openLoginPopup();
+			this.gs.openLoginPopup(this.date, this.timeslot_id);
 		}
 		else {
 			ga('send', 'pageview', '/virtual/bookbtnclicked');

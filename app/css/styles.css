@@ -804,7 +804,7 @@ textarea.textarea {
       margin: 12px 0;
       padding: 0 5%; }
     .firstScreen .title .btn-line {
-      margin: 5% 0; }
+      margin-top: 5%; }
     .firstScreen .title .mobileLink {
       display: block;
       color: #fff;
@@ -813,6 +813,11 @@ textarea.textarea {
         text-decoration: none; }
     .firstScreen .title .subscribe .btn-line {
       margin: 0; }
+    .firstScreen .title-sep {
+      color: #fff;
+      font-size: 14px;
+      text-align: center;
+      margin: 15px 0; }
 
 .advantages {
   padding-bottom: 35px;
@@ -2572,7 +2577,15 @@ textarea.textarea {
   line-height: 1.5; }
 
 .subscribe {
-  text-align: center; }
+  text-align: center;
+  background-color: #b72563;
+  display: inline-block;
+  border-radius: 15px;
+  padding: 3% 5%;
+  max-width: 100%; }
+  @media only screen and (max-width: 420px) {
+    .subscribe {
+      padding: 5%; } }
   .subscribe-wrapper {
     display: inline-block;
     text-align: left; }
@@ -2584,25 +2597,24 @@ textarea.textarea {
   .subscribe form {
     padding-top: 10px; }
     .subscribe form .btn-line {
-      font-size: 14px;
-      padding: 6px;
+      font-size: 16px;
+      padding: 5px;
       border-width: 3px;
       border-radius: 10px;
       color: #fff;
       display: inline-block;
       vertical-align: top;
-      width: 100px;
-      background-color: #1cbbb4; }
+      width: 120px; }
     .subscribe form input {
       background-color: #fff;
-      border: 2px solid #9e9e9e;
+      border: none;
       font-size: 14px;
-      padding: 7px;
+      padding: 9px;
       color: #9e9e9e;
       display: inline-block;
       vertical-align: top;
-      margin-right: 10px;
-      width: calc(100% - 110px); }
+      margin-right: 5px;
+      width: calc(100% - 125px); }
     .subscribe form ::-webkit-input-placeholder {
       color: #9e9e9e; }
     .subscribe form :-ms-input-placeholder {
@@ -2611,9 +2623,9 @@ textarea.textarea {
       color: #9e9e9e; }
   .subscribe-auth {
     text-align: right;
-    padding-bottom: 15px; }
-    .subscribe-auth form .btn-line {
-      background-color: #02ba61; }
+    background: none;
+    display: block;
+    padding: 0 0 15px; }
     .subscribe-auth form input {
       background-color: #9a8ac1;
       border-color: #c7bedd;

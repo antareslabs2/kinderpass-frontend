@@ -131,19 +131,26 @@ var GlobalService = (function () {
                 ga('send', 'pageview', '/virtual/mailphoneopened');
                 this.policy = false;
             }
-            else if (this.userInfo.subscription) {
-                var today = moment(new Date()).add(7, 'days').format();
-                var subscription = moment(new Date(this.userInfo.subscription.expires_at.replace(/(\d+).(\d+).(\d+)/, '$3-$2-$1'))).format();
-                if (!moment(today).isAfter(subscription, 'day'))
-                    this.extendSubscription = false;
-                // else
-                // this.extendSubscription = true;
-                this.policy = true;
-            }
             else {
-                // this.popupName = "extendSubscription";
-                // this.extendSubscription = true;
-                this.policy = true;
+                if (this.userInfo.subscription) {
+                    var today = moment(new Date()).add(7, 'days').format();
+                    var subscription = moment(new Date(this.userInfo.subscription.expires_at.replace(/(\d+).(\d+).(\d+)/, '$3-$2-$1'))).format();
+                    if (!moment(today).isAfter(subscription, 'day'))
+                        this.extendSubscription = false;
+                    // else
+                    // this.extendSubscription = true;
+                    this.policy = true;
+                }
+                else {
+                    // this.popupName = "extendSubscription";
+                    // this.extendSubscription = true;
+                    this.policy = true;
+                }
+                var ticketsPrice = localStorage.getItem('ticketsPrice');
+                if (ticketsPrice) {
+                    this.initTransaction('B', ticketsPrice);
+                    localStorage.removeItem('ticketsPrice');
+                }
             }
             var th_1 = this;
             window.onload = function () {
@@ -185,16 +192,17 @@ var GlobalService = (function () {
             };
             this.httpService.updateInfo(JSON.stringify(body)).subscribe(function (data) {
                 if (data.phone && data.email) {
+                    var ticketsPrice = localStorage.getItem('ticketsPrice');
+                    if (ticketsPrice) {
+                        _this.initTransaction('B', ticketsPrice);
+                        localStorage.removeItem('ticketsPrice');
+                    }
                     _this.popupName = '';
                     $("html").removeClass('locked');
                     _this.userInfo.phone = _this.phone;
                     _this.userInfo.email = _this.email;
                     _this.policy = true;
                     ga('send', 'pageview', '/virtual/mailphonesaved');
-                    var ticketsPrice = localStorage.getItem('ticketsPrice');
-                    if (ticketsPrice) {
-                        _this.initTransaction('B', ticketsPrice);
-                    }
                 }
             });
         }
@@ -212,8 +220,10 @@ var GlobalService = (function () {
             return input.value.replace(/[^0-9]+/g, "").length == 10 ? null : { needsExclamation: true };
         }
     };
-    GlobalService.prototype.openLoginPopup = function () {
-        this.backUrl = this._window.location.href;
+    GlobalService.prototype.openLoginPopup = function (date, activity_id) {
+        if (date === void 0) { date = ''; }
+        if (activity_id === void 0) { activity_id = ''; }
+        this.backUrl = date && activity_id ? '?next=/api/activities/redirect_to/' + date + '/' + activity_id : '';
         this.openPopup('login');
         ga('send', 'pageview', '/virtual/openauth');
         if (this._window.location.hostname == 'kinderpass.ru')

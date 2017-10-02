@@ -222,7 +222,7 @@ export class GlobalService {
 		}
 	}
 
-	initTransaction(type:string, amount:number) {
+	initTransaction(type:string, amount:any) {
 		this.httpService.initTransaction(type, amount).subscribe((data:any) => {
 			if(data.status == 'OK') {
 				localStorage.setItem('transaction.id', JSON.stringify(data.transaction.id));
@@ -237,8 +237,9 @@ export class GlobalService {
 		}
 	}
 
-	openLoginPopup() {
-		this.backUrl = this._window.location.href;
+	openLoginPopup(date:any='',activity_id:any='') {
+		this.backUrl = date && activity_id ? '?next=/api/activities/redirect_to/'+date+'/'+activity_id : '';
+
 		this.openPopup('login');
 		ga('send', 'pageview', '/virtual/openauth');
 		if(this._window.location.hostname == 'kinderpass.ru')
