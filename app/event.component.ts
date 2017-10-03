@@ -58,9 +58,9 @@ export class EventComponent implements OnInit, OnDestroy  {
 				this.httpService.getInfo().subscribe((data:any) => {
 					this.needSubscription();
 					let eventId = localStorage.getItem('timeslot_id');
-					let eventData = localStorage.getItem('seats');
+					let eventData = JSON.parse(localStorage.getItem('seats'));
 					if ( eventId && eventData) {
-						this.book(eventId, eventData, this.date);
+						this.book(eventId, eventData);
 						localStorage.removeItem('timeslot_id');
 						localStorage.removeItem('seats');
 					}
@@ -165,6 +165,8 @@ export class EventComponent implements OnInit, OnDestroy  {
 				data[tickets[i].ticket_type_key] = tickets[i].seats;
 			}
 		}
+		data['return_activity_id'] = this.event.locations[this.selectedLocation].time_slots[this.selectedTime].id;
+		data['return_date'] = this.date;
 		return data;
 	}
 
@@ -194,7 +196,7 @@ export class EventComponent implements OnInit, OnDestroy  {
 									if (data.transaction.status == 'C') {
 										let data = this.getBookingInfo();
 										let id = this.event.locations[this.selectedLocation].time_slots[this.selectedTime].id;
-										this.book(id,data,this.date);
+										this.book(id,data);
 									} else {
 										this.gs.msg = "Что-то пошло не так. Попробуйте обновить страницу";
 										this.gs.openPopup('msgCancel');
@@ -206,7 +208,7 @@ export class EventComponent implements OnInit, OnDestroy  {
 				} else {
 					let data = this.getBookingInfo();
 					let id = this.event.locations[this.selectedLocation].time_slots[this.selectedTime].id;
-					this.book(id,data,this.date);
+					this.book(id,data);
 				}
 			} else {
 				let data = this.getBookingInfo();
