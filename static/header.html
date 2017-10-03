@@ -7,11 +7,11 @@
 			</a>
 		</div><!-- 
 	 --><div *ngIf="gs.isAuthenticated" class="user">
-			<!-- <ng-container *ngIf="gs.userInfo.subscription">
-				<p *ngIf="gs.userInfo.subscription.expires_at" (click)="gs.openPopup('extendSubscription')" [class.user-subscription-extend]="gs.extendSubscription" [class.user-subscription-new]="gs.newSubscription" class="user-subscription user-subscription-link"><span>Абонемент </span>до {{gs.userInfo.subscription.expires_at}}</p>
+			<ng-container *ngIf="gs.userInfo.subscription">
+				<!-- <p *ngIf="gs.userInfo.subscription.expires_at" (click)="gs.openPopup('extendSubscription')" [class.user-subscription-extend]="gs.extendSubscription" [class.user-subscription-new]="gs.newSubscription" class="user-subscription user-subscription-link"><span>Абонемент </span>до {{gs.userInfo.subscription.expires_at}}</p> -->
 				<p *ngIf="gs.userInfo.subscription.balance" class="user-subscription"><span>Баланс: </span>{{gs.userInfo.subscription.balance}} P</p>
 			</ng-container>
-			<ng-container *ngIf="!gs.userInfo.subscription">
+<!-- 			<ng-container *ngIf="!gs.userInfo.subscription">
 				<p (click)="gs.openPopup('extendSubscription')" class="user-subscription user-subscription-link user-subscription-ended">Нет подписки</p>
 			</ng-container> -->
 			<p class="user-name" (click)="toogleLK()"  [class.user-name_icon]="gs.userInfo.name.length <= 1" ><img src="../app/img/profile.png" alt=""><span>{{gs.userInfo.name}}</span></p>

@@ -145,8 +145,8 @@ var EventComponent = (function () {
         if (!this.gs.isAuthenticated) {
             var data = this.getBookingInfo();
             localStorage.setItem('ticketsPrice', JSON.stringify(this.total));
-            localStorage.setItem('timeslot_id', JSON.stringify(data));
-            localStorage.setItem('seats', JSON.stringify(this.event.locations[this.selectedLocation].time_slots[this.selectedTime].id));
+            localStorage.setItem('timeslot_id', this.event.locations[this.selectedLocation].time_slots[this.selectedTime].id);
+            localStorage.setItem('seats', JSON.stringify(data));
             this.gs.openLoginPopup(this.date, this.timeslot_id);
         }
         else {
@@ -164,7 +164,9 @@ var EventComponent = (function () {
                             _this.httpService.checkTransaction(data.transaction.id).subscribe(function (data) {
                                 if (data.status = "OK") {
                                     if (data.transaction.status == 'C') {
-                                        _this.book();
+                                        var data_1 = _this.getBookingInfo();
+                                        var id = _this.event.locations[_this.selectedLocation].time_slots[_this.selectedTime].id;
+                                        _this.book(id, data_1);
                                     }
                                     else {
                                         _this.gs.msg = "Что-то пошло не так. Попробуйте обновить страницу";
@@ -176,7 +178,9 @@ var EventComponent = (function () {
                     });
                 }
                 else {
-                    this.book();
+                    var data = this.getBookingInfo();
+                    var id = this.event.locations[this.selectedLocation].time_slots[this.selectedTime].id;
+                    this.book(id, data);
                 }
             }
             else {
@@ -190,10 +194,9 @@ var EventComponent = (function () {
             }
         }
     };
-    EventComponent.prototype.book = function () {
+    EventComponent.prototype.book = function (id, data) {
         var _this = this;
-        var data = this.getBookingInfo();
-        this.httpService.makingBooking(this.event.locations[this.selectedLocation].time_slots[this.selectedTime].id, data).subscribe(function (data) {
+        this.httpService.makingBooking(id, data).subscribe(function (data) {
             if (data.status == "OK") {
                 _this.gs.booking_id = data.booking_id;
                 _this.gs.getUserInfo();

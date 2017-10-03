@@ -57,13 +57,6 @@ export class EventComponent implements OnInit, OnDestroy  {
 			if(!this.gs.isAuthenticated){
 				this.httpService.getInfo().subscribe((data:any) => {
 					this.needSubscription();
-					let eventId = localStorage.getItem('timeslot_id');
-					let eventData = JSON.parse(localStorage.getItem('seats'));
-					if ( eventId && eventData) {
-						this.book(eventId, eventData);
-						localStorage.removeItem('timeslot_id');
-						localStorage.removeItem('seats');
-					}
 				});
 			}
 		});
