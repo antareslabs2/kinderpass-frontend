@@ -165,7 +165,7 @@ export class EventComponent implements OnInit, OnDestroy  {
 				data[tickets[i].ticket_type_key] = tickets[i].seats;
 			}
 		}
-		data['return_activity_id'] = this.event.locations[this.selectedLocation].time_slots[this.selectedTime].id;
+		data['return_activity_id'] = this.timeslot_id;
 		data['return_date'] = this.date;
 		return data;
 	}
