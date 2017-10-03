@@ -57,6 +57,13 @@ export class EventComponent implements OnInit, OnDestroy  {
 			if(!this.gs.isAuthenticated){
 				this.httpService.getInfo().subscribe((data:any) => {
 					this.needSubscription();
+					let eventId = localStorage.getItem('timeslot_id');
+					let eventData = localStorage.getItem('seats');
+					if ( eventId && eventData) {
+						this.book(eventId, eventData, this.date);
+						localStorage.removeItem('timeslot_id');
+						localStorage.removeItem('seats');
+					}
 				});
 			}
 		});
@@ -185,7 +192,9 @@ export class EventComponent implements OnInit, OnDestroy  {
 							this.httpService.checkTransaction(data.transaction.id).subscribe((data:any) => {
 								if(data.status = "OK") {
 									if (data.transaction.status == 'C') {
-										this.book();
+										let data = this.getBookingInfo();
+										let id = this.event.locations[this.selectedLocation].time_slots[this.selectedTime].id;
+										this.book(id,data,this.date);
 									} else {
 										this.gs.msg = "Что-то пошло не так. Попробуйте обновить страницу";
 										this.gs.openPopup('msgCancel');
@@ -195,7 +204,9 @@ export class EventComponent implements OnInit, OnDestroy  {
 						}
 					});
 				} else {
-					this.book();
+					let data = this.getBookingInfo();
+					let id = this.event.locations[this.selectedLocation].time_slots[this.selectedTime].id;
+					this.book(id,data,this.date);
 				}
 			} else {
 				let data = this.getBookingInfo();
@@ -209,9 +220,8 @@ export class EventComponent implements OnInit, OnDestroy  {
 		}
 	}
 
-	book() {
-		let data = this.getBookingInfo();
-		this.httpService.makingBooking(this.event.locations[this.selectedLocation].time_slots[this.selectedTime].id,data).subscribe((data:any) => {
+	book(id:any, data:any,date:any) {
+		this.httpService.makingBooking(id,data,date).subscribe((data:any) => {
 			if (data.status == "OK") {
 				this.gs.booking_id = data.booking_id;
 
