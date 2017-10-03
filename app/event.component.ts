@@ -223,7 +223,7 @@ export class EventComponent implements OnInit, OnDestroy  {
 	}
 
 	book(id:any, data:any) {
-		this.httpService.makingBooking(id,data,date).subscribe((data:any) => {
+		this.httpService.makingBooking(id,data).subscribe((data:any) => {
 			if (data.status == "OK") {
 				this.gs.booking_id = data.booking_id;
 
