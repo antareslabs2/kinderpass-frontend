@@ -801,7 +801,8 @@ textarea.textarea {
       margin: 12px 0;
       padding: 0 5%; }
     .firstScreen .title .btn-line {
-      margin-top: 5%; }
+      margin-top: 5%;
+      font-size: 20px; }
     .firstScreen .title .mobileLink {
       display: block;
       color: #fff;
@@ -2595,7 +2596,7 @@ textarea.textarea {
   .subscribe form {
     padding-top: 10px; }
     .subscribe form .btn-line {
-      font-size: 16px;
+      font-size: 16px !important;
       padding: 5px;
       border-width: 3px;
       border-radius: 10px;
