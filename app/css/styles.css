@@ -256,17 +256,14 @@ img {
     background-color: #016e3a; }
   .btn.btn-line {
     padding: 2%;
-    font-size: 38px;
-    font-size: 30px;
-    border: 8px solid #fff; }
+    font-size: 28px;
+    border: 5px solid #fff; }
     @media only screen and (max-width: 780px) {
       .btn.btn-line {
-        font-size: 30px;
-        font-size: 25px; } }
+        font-size: 23px; } }
     @media only screen and (max-width: 420px) {
       .btn.btn-line {
-        font-size: 25px;
-        font-size: 20px; } }
+        font-size: 18px; } }
     .btn.btn-line:hover {
       background-color: #016e3a; }
   .btn.btn-footer {
@@ -2590,8 +2587,9 @@ textarea.textarea {
     display: inline-block;
     text-align: left; }
   .subscribe-title {
-    font-size: 16px;
-    color: #fff; }
+    font-size: 18px;
+    color: #fff;
+    text-align: center; }
     .subscribe-title span {
       text-decoration: underline; }
   .subscribe form {
@@ -2608,8 +2606,8 @@ textarea.textarea {
     .subscribe form input {
       background-color: #fff;
       border: none;
-      font-size: 14px;
-      padding: 9px;
+      font-size: 16px;
+      padding: 8px;
       color: #9e9e9e;
       display: inline-block;
       vertical-align: top;
@@ -2625,7 +2623,7 @@ textarea.textarea {
     text-align: right;
     background: none;
     display: block;
-    padding: 0 0 15px; }
+    padding: 0 0 20px; }
     .subscribe-auth form input {
       background-color: #9a8ac1;
       border-color: #c7bedd;

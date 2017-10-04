@@ -81,26 +81,7 @@ var GlobalService = (function () {
                         }
                         else if (data.transaction.status == 'C') {
                             if (localStorage.getItem('timeslot_id')) {
-                                var timeslot = +localStorage.getItem('timeslot_id');
-                                var seats = JSON.parse(localStorage.getItem('seats'));
-                                _this.httpService.makingBooking(timeslot, seats).subscribe(function (data) {
-                                    if (data.status == "OK") {
-                                        _this.booking_id = data.booking_id;
-                                        _this.getUserInfo();
-                                        _this.openPopup('booking');
-                                    }
-                                    else {
-                                        if (data.reason == "TIME_SLOT_REGISTRATION_IS_OVER") {
-                                            _this.msg = "Завершено бронирование мест на выбранное мероприятие";
-                                        }
-                                        else {
-                                            _this.msg = "Что-то пошло не так. Попробуйте обновить страницу";
-                                        }
-                                        _this.openPopup('msgCancel');
-                                    }
-                                    localStorage.removeItem('timeslot_id');
-                                    localStorage.removeItem('seats');
-                                });
+                                _this.book();
                             }
                             else {
                                 _this.newSubscription = true;
@@ -126,6 +107,7 @@ var GlobalService = (function () {
                 'policy': [this.policy, []
                 ]
             });
+            var ticketsPrice = +localStorage.getItem('ticketsPrice');
             if (!this.userInfo.phone || !this.userInfo.email) {
                 this.popupName = 'updateInfo';
                 ga('send', 'pageview', '/virtual/mailphoneopened');
@@ -137,20 +119,26 @@ var GlobalService = (function () {
                     var subscription = moment(new Date(this.userInfo.subscription.expires_at.replace(/(\d+).(\d+).(\d+)/, '$3-$2-$1'))).format();
                     if (!moment(today).isAfter(subscription, 'day'))
                         this.extendSubscription = false;
-                    // else
-                    // this.extendSubscription = true;
-                    this.policy = true;
+                    if (this.userInfo.subscription.balance && ticketsPrice) {
+                        ticketsPrice -= this.userInfo.subscription.balance;
+                        if (ticketsPrice > 0) {
+                            this.initTransaction('B', ticketsPrice);
+                        }
+                        else {
+                            this.book();
+                        }
+                    }
+                    else {
+                        if (ticketsPrice)
+                            this.initTransaction('B', ticketsPrice);
+                    }
                 }
                 else {
-                    // this.popupName = "extendSubscription";
-                    // this.extendSubscription = true;
-                    this.policy = true;
+                    if (ticketsPrice)
+                        this.initTransaction('B', ticketsPrice);
                 }
-                var ticketsPrice = localStorage.getItem('ticketsPrice');
-                if (ticketsPrice) {
-                    this.initTransaction('B', ticketsPrice);
-                    localStorage.removeItem('ticketsPrice');
-                }
+                localStorage.removeItem('ticketsPrice');
+                this.policy = true;
             }
             var th_1 = this;
             window.onload = function () {
@@ -237,6 +225,29 @@ var GlobalService = (function () {
     };
     GlobalService.prototype.goBack = function () {
         this._location.back();
+    };
+    GlobalService.prototype.book = function () {
+        var _this = this;
+        var timeslot = +localStorage.getItem('timeslot_id');
+        var seats = JSON.parse(localStorage.getItem('seats'));
+        this.httpService.makingBooking(timeslot, seats).subscribe(function (data) {
+            if (data.status == "OK") {
+                _this.booking_id = data.booking_id;
+                _this.getUserInfo();
+                _this.openPopup('booking');
+            }
+            else {
+                if (data.reason == "TIME_SLOT_REGISTRATION_IS_OVER") {
+                    _this.msg = "Завершено бронирование мест на выбранное мероприятие";
+                }
+                else {
+                    _this.msg = "Что-то пошло не так. Попробуйте обновить страницу";
+                }
+                _this.openPopup('msgCancel');
+            }
+            localStorage.removeItem('timeslot_id');
+            localStorage.removeItem('seats');
+        });
     };
     return GlobalService;
 }());
