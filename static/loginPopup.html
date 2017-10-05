@@ -24,6 +24,7 @@
 		<div class="popup-policy">
 			<input type="checkbox" formControlName="policy" name="policy" id="policy"><label for="policy">Я прочитал и согласен с условиями обработки персональных данных</label>
 		</div>
+		<img *ngIf="gs.newUser && gs.catchRegistration && gs.contactsForm.valid" src="https://ttjaa.voluumtrk.com/conversion.gif?cid={{traf_cid}}&txid={{gs.userInfo.id}}&et=purchase" width="1" height="1"/>
 		<button type="submit" [disabled]="!gs.contactsForm.valid" class="btn">Сохранить</button>
 	</form>
 </div>
@@ -45,6 +46,7 @@
 		<div (click)="close()" [routerLink]="['/booking', gs.booking_id]" class="btn">Посмотреть билет</div>
 		<a (click)="close()" [routerLink]="['/']" class="btn btn-link">На главную</a>
 	</div>
+	<img src="https://ttjaa.voluumtrk.com/conversion.gif?cid={{traf_cid}}&txid={{gs.userInfo.id}}&et=purchase" width="1" height="1"/>
 </div>
 
 <div [@dialog] *ngIf="gs.popupName == 'goToUrl'" class="popup login">

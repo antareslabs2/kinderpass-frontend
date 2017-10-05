@@ -80,13 +80,10 @@ export class MainComponent implements OnInit {
 
 	resultsMessage: string;
 
-	traf_cid: string;
-
 	subscribeForm: FormGroup;
 
 	constructor(private httpService: Api, private router:Router, private readonly route: ActivatedRoute, private gs:GlobalService, private pageScrollService: PageScrollService, @Inject(DOCUMENT) private document: any, private fb: FormBuilder){
 		this.hash = '';
-		this.traf_cid = '';
 		this.gs.innerpage = false;
 		this.monday = new Date();
 		this.today = new Date();
@@ -140,10 +137,7 @@ export class MainComponent implements OnInit {
 			
 		});
 		this.resultsMessage = "Не найдено ни одного мероприятия";
-		this.traf_cid = '';
-		if (localStorage.getItem('cid')) {
-			this.traf_cid = localStorage.getItem('cid');
-		}
+		
 		this.subscribeForm = this.fb.group({
 			'contact': ['', []]
 		})
@@ -187,7 +181,7 @@ export class MainComponent implements OnInit {
 				} else if (pair[0] == 'district_ids') {
 					this.params.districts = decodeURIComponent(pair[1]).split(',').map(Number);
 				} else if (pair[0] == 'cid') {
-					this.traf_cid = pair[1];
+					this.gs.traf_cid = pair[1];
 					localStorage.setItem('cid', pair[1]);
 				}
 			}
@@ -347,8 +341,8 @@ export class MainComponent implements OnInit {
 		}
 		this.gs.url['category_id']= this.curCategory;
 		this.gs.url['date'] = this.curDate;
-		if (this.traf_cid) {
-			this.gs.url['cid'] = this.traf_cid;
+		if (this.gs.traf_cid) {
+			this.gs.url['cid'] = this.gs.traf_cid;
 		}
 
 		this.router.navigate(['/'], {replaceUrl:true,  relativeTo: this.route, queryParams: this.gs.url });

@@ -33,10 +33,15 @@ export class GlobalService {
 	formValid: any;
 	backUrl: string;
 
+	traf_cid: string;
+	newUser: boolean;
+	catchRegistration: boolean;
+
 	constructor(public httpService: Api, private fb: FormBuilder, @Inject(Window) private _window: Window, private _location: Location){
 		this.userInfo = {};
 		this.isAuthenticated = false;
 		this.popupName = '';
+		this.traf_cid = '';
 		this.getUserInfo();
 		this.innerpage = false;
 		this.msg = '';
@@ -51,7 +56,12 @@ export class GlobalService {
 		this.formValid = {
 			'phone': true,
 			'email': true
-		};;
+		};
+		this.traf_cid = '';
+		if (localStorage.getItem('cid')) {
+			this.traf_cid = localStorage.getItem('cid');
+		}
+		this.newUser = false;
 	}
 
 	openPopup(name:string) {
@@ -123,6 +133,7 @@ export class GlobalService {
 			if (!this.userInfo.phone || !this.userInfo.email) {
 				this.popupName = 'updateInfo';
 				ga('send', 'pageview', '/virtual/mailphoneopened');
+				this.catchRegistration = true;
 				this.policy = false;
 			} else {
 				if(this.userInfo.subscription) {
@@ -189,8 +200,10 @@ export class GlobalService {
 				phone: this.phone, 
 				email: this.email
 			};
+			this.newUser = true;
 			this.httpService.updateInfo(JSON.stringify(body)).subscribe((data:any) => {
 				if (data.phone && data.email) {
+					this.catchRegistration = false;
 					let ticketsPrice = localStorage.getItem('ticketsPrice');
 					if(ticketsPrice) {
 						this.initTransaction('B', ticketsPrice);

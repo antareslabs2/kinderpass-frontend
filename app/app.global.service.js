@@ -26,6 +26,7 @@ var GlobalService = (function () {
         this.userInfo = {};
         this.isAuthenticated = false;
         this.popupName = '';
+        this.traf_cid = '';
         this.getUserInfo();
         this.innerpage = false;
         this.msg = '';
@@ -41,7 +42,11 @@ var GlobalService = (function () {
             'phone': true,
             'email': true
         };
-        ;
+        this.traf_cid = '';
+        if (localStorage.getItem('cid')) {
+            this.traf_cid = localStorage.getItem('cid');
+        }
+        this.newUser = false;
     }
     GlobalService.prototype.openPopup = function (name) {
         this.popupName = name;
@@ -111,6 +116,7 @@ var GlobalService = (function () {
             if (!this.userInfo.phone || !this.userInfo.email) {
                 this.popupName = 'updateInfo';
                 ga('send', 'pageview', '/virtual/mailphoneopened');
+                this.catchRegistration = true;
                 this.policy = false;
             }
             else {
@@ -178,8 +184,10 @@ var GlobalService = (function () {
                 phone: this.phone,
                 email: this.email
             };
+            this.newUser = true;
             this.httpService.updateInfo(JSON.stringify(body)).subscribe(function (data) {
                 if (data.phone && data.email) {
+                    _this.catchRegistration = false;
                     var ticketsPrice = localStorage.getItem('ticketsPrice');
                     if (ticketsPrice) {
                         _this.initTransaction('B', ticketsPrice);

@@ -32,7 +32,6 @@ var MainComponent = (function () {
         this.document = document;
         this.fb = fb;
         this.hash = '';
-        this.traf_cid = '';
         this.gs.innerpage = false;
         this.monday = new Date();
         this.today = new Date();
@@ -84,10 +83,6 @@ var MainComponent = (function () {
             }
         });
         this.resultsMessage = "Не найдено ни одного мероприятия";
-        this.traf_cid = '';
-        if (localStorage.getItem('cid')) {
-            this.traf_cid = localStorage.getItem('cid');
-        }
         this.subscribeForm = this.fb.group({
             'contact': ['', []]
         });
@@ -132,7 +127,7 @@ var MainComponent = (function () {
                     this.params.districts = decodeURIComponent(pair[1]).split(',').map(Number);
                 }
                 else if (pair[0] == 'cid') {
-                    this.traf_cid = pair[1];
+                    this.gs.traf_cid = pair[1];
                     localStorage.setItem('cid', pair[1]);
                 }
             }
@@ -282,8 +277,8 @@ var MainComponent = (function () {
         }
         this.gs.url['category_id'] = this.curCategory;
         this.gs.url['date'] = this.curDate;
-        if (this.traf_cid) {
-            this.gs.url['cid'] = this.traf_cid;
+        if (this.gs.traf_cid) {
+            this.gs.url['cid'] = this.gs.traf_cid;
         }
         this.router.navigate(['/'], { replaceUrl: true, relativeTo: this.route, queryParams: this.gs.url });
         this.httpService.getSchedule(this.curCategory, this.curDate, getParams).subscribe(function (data) {
