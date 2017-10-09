@@ -74,7 +74,6 @@ var EventComponent = (function () {
                 _this.event = data.activity;
                 _this.needSubscription();
                 ga('send', 'pageview', '/virtual/eventopened');
-                fbq('track', 'ActivityView');
                 setTimeout(function () { return $('.eventPage-slider').slick({
                     slidesToShow: 1,
                     slidesToScroll: 1,
@@ -202,7 +201,6 @@ var EventComponent = (function () {
                 _this.gs.getUserInfo();
                 _this.loadEvent();
                 ga('send', 'pageview', '/virtual/bookingdone');
-                fbq('track', 'Purchase');
                 _this.gs.openPopup('booking');
             }
             else {

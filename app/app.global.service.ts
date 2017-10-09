@@ -5,7 +5,6 @@ import { Location } from '@angular/common'
 
 import * as moment from 'moment';
 declare var ga:Function;
-declare var fbq:Function;
 declare var yaCounter44744683:any;
 
 @Injectable()
@@ -169,7 +168,6 @@ export class GlobalService {
 				}
 				ga('set','userId',th.userInfo.id);
 				ga('send', 'pageview', '/virtual/auth');
-				fbq('track', 'Login');
 				if(th._window.location.hostname == 'kinderpass.ru')
 					ga('send', 'event', 'Main', 'user_auth_'+th.userInfo.id, 'Prod');
 				else if (th._window.location.hostname == 'front.kinderpass.ru')

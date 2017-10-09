@@ -8,7 +8,6 @@ import {DOCUMENT} from '@angular/platform-browser';
 import * as moment from 'moment';
 require('slick-carousel');
 declare var ga:Function;
-declare var fbq:Function;
 
 @Component({
 	selector: 'event',
@@ -86,7 +85,6 @@ export class EventComponent implements OnInit, OnDestroy  {
 				this.needSubscription();
 
 				ga('send', 'pageview', '/virtual/eventopened');
-				fbq('track', 'ActivityView');
 				setTimeout(() => $('.eventPage-slider').slick({
 						slidesToShow: 1,
 						slidesToScroll: 1,
@@ -221,7 +219,6 @@ export class EventComponent implements OnInit, OnDestroy  {
 				this.gs.getUserInfo();
 				this.loadEvent();
 				ga('send', 'pageview', '/virtual/bookingdone');
-				fbq('track', 'Purchase');
 				this.gs.openPopup('booking');
 			} else {
 				if (data.reason == "TIME_SLOT_REGISTRATION_IS_OVER") {
