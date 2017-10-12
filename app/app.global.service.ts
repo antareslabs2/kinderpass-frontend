@@ -99,7 +99,9 @@ export class GlobalService {
 							localStorage.removeItem('transaction.id');
 						} else if (data.transaction.status == 'C') {
 							if(localStorage.getItem('timeslot_id')) {
-								this.book();
+								let timeslot : number = + localStorage.getItem('timeslot_id');
+								let seats : any = JSON.parse(localStorage.getItem('seats'));
+								this.book(timeslot, seats);
 							} else {
 								this.newSubscription = true;
 							}
@@ -146,7 +148,9 @@ export class GlobalService {
 						if (ticketsPrice > 0){
 							this.initTransaction('B', ticketsPrice);
 						} else {
-							this.book();
+							let timeslot : number = + localStorage.getItem('timeslot_id');
+							let seats : any = JSON.parse(localStorage.getItem('seats'));
+							this.book(timeslot, seats);
 						}
 					} else {
 						if (ticketsPrice)
@@ -254,19 +258,16 @@ export class GlobalService {
 		this._location.back();
 	}
 
-	book() {
-		let timeslot : number = + localStorage.getItem('timeslot_id');
-		let seats : any = JSON.parse(localStorage.getItem('seats'));
-
-		this.httpService.makingBooking(timeslot, seats).subscribe((data:any) => {
+	book(id:any, data:any) {
+		this.httpService.makingBooking(id, data).subscribe((data:any) => {
 			if (data.status == "OK") {
 				this.booking_id = data.booking_id;
-
+				ga('send', 'pageview', '/virtual/bookingdone');
 				this.getUserInfo();
 				this.openPopup('booking');
 			} else {
 				if (data.reason == "TIME_SLOT_REGISTRATION_IS_OVER") {
-					this.msg = "Завершено бронирование мест на выбранное мероприятие";
+					this.msg = "Выбранное мероприятие уже закончилось, бронирование невозможно";
 				} else {
 					this.msg = "Что-то пошло не так. Попробуйте обновить страницу";
 				}

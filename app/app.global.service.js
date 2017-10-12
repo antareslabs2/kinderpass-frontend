@@ -86,7 +86,9 @@ var GlobalService = (function () {
                         }
                         else if (data.transaction.status == 'C') {
                             if (localStorage.getItem('timeslot_id')) {
-                                _this.book();
+                                var timeslot = +localStorage.getItem('timeslot_id');
+                                var seats = JSON.parse(localStorage.getItem('seats'));
+                                _this.book(timeslot, seats);
                             }
                             else {
                                 _this.newSubscription = true;
@@ -131,7 +133,9 @@ var GlobalService = (function () {
                             this.initTransaction('B', ticketsPrice);
                         }
                         else {
-                            this.book();
+                            var timeslot = +localStorage.getItem('timeslot_id');
+                            var seats = JSON.parse(localStorage.getItem('seats'));
+                            this.book(timeslot, seats);
                         }
                     }
                     else {
@@ -233,19 +237,18 @@ var GlobalService = (function () {
     GlobalService.prototype.goBack = function () {
         this._location.back();
     };
-    GlobalService.prototype.book = function () {
+    GlobalService.prototype.book = function (id, data) {
         var _this = this;
-        var timeslot = +localStorage.getItem('timeslot_id');
-        var seats = JSON.parse(localStorage.getItem('seats'));
-        this.httpService.makingBooking(timeslot, seats).subscribe(function (data) {
+        this.httpService.makingBooking(id, data).subscribe(function (data) {
             if (data.status == "OK") {
                 _this.booking_id = data.booking_id;
+                ga('send', 'pageview', '/virtual/bookingdone');
                 _this.getUserInfo();
                 _this.openPopup('booking');
             }
             else {
                 if (data.reason == "TIME_SLOT_REGISTRATION_IS_OVER") {
-                    _this.msg = "Завершено бронирование мест на выбранное мероприятие";
+                    _this.msg = "Выбранное мероприятие уже закончилось, бронирование невозможно";
                 }
                 else {
                     _this.msg = "Что-то пошло не так. Попробуйте обновить страницу";

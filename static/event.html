@@ -86,8 +86,11 @@
 						</div>
 					</div><div class="ticket__helper"></div><div class="ticket__footer">
 						<div class="eventPage-btns">
-							<button *ngIf="total>0" (click)="makingBooking()" [class.disabled]="total<=0" class="btn">Купить билет</button>
-							<button *ngIf="total<=0" class="btn disabled">Выберите количество билетов</button>
+							<ng-container *ngIf="isActive">
+								<button *ngIf="total>0" (click)="makingBooking()" [class.disabled]="total<=0" class="btn">Купить билет</button>
+								<button *ngIf="total<=0" class="btn disabled">Выберите количество билетов</button>
+							</ng-container>
+							<button *ngIf="!isActive" class="btn disabled">Мероприятие завершено</button>
 						</div>
 					</div>
 				</div>

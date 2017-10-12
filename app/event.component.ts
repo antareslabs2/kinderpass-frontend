@@ -19,11 +19,10 @@ export class EventComponent implements OnInit, OnDestroy  {
 	
 	timeslot_id:number;
 	date:string;
-	private sub: any;
 	innerpage: boolean;
 	event: any;
 	seats:number;
-	isDisable:boolean;
+	isActive:boolean;
 
 	subscriptionDate: any;
 	subscriptionPrice: number;
@@ -35,9 +34,11 @@ export class EventComponent implements OnInit, OnDestroy  {
 	
 	total: number;
 
+	private sub: any;
+
 	constructor(private httpService: Api, private route: ActivatedRoute, private gs: GlobalService, private pageScrollService: PageScrollService, @Inject(DOCUMENT) private document: any){
 		this.innerpage = true;
-		this.isDisable = true;
+		this.isActive = true;
 		this.seats = 0;
 		this.subscriptionPrice = 0;
 		this.subscriptionDate = moment(new Date()).add(1, 'month').format();
@@ -83,6 +84,8 @@ export class EventComponent implements OnInit, OnDestroy  {
 				}
 				this.event = data.activity;
 				this.needSubscription();
+
+				this.isActive = this.checkTime();
 
 				ga('send', 'pageview', '/virtual/eventopened');
 				setTimeout(() => $('.eventPage-slider').slick({
@@ -144,8 +147,8 @@ export class EventComponent implements OnInit, OnDestroy  {
 			var d = this.event.locations[this.selectedLocation].time_slots[this.selectedTime].tickets[i];
 			this.total += d.price * d.seats;	
 			this.discount += d.discount * d.seats;	
-
 		}
+		this.isActive = this.checkTime();
 	}
 
 	getBookingInfo() {
@@ -170,7 +173,6 @@ export class EventComponent implements OnInit, OnDestroy  {
 		}
 		else {
 			ga('send', 'pageview', '/virtual/bookbtnclicked');
-			this.isDisable = true;
 			let price = this.total + this.subscriptionPrice;
 			let userBalance = 0;
 			if (this.gs.userInfo.subscription) {
@@ -212,29 +214,31 @@ export class EventComponent implements OnInit, OnDestroy  {
 	}
 
 	book(id:any, data:any) {
-		this.httpService.makingBooking(id,data).subscribe((data:any) => {
-			if (data.status == "OK") {
-				this.gs.booking_id = data.booking_id;
-
-				this.gs.getUserInfo();
-				this.loadEvent();
-				ga('send', 'pageview', '/virtual/bookingdone');
-				this.gs.openPopup('booking');
-			} else {
-				if (data.reason == "TIME_SLOT_REGISTRATION_IS_OVER") {
-					this.gs.msg = "Завершено бронирование мест на выбранное мероприятие";
-				} else {
-					this.gs.msg = "Что-то пошло не так. Попробуйте обновить страницу";
-				}
-				this.gs.openPopup('msgCancel');
-			}
-			this.isDisable = false;
-		});
+		this.isActive = this.checkTime();
+		if (this.isActive) {
+			this.gs.book(id, data);
+		} else {
+			this.gs.msg = "Выбранное мероприятие уже закончилось, бронирование невозможно";
+			this.gs.openPopup('msgCancel');
+		}
 	}
 	
 	scrollToTicket() {
 		let pageScrollInstance: PageScrollInstance = PageScrollInstance.newInstance({document: this.document, scrollTarget: "#ticket", pageScrollDuration: 100});
 		this.pageScrollService.start(pageScrollInstance);
+	}
+
+	checkTime() : boolean {
+		let eventDate = moment(this.event.locations[this.selectedLocation].time_slots[this.selectedTime].date).format('YYYY-MM-DD');
+		let todayDate = moment().format('YYYY-MM-DD');
+		if (moment(eventDate).isSame(todayDate, 'day')) {
+			if (this.event.locations[this.selectedLocation].time_slots[this.selectedTime].start_time <= moment().format('HH:mm')) {
+				return false;
+			}
+		} else if (moment(eventDate).isBefore(todayDate, 'day')) {
+			return false;
+		}
+		return true;
 	}
 
 	ngOnDestroy() {
