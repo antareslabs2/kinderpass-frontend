@@ -126,10 +126,6 @@ var MainComponent = (function () {
                 else if (pair[0] == 'district_ids') {
                     this.params.districts = decodeURIComponent(pair[1]).split(',').map(Number);
                 }
-                else if (pair[0] == 'cid') {
-                    this.gs.traf_cid = pair[1];
-                    localStorage.setItem('cid', pair[1]);
-                }
             }
         }
         var d = new Date();

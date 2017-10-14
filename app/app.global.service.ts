@@ -61,6 +61,18 @@ export class GlobalService {
 			this.traf_cid = localStorage.getItem('cid');
 		}
 		this.newUser = false;
+
+
+		if(location.search){
+			let vars = location.search.substring(1).split('&');
+			for (let i = 0; i < vars.length; i++) {
+				let pair = vars[i].split('=');
+				if (pair[0] == 'cid') {
+					this.traf_cid = pair[1];
+					localStorage.setItem('cid', pair[1]);
+				}
+			}
+		}
 	}
 
 	openPopup(name:string) {

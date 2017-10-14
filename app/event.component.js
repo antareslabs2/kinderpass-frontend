@@ -209,14 +209,15 @@ var EventComponent = (function () {
         this.pageScrollService.start(pageScrollInstance);
     };
     EventComponent.prototype.checkTime = function () {
-        console.log(moment(this.event.locations[this.selectedLocation].time_slots[this.selectedTime].date).format());
-        console.log(moment().format());
-        if (moment(this.event.locations[this.selectedLocation].time_slots[this.selectedTime].date).format() < moment().format()) {
-            console.log(this.event.locations[this.selectedLocation].time_slots[this.selectedTime].start_time);
-            console.log(moment(new Date()).format('HH:mm'));
-            if (this.event.locations[this.selectedLocation].time_slots[this.selectedTime].start_time <= moment(new Date()).format('HH:mm')) {
+        var eventDate = moment(this.event.locations[this.selectedLocation].time_slots[this.selectedTime].date).format('YYYY-MM-DD');
+        var todayDate = moment().format('YYYY-MM-DD');
+        if (moment(eventDate).isSame(todayDate, 'day')) {
+            if (this.event.locations[this.selectedLocation].time_slots[this.selectedTime].start_time <= moment().format('HH:mm')) {
                 return false;
             }
+        }
+        else if (moment(eventDate).isBefore(todayDate, 'day')) {
+            return false;
         }
         return true;
     };

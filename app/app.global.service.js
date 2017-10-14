@@ -47,6 +47,16 @@ var GlobalService = (function () {
             this.traf_cid = localStorage.getItem('cid');
         }
         this.newUser = false;
+        if (location.search) {
+            var vars = location.search.substring(1).split('&');
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split('=');
+                if (pair[0] == 'cid') {
+                    this.traf_cid = pair[1];
+                    localStorage.setItem('cid', pair[1]);
+                }
+            }
+        }
     }
     GlobalService.prototype.openPopup = function (name) {
         this.popupName = name;
