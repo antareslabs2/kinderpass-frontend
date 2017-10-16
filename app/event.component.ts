@@ -232,7 +232,7 @@ export class EventComponent implements OnInit, OnDestroy  {
 		let eventDate = moment(this.event.locations[this.selectedLocation].time_slots[this.selectedTime].date).format('YYYY-MM-DD');
 		let todayDate = moment().format('YYYY-MM-DD');
 		if (moment(eventDate).isSame(todayDate, 'day')) {
-			if (this.event.locations[this.selectedLocation].time_slots[this.selectedTime].start_time <= moment().format('HH:mm')) {
+			if (this.event.locations[this.selectedLocation].time_slots[this.selectedTime].end_time <= moment().format('HH:mm')) {
 				return false;
 			}
 		} else if (moment(eventDate).isBefore(todayDate, 'day')) {
