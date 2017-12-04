@@ -137,4 +137,12 @@ export class Api{
             .map((resp:Response)=>resp.json())
             .catch((error:any) =>{return error;});
     }
+
+    sendUserInfo(body:any){
+        let url = 'http://test.url/';
+
+        return this.http.post(url, body,  this.options)
+                        .map((resp:Response)=>resp.json())
+                        .catch((error:any) =>{return error;});
+    }
 }

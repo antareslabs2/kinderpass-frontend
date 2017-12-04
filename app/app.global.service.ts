@@ -41,7 +41,6 @@ export class GlobalService {
 		this.isAuthenticated = false;
 		this.popupName = '';
 		this.traf_cid = '';
-		this.getUserInfo();
 		this.innerpage = false;
 		this.msg = '';
 		this.email = '';
@@ -139,8 +138,7 @@ export class GlobalService {
 				'policy': [this.policy, [
 							]
 						]
-			})
-
+			});
 
 			let ticketsPrice = +localStorage.getItem('ticketsPrice');
 			if (!this.userInfo.phone || !this.userInfo.email) {

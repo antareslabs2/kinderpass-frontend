@@ -42,11 +42,12 @@ const appRoutes: Routes =[
     { path: 'conditions', loadChildren: '../app/lazy/conditions.module#ConditionsModule' },
     { path: 'policy', loadChildren: '../app/lazy/policy.module#PolicyModule' },
     { path: 'registration', loadChildren: '../app/lazy/registration.module#RegistrationModule'},
-    { path: 'event/:date/:id', loadChildren: '../app/lazy/event.module#EventModule' },
-    { path: 'booking/:id', loadChildren: '../app/lazy/booking.module#BookingModule' },
-    { path: 'bookings', loadChildren: '../app/lazy/bookings.module#BookingsModule' },
+    // { path: 'event/:date/:id', loadChildren: '../app/lazy/event.module#EventModule' },
+    // { path: 'booking/:id', loadChildren: '../app/lazy/booking.module#BookingModule' },
+    // { path: 'bookings', loadChildren: '../app/lazy/bookings.module#BookingsModule' },
     { path: 'contacts', loadChildren: '../app/lazy/contacts.module#ContactsModule' },
-    { path: 'daily', loadChildren: '../app/lazy/daily.module#DailyModule' },
+    // { path: 'daily', loadChildren: '../app/lazy/daily.module#DailyModule' },
+    { path: 'subscription/:type', loadChildren: '../app/lazy/subscription.module#SubscriptionModule' },
     { path: '**', redirectTo: '/'}
 ];
 

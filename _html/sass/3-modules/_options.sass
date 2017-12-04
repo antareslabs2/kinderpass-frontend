@@ -6,29 +6,31 @@
 	&-item
 		display: inline-block
 		vertical-align: top
-		width: 27%
+		width: 25%
 		min-width: 180px
-		padding: 3%
+		padding: 3% 2%
 		text-align: center
 		background-color: #FFF
 		border-radius: 35px
 		margin-right: 4%
 		position: relative
 
-		&:nth-child(2n)
+		&:nth-of-type(3)
 			margin-right: 0
 		img
 			vertical-align: middle
-		+bp($sm)
-			width: 40%
-			min-width: auto
-
+		+bp($md)
+			display: block
+			width: 100%
+			margin-bottom: 4%
+			margin-right: 0
 
 		p
-			font-size: 22px
 			color: #a380d7
 			+bp($md)
 				font-size: 18px
+		div 
+			color: #17948e
 
 	&-text
 		margin: 30px 0
@@ -36,25 +38,26 @@
 		color: #17948e
 		+bp($md)
 			font-size: 18px
+			margin: 0 0 20px
 
 	&-title
 		text-transform: uppercase
-		padding: 3% 0
-		margin-bottom: 7%
-		+bp($md)
-			margin: 0
 
 	&-durations
+		font-size: 18px
+		margin-bottom: 5%
+		+bp($md)
+			margin-bottom: 0
+
+	&-events
 		font-size: 22px
-		color: #a380d7
 
 	&-price
-		span
-			display: inline-block
-			vertical-align: middle
-			font-size: 32px
-			line-height: 50px
-			color: #a380d7
-			font-family: 'rounds'
-			+bp($md)
-				font-size: 25px
+		text-align: center
+		font-size: 32px
+		line-height: 50px
+		font-family: 'rounds'
+		margin-bottom: 10%
+		+bp($md)
+			font-size: 25px
+			margin-bottom: 0
