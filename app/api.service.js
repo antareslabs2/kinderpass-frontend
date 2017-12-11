@@ -127,12 +127,6 @@ var Api = (function () {
             .map(function (resp) { return resp.json(); })
             .catch(function (error) { return error; });
     };
-    Api.prototype.sendUserInfo = function (body) {
-        var url = 'http://test.url/';
-        return this.http.post(url, body, this.options)
-            .map(function (resp) { return resp.json(); })
-            .catch(function (error) { return error; });
-    };
     return Api;
 }());
 Api = __decorate([

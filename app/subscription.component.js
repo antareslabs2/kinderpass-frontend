@@ -60,7 +60,6 @@ var SubscriptionComponent = (function () {
         });
     };
     SubscriptionComponent.prototype.submit = function (form) {
-        var _this = this;
         this.submitted = true;
         if (form.valid) {
             var body = {
@@ -72,10 +71,19 @@ var SubscriptionComponent = (function () {
                 email: form.controls.email.value,
                 phone: form.controls.phone.value
             };
-            this.httpService.sendUserInfo(JSON.stringify(body)).subscribe(function (data) {
-                _this.gs.popupName = "msg";
-                _this.gs.msg = "Спасибо за заявку. Наш менеджер свяжется с Вами в ближайшее время";
-                // что-то после отправки
+            var data = $('#form').serialize();
+            var url = "https://script.google.com/macros/s/AKfycbymBGojkg7qLn2XP7VL3ksRZ-OLuP0qglIA_1VJSFLGWiltTNyQ/exec";
+            var th_1 = this;
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: data,
+                success: function (resp) {
+                    th_1.gs.popupName = "msg";
+                    th_1.gs.msg = "Спасибо за заявку. Наш менеджер свяжется с Вами в ближайшее время";
+                },
+                error: function () {
+                },
             });
         }
     };

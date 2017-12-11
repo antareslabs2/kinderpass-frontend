@@ -53,6 +53,7 @@ export class MainComponent implements OnInit {
 	events:any;
 
 	monday: any;
+	sunday: any;
 	
 	desktop : boolean;
 
@@ -68,6 +69,7 @@ export class MainComponent implements OnInit {
 	ngOnInit(){
 		this.gs.innerpage = false;
 		this.monday= moment(new Date()).startOf('week');
+		this.sunday = moment(new Date()).startOf('week');
 		this.events = [ {
 				id: '',
 				photo: '1',
@@ -81,7 +83,7 @@ export class MainComponent implements OnInit {
 					}
 				} ],
 				time: '12-00',
-				date: 'Пн, 6 ноября'
+				date: this.sunday.format()
 			}, {
 				id: '',
 				photo: '2',
@@ -95,7 +97,7 @@ export class MainComponent implements OnInit {
 					}
 				} ],
 				time: '14-00',
-				date: 'Ср, 8 ноября'
+				date: this.sunday.add(1, 'days').format()
 			}, {
 				id: '',
 				photo: '3',
@@ -109,7 +111,7 @@ export class MainComponent implements OnInit {
 					}
 				} ],
 				time: '15-30',
-				date: 'Чт, 9 ноября'
+				date: this.sunday.add(3, 'days').format()
 			}, {
 				id: '',
 				photo: '4',
@@ -123,7 +125,7 @@ export class MainComponent implements OnInit {
 					}
 				} ],
 				time: '15-30',
-				date: 'Сб, 11 ноября'
+				date: this.sunday.add(1, 'days').format()
 			}, {
 				id: '',
 				photo: '5',
@@ -137,7 +139,7 @@ export class MainComponent implements OnInit {
 					}
 				} ],
 				time: '18-40',
-				date: 'Сб, 11 ноября'
+				date: this.sunday.format()
 			}, {
 				id: '',
 				photo: '6',
@@ -151,7 +153,7 @@ export class MainComponent implements OnInit {
 					}
 				} ],
 				time: '10-20',
-				date: 'Вс, 12 ноября'
+				date: this.sunday.add(1, 'days').format()
 			}, {
 				id: '',
 				photo: '7',
@@ -165,7 +167,7 @@ export class MainComponent implements OnInit {
 					}
 				} ],
 				time: '19-00',
-				date: 'Вс, 12 ноября'
+				date: this.sunday.format()
 			}
 		];
 	}

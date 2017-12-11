@@ -34,6 +34,7 @@ var MainComponent = (function () {
     MainComponent.prototype.ngOnInit = function () {
         this.gs.innerpage = false;
         this.monday = moment(new Date()).startOf('week');
+        this.sunday = moment(new Date()).startOf('week');
         this.events = [{
                 id: '',
                 photo: '1',
@@ -47,7 +48,7 @@ var MainComponent = (function () {
                         }
                     }],
                 time: '12-00',
-                date: 'Пн, 6 ноября'
+                date: this.sunday.format()
             }, {
                 id: '',
                 photo: '2',
@@ -61,7 +62,7 @@ var MainComponent = (function () {
                         }
                     }],
                 time: '14-00',
-                date: 'Ср, 8 ноября'
+                date: this.sunday.add(1, 'days').format()
             }, {
                 id: '',
                 photo: '3',
@@ -75,7 +76,7 @@ var MainComponent = (function () {
                         }
                     }],
                 time: '15-30',
-                date: 'Чт, 9 ноября'
+                date: this.sunday.add(3, 'days').format()
             }, {
                 id: '',
                 photo: '4',
@@ -89,7 +90,7 @@ var MainComponent = (function () {
                         }
                     }],
                 time: '15-30',
-                date: 'Сб, 11 ноября'
+                date: this.sunday.add(1, 'days').format()
             }, {
                 id: '',
                 photo: '5',
@@ -103,7 +104,7 @@ var MainComponent = (function () {
                         }
                     }],
                 time: '18-40',
-                date: 'Сб, 11 ноября'
+                date: this.sunday.format()
             }, {
                 id: '',
                 photo: '6',
@@ -117,7 +118,7 @@ var MainComponent = (function () {
                         }
                     }],
                 time: '10-20',
-                date: 'Вс, 12 ноября'
+                date: this.sunday.add(1, 'days').format()
             }, {
                 id: '',
                 photo: '7',
@@ -131,7 +132,7 @@ var MainComponent = (function () {
                         }
                     }],
                 time: '19-00',
-                date: 'Вс, 12 ноября'
+                date: this.sunday.format()
             }
         ];
     };

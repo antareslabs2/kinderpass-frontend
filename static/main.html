@@ -82,7 +82,7 @@
 <div class="form" id="filter">
 	<div class="wrapper">
 		<h2>ПРИМЕР ПАКЕТА НА СЛЕДУЮЩУЮ НЕДЕЛЮ</h2> 
-		<div class="selectedDay">6 - 12 ноября, 2017</div><!-- 
+		<div class="selectedDay">{{monday | amDateFormat : 'DD'}} - {{sunday | amDateFormat : 'DD MMMM'}} {{sunday | amDateFormat : 'YYYY'}} </div><!-- 
 	 --><div class="results">
 			<div class="results-item" *ngFor="let item of events" id="event_{{item.id}}">
 				<a class="results-item-image" (click)="goToEvent(item.id)">
@@ -96,7 +96,7 @@
 				</div><!-- 
 			 --><div class="results-item-cost">
 					<div class="results-item-time"><span>{{item.time}}</span></div>
-					<div class="results-item-date"><span>{{item.date}}</span></div>						
+					<div class="results-item-date"><span>{{item.date | amDateFormat : 'DD MMMM'}}</span></div>						
 				</div>
 			</div>
 	 	</div>

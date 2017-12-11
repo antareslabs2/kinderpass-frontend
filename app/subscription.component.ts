@@ -72,10 +72,19 @@ export class SubscriptionComponent implements OnInit {
 				email: form.controls.email.value, 
 				phone: form.controls.phone.value
 			};
-			this.httpService.sendUserInfo(JSON.stringify(body)).subscribe((data:any) => {
-				this.gs.popupName = "msg";
-				this.gs.msg = "Спасибо за заявку. Наш менеджер свяжется с Вами в ближайшее время";
-				// что-то после отправки
+			let data = $('#form').serialize();
+			var url = "https://script.google.com/macros/s/AKfycbymBGojkg7qLn2XP7VL3ksRZ-OLuP0qglIA_1VJSFLGWiltTNyQ/exec";
+			let th = this;
+			$.ajax({
+				url:  url,
+				type: 'POST',
+				data: data,
+				success: function(resp) {
+					th.gs.popupName = "msg";
+					th.gs.msg = "Спасибо за заявку. Наш менеджер свяжется с Вами в ближайшее время";
+				},
+				error: function() {
+				},
 			});
 		}
 	}
