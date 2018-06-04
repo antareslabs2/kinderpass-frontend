@@ -1,0 +1,63 @@
+<div class="subscription innerpage">
+	<div class="wrapper">
+		<div class="subscriptionPage">
+			<h1 class="subscription__title">АБОНЕМЕНТ "{{subscription.name}}"</h1>
+			<div class="subscription__wrap">
+				<div class="subscription__description">
+					<div class="subscription__description-key">СРОК ДЕЙСТВИЯ</div>
+					<div class="subscription__description-value">3 месяца с текущей даты</div>
+				</div>
+				<div class="subscription__description">
+					<div class="subscription__description-key">КОЛИчество посещений</div>
+					<div class="subscription__description-value">{{subscription.events}}</div>
+				</div>
+				<div class="subscription__description">
+					<div class="subscription__description-key">Частота посещений</div>
+					<div class="subscription__description-value">{{subscription.days}}</div>
+				</div>
+				<div class="subscription__description">
+					<div class="subscription__description-key">КАК всё устроено</div>
+					<div class="subscription__description-value">
+						<p>Каждое воскресенье в вашем личном кабинете на kinderpass.ru появляется подборка из десяти мероприятий на следующую неделю.</p>
+						<p>Вы можете забронировать одно любое мероприятие. После бронирования вы получите письмо и смс с информацией о бронировании. Эту информацию нужно просто показать администратору мероприятия при посещении.</p>
+					</div>
+				</div>
+				<div class="subscription__gar">
+					100% гарантия возврата денег в случае, если вам не понравится и вы не сходите ни на одно из предложенных в течение целого месяца мероприятий
+				</div>
+			</div>
+			<div class="subscription__wrap">
+				<form [formGroup]="subscriptionForm" (ngSubmit)="submit(subscriptionForm)" [class.submitted]='submitted' id="form">
+					<div class="subscription__form">
+						<div class="subscription__form-title">Платежные данные</div>
+						<div class="subscription__form-input">
+							<label for="cardNumber">Номер карты:</label>
+							<input formControlName="cardNumber" type="text" name="cardNumber" id="cardNumber" placeholder="Номер карты">
+						</div>
+						<div class="subscription__form-input">
+							<label for="cardOwner">Имя владельца:</label>
+							<input formControlName="cardOwner" type="text" name="cardOwner" id="cardOwner" placeholder="Имя владельца">
+						</div>
+						<div class="subscription__form-input">
+							<span class="label">Срок действия:</span>
+							<input formControlName="cardMonth" type="number" min="1" max="12" class="date" name="cardMonth" id="cardMonth"><span class="sep">/</span><input min="2010" formControlName="cardYear" type="number" class="date" name="cardYear">
+						</div>
+					</div>
+					<div class="subscription__form">
+						<div class="subscription__form-title">Контактные данные</div>
+						<input type="text" placeholder="Имя" name="name" formControlName="name">
+						<input type="text" placeholder="E-mail" name="email" formControlName="email">
+						<input type="text" placeholder="Телефон" name="phone" formControlName="phone">
+					</div>
+					<button type="submit" class="btn">Оплатить {{subscription.price}} руб.</button>
+				</form>
+			</div>
+			<div class="subscription__images">
+				<img src="../app/img/payments.png" alt="">
+				<img src="../app/img/mc.png" alt="">
+				<img src="../app/img/visa.png" alt="">
+			</div>
+		</div>
+	</div>
+</div>
+

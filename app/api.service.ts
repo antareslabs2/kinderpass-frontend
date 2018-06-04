@@ -137,4 +137,5 @@ export class Api{
             .map((resp:Response)=>resp.json())
             .catch((error:any) =>{return error;});
     }
+
 }

@@ -1,5 +1,5 @@
 import { Component, HostListener } from '@angular/core';
-
+import * as $ from 'jquery';
 
 @Component({
 	selector: 'footerTemplate',

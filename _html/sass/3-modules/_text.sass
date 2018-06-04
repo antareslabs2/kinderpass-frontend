@@ -1,0 +1,38 @@
+.text
+	position: relative
+	padding: 5% 0
+	
+	h2
+		+bp($sm)
+			font-size: 28px
+	p
+		color: #fff
+		font-size: 32px
+		line-height: 1.2
+		+bp($md)
+			font-size: 24px
+
+	ul
+		margin: 20px 0 20px 40px
+		+bp($sm)
+			margin-left: 0
+		li
+			list-style: none
+			font-size: 32px
+			line-height: 1.2
+			color: #fff
+			+bp($md)
+				font-size: 24px
+			&:before
+				content: ""
+				margin-right: 10px
+				width: 15px
+				height: 15px
+				border-radius: 50%
+				background-color: #b77db5
+				border: 3px solid #fff
+				display: inline-block
+				+bp($md)
+					width: 10px
+					height: 10px
+					border: 1px solid #fff

@@ -23,16 +23,6 @@ var HeaderComponent = (function () {
         this.pageScrollService = pageScrollService;
         this.document = document;
         this.openProfile = false;
-        var th = this;
-        $(document).click(function (e) {
-            if (th.openProfile) {
-                var profile = $(".user-menu");
-                var button = $(".user");
-                if (!profile.is(e.target) && profile.has(e.target).length === 0 && !button.is(e.target) && button.has(e.target).length === 0) {
-                    th.openProfile = false;
-                }
-            }
-        });
     }
     HeaderComponent.prototype.logout = function () {
         this.gs.logout();

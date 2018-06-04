@@ -54,21 +54,50 @@
 		text-align: center
 		padding-top: 14px
 		+bp($sm)
-			width: 70%
+			width: 50%
 			vertical-align: bottom
 			display: inline-block
 
-		a,
-		span
+		a
+			display: block
+			margin: 0 auto
+			width: 100px
 			color: #fff
 			font-size: 18px
-			margin: 0 10px
 			text-decoration: underline
 			cursor: pointer
 			&:hover
 				text-decoration: none
-			+bp($sm)
-				margin: 0 3px
+
+	.email
+		float: right
+		background-color: #7accc8
+		position: relative
+		margin-top: 15px
+		+bp($bg)
+			width: 35px
+			height: 35px
+			background-color: transparent
+			margin-top: 10px
+		
+		img
+			position: absolute
+			top: -3px
+			left: -35px
+			height: 35px
+			+bp($bg)
+				position: static
+
+		span
+			display: inline-block
+			vertical-align: middle
+			padding: 0 15px
+			font-size: 22px
+			color: #fff
+			font-family: 'matias'
+			+bp($bg)
+				font-size: 20px
+				display: none
 
 	.user
 		display: none

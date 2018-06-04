@@ -15,17 +15,6 @@ export class HeaderComponent{
 	
 	constructor(private gs: GlobalService, router:Router, private pageScrollService: PageScrollService, @Inject(DOCUMENT) private document: any){
 		this.openProfile = false;
-		let th = this;
-		$(document).click(function (e){ 
-			if (th.openProfile) {
-				let profile = $(".user-menu"); 
-				let button = $(".user"); 
-				if (!profile.is(e.target) && profile.has(e.target).length === 0 && !button.is(e.target) && button.has(e.target).length === 0) { 
-					th.openProfile = false;
-				}
-			}
-			
-		});
 
 	}
 

@@ -1,0 +1,144 @@
+.subscription 
+	+bp($md)
+		background-color: #FFF
+		.wrapper
+			padding: 0
+	&Page 
+		padding: 20px
+		background-color: #FFF
+		h1
+			color: #8e7db8
+			font-size: 36px
+			margin-bottom: 30px
+			+bp($md)
+				font-size: 30px
+
+	&__wrap
+		border: 6px solid #02ba61
+		border-radius: 35px
+		padding: 45px
+		margin-bottom: 50px
+		+bp($md)
+			padding: 25px
+			border: 4px solid #02ba61
+		form
+			text-align: center
+			.btn
+				padding: 10px 3%
+				font-size: 32px
+				+bp($md)
+					display: block
+					width: 100%
+					font-size: 22px
+			&.submitted
+				input.ng-invalid
+					border: solid red 2px
+					box-shadow: inset 0px 0 3px 0px red
+
+	&__description
+		margin-bottom: 10px
+		div
+			display: inline-block
+			vertical-align: top
+			+bp($md)
+				display: block
+		&-key
+			font-family: 'rounds'
+			font-size: 18px
+			color: #b77db5
+			text-transform: uppercase
+			width: 300px
+			+bp($md)
+				width: auto
+				font-size: 14px
+		&-value
+			font-size: 18px
+			color: #363636
+			width: calc(100% - 310px)
+			+bp($md)
+				width: auto
+				padding-left: 25px
+				font-size: 14px
+			p
+				font-size: 18px
+				color: #363636
+				margin-bottom: 20px
+				+bp($md)
+					font-size: 14px
+	&__gar
+		font-size: 24px
+		color: #17948e
+		+bp($md)
+			font-size: 20px
+
+	&__form
+		display: inline-block
+		vertical-align: top
+		text-align: left
+		margin-bottom: 5%
+		&:first-of-type
+			margin-right: 5%
+			+bp(1020px)
+				margin-right: 0
+		+bp(1020px)
+			display: block
+		&-title
+			font-size: 24px
+			color: #17948e
+			margin-bottom: 30px
+			+bp($md)
+				font-size: 20px
+				margin-bottom: 15px
+
+		label, span.label
+			font-size: 22px
+			color: #939393
+			width: 145px
+			display: inline-block
+			vertical-align: top
+			+bp($md)
+				font-size: 18px
+				width: auto
+		label
+			+bp($md)
+				display: none
+		span.label
+			+bp($md)
+				display: block
+		input
+			border: 1px solid #e1e1e1
+			padding: 5px
+			display: block
+			width: 250px
+			margin-bottom: 10px
+			font-size: 18px
+			+bp($md)
+				font-size: 14px
+				width: 100%
+			&.date
+				width: 60px
+		::placeholder
+			color: #939393
+			
+		&-input
+			margin: 5px 0 10px
+			input
+				display: inline-block
+				vertical-align: middle
+				margin-bottom: 0
+				::placeholder
+					display: none
+					+bp($md)
+						display: block
+
+		.sep
+			display: inline-block
+			vertical-align: middle
+			margin: 0 10px
+
+	&__images
+		text-align: center
+		img
+			margin-right: 5%
+			&:last-of-type
+				margin-right: 0

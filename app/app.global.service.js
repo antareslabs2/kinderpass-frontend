@@ -27,7 +27,6 @@ var GlobalService = (function () {
         this.isAuthenticated = false;
         this.popupName = '';
         this.traf_cid = '';
-        this.getUserInfo();
         this.innerpage = false;
         this.msg = '';
         this.email = '';
